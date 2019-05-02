@@ -71,3 +71,7 @@ gem 'bootstrap', '~> 4.0'
 gem 'popper_js'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 gem 'jquery-rails'
+group :development, :test do
+end
+
+gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
