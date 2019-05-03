@@ -29,16 +29,15 @@ $ git clone https://github.com/unt-libraries/unt-blacklight unt-blacklight
 $ cd unt-blacklight
 ```
 
-Start the app and database with:
+Build the containers with:
 
 ```console
-$ docker-compose up
+$ docker-compose build
 ```
 
-You will see output in the terminal, indicating that the containers are being
-built and started.
+After building the containers, [create your credentials](#managing-secrets) and add your secrets.
 
-If no database exists, create one with:
+If you do not already have a database for the app, create one with:
 
 ```console
 $ docker-compose run web rake db:create
@@ -50,9 +49,13 @@ Run database migrations with:
 $ docker-compose run web rake db:migrate
 ```
 
-You should now be able to go to `localhost:3000` in your browser to see the running app.
+Start the app and database with:
 
-Proceed to [managing secrets](#managing-secrets)
+```console
+$ docker-compose up
+```
+
+You should now be able to go to `localhost:3000` in your browser to see the running app.
 
 ### Without Docker
 
@@ -180,6 +183,9 @@ only be read through the Rails command line. The file should contain key/value p
 same format as a normal YAML file. Rails uses `RAILS_MASTER_KEY`, stored in
 `config/master.key` to decrypt `credentials.yml.enc`. `master.key` should not be stored
 in version control and has been added to the `.gitignore` file.
+
+**If you cloned our project, you will need to delete credentials.yml.enc before you will
+be able to create your own credentials and key pair**
 
 **Creating credentials**
 
