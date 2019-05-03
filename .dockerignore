@@ -1,0 +1,7 @@
+# Ignore the Rails credentials key file
+config/master.key
+
+.git
+.dockerignore
+log/*
+tmp/*
