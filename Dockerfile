@@ -4,6 +4,7 @@ FROM ruby:2.5.3-alpine
 RUN apk add --no-cache \
   bash \
   build-base \
+  git \
   nano \
   nodejs \
   openjdk8-jre \
