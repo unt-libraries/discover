@@ -35,7 +35,9 @@ class CatalogController < ApplicationController
     #config.document_solr_path = 'get'
 
     # items to show per page, each number in the array represent another option to choose from.
-    #config.per_page = [10,20,50,100]
+    config.per_page = [10,20,50,100]
+    config.default_per_page = 50
+    config.max_per_page = 100
 
     # solr field configuration for search results/index views
     config.index.title_field = 'full_title'
@@ -105,6 +107,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'full_title', label: 'Title'
+    config.add_index_field 'genre_terms', label: 'Genre Terms'
     config.add_index_field 'creator', label: 'Author/Creator'
     config.add_index_field 'contributors', label: 'Contributors'
     config.add_index_field 'material_type', label: 'Material Type'
