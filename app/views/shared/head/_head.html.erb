@@ -1,0 +1,83 @@
+<head>
+  <meta charset="utf-8">
+
+  <!-- Internet Explorer use the highest version available -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title><%= render_page_title %></title>
+
+  <meta name="description" content="<%# TODO: Insert page description %>">
+
+  <%= opensearch_description_tag application_name, opensearch_catalog_url(format: 'xml') %>
+
+  <!-- CSS -->
+  <!-- Webfonts -->
+  <!-- Preconnect for assets -->
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+
+  <%= preload_link_tag "https://library.unt.edu/assets/vendor/webfontloader/webfontloader.js?v=1.6.28", as: "script" %>
+  <script>
+    WebFontConfig = {
+      google: {
+        families: [
+          'Open+Sans:400,400i,800',
+          'Oswald&subset=latin-ext',
+        ],
+      },
+    };
+
+    (function(d) {
+      var wf = d.createElement('script'), s = d.scripts[0];
+      wf.src = 'https://library.unt.edu/assets/vendor/webfontloader/webfontloader.js?v=1.6.28';
+      wf.async = true;
+      s.parentNode.insertBefore(wf, s);
+    })(document);
+  </script>
+
+  <link rel="preload" href="https://library.unt.edu/assets/vendor/animate.css/animate.min.css?v=3.7.0" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="/assets/vendor/animate.css/animate.min.css?v=3.7.0"></noscript>
+
+  <link rel="preload" href="https://library.unt.edu/assets/vendor/@fortawesome/fontawesome-pro/css/all.min.css?v=5.7.2" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://library.unt.edu/assets/vendor/@fortawesome/fontawesome-pro/css/all.min.css?v=5.7.2"></noscript>
+
+  <!-- preload polyfill for browsers that don't support preload -->
+  <script src="https://library.unt.edu/assets/vendor/fg-loadcss/dist/cssrelpreload.min.js?v=2.0.1" async></script>
+
+  <link rel="stylesheet" href="https://library.unt.edu/assets/styles/unt.min.css">
+
+  <%= stylesheet_link_tag "application", media: "all" %>
+
+  <!--[if IE 9]>
+  <link href="https://library.unt.edu/assets/vendor/bootstrap-ie8/css/bootstrap-ie9.css?v=4.3.1" rel="stylesheet">
+  <link rel="stylesheet" href="https://library.unt.edu/assets/styles/ie.min.css">
+  <![endif]-->
+  <!--[if lte IE 8]>
+  <link href="https://library.unt.edu/assets/vendor/bootstrap-ie8/css/bootstrap-ie8.css?v=4.3.1" rel="stylesheet">
+  <script src="https://library.unt.edu/assets/vendor/html5shiv/dist/html5shiv.min.js?v=3.7.3"></script>
+  <link rel="stylesheet" href="https://library.unt.edu/assets/styles/ie.min.css">
+  <![endif]-->
+
+  <style>
+    .wrapper--content {
+      background-image: url('https://library.unt.edu/assets/images/backgrounds/default.jpg');
+    }
+  </style>
+
+  <%= render '/shared/head/icons' %>
+
+  <%= render '/shared/head/opengraph' %>
+
+  <!-- Head scripts -->
+  <!-- Window variables for external javascript -->
+  <script>
+    window.untLibVars = {};
+  </script>
+  <%= javascript_include_tag "application" %>
+
+  <%= csrf_meta_tags %>
+  <%= content_for(:head) %>
+</head>

@@ -1,0 +1,72 @@
+<% url_admissions = "https://admissions.unt.edu" %>
+<% url_tours = "https://tours.unt.edu" %>
+<% url_more_info = "https://admissions.unt.edu/requestinfo" %>
+<% url_disclaimer = "https://www.unt.edu/disclaimer" %>
+<% url_ada = "https://www.unt.edu/ada" %>
+<% url_privacy = "https://www.unt.edu/privacy" %>
+<% url_policy = "https://policy.unt.edu/policy/14-005" %>
+<% url_required = "https://www.unt.edu/required-links" %>
+<% url_unt = "https://www.unt.edu" %>
+
+<div class="wrapper--colophon">
+  <section class="colophon  container-fluid">
+    <h2 class="sr-only">Additional Links</h2>
+    <div class="d-none d-sm-flex justify-content-center py-3  px-md-5">
+      <p>
+        <a class="btn btn-success"
+           href="<%= url_admissions %>"
+           data-event-category="link - colophon"
+           data-event-action="university"
+           data-event-label="<%= url_admissions %>">Apply now <i class="fas fa-angle-right"></i></a>
+        <a class="btn btn-success"
+           href="<%= url_tours %>"
+           data-event-category="link - colophon"
+           data-event-action="university"
+           data-event-label="<%= url_tours %>">Schedule a tour <i class="fas fa-angle-right"></i></a>
+        <a class="btn btn-success"
+           href="<%= url_more_info %>"
+           data-event-category="link - colophon"
+           data-event-action="university"
+           data-event-label="<%= url_more_info %>">Get more info <i class="fas fa-angle-right"></i></a>
+      </p>
+    </div>
+    <div class="text-center">
+      <p><a href="<%= url_disclaimer %>"
+            data-event-category="link - colophon"
+            data-event-action="university"
+            data-event-label="<%= url_disclaimer %>">Disclaimer</a>
+        | <a href="<%= url_ada %>"
+             data-event-category="link - colophon"
+             data-event-action="university"
+             data-event-label="<%= url_ada %>">AA/EOE/ADA</a>
+        | <a href="<%= url_privacy %>"
+             data-event-category="link - colophon"
+             data-event-action="university"
+             data-event-label="<%= url_privacy %>">Privacy</a>
+        | <a href="<%= url_policy %>"
+             data-event-category="link - colophon"
+             data-event-action="university"
+             data-event-label="<%= url_policy %>">Electronic Accessibility</a>
+        | <a href="<%= url_required %>"
+             data-event-category="link - colophon"
+             data-event-action="university"
+             data-event-label="<%= url_required %>">Required Links</a>
+        | <a href="<%= url_unt %>"
+             data-event-category="link - colophon"
+             data-event-action="university"
+             data-event-label="<%= url_unt %>">UNT Home</a>
+      </p>
+    </div>
+  </section>
+</div>
+<i id="spinner" style="display:none;" class="fas fa-spinner fa-spin"></i>
+<a id="to-top"
+   href="#top"
+   class="btn btn-success btn--top"
+   data-event-category="link - top"
+   data-event-action="page"
+   data-event-label="<%= request.original_url %>"
+   role="button">
+  <i class="fas fa-angle-up" data-fa-transform="grow-8 up-4"></i>
+  <span style="display:block; margin-top:3px">top</span>
+</a>

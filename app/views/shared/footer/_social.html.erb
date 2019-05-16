@@ -1,0 +1,24 @@
+<div class="wrapper--social py-2  px-md-5">
+  <nav class="nav justify-content-center nav--social">
+    <% Rails.configuration.x.site['social'].each do |item| %>
+    <a aria-label="Follow the UNT Libraries on Twitter"
+       href="<%= item['url'] %><%= item['id'] %>/"
+       class="nav-item nav-link mx-2"
+       data-event-category="link - footer"
+       data-event-action="social"
+       data-event-label="<%= item['url'] %><%= item['id'] %>/">
+      <i class="fab fa-<%= item['icon'] %> fw"></i></a>
+    <% end %>
+
+    <% urls = Rails.configuration.x.site['urls'] %>
+    <%= urls[:home] %>
+
+    <a aria-label="UNT Libraries News RSS feed"
+       href="/news/rss/"
+       class="nav-item nav-link mx-2"
+       data-event-category="link - footer"
+       data-event-action="social"
+       data-event-label="/news/rss/">
+      <i class="fas fa-rss fw"></i></a>
+  </nav>
+</div>

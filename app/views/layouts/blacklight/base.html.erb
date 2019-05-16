@@ -1,23 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<%= render partial: 'shared/head/head' %>
+<body class="<%= render_body_class %>">
+  <!--[if lte IE 10]>
+  <p class="browser-upgrade">Your browser is <strong>outdated</strong>. This site will not function in it. Please <a href="https://browsehappy.com/">upgrade</a> to improve your experience and security.</p>
+  <![endif]-->
 
-    <!-- Internet Explorer use the highest version available -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title><%= render_page_title %></title>
-    <%= opensearch_description_tag application_name, opensearch_catalog_url(format: 'xml') %>
-    <%= favicon_link_tag %>
-    <%= stylesheet_link_tag "application", media: "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
-    <%= content_for(:head) %>
-  </head>
-  <body class="<%= render_body_class %>">
-  <%= render partial: 'shared/header_navbar' %>
+  <%= render partial: 'shared/header/header' %>
 
   <div id="main-container" class="<%= container_classes %>">
     <%= content_for(:container_header) %>
@@ -29,7 +18,14 @@
     </div>
   </div>
 
-  <%= render partial: 'shared/footer' %>
+  <%= render partial: 'shared/drawer/unt' %>
+  <%= render partial: 'shared/drawer/libraries' %>
+  <%= render partial: 'shared/drawer/common' %>
+  <%= render partial: 'shared/drawer/search' %>
+  <%= render partial: 'shared/drawer/main-menu-scrolled-mobile' %>
+  <%= render partial: 'shared/footer/social' %>
+  <%= render partial: 'shared/footer/footer' %>
+  <%= render partial: 'shared/footer/colophon' %>
   <%= render partial: 'shared/modal' %>
-  </body>
+</body>
 </html>

@@ -1,0 +1,203 @@
+<% url_home = "https://library.unt.edu" %>
+<% url_catalog = "https://iii.library.unt.edu/" %>
+<% url_summon = "http://untexas.summon.serialssolutions.com/advanced#!/advanced" %>
+<% url_catalog_advanced = "#{url_catalog}search/X" %>
+<% url_catalog_music = "#{url_catalog}search~S7/X" %>
+<% url_catalog_media = "#{url_catalog}search~S6/X" %>
+<% url_catalog_ejournals = "#{url_catalog}search/y#ejournals" %>
+<% url_catalog_reserves = "#{url_catalog}search/r" %>
+<% url_audio_reserves =  "https://audioreserves.library.unt.edu/" %>
+<% url_video_on_demand =  "https://vod.library.unt.edu/" %>
+<% url_digital2_search =  "https://digital2.library.unt.edu/search/" %>
+<% url_digital_library =  "https://digital.library.unt.edu/" %>
+<% url_portal =  "https://texashistory.unt.edu/" %>
+<% url_gateway =  "https://gateway.okhistory.org/" %>
+<% url_findingaids =  "http://findingaids.library.unt.edu/" %>
+<% url_exhibits =  "https://exhibits.library.unt.edu/" %>
+<% url_untpress =  "https://untpress.unt.edu/" %>
+
+<div class="drawer fade" id="search-drawer" tabindex="-1" role="dialog" aria-labelledby="search-drawer-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog--right" role="document">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h2 class="drawer-title px-3" id="search-drawer-title">Search, Find, Explore</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+      </div>
+      <div class="drawer-body">
+
+        <form id="search-all-form"
+              class="p-3 search"
+              action="<%= url_home %>/search"
+              method="GET"
+              role="search"
+              data-event-category="form - search - bento"
+              data-event-label="<%= request.original_url %> (drawer)">
+          <div class="row">
+            <div class="col">
+              <div class="input-group">
+                <input class="form-control primary-search query"
+                       id="drawer-q"
+                       name="q"
+                       size="50"
+                       aria-label="Search across many different collections and item types"
+                       type="text"
+                       placeholder="Search All Library Systems"
+                       autocomplete="off"
+                       value="">
+                <input type="hidden" name="utm_source" value="site">
+                <input type="hidden" name="utm_medium" value="web">
+                <input type="hidden" name="utm_campaign" value="drawer">
+                <span class="input-group-btn">
+                <button type="submit" class="btn btn-success">
+                  <i class="fas fa-search"></i></button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="drawer__divider" role="seperator"></div>
+        <h2 class="drawer__sub-heading px-3">Full Text Online:</h2>
+        <a href="<%= url_summon %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="external"
+           data-event-label="<%= url_summon %>">Peer-Reviewed Articles, etc.</a>
+
+        <div class="drawer__divider" role="seperator"></div>
+        <h2 class="drawer__sub-heading px-3">Library Catalog:</h2>
+
+        <a href="<%= url_catalog %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_catalog %>">Search: Keyword, Title, Author, Subject, etc.</a>
+
+        <a href="<%= url_catalog_advanced %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_catalog_advanced %>">Advanced Search</a>
+
+        <a href="<%= url_catalog_music %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_catalog_music %>">Music Library</a>
+
+        <a href="<%= url_catalog_media %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_catalog_media %>">Media Library</a>
+
+        <div class="drawer__divider" role="seperator"></div>
+        <h2 class="drawer__sub-heading px-3">Databases &amp; e-Journals</h2>
+
+        <div class="nav-item py-1 px-3 select-widget" data-event-category="form - select-widget - databases">
+
+
+          <form action="https://guides.library.unt.edu/az.php" method="get" accept-charset="utf-8">
+            <div class="form-group">
+              <label class="main mb-2 pt-4 pt-sm-2"
+                     for="drawer-az-search sr-only">
+                Find a Database
+              </label>
+              <div class="input-group database-group">
+                <input class="form-control az-typeahead"
+                       id="drawer-az-search"
+                       name="q"
+                       autocomplete="off"
+                       type="text"
+                       aria-describedby="database-description"
+                       placeholder="type for suggestions">
+              </div>
+              <button class="sr-only" type="submit">Submit</button>
+            </div>
+          </form>
+
+
+        </div>
+
+        <a href="<%= url_catalog_ejournals %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_catalog_ejournals %>">e-Journals</a>
+
+        <div class="drawer__divider" role="seperator"></div>
+        <h2 class="drawer__sub-heading px-3">Courses &amp; Reserves</h2>
+
+        <a href="<%= url_catalog_reserves %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_catalog_reserves %>">Course Reserves</a>
+
+        <a href="<%= url_audio_reserves %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_audio_reserves %>">Digital Audio Reserves</a>
+
+        <a href="<%= url_video_on_demand %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_video_on_demand %>">Video On Demand</a>
+
+        <div class="drawer__divider" role="seperator"></div>
+        <h2 class="drawer__sub-heading px-3">Created and/or Curated @ UNT</h2>
+
+        <div class="nav-item d-flex">
+          <a href="<%= url_digital2_search %>"
+             class="nav-item nav-link col"
+             data-event-category="link - drawer"
+             data-event-action="libraries"
+             data-event-label="<%= url_digital2_search %>">Digital Collections</a>
+
+          <span>
+
+             <a href="<%= url_digital_library %>"
+                class="nav-link d-inline small"
+                data-event-category="link - drawer"
+                data-event-action="libraries"
+                data-event-label="<%= url_digital_library %>">UNT</a> <span class="drawer__divider--inline">|</span>
+             <a href="<%= url_portal %>"
+                class="nav-link d-inline small"
+                data-event-category="link - drawer"
+                data-event-action="libraries"
+                data-event-label="<%= url_portal %>">TX</a> <span class="drawer__divider--inline">|</span>
+             <a href="<%= url_gateway %>"
+                class="nav-link d-inline small"
+                data-event-category="link - drawer"
+                data-event-action="libraries"
+                data-event-label="<%= url_gateway %>">OK</a>
+            </span>
+        </div>
+
+        <a href="<%= url_findingaids %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_findingaids %>">Special Collections Finding Aids</a>
+        <a href="<%= url_exhibits %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="libraries"
+           data-event-label="<%= url_exhibits %>">Exhibits</a>
+        <a href="<%= url_untpress %>"
+           class="nav-item nav-link"
+           data-event-category="link - drawer"
+           data-event-action="partner"
+           data-event-label="<%= url_untpress %>">UNT Press</a>
+
+      </div>
+    </div>
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+         data-src="/assets/images/backgrounds/drawer.png"
+         class="lazyload cute d-none"
+         alt="illustration of Willis Library and Hurley Administration building" />
+  </div>
+</div>

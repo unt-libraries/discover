@@ -1,0 +1,214 @@
+<% url_home = "https://library.unt.edu" %>
+<% url_willis = "#{url_home}/willis/" %>
+<% url_eagle_commons = "#{url_home}/eagle-commons/" %>
+<% url_discovery_park = "#{url_home}/discovery-park/" %>
+<% url_media = "#{url_home}/media/" %>
+<% url_graduate = "#{url_home}/services/for-graduate-students/" %>
+<% url_faculty = "#{url_home}/services/for-faculty/" %>
+<% url_community = "#{url_home}/services/for-community-visitors/" %>
+<% url_accessibility = "#{url_home}/services/persons-with-disabilities/" %>
+<% url_spaces = "#{url_home}/spaces/" %>
+<% url_student_reservations = "https://reservations.library.unt.edu/Web/" %>
+<% url_faculty_reservations = "https://events.library.unt.edu/reserve/login.php" %>
+<% url_esports_reservations = "https://esports.library.unt.edu/" %>
+<% url_service_desks = "#{url_home}/services/desks/" %>
+<% url_ask_us = "#{url_home}/ask-us/" %>
+<% url_staff_directory = "#{url_home}/people/" %>
+<% url_subject_librarians = "#{url_home}/subject-librarians/" %>
+<% url_jobs = "#{url_home}/jobs/" %>
+
+<div class="drawer fade" id="libraries-drawer" tabindex="-1" role="dialog" aria-labelledby="libraries-drawer-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog--right" role="document">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h2 class="drawer-title px-3" id="libraries-drawer-title">People &amp; Places</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+      </div>
+      <div class="drawer-body">
+
+
+        <h2 class="drawer__sub-heading px-3">Information For...</h2>
+
+        <a href="<%= url_graduate %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_graduate %>">Graduate Students</a>
+
+        <a href="<%= url_faculty %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_faculty %>">Faculty/Staff</a>
+
+        <a href="<%= url_community %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_community %>">Community &amp; Visitors</a>
+
+        <a href="<%= url_accessibility %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_accessibility %>">Persons with Disabilities</a>
+
+        <div class="drawer__divider" role="separator"></div>
+
+        <h2 class="drawer__sub-heading px-3">Locations &amp; Hours</h2>
+
+        <div class="nav-item d-flex">
+          <a href="<%= url_willis %>"
+             class="nav-link col"
+             data-ga-category="link - drawer"
+             data-ga-action="libraries"
+             data-ga-label="<%= url_willis %>">Willis Library</a>
+
+          <span class="float-right mr-3">
+           <a href="<%= url_willis %>#hours"
+              class="nav-link d-inline icon-link small"
+              data-ga-category="link - drawer"
+              data-ga-action="libraries"
+              data-ga-label="<%= url_willis %>#hours"><i title="Willis Library Hours" class="far fa-calendar-alt fa-lg"></i></a> &nbsp;
+
+           <a href="<%= url_willis %>#maps"
+              class="nav-link d-inline icon-link small"
+              data-ga-category="link - drawer"
+              data-ga-action="libraries"
+              data-ga-label="<%= url_willis %>#maps"><i title="Willis Library Location and Floor Maps" class="fas fa-map-marker-alt fa-lg"></i></a>
+          </span>
+        </div>
+
+        <div class="nav-item d-flex">
+          <a href="<%= url_discovery_park %>"
+             class="nav-link col"
+             data-ga-category="link - drawer"
+             data-ga-action="libraries"
+             data-ga-label="<%= url_discovery_park %>">Discovery Park Library</a>
+
+          <span class="float-right mr-3">
+           <a href="<%= url_discovery_park %>#hours"
+              class="nav-link d-inline icon-link small"
+              data-ga-category="link - drawer"
+              data-ga-action="libraries"
+              data-ga-label="<%= url_discovery_park %>#hours"><i title="Discovery Park Library Hours" class="far fa-calendar-alt fa-lg"></i></a> &nbsp;
+
+           <a href="<%= url_discovery_park %>#maps"
+              class="nav-link d-inline icon-link small"
+              data-ga-category="link - drawer"
+              data-ga-action="libraries"
+              data-ga-label="<%= url_discovery_park %>#maps"><i title="Discovery Park Library Location and Floor Maps" class="fas fa-map-marker-alt fa-lg"></i></a>
+          </span>
+        </div>
+
+        <div class="nav-item d-flex">
+          <a href="<%= url_eagle_commons %>"
+             class="nav-link col"
+             data-ga-category="link - drawer"
+             data-ga-action="libraries"
+             data-ga-label="<%= url_eagle_commons %>">Eagle Commons Library</a>
+
+          <span class="float-right mr-3">
+           <a href="<%= url_eagle_commons %>#hours"
+              class="nav-link d-inline icon-link small"
+              data-ga-category="link - drawer"
+              data-ga-action="libraries"
+              data-ga-label="<%= url_eagle_commons %>#hours"><i title="Eagle Commons Library Hours" class="far fa-calendar-alt fa-lg"></i></a> &nbsp;
+
+           <a href="<%= url_eagle_commons %>#maps"
+              class="nav-link d-inline icon-link small"
+              data-ga-category="link - drawer"
+              data-ga-action="libraries"
+              data-ga-label="<%= url_eagle_commons %>#maps"><i title="Eagle Commons Library Location and Floor Maps" class="fas fa-map-marker-alt fa-lg"></i></a>
+          </span>
+        </div>
+
+        <div class="nav-item d-flex">
+          <a href="<%= url_media %>"
+             class="nav-link col"
+             data-ga-category="link - drawer"
+             data-ga-action="libraries"
+             data-ga-label="<%= url_media %>">Media Library</a>
+
+          <span class="float-right mr-3">
+           <a href="<%= url_media %>#hours"
+              class="nav-link d-inline icon-link small"
+              data-ga-category="link - drawer"
+              data-ga-action="libraries"
+              data-ga-label="<%= url_media %>#hours"><i title="Media Library Hours" class="far fa-calendar-alt fa-lg"></i></a> &nbsp;
+
+           <a href="<%= url_media %>#maps"
+              class="nav-link d-inline icon-link small"
+              data-ga-category="link - drawer"
+              data-ga-action="libraries"
+              data-ga-label="<%= url_media %>#maps"><i title="Media Library Location and Floor Maps" class="fas fa-map-marker-alt fa-lg"></i></a>
+          </span>
+        </div>
+
+        <div class="drawer__divider" role="separator"></div>
+        <h2 class="drawer__sub-heading px-3">Spaces</h2>
+        <a href="<%= url_spaces %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_spaces %>">Study Spaces, Classrooms, etc.</a>
+
+        <a href="<%= url_student_reservations %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_student_reservations %>">Student Room Reservations</a>
+
+        <a href="<%= url_faculty_reservations %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_faculty_reservations %>">Faculty/Staff Event Reservations</a>
+
+        <a href="<%= url_esports_reservations %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_esports_reservations %>">eSports Station Registration</a>
+
+        <a href="<%= url_service_desks %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_service_desks %>">Service Desks</a>
+
+        <div class="drawer__divider" role="separator"></div>
+        <h2 class="drawer__sub-heading px-3">Librarians and Staff</h2>
+        <a href="<%= url_ask_us %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_ask_us %>">Ask Us</a>
+
+        <a href="<%= url_staff_directory %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_staff_directory %>">Departmental / Staff Directory</a>
+
+        <a href="<%= url_subject_librarians %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_subject_librarians %>">Subject Librarians</a>
+
+        <a href="<%= url_jobs %>"
+           class="nav-item nav-link"
+           data-ga-category="link - drawer"
+           data-ga-action="libraries"
+           data-ga-label="<%= url_jobs %>">Employment Opportunities</a>
+      </div>
+    </div>
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+         data-src="/assets/images/backgrounds/drawer.png"
+         class="lazyload cute d-none"
+         alt="illustration of Willis Library and Hurley Administration building" />
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<% url_unt = "https://unt.edu/" %>
+<% url_my_unt = "https://my.unt.edu/" %>
+<% url_learn_unt = "https://canvas.unt.edu/" %>
+<% url_eagle_connect = "http://eagleconnect.unt.edu/" %>
+<% url_unt_directory = "https://www.unt.edu/find-people-departments" %>
+<% url_unt_map = "https://maps.unt.edu/" %>
+<% url_unt_jobs = "https://www.untsystem.edu/hr-it-business-services/human-resources" %>
+
+<div class="drawer drawer--drawer fade" id="unt-drawer" tabindex="-1" role="dialog" aria-labelledby="unt-drawer-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog--right" role="document">
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <h2 class="drawer-title px-3" id="unt-drawer-title">UNT Quicklinks</h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <i class="fas fa-times fa-lg"></i>
+        </button>
+      </div>
+      <div class="drawer-body">
+
+        <form id="search-unt-form"
+              class="p-3"
+              action="https://unt.edu/search-results"
+              method="GET"
+              role="search"
+              autocomplete="off"
+              data-event-category="form - search - unt"
+              data-event-label="<%= request.original_url %>">
+          <div class="row">
+            <div class="col">
+              <div class="input-group">
+                <input class="form-control primary-search query"
+                       id="bento-q"
+                       name="search"
+                       aria-label="Search across the entire U N T domain."
+                       type="text"
+                       placeholder="Search unt.edu"
+                       value="">
+                <span class="input-group-btn">
+                <button type="submit" class="btn btn-success">
+                  <i class="fas fa-search"></i></button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+        <div class="drawer__divider"></div>
+
+        <nav class="nav flex-column">
+          <a href="<%= url_unt %>"
+             class="link--external nav-item nav-link px-3"
+             data-event-category="link - drawer"
+             data-event-action="university"
+             data-event-label="<%= url_unt %>">UNT Homepage</a>
+
+          <a href="<%= url_my_unt %>"
+             class="link--external nav-item nav-link px-3"
+             data-event-category="link - drawer"
+             data-event-action="university"
+             data-event-label="<%= url_my_unt %>">MyUNT</a>
+
+          <a href="<%= url_learn_unt %>"
+             class="link--external nav-item nav-link px-3"
+             data-event-category="link - drawer"
+             data-event-action="university"
+             data-event-label="<%= url_learn_unt %>">Canvas</a>
+
+          <a href="<%= url_eagle_connect %>"
+             class="link--external nav-item nav-link px-3"
+             data-event-category="link - drawer"
+             data-event-action="university"
+             data-event-label="<%= url_eagle_connect %>">EagleConnect</a>
+
+          <a href="<%= url_unt_directory %>"
+             class="link--external nav-item nav-link px-3"
+             data-event-category="link - drawer"
+             data-event-action="university"
+             data-event-label="<%= url_unt_directory %>">UNT Directory</a>
+
+          <a href="<%= url_unt_map %>"
+             class="link--external nav-item nav-link px-3"
+             data-event-category="link - drawer"
+             data-event-action="university"
+             data-event-label="<%= url_unt_map %>">UNT Map</a>
+
+          <a href="<%= url_unt_jobs %>"
+             class="link--external nav-item nav-link px-3"
+             data-event-category="link - drawer"
+             data-event-action="university"
+             data-event-label="<%= url_unt_jobs %>">Jobs at UNT</a>
+        </nav>
+      </div>
+    </div>
+    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+         data-src="/assets/images/backgrounds/drawer.png"
+         class="lazyload cute d-none"
+         alt="illustration of Willis Library and Hurley Administration building" />
+  </div>
+</div>
