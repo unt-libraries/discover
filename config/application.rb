@@ -11,6 +11,9 @@ module UntBlacklight
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    # Loads site variables from config/config.yml. Used in templates like Rails.configuration.x.site['var']
+    config.x.site = config_for(:config)
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
