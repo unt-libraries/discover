@@ -15,7 +15,7 @@
 //= require turbolinks
 //
 // Required by Blacklight
-//= require jquery
+//= require jquery3
 //= require popper
 // Twitter Typeahead for autocomplete
 //= require twitter/typeahead
