@@ -39,7 +39,11 @@ class CatalogController < ApplicationController
     config.default_per_page = 50
     config.max_per_page = 100
 
-    # solr field configuration for search results/index views
+    ##############################################
+    # Configuration for search results/index views
+    ##############################################
+
+    # solr field configuration
     config.index.title_field = 'full_title'
     config.index.display_type_field = 'material_type'
     #config.index.thumbnail_field = 'thumbnail_path_ss'
@@ -58,8 +62,12 @@ class CatalogController < ApplicationController
     config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
     config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
 
+    #######################################
+    # Configuration for document/show views
+    #######################################
+
     # solr field configuration for document/show views
-    config.show.title_field = 'full_title'
+    config.show.title_field = 'main_title'
     config.show.display_type_field = 'material_type'
     #config.show.thumbnail_field = 'thumbnail_path_ss'
 
@@ -87,17 +95,106 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'material_type', label: 'Material Type'
-    config.add_facet_field 'publication_dates', label: 'Publication Year'
-    config.add_facet_field 'genre_terms_facet', label: 'Genre'
-    config.add_facet_field 'topic_terms_facet', label: 'Topic', limit: 20, index_range: 'A'..'Z'
-    config.add_facet_field 'languages', label: 'Language', limit: true
-    config.add_facet_field 'geographic_terms_facet', label: 'Region'
-    config.add_facet_field 'era_terms_facet', label: 'Era'
-    config.add_facet_field 'form_terms_facet', label: 'Form'
-    config.add_facet_field 'people_facet', label: 'People', limit: 20
-    config.add_facet_field 'corporations_facet', label: 'Corporations', limit: 20
-    config.add_facet_field 'meetings_facet', label: 'Meetings', limit: 20
+    config.add_facet_field 'bib_location_codes', label: 'Availability', :query => {
+      :online => { label: 'Online Copy Available', fq: "bib_location_codes:*www OR item_location_codes:*www" },
+      :dpl => { label: 'Discovery Park Library', fq: "bib_location_codes:r* OR item_location_codes:r*" },
+      :ecl => { label: 'Eagle Commons Library', fq: "bib_location_codes:s* OR item_location_codes:s*" },
+      :factory => { label: 'The Factory (Makerspace)', fq: "bib_location_codes:*mak OR item_location_codes:*mak" },
+      :govdocs => { label: 'Government Documents', fq: "bib_location_codes:sd* OR bib_location_codes:xdoc OR item_location_codes:sd* OR item_location_codes:xdoc" },
+      :media => { label: 'Media Library', fq: "bib_location_codes:czm* OR item_location_codes:czm* OR bib_location_codes:xmed OR item_location_codes:xmed" },
+      :music => { label: 'Music Library', fq: "bib_location_codes:w4m OR item_location_codes:w4m OR bib_location_codes:xmus OR item_location_codes:xmus" },
+      :remote => { label: 'Remote Storage', fq: "bib_location_codes:x* OR item_location_codes:x*" },
+      :special => { label: 'Special Collections', fq: "bib_location_codes:w4s OR item_location_codes:w4s OR bib_location_codes:xspe OR item_location_codes:xspe" },
+      :law => { label: 'UNT Dallas Law Library', fq: "bib_location_codes:law* OR item_location_codes:law*" },
+      :dallas => { label: 'UNT Dallas Library', fq: "bib_location_codes:d* OR item_location_codes:d*" },
+      :willis => { label: 'Willis Library', fq: "bib_location_codes:w* OR item_location_codes:w*" },
+    }
+
+    config.add_facet_field 'material_type', label: 'Format', :query => {
+      :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
+      :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },
+      :books_audio => { label: 'Books (Audio)', fq: "material_type:i" },
+      :books_electronic => { label: 'Books (Electronic)', fq: "material_type:n" },
+      :books_print => { label: 'Books (Print)', fq: "material_type:a" },
+      :computer_files => { label: 'Computer Files', fq: "material_type:m" },
+      :databases => { label: 'Databases', fq: "material_type:b" },
+      :educational_kits => { label: 'Educational Kits', fq: "material_type:o" },
+      :journals => { label: 'Journals (All)', fq: "material_type:q OR material_type:y" },
+      :journals_online => { label: 'Journals (Online)', fq: "material_type:q" },
+      :journals_print => { label: 'Journals (Print)', fq: "material_type:y" },
+      :manuscripts => { label: 'Manuscripts', fq: "material_type:t" },
+      :maps => { label: 'Maps', fq: "material_type:e OR material_type:f" },
+      :music_cds => { label: 'Music (CDs)', fq: "material_type:j" },
+      :music_scores => { label: 'Music (Scores)', fq: "material_type:c OR material_type:d OR material_type:s" },
+      :physical_objects => { label: 'Physical Objects', fq: "material_type:r" },
+      :print_graphics => { label: 'Print Graphics', fq: "material_type:k" },
+      :theses_and_dissertations => { label: 'Theses and Dissertations', fq: "material_type:z OR material_type:s" },
+      :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
+    }
+
+    config.add_facet_field 'languages', label: 'Language', limit: 10
+
+    config.add_facet_field 'publication_dates_facet', label: 'Publication Date', :query => {
+      :years_21st_cent => { label: '21st Century', fq: "publication_dates_facet:[2000 TO 2099] OR publication_dates_facet:\"21st century\"" },
+      :years_highest => { label: '2015 or later', fq: "publication_dates_facet:[2015 TO 2099]" },
+      :years_2010_2014 => { label: '2010 to 2014', fq: "publication_dates_facet:[2010 TO 2014]" },
+      :years_2000_2009 => { label: '2000 to 2009', fq: "publication_dates_facet:[2000 TO 2009]" },
+      :years_20th_cent => { label: '20th Century', fq: "publication_dates_facet:[1900 TO 1999] OR publication_dates_facet:\"20th century\"" },
+      :years_1990_1999 => { label: '1990 to 1999', fq: "publication_dates_facet:[1990 TO 1999]" },
+      :years_1980_1989 => { label: '1980 to 1989', fq: "publication_dates_facet:[1980 TO 1989]" },
+      :years_1970_1979 => { label: '1970 to 1979', fq: "publication_dates_facet:[1970 TO 1979]" },
+      :years_1960_1969 => { label: '1960 to 1969', fq: "publication_dates_facet:[1960 TO 1969]" },
+      :years_1950_1959 => { label: '1950 to 1959', fq: "publication_dates_facet:[1950 TO 1959]" },
+      :years_1940_1949 => { label: '1940 to 1949', fq: "publication_dates_facet:[1940 TO 1949]" },
+      :years_1900_1939 => { label: '1900 to 1939', fq: "publication_dates_facet:[1900 TO 1939]" },
+      :years_19th_cent => { label: '19th Century', fq: "publication_dates_facet:[1800 TO 1899] OR publication_dates_facet:\"19th century\"" },
+      :years_1850_1899 => { label: '1850 to 1899', fq: "publication_dates_facet:[1850 TO 1899]" },
+      :years_1800_1849 => { label: '1800 to 1849', fq: "publication_dates_facet:[1800 TO 1849]" },
+      :years_18th_cent => { label: '18th Century', fq: "publication_dates_facet:[1700 TO 1799] OR publication_dates_facet:\"18th century\"" },
+      :years_1750_1799 => { label: '1750 to 1799', fq: "publication_dates_facet:[1750 TO 1799]" },
+      :years_1700_1749 => { label: '1700 to 1749', fq: "publication_dates_facet:[1700 TO 1749]" },
+      :years_17th_cent => { label: '17th Century', fq: "publication_dates_facet:[1600 TO 1699] OR publication_dates_facet:\"17th century\"" },
+      :years_1650_1699 => { label: '1650 to 1699', fq: "publication_dates_facet:[1650 TO 1699]" },
+      :years_1600_1649 => { label: '1600 to 1649', fq: "publication_dates_facet:[1600 TO 1649]" },
+      :years_16th_cent => { label: '16th Century', fq: "publication_dates_facet:[1500 TO 1599] OR publication_dates_facet:\"16th century\"" },
+      :years_15th_cent => { label: '15th Century', fq: "publication_dates_facet:[1400 TO 1499] OR publication_dates_facet:\"15th century\"" },
+      :years_14th_cent => { label: '14th Century', fq: "publication_dates_facet:[1300 TO 1399] OR publication_dates_facet:\"14th century\"" },
+      :years_13th_cent => { label: '13th Century', fq: "publication_dates_facet:[1200 TO 1299] OR publication_dates_facet:\"13th century\"" },
+      :years_12th_cent => { label: '12th Century', fq: "publication_dates_facet:[1100 TO 1199] OR publication_dates_facet:\"12th century\"" },
+      :years_11th_cent => { label: '11th Century', fq: "publication_dates_facet:[1000 TO 1099] OR publication_dates_facet:\"11th century\"" },
+      :years_10th_cent => { label: '10th Century', fq: "publication_dates_facet:[900 TO 999] OR publication_dates_facet:\"10th century\"" },
+      :years_lowest => { label: 'Pre-10th Century', fq: "publication_dates_facet:/..?.?/ AND publication_dates_facet:[0 TO 899]" },
+    }
+
+    # config.add_facet_field 'publication_dates_facet', label: 'Year of Publication'
+    config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'public_title_facet', label: 'Work', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'meetings_facet', label: 'Meeting or Event', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'public_genre_facet', label: 'Genre', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'public_subject_facet', label: 'Subject - Person or Topic', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'geographic_terms_facet', label: 'Subject - Region', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'era_terms_facet', label: 'Subject - Era', limit: 10, index_range: 'A'..'Z'
+
+    config.add_facet_field 'game_duration_facet_field', label: 'Games - Duration', :query => {
+      :duration_1 => { label: 'less than 30 minutes', fq: "game_facet:d1t29" },
+      :duration_30 => { label: '30 minutes to 1 hour', fq: "game_facet:d30t59" },
+      :duration_60 => { label: '1 to 2 hours', fq: "game_facet:d60t120" },
+      :duration_120 => { label: 'more than 2 hours', fq: "game_facet:d120t500" }
+    }
+    config.add_facet_field 'game_players_facet_field', label: 'Games - Number of Players', :query => {
+      :players_1 => { label: '1 player', fq: "game_facet:p1" },
+      :players_2 => { label: '2 to 4 players', fq: "game_facet:p2t4" },
+      :players_4 => { label: '5 to 8 players', fq: "game_facet:p4t8" },
+      :players_8 => { label: 'more than 8 players', fq: "game_facet:p9t99" }
+    }
+    config.add_facet_field 'game_age_facet_field', label: 'Games - Recommended Age', :query => {
+      :age_1 => { label: '1 to 4 years', fq: "game_facet:a1t4" },
+      :age_5 => { label: '5 to 9 years', fq: "game_facet:a5t9" },
+      :age_10 => { label: '10 to 13 years', fq: "game_facet:a10t13" },
+      :age_14 => { label: '14 to 16 years', fq: "game_facet:a14t16" },
+      :age_17 => { label: '17 years and up', fq: "game_facet:a17t100" }
+    }
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -107,10 +204,9 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'full_title', label: 'Title'
-    config.add_index_field 'genre_terms', label: 'Genre Terms'
     config.add_index_field 'creator', label: 'Author/Creator'
     config.add_index_field 'contributors', label: 'Contributors'
-    config.add_index_field 'material_type', label: 'Material Type'
+    # config.add_index_field 'material_type', label: 'Material Type'
     config.add_index_field 'languages', label: 'Languages'
     config.add_index_field 'publishers', label: 'Publisher'
     config.add_index_field 'publication_places', label: 'Publication Place'
@@ -122,7 +218,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'full_title', label: 'Title'
     config.add_show_field 'creator', label: 'Author/Creator'
     config.add_show_field 'contributors', label: 'Contributors'
-    config.add_show_field 'material_type', label: 'Material Type'
+    # config.add_show_field 'material_type', label: 'Material Type'
     config.add_show_field 'urls', label: 'URLs'
     # config.add_show_field 'url_suppl_display', label: 'More Information'
     config.add_show_field 'languages', label: 'Languages'
@@ -176,6 +272,7 @@ class CatalogController < ApplicationController
 
     config.add_search_field('subject') do |field|
       field.solr_parameters = { 'spellcheck.dictionary': 'subject' }
+      field.qt = 'catalog-search'
       field.solr_local_parameters = {
         qf: '${subject_qf}',
         pf: '${subject_pf}'
