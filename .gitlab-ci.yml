@@ -1,0 +1,29 @@
+image: alpine
+
+stages:
+  - deploy
+
+variables:
+  GIT_SUBMODULE_STRATEGY: none
+  SSH_PRIVATE_KEY: $LIBWEBRUNNER_PRIVATE_KEY
+  SSH_USER: $SSH_DEPLOY_USER
+  SSH_SERVER: $SSH_DEPLOY_SERVER
+
+# Include before_script to download utilities repo & run scripts
+include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitlab-ci/.before-script-utils-repo.yml'
+
+.deploy:
+  stage: deploy
+  variables:
+    UTIL_SCRIPTS: source ./prepare_ssh.sh
+    GIT_SUBMODULE_STRATEGY: none
+    SITE_DEST_DIR: /home/discover/$CI_ENVIRONMENT_NAME
+  script:
+    - ssh $SSH_USER@$SSH_SERVER "touch $SITE_DEST_DIR/.deployed && exit"
+  when: manual
+
+deploy:development:
+  extends: .deploy
+  environment:
+    name: development
+    url: alpha.discover.library.unt.edu
