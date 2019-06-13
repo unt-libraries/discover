@@ -19,7 +19,12 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
     GIT_SUBMODULE_STRATEGY: none
     SITE_DEST_DIR: /home/discover/$CI_ENVIRONMENT_NAME
   script:
-    - ssh $SSH_USER@$SSH_SERVER "touch $SITE_DEST_DIR/.deployed && exit"
+    - |
+        ssh $SSH_USER@$SSH_SERVER /bin/bash -s << EOT 
+        cd $SITE_DEST_DIR
+        touch .deployed
+        exit
+        EOT
   when: manual
 
 deploy:development:
