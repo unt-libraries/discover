@@ -22,7 +22,11 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
     - |
         ssh $SSH_USER@$SSH_SERVER /bin/bash -s << EOT 
         cd $SITE_DEST_DIR
-        touch .deployed
+        git pull
+        docker-compose down
+        docker-compose build
+        docker-compose run web rake db:migrate
+        docker-compose up -d
         exit
         EOT
   when: manual
