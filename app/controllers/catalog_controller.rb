@@ -95,8 +95,15 @@ class CatalogController < ApplicationController
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
 
-    config.add_facet_field 'bib_location_codes', label: 'Availability', :query => {
+    config.add_facet_field 'access', label: 'Online Access', :query => {
       :online => { label: 'Online Copy Available', fq: "bib_location_codes:*www OR item_location_codes:*www" },
+      # I'm not sure the best way to create the Solr query to find items that have a physical copy.
+      # I think this facet could work as just a single "Online Copy Available" value, so maybe we don't even
+      # need this. I started implementing it as a regex but that's probably not the best way to do it.
+      # :physical => { label: 'Copy Available at Library', fq: "bib_location_codes:/(.{1,2}|(.*[^w][^w][^w])/ AND item_location_codes:/(.{1,2}|(.*[^w][^w][^w])/" },
+    }
+
+    config.add_facet_field 'bib_location_codes', label: 'Library Location', :query => {
       :dpl => { label: 'Discovery Park Library', fq: "bib_location_codes:r* OR item_location_codes:r*" },
       :ecl => { label: 'Eagle Commons Library', fq: "bib_location_codes:s* OR item_location_codes:s*" },
       :factory => { label: 'The Factory (Makerspace)', fq: "bib_location_codes:*mak OR item_location_codes:*mak" },
@@ -105,8 +112,7 @@ class CatalogController < ApplicationController
       :music => { label: 'Music Library', fq: "bib_location_codes:w4m OR item_location_codes:w4m OR bib_location_codes:xmus OR item_location_codes:xmus" },
       :remote => { label: 'Remote Storage', fq: "bib_location_codes:x* OR item_location_codes:x*" },
       :special => { label: 'Special Collections', fq: "bib_location_codes:w4s OR item_location_codes:w4s OR bib_location_codes:xspe OR item_location_codes:xspe" },
-      :law => { label: 'UNT Dallas Law Library', fq: "bib_location_codes:law* OR item_location_codes:law*" },
-      :dallas => { label: 'UNT Dallas Library', fq: "bib_location_codes:d* OR item_location_codes:d*" },
+      :frisco => { label: 'UNT Frisco', fq: "bib_location_codes:f* OR item_location_codes:f*" },
       :willis => { label: 'Willis Library', fq: "bib_location_codes:w* OR item_location_codes:w*" },
     }
 
