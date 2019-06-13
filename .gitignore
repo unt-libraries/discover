@@ -29,3 +29,6 @@
 
 # Ignore secrets file
 secrets.yml
+
+# Ignore docker-compose .env file
+.env

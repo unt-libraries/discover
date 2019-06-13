@@ -14,3 +14,5 @@ services:
     depends_on:
       - db
     restart: always
+    environment:
+      - SOLR_URL
