@@ -25,7 +25,7 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
         git pull
         docker-compose down
         docker-compose build
-        docker-compose run --rm web rake db:migrate
+        docker-compose run --rm web "rake db:migrate"
         docker-compose up -d
         exit
         EOT
