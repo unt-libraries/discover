@@ -19,16 +19,13 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
     GIT_SUBMODULE_STRATEGY: none
     SITE_DEST_DIR: /home/discover/$CI_ENVIRONMENT_NAME
   script:
-    - |
-        ssh $SSH_USER@$SSH_SERVER /bin/bash -s << EOT 
-        cd $SITE_DEST_DIR
-        git pull
-        docker-compose down
-        docker-compose build
-        docker-compose run --rm web "rake db:migrate"
-        docker-compose up -d
-        exit
-        EOT
+    - ssh $SSH_USER@$SSH_SERVER /bin/bash -c "cd $SITE_DEST_DIR && \
+                                              git pull && \
+                                              docker-compose down && \
+                                              docker-compose build && \
+                                              docker-compose run --rm web rake db:migrate && \
+                                              docker-compose up -d && \
+                                              exit"
   when: manual
 
 deploy:development:
