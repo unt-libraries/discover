@@ -1,0 +1,19 @@
+<div class="jumbotron text-center">
+  <h1 class="jumbotron-heading"><%= t('blacklight.welcome') %></h1>
+
+  <p class="lead">Discover is a tool to search and browse the UNT Libraries catalog</p>
+</div>
+
+<%# This is the same panel shown in the Rails welcome template %>
+<div id="about" class="card">
+  <h2 class='card-header collapsed collapse-toggle' data-toggle="collapse" data-target="#about-content"><a href="/rails/info/properties">About your application&rsquo;s environment</a></h2>
+  <div id="about-content" class="card-body collapse"></div>
+</div>
+
+<script>
+  Blacklight.onLoad(function() {
+    $('#about .card-header').one('click', function() {
+      $($(this).data('target')).load($(this).find('a').attr('href'));
+    });
+  });
+</script>
