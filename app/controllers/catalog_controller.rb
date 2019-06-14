@@ -174,11 +174,11 @@ class CatalogController < ApplicationController
 
     # config.add_facet_field 'publication_dates_facet', label: 'Year of Publication'
     config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'public_title_facet', label: 'Work', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z'
     config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z'
     config.add_facet_field 'meetings_facet', label: 'Meeting or Event', limit: 10, index_range: 'A'..'Z'
     config.add_facet_field 'public_genre_facet', label: 'Genre', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'public_subject_facet', label: 'Subject - Person or Topic', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'public_subject_facet', label: 'Subject - Topic', limit: 10, index_range: 'A'..'Z'
     config.add_facet_field 'geographic_terms_facet', label: 'Subject - Region', limit: 10, index_range: 'A'..'Z'
     config.add_facet_field 'era_terms_facet', label: 'Subject - Era', limit: 10, index_range: 'A'..'Z'
 
@@ -209,11 +209,11 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    config.add_index_field 'full_title', label: 'Title'
+    # config.add_index_field 'full_title', label: 'Title'
     config.add_index_field 'creator', label: 'Author/Creator'
     config.add_index_field 'contributors', label: 'Contributors'
     # config.add_index_field 'material_type', label: 'Material Type'
-    config.add_index_field 'languages', label: 'Languages'
+    # config.add_index_field 'languages', label: 'Languages'
     config.add_index_field 'publishers', label: 'Publisher'
     config.add_index_field 'publication_places', label: 'Publication Place'
     config.add_index_field 'publication_dates', label: 'Publication Date'
@@ -221,7 +221,7 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
-    config.add_show_field 'full_title', label: 'Title'
+    # config.add_show_field 'full_title', label: 'Title'
     config.add_show_field 'creator', label: 'Author/Creator'
     config.add_show_field 'contributors', label: 'Contributors'
     # config.add_show_field 'material_type', label: 'Material Type'
