@@ -26,7 +26,7 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
         docker-compose build &&
         docker-compose run --rm web rake db:migrate &&
         docker-compose up -d
-    "
+        "
   when: manual
 
 deploy:development:
