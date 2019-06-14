@@ -17,11 +17,12 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
   variables:
     UTIL_SCRIPTS: source ./prepare_ssh.sh
     GIT_SUBMODULE_STRATEGY: none
+    GIT_BRANCH: master
     SITE_DEST_DIR: /home/discover/$CI_ENVIRONMENT_NAME
   script:
     - ssh $SSH_USER@$SSH_SERVER "
         cd $SITE_DEST_DIR &&
-        git pull &&
+        git pull origin $GIT_BRANCH &&
         docker-compose down &&
         docker-compose build &&
         docker-compose run --rm web rake db:migrate &&
