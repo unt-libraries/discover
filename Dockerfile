@@ -9,7 +9,8 @@ RUN apk add --no-cache \
   nodejs \
   openjdk8-jre \
   postgresql-dev \
-  tzdata
+  tzdata \
+  yarn
 
 RUN gem install bundler
 

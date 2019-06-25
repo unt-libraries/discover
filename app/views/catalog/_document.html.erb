@@ -1,0 +1,15 @@
+<% # container for a single doc -%>
+<article class="document row <%= render_document_class document %> document-position-<%= document_counter%> " data-document-counter="<%= document_counter %>" itemscope itemtype="<%= document.itemtype %>">
+  <%# image or icon for item %>
+  <div class="thumbnail-wrapper col-xs-5 col-sm-4  col-md-3">
+    <%= content_tag(:div, class: "document-thumbnail", data: document.identifier_data) do %>
+      <div class="default"><i class="far fa-5x fa-<%= document.format_icon %>"></i></div>
+    <% end %>
+  </div>
+
+  <div class="col-sm-8  col-md-9">
+    <%= render_document_partials document,
+                                 blacklight_config.view_config(document_index_view_type).partials,
+                                 document_counter: document_counter %>
+  </div>
+</article>
