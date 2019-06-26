@@ -49,33 +49,37 @@ class SolrDocument
     end.compact
   end
 
-  def format_icon
-    material_type_icon_mapping[self[:material_type].to_sym]
+  def material_type_map
+      {
+          :p => { :name => 'Archival Collection', :icon => 'book' },
+          :i => { :name => 'Book (Audio)', :icon => 'headphones' },
+          :n => { :name => 'Book (Electronic)', :icon => 'tablet-android-alt' },
+          :a => { :name => 'Book (Print)', :icon => 'book' },
+          :m => { :name => 'Computer File', :icon => 'file' },
+          :b => { :name => 'Database', :icon => 'database' },
+          :o => { :name => 'Educational Kit', :icon => 'book' },
+          :y => { :name => 'Journal (Online)', :icon => 'question' },
+          :q => { :name => 'Journal (Print)', :icon => 'book-alt' },
+          :t => { :name => 'Manuscript', :icon => 'question' },
+          :e => { :name => 'Map', :icon => 'map' },
+          :f => { :name => 'Map', :icon => 'map' },
+          :j => { :name => 'Music (CD)', :icon => 'compact-disc' },
+          :c => { :name => 'Music (Score)', :icon => 'music' },
+          :d => { :name => 'Music (Score)', :icon => 'music' },
+          :s => { :name => 'Music (Score), Theses and Dissertations', :icon => 'volume' },
+          :r => { :name => 'Physical Object', :icon => 'question' },
+          :k => { :name => 'Print Graphics', :icon => 'question' },
+          :z => { :name => 'Theses and Dissertations', :icon => 'question' },
+          :g => { :name => 'Video (DVD, VHS, Film)', :icon => 'film' }
+      }
   end
 
-  def material_type_icon_mapping
-    {
-        :p => 'book', # Archival Collections
-        :i => 'headphones', # Books (Audio)
-        :n => 'tablet-android-alt', # Books (Electronic)
-        :a => 'book', # Books (Print)
-        :m => 'file', # Computer Files
-        :b => 'database', # Databases
-        :o => 'book', # Educational Kits
-        :y => 'question', # Journals (Online)
-        :q => 'book-alt', # Journals (Print)
-        :t => 'question', # Manuscripts
-        :e => 'map', # Maps
-        :f => 'map', # Maps
-        :j => 'compact-disc', # Music (CDs)
-        :c => 'music', # Music (Scores)
-        :d => 'music', # Music (Scores)
-        :s => 'volume', # Music (Scores), Theses and Dissertations
-        :r => 'question', # Physical Objects
-        :k => 'question', # Print Graphics
-        :z => 'question', # Theses and Dissertations
-        :g => 'film', # Video (DVD, VHS, Film)
-    }
+  def format_name
+    material_type_map.dig(self[:material_type].to_sym, :name)
+  end
+
+  def format_icon
+    material_type_map.dig(self[:material_type].to_sym, :icon)
   end
 
   private
