@@ -1,0 +1,26 @@
+<%= render 'previous_next_doc' if @search_context %>
+
+<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe %>
+<% content_for(:head) { render_link_rel_alternates } %>
+
+<div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>">
+  <div id="doc_<%= @document.id.to_s.parameterize %> row">
+    <div class="thumbnail-wrapper col-xs-5 col-sm-4  col-md-3">
+      <%= content_tag(:div, class: "document-thumbnail", data: @document.identifier_data) do %>
+        <div class="default"><i class="far fa-5x fa-<%= @document.format_icon %>"></i></div>
+      <% end %>
+    </div>
+    <div class="col-sm-8  col-md-9">
+      <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+    </div>
+  </div>
+</div>
+
+<% if @document.respond_to?(:export_as_openurl_ctx_kev) %>
+  <!--
+       // COinS, for Zotero among others.
+       // This document_partial_name(@document) business is not quite right,
+       // but has been there for a while.
+  -->
+  <span class="Z3988" title="<%= @document.export_as_openurl_ctx_kev(document_partial_name(@document)) %>"></span>
+<% end %>
