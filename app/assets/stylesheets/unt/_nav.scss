@@ -1,0 +1,89 @@
+// Main & Secondary navigtation styles
+.navigation {
+
+    &__title {
+        font-size: $h5-font-size;
+        font-weight: bold;
+        font-family: $font-family-site-title;
+        border-left: 1px solid $white;
+        color: $white;
+        @include hover-focus {
+            color: $white;
+            text-decoration: none;
+        }
+    }
+
+    &--group {
+        margin-left: 7.5rem;
+        @include media-breakpoint-down(md) {
+        
+            .ml-auto {
+                margin-left: initial !important;
+            }
+
+        }
+    }
+    &--desktop {
+        .js-is-sticky & {
+            display: none !important;
+        }
+    }    
+    .nav-link {
+        text-transform: uppercase;
+        color: $white;
+        font-size: $font-size-sm;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;  
+        &.active {
+            background-color: $lime;
+            color: #000;
+            font-weight: bold;
+        }
+
+        &:hover {
+            background-color: $dark-green;
+        }
+        &:focus {
+            outline-color: #FFF;
+        }
+
+    }
+
+}
+
+
+// extend bootstrap nav styles
+.nav {
+    // appears near footer
+    &--social {
+        .nav-link {
+              color: $white;
+              border-radius: 100px;
+              @include hover-focus {
+                text-decoration: none;
+                background-color: $green;
+              }
+              @include media-breakpoint-up(md) {
+                font-size: $font-size-lg;
+              }
+
+
+        }        
+    }
+    &--sidebar {
+        .nav-link {
+            border-left: 5px solid $gray-300;
+            font-size: $font-size-sm;
+            &:hover,
+            &.active {
+                color: $black;
+                border-left-color: $blue;
+                text-shadow: 0 0 .15px $gray-600, 0 0 .15px $gray-600;
+
+            }
+            &.child::before {
+                content: '\00a0\00a0\00a0- ';
+            }
+        }
+    }
+}

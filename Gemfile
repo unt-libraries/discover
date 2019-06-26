@@ -12,9 +12,11 @@ gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '>= 2.7.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
+# Explicitly upgrade to Sprockets 4
+gem 'sprockets', '~> 4.0.0.beta8'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
@@ -67,7 +69,7 @@ group :development, :test do
 end
 
 gem 'rsolr', '>= 1.0', '< 3'
-gem 'bootstrap', '~> 4.0'
+gem 'bootstrap', '~> 4.3.1'
 gem 'popper_js'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 gem 'jquery-rails'

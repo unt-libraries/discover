@@ -35,7 +35,12 @@ function docIDObject() {
 }
 
 window.replaceImages = function (payload) {
-  const documentsEl = document.querySelector('#documents');
+  let documentsEl;
+  if (document.body.classList.contains('blacklight-catalog-index')) {
+    documentsEl = document.querySelector('#documents');
+  } else if (document.body.classList.contains('blacklight-catalog-show')) {
+    documentsEl = document.querySelector('#document');
+  }
   const docIDs = docIDObject();
   Object.entries(payload).forEach(([bookKey, bookData]) => {
     const [idType, id] = bookKey.split(':');

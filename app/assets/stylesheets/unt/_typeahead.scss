@@ -1,0 +1,35 @@
+span.twitter-typeahead {
+
+  .form-control {
+    &.with-append-after {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &.with-append-before {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+}
+
+.tt-cursor {
+    color: $list-group-action-hover-color;
+    background-color: $list-group-hover-bg;
+}
+
+  .input-group & {
+    display: flex !important;
+    align-items: center;
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+
+    .tt-menu, .tt-hint, .tt-input {
+      width: 100%;
+    }
+    .tt-menu.scrollable {
+      overflow-y: auto;
+      max-height: 400px;
+      box-shadow: 0px 10px 36px -10px rgba(0,0,0,0.75);
+    }
+  }
+}
