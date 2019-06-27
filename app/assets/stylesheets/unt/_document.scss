@@ -1,0 +1,24 @@
+.documents-list {
+  .document {
+    &.row {
+      padding-top: 30px;
+      padding-bottom: 30px;
+      border-bottom: #d5d5d5 solid 1px;
+    }
+    .document-metadata {
+
+      .result__field {
+        border-left: #d5d5d5 solid 4px;
+        padding-left: 15px;
+        width: 100%;
+      }
+      .result__label {
+        display: inline-block;
+        text-align: left;
+      }
+      .result__value {
+        display: inline-block;
+      }
+    }
+  }
+}

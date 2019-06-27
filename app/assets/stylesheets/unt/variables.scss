@@ -1,11 +1,12 @@
 // ==========================================================================
-// Unique Variables.
+// Variable overrides
 // ==========================================================================
 
 
 // Color system
-$white:             #fff;
 $green:             #00853E;
+
+$clearcoat:             #FFFFFF;
 
 //
 // Secondary Colors
@@ -32,27 +33,12 @@ $dark-teal:         #00788A;
 $light-blue:        #7FB3CE;
 $lime-green:        #C1D82F;
 $light-green:       #7AC143;
-$unt-green:        #007B3B;
+$unt-green:         #007B3B;
 $forest-green:      #254A33;
 
 // Breadcrumbs
 $breadcrumb-bg:             #FFFFFF;
 $breadcrumb-margin-bottom:  0;
-
-//
-// map for svg background fun.  No real need for all the colors
-//
-$shinies: (
-        white: #FFF,
-        lime: $lime,
-        dark-brown: $dark-brown,
-        light-teal: $light-teal,
-        dark-teal: $dark-teal,
-        dark-charcoal: $dark-charcoal,
-        lime-green: $lime-green,
-        unt-green: $unt-green,
-        forest-green: $forest-green
-);
 
 // Extends theme colors with custom ones for use in alerts, buttons, backgrounds, etc.
 $theme-colors: (

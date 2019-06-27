@@ -3,42 +3,42 @@ html, html a {
   text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }
 .content {
-    &__title {
-        border-bottom: 1px solid $gray-300;
-    }
-    
-    h2 {
-      text-transform: uppercase;
-      &.normal-case {
-        text-transform: initial;
-      }
-    }
+  &__title {
+    border-bottom: 1px solid $gray-300;
+  }
 
-    h2[id],
-    h3[id],
-    h4[id],
-    h5[id],
-    h6[id] {
-/*
-      &::before {
-        display: block;
-        height: 50px;
-        margin-top: -50px;
-        visibility: hidden;
-        content: "";        
-      }
-*/      
-      &:target {
-        color: $light-green;
-        padding-top: 50px;
-      }
+  h2 {
+    text-transform: uppercase;
+    &.normal-case {
+      text-transform: initial;
     }
+  }
 
-    &-section {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid $gray-200;
+  h2[id],
+  h3[id],
+  h4[id],
+  h5[id],
+  h6[id] {
+    /*
+          &::before {
+            display: block;
+            height: 50px;
+            margin-top: -50px;
+            visibility: hidden;
+            content: "";
+          }
+    */
+    &:target {
+      color: $light-green;
+      padding-top: 50px;
     }
+  }
+
+  &-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid $gray-200;
+  }
 
 }
 
@@ -49,15 +49,15 @@ html, html a {
 
 
 .breadcrumb {
-    font-size: $font-size-sm;
-    text-transform: capitalize;
-    color: $gray-600;
+  font-size: $font-size-sm;
+  text-transform: capitalize;
+  color: $gray-600;
 }
 
 .sidebar {
 
   &--left {
-   // border-left: 1px solid $gray-300;
+    // border-left: 1px solid $gray-300;
     //border-right: 1px solid $gray-300;
     //background-color: rgba(0,106,50, .04);
     color: $light-charcoal
@@ -74,55 +74,55 @@ html, html a {
     counter-reset: h2;
     @include list-unstyled;
 
-      & li:not(.toc-h3) >  a:before {
-          content: counter(h2, upper-roman) ". ";
-          counter-increment: h2;
-      }  
+    & li:not(.toc-h3) >  a:before {
+      content: counter(h2, upper-roman) ". ";
+      counter-increment: h2;
+    }
 
-      & ul {
-        @include list-unstyled;
-        padding-left: 1.25rem;
-        counter-reset: ul;
+    & ul {
+      @include list-unstyled;
+      padding-left: 1.25rem;
+      counter-reset: ul;
 
-        a:before {
-            content: counter(ul, upper-alpha) ". ";
-            counter-increment: ul;
-        }
-
+      a:before {
+        content: counter(ul, upper-alpha) ". ";
+        counter-increment: ul;
       }
+
+    }
   }
 
 }
 
 .numbered-list-roman{
-    counter-reset: h2;
+  counter-reset: h2;
 
-    & h2 {
-      counter-reset: h3; 
-    }
-    & h3 {
-      counter-reset: h4; 
-      text-transform: uppercase;
-    }
-    & h4 {
-      counter-reset: h5; 
-      text-transform: uppercase;
-    }
-    & h5 {
-      counter-reset: h6; 
-      text-transform: uppercase;
-    }
+  & h2 {
+    counter-reset: h3;
+  }
+  & h3 {
+    counter-reset: h4;
+    text-transform: uppercase;
+  }
+  & h4 {
+    counter-reset: h5;
+    text-transform: uppercase;
+  }
+  & h5 {
+    counter-reset: h6;
+    text-transform: uppercase;
+  }
 
-    & h2:not(.no-toc):before {
-        content: counter(h2, upper-roman) ". ";
-        counter-increment: h2;
-        font-size: 3rem;
-        color: $gray-600;
-    }  
-    & h3:not(.no-toc):before {
-        content: counter(h3, upper-alpha) ". ";
-        counter-increment: h3;
-        font-size: 2.25rem;
-        color: $gray-500;        
-    }              
+  & h2:not(.no-toc):before {
+    content: counter(h2, upper-roman) ". ";
+    counter-increment: h2;
+    font-size: 3rem;
+    color: $gray-600;
+  }
+  & h3:not(.no-toc):before {
+    content: counter(h3, upper-alpha) ". ";
+    counter-increment: h3;
+    font-size: 2.25rem;
+    color: $gray-500;
+  }
 }

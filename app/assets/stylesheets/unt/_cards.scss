@@ -1,0 +1,34 @@
+.card {
+  .select-widget {
+    select.form-control {
+      width: 65%;
+      @extend .mr-3;
+    }
+    button.btn{
+      @extend .btn-success;
+    }
+  }
+  &-img-banner {
+
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+    background-color: rgba(0,0,0,.75);
+    color: #FFF;
+
+    &-overlay {
+      position: relative;
+    }
+  }
+}
+
+@each $name, $breakpoint in $card-breakpoints {
+  @media (min-width: $breakpoint) {
+    .card-deck .card {
+      flex: 0 0 calc(#{100/map-get($cards-per-line, $name)}% - #{$card-gutter-width});
+    }
+  }
+}
+   
+
+    
