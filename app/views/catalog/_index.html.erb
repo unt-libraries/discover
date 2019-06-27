@@ -3,8 +3,24 @@
 <dl class="document-metadata dl-invert row">
 
   <% doc_presenter.fields_to_render.each do |field_name, field| -%>
-    <dt class="blacklight-<%= field_name.parameterize %> col-md-3 result__label"><%= render_index_field_label document, field: field_name %></dt>
-    <dd class="blacklight-<%= field_name.parameterize %> col-md-9 result__value"><%= doc_presenter.field_value field %></dd>
-  <% end -%>
+    <div class="result__field">
+      <dt class="blacklight-<%= field_name.parameterize %> result__label"><%= render_index_field_label document, field: field_name %></dt>
+      <dd class="blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
+    </div>
+    <% end -%>
 
 </dl>
+
+<%# Refworks -%>
+<% if document.identifier_data[:"bib-id"] != '' -%>
+    <%= link_to "https://export2refworks.library.unt.edu/processor_a.php?bib=#{document.identifier_data[:"bib-id"]}" do %>
+      <%= content_tag :div, "Add to Refworks" %>
+    <% end %>
+<% end -%>
+
+<%# ILLiad -%>
+<% if document.identifier_data[:"bib-id"] != '' -%>
+  <%= link_to "#{document.identifier_data[:"bib-id"]}" do %>
+    <%= content_tag :div, " Request through ILLiad (WIP)" %>
+  <% end %>
+<% end -%>
