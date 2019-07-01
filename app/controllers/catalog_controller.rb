@@ -210,29 +210,29 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'full_title', label: 'Title'
-    config.add_index_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet'
-    config.add_index_field 'contributors', label: 'Contributors'
+    config.add_index_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
+    config.add_index_field 'contributors', label: 'Contributors', separator_options: { words_connector: '; ' }
     config.add_index_field 'material_type', label: 'Format', accessor: 'format_name'
     # config.add_index_field 'languages', label: 'Languages'
-    config.add_index_field 'publishers', label: 'Publisher'
-    config.add_index_field 'publication_places', label: 'Publication Place'
-    config.add_index_field 'publication_dates', label: 'Publication Date'
+    config.add_index_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
+    config.add_index_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
+    config.add_index_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
     config.add_index_field 'main_call_number', label: 'Call number'
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
     # config.add_show_field 'full_title', label: 'Title'
-    config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet'
-    config.add_show_field 'contributors', label: 'Contributors'
+    config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
+    config.add_show_field 'contributors', label: 'Contributors', separator_options: { words_connector: '; ' }
     config.add_show_field 'material_type', label: 'Format', accessor: 'format_name'
-    config.add_show_field 'urls', label: 'URLs'
+    config.add_show_field 'urls', label: 'URLs', separator_options: { words_connector: '; ' }
     # config.add_show_field 'url_suppl_display', label: 'More Information'
-    config.add_show_field 'languages', label: 'Languages'
-    config.add_show_field 'publishers', label: 'Publisher'
-    config.add_show_field 'publication_places', label: 'Publication Place'
-    config.add_show_field 'publication_dates', label: 'Publication Date'
+    config.add_show_field 'languages', label: 'Languages', separator_options: { words_connector: '; ' }
+    config.add_show_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
+    config.add_show_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
+    config.add_show_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
     config.add_show_field 'main_call_number', label: 'Call number'
-    config.add_show_field 'isbn_numbers', label: 'ISBN'
+    config.add_show_field 'isbn_numbers', label: 'ISBN', separator_options: { words_connector: '; ' }
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
