@@ -2,18 +2,13 @@
 // Variable overrides
 // ==========================================================================
 
-
-// Color system
-$green:             #00853E;
-
-$clearcoat:             #FFFFFF;
-
 //
 // Secondary Colors
 //
 
 $lime:              #72B844;           // UNT Light Green RGB: 114,184,62
 $dark-green:        #006A31;           // UNT Dark Green: RGB: 0,106,49
+$green:             #00853E;
 $beige:             #E5DBAE;           // Beige. 229,219,174
 $light-brown:       #887A68;           // Light Brown. RGB: 136,122,104
 $dark-brown:        #52301B;           // Dark Brown. RGB: 82,48,27
@@ -36,6 +31,19 @@ $light-green:       #7AC143;
 $unt-green:         #007B3B;
 $forest-green:      #254A33;
 
+$brand-greyscale:           #2d2c2c !default;  // official (dark) grey of UNT
+
+// set bootstrap color variables to defined colors
+
+$gray-base:              shade($brand-greyscale, 20%);
+$gray-darker:            $brand-greyscale;
+$gray-dark:              tint($brand-greyscale, 20%);
+$gray:                   tint($brand-greyscale, 40%);
+$gray-light:             tint($brand-greyscale, 60%);
+$gray-lighter:           tint($brand-greyscale, 80%);
+
+$clearcoat:             #FFFFFF;
+
 // Breadcrumbs
 $breadcrumb-bg:             #FFFFFF;
 $breadcrumb-margin-bottom:  0;
@@ -57,6 +65,7 @@ $theme-colors: (
         "light-teal":     $light-teal,
         "dark-teal":      $dark-teal,
         "light-blue":     $light-blue,
+        "green":          $green,
         "lime-green":     $lime-green,
         "light-green":    $light-green,
         "unt-green":      $unt-green,
@@ -69,6 +78,7 @@ $theme-colors: (
 // Quickly modify global styling by enabling or disabling optional features.
 
 $enable-responsive-font-sizes: true;
+$enable-rounded: false;
 
 // Spacing
 //

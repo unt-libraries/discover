@@ -13,7 +13,7 @@ function ready(fn) {
 }
 
 function docIDObject() {
-  const thumbnails = document.querySelectorAll('.document-thumbnail');
+  const thumbnails = document.querySelectorAll('.thumbnail-link');
   const docObject = {};
   Object.keys(idTypes).forEach((idKey) => {
     docObject[idKey] = {};
@@ -46,19 +46,19 @@ window.replaceImages = function (payload) {
     const [idType, id] = bookKey.split(':');
     const docThumbEl = documentsEl.querySelector(`[data-bib-id="${docIDs[idType][id].bib}"]`);
     if (has.call(bookData, 'thumbnail_url')) {
-      const thumbPlaceholder = docThumbEl.querySelector('.default');
+      const thumbPlaceholder = docThumbEl.querySelector('.document-thumbnail');
       if (thumbPlaceholder) {
         const imgSrcZoom = bookData.thumbnail_url.replace(/zoom=./, 'zoom=1');
         const imgSrc = imgSrcZoom.replace('&edge=curl', '');
         console.log(`${imgSrc}`);
-        thumbPlaceholder.outerHTML = `<img class="thumbnail-loaded" src="${imgSrc}">`;
+        thumbPlaceholder.outerHTML = `<img class="document-thumbnail thumbnail-loaded img-fluid" src="${imgSrc}">`;
       }
     }
   });
 };
 
 function docIDArray() {
-  const thumbnails = document.querySelectorAll('.document-thumbnail');
+  const thumbnails = document.querySelectorAll('.thumbnail-link');
   const docArray = [];
   thumbnails.forEach((thumb) => {
     Object.entries(idTypes).forEach(([idKey, dataID]) => {

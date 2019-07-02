@@ -5,11 +5,7 @@
 
 <div id="document" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>">
   <div id="doc_<%= @document.id.to_s.parameterize %> row">
-    <div class="thumbnail-wrapper col-xs-5 col-sm-4  col-md-3">
-      <%= content_tag(:div, class: "document-thumbnail", data: @document.identifier_data) do %>
-        <div class="default"><i class="far fa-5x fa-<%= @document.format_icon %>"></i></div>
-      <% end %>
-    </div>
+    <%= render_document_partials @document, ['thumbnail'] %>
     <div class="col-sm-8  col-md-9">
       <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
     </div>

@@ -1,0 +1,9 @@
+<div class="thumbnail-wrapper col-xs-5 col-sm-4 col-md-3">
+  <% if presenter(document).respond_to?('thumbnail') && presenter(document).thumbnail.exists? && tn = presenter(document).thumbnail.thumbnail_tag({}, counter: document_counter_with_offset(document_counter)) %>
+    <%= tn %>
+  <% else %>
+    <%= link_to(document, class: "thumbnail-link", data: document.identifier_data) do %>
+      <div class="document-thumbnail text-center"><i class="far fa-10x fa-<%= document.format_icon %>"></i></div>
+    <% end %>
+  <% end %>
+</div>
