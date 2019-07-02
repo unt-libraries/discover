@@ -58,18 +58,18 @@ class SolrDocument
           :m => { :name => 'Computer File', :icon => 'file' },
           :b => { :name => 'Database', :icon => 'database' },
           :o => { :name => 'Educational Kit', :icon => 'book' },
-          :y => { :name => 'Journal (Online)', :icon => 'question' },
+          :y => { :name => 'Journal (Online)', :icon => 'book-alt' },
           :q => { :name => 'Journal (Print)', :icon => 'book-alt' },
-          :t => { :name => 'Manuscript', :icon => 'question' },
+          :t => { :name => 'Manuscript', :icon => 'scroll' },
           :e => { :name => 'Map', :icon => 'map' },
           :f => { :name => 'Map', :icon => 'map' },
           :j => { :name => 'Music (CD)', :icon => 'compact-disc' },
           :c => { :name => 'Music (Score)', :icon => 'music' },
           :d => { :name => 'Music (Score)', :icon => 'music' },
           :s => { :name => 'Music (Score), Theses and Dissertations', :icon => 'volume' },
-          :r => { :name => 'Physical Object', :icon => 'question' },
-          :k => { :name => 'Print Graphics', :icon => 'question' },
-          :z => { :name => 'Theses and Dissertations', :icon => 'question' },
+          :r => { :name => 'Physical Object', :icon => 'cube' },
+          :k => { :name => 'Print Graphics', :icon => 'images' },
+          :z => { :name => 'Theses and Dissertations', :icon => 'book' },
           :g => { :name => 'Video (DVD, VHS, Film)', :icon => 'film' }
       }
   end
