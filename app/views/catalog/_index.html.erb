@@ -10,17 +10,3 @@
     <% end -%>
 
 </dl>
-
-<%# Refworks -%>
-<% if document.identifier_data[:"bib-id"] != '' -%>
-    <%= link_to "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document.identifier_data[:"bib-id"]}", target: "_blank" do %>
-      <%= content_tag :div, "Add to Refworks" %>
-    <% end %>
-<% end -%>
-
-<%# ILLiad -%>
-<% if document.identifier_data[:"bib-id"] != '' -%>
-  <%= link_to "https://unt.illiad.oclc.org/illiad/illiad.dll?Action%3D10&Form%3D30", target: "_blank" do %>
-    <%= content_tag :div, " Request through ILLiad" %>
-  <% end %>
-<% end -%>
