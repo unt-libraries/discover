@@ -9,6 +9,8 @@
   <%= render partial: 'shared/header/header' %>
 
   <div id="main-container" class="<%= container_classes %>">
+    <%= render partial: 'shared/content/breadcrumbs' %>
+
     <%= content_for(:container_header) %>
 
     <%= render partial: 'shared/flash_msg', layout: 'shared/flash_messages' %>

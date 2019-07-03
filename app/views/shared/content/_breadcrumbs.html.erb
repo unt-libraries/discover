@@ -1,0 +1,37 @@
+<% url_home = "https://library.unt.edu" %>
+
+<nav aria-label="breadcrumb" class="pt-3">
+  <ol class="breadcrumb justify-content-end px-0">
+    <li class="breadcrumb-item">
+      <a class="btn btn-link btn-sm p-0" data-event-category="link"
+         data-event-action="breadcrumb"
+         data-event-label="1"
+         href="<%= url_home %>">home</a></li>
+
+    <li class="breadcrumb-item">
+      <a class="btn btn-link btn-sm p-0"
+         data-event-category="link"
+         data-event-action="breadcrumb"
+         data-event-label="2"
+         href="/">Discover</a></li>
+
+    <% if current_search_session %>
+    <li class="breadcrumb-item">
+      <%= link_back_to_catalog label: 'Results',
+                               class: 'btn btn-link btn-sm p-0',
+                               'data-event-category': 'link',
+                               'data-event-action': 'breadcrumb',
+                               'data-event-label': '3' %>
+    </li>
+      <% if params[:action] == 'show' %>
+        <li class="breadcrumb-item">
+          <%= link_to_document @document, "This #{@document.format_name}",
+                                   class: 'btn btn-link btn-sm p-0',
+                                   'data-event-category': 'link',
+                                   'data-event-action': 'breadcrumb',
+                                   'data-event-label': '4' %>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+</nav>
