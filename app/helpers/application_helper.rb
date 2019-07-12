@@ -53,14 +53,23 @@ module ApplicationHelper
       html_attributes = option_html_attributes(element)
       text, value = option_text_and_value(element).map(&:to_s)
 
-      html_attributes[:type] = "button"
+      html_attributes[:href] = "#"
       html_attributes[:class] = "dropdown-item"
+      html_attributes['data-search-field'] = value
+      html_attributes['data-pretty'] = text
       html_attributes[:selected] ||= option_value_selected?(value, selected)
       html_attributes[:disabled] ||= disabled && option_value_selected?(value, disabled)
-      html_attributes[:value] = value
 
-      tag_builder.content_tag_string("button", text, html_attributes)
+      tag_builder.content_tag_string("a", text, html_attributes)
     end.join("\n").html_safe
+  end
+
+  #
+  def dropdown_label_for_search_field(key)
+    field_config = blacklight_config.search_fields[key]
+    field_config ||= blacklight_config.search_fields['text']
+
+    field_config.display_label('search')
   end
 end
 

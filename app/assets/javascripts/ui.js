@@ -92,3 +92,43 @@ function replaceBookCovers() {
 }
 
 ready(replaceBookCovers);
+
+// Override link behavior within dropdown menu associated with search form for resource type,
+// appending values to hidden form element.
+function searchSelector() {
+  /*
+      options = {
+          selector: '#t-selector a',  // A sizzle selector for the onclick event
+          name: 't',                  // The form element name to update
+          all: None
+      }
+  */
+
+  $('#search_field_dropdown .dropdown-item').on('click', (e) => {
+    // stop the link from acting like a link
+    e.preventDefault();
+
+    // set variables
+    const $selected = $(e.target);
+    const selectedText = $selected.attr('data-pretty');
+    const $dropdown = $selected.parents('.dropdown');
+    const scopeValue = $selected.attr('data-search-field');
+
+    // Set the visible text of the dropdown menu to whatever was selected
+    $dropdown.find('.selected')
+      .empty()
+      .append(selectedText);
+
+    $('#search_field_input').val(scopeValue);
+
+    // close the dropdown
+    if ($dropdown.is('.open')) {
+      $dropdown.removeClass('open');
+    }
+
+    // Send focus back to the text input
+    $('#q').focus();
+  });
+}
+
+ready(searchSelector);

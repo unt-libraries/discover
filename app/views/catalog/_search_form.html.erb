@@ -10,17 +10,20 @@
 
     <div class="input-group-append">
     <% if search_fields.length > 1 %>
-      <button id="search-fields" class="btn dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= t('blacklight.search.form.search_field.label') %>
-        <span class="selected"><%= @response %></span>
-      </button>
-      <%= select_tag(:search_field,
-                     options_for_select(search_fields, h(params[:search_field])),
-                     title: t('blacklight.search.form.search_field.title'),
-                     # type: "button",
-                     id: "search_field",
-                     class: "dropdown-menu search-field search__btn",
-                     'aria-labelledby': "search-fields") %>
+      <div class="dropdown">
+        <button class="btn dropdown-toggle search__btn" type="button" id="search-fields" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= t('blacklight.search.form.search_field.label') %>
+          <span class="selected"><%= dropdown_label_for_search_field(params[:search_field]) %></span>
+        </button>
+        <%= bootstrap_select_tag(:search_field,
+                                 bootstrap_options_for_select(search_fields, h(params[:search_field])),
+                                 title: t('blacklight.search.form.search_field.title'),
+                                 # type: "button",
+                                 id: "search_field_dropdown",
+                                 class: "dropdown-menu",
+                                 'aria-labelledby': "search-fields") %>
+      </div>
+      <input type="hidden" name="search_field" id="search_field_input" value="<%= params[:search_field] %>">
     <% elsif search_fields.length == 1 %>
       <%= hidden_field_tag :search_field, search_fields.first.last %>
     <% end %>
