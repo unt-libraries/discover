@@ -1,3 +1,38 @@
 en:
+  views:
+    pagination:
+      first: '&laquo; First'
+      last: 'Last &raquo;'
+      previous: '&laquo;'
+      next: '&raquo;'
+      truncate: '…'
+      aria:
+        container_label: 'pagination links'
+        current_page: 'Current Page, Page %{page}'
+        go_to_page: 'Go to page %{page}'
+        go_to_previous_page: 'Go to previous page'
+        go_to_next_page: 'Go to next page'
+        go_to_first_page: 'Go to first page'
+        go_to_last_page: 'Go to last page'
+
+    pagination_compact:
+      previous: '<i class="fa fa-caret-left"></i> prev'
+      next: 'next <i class="fa fa-caret-right"></i>'
   blacklight:
     application_name: 'Discover'
+
+    search:
+      page_title:
+        title: 'Search Results -- %{total_num} Matching Results - %{application_name}'
+      form:
+        search_field:
+          label: 'Look in: '
+        search:
+          label: 'Your Search Terms:'
+          placeholder: ''
+      pagination_info:
+        no_items_found: 'No %{entry_name} Found'
+        single_item_found: '<span class="results-count__label hidden-xs hidden-sm">We Found </span><span class="results-count__current">1</span> <span class="results-count__label">%{entry_name}</span>'
+        pages:
+          one: '<span class="results-count__label">Results: </span><span class="results-count__current">%{start_num} - %{end_num} <span class="d-none d-md-inline">of %{total_num}</span></span>'
+          other: '<span class="results-count__label">Results: </span><span class="results-count__current">%{start_num} - %{end_num} <span class="d-none d-md-inline">of %{total_num}</span></span>'

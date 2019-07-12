@@ -1,0 +1,22 @@
+.sort-pagination {
+  background-color: theme-color-level("lime", -80);
+  padding: $pagination-padding-y  $pagination-padding-x;
+  margin: 0 !important;
+  border: 1px solid transparent;
+
+  .results-count {
+    &__current {
+      font-weight: bold;
+    }
+  }
+}
+
+.page-links {
+  padding: 0;
+
+  & .btn {
+    font-size: .875em;
+    padding-left: $btn-padding-x-sm / 2;
+    padding-right: $btn-padding-x-sm / 2;
+  }
+}

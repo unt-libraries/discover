@@ -2,6 +2,20 @@
 // Variable overrides
 // ==========================================================================
 
+// Color system
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
 //
 // Secondary Colors
 //
@@ -28,10 +42,11 @@ $dark-teal:         #00788A;
 $light-blue:        #7FB3CE;
 $lime-green:        #C1D82F;
 $light-green:       #7AC143;
+$mint-green:        #98ff98;
 $unt-green:         #007B3B;
 $forest-green:      #254A33;
 
-$brand-greyscale:           #2d2c2c !default;  // official (dark) grey of UNT
+$brand-greyscale:           #2d2c2c;  // official (dark) grey of UNT
 
 // set bootstrap color variables to defined colors
 
@@ -50,6 +65,7 @@ $breadcrumb-margin-bottom:  0;
 
 // Extends theme colors with custom ones for use in alerts, buttons, backgrounds, etc.
 $theme-colors: (
+        "primary":        $unt-green,
         "lime":           $lime,
         "dark-green":     $dark-green,
         "beige":          $beige,
@@ -68,10 +84,19 @@ $theme-colors: (
         "green":          $green,
         "lime-green":     $lime-green,
         "light-green":    $light-green,
+        "mint-green":     $mint-green,
         "unt-green":      $unt-green,
         "forest-green":   $forest-green,
-        "primary":        $unt-green,
+        "gray-base":      mix(black, $brand-greyscale, 20),
+        "gray-darker":    $brand-greyscale,
+        "gray-dark":      mix(white, $brand-greyscale, 20),
+        "gray":           mix(white, $brand-greyscale, 40),
+        "gray-light":     mix(white, $brand-greyscale, 60),
+        "gray-lighter":   mix(white, $brand-greyscale, 80),
 );
+
+// Set a specific jump point for requesting color jumps
+$theme-color-interval:      1%;
 
 // Options
 //
@@ -115,6 +140,13 @@ $spacers: (
 // Style anchor elements.
 
 $link-color:                $green;
+$link-hover-color:          darken($link-color, 15%) !default;
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+$border-width:                1px !default;
 
 // Typography
 //
@@ -127,6 +159,12 @@ $headings-font-family:        "Oswald","Helvetica Neue",Helvetica,Arial,sans-ser
 // Site Title
 //
 $font-family-site-title: "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Verdana, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
+
+// Buttons + Forms
+//
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
+
+$input-btn-border-width:      $border-width !default;
 
 // Buttons
 //
@@ -142,6 +180,21 @@ $drawer-directions: (
         right: right,
         left: left
 );
+
+// Forms
+
+//$input-color:                           theme-color-level(gray-darker, -98);
+$input-bg:                              theme-color-level(gray-darker, -98);
+$input-border-color:                    theme-color-level(gray-darker, -90);
+$input-border-width:                    $input-btn-border-width !default;
+$input-box-shadow:                      inset 0 1px 1px rgba($black, .075) !default;
+
+$input-focus-bg:                        theme-color-level(dark-teal, -95);
+//$input-focus-border-color:              lighten($component-active-bg, 25%) !default;
+//$input-focus-color:                     $input-color !default;
+//$input-focus-width:                     $input-btn-focus-width !default;
+$input-focus-box-shadow:                inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+
 
 // Dropdowns
 //

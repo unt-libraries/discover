@@ -1,0 +1,31 @@
+.search {
+  &__form {
+    margin-bottom: $form-group-margin-bottom;
+  }
+  &__label {
+    font-weight: normal;
+    font-size: $font-size-base * .9;
+  }
+
+  &__input {
+    background-color: $input-bg;
+    box-shadow: none;
+    &:focus {
+      background-color: $input-focus-bg;
+    }
+  }
+
+  &__btn {
+    background-color: $input-bg;
+    border-top: 1px solid $input-border-color;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid $input-border-color;
+    border-left: 1px solid $input-border-color;
+
+    &:focus {
+      border-color: #66AFEC;
+      background-color: $input-focus-bg;
+      box-shadow: $input-focus-box-shadow;
+    }
+  }
+}
