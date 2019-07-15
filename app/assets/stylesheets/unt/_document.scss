@@ -5,6 +5,9 @@
       padding-bottom: 30px;
       border-bottom: #d5d5d5 solid 1px;
     }
+    .document-title-heading {
+      font-size: $h4-font-size;
+    }
     .document-metadata {
 
       .result__field {
@@ -13,11 +16,15 @@
         width: 100%;
       }
       .result__label {
-        display: inline-block;
+        color: theme-color("gray-darker");
+        font-weight: $font-weight-bold;
+        font-size: $font-size-sm;
+        text-transform: uppercase;
+        display: inline;
         text-align: left;
       }
       .result__value {
-        display: inline-block;
+        display: inline;
       }
     }
   }
