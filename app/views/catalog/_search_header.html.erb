@@ -1,3 +1,24 @@
-<%= render 'did_you_mean' %>
-<%= render 'shared/content/search-bar' %>
-<%= render 'sort_and_per_page' %>
+<div class="row mb-4">
+  <div class="col-12">
+    <%= render 'search_results_num_header' %>
+    <%= render 'did_you_mean' %>
+  </div>
+</div>
+
+<div class="row mb-2">
+  <div class="col-12">
+    <%= render 'shared/content/search-bar' %>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-12">
+    <%= render 'constraints' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <%= render 'sort_and_per_page' %>
+  </div>
+</div>

@@ -10,9 +10,9 @@ module ApplicationHelper
   # Return the number of search results from the response object
   #
   # @param [Blacklight::Solr::Response] response
-  # @return [Integer]
+  # @return [String]
   def get_number_search_results(response)
-    response['response']['numFound']
+    number_with_delimiter(response['response']['numFound'])
   end
 
   #

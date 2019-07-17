@@ -22,6 +22,14 @@
   }
 }
 
+.facet-limit {
+  &-active {
+    .facet-field-heading {
+      color: $white;
+    }
+  }
+}
+
 @each $name, $breakpoint in $card-breakpoints {
   @media (min-width: $breakpoint) {
     .card-deck .card {

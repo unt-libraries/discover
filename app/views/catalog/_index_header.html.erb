@@ -10,7 +10,7 @@
   <% end %>
 
   <div class="col-10">
-    <h3 class="index_title document-title-heading">
+    <h2 class="index_title document-title-heading">
       <!--  <h3 class="index_title document-title-heading <%#= document_actions.present? ? "col-sm-9 col-lg-10" : "col-md-12" %>">-->
       <% if counter = document_counter_with_offset(document_counter) %>
       <span class="document-counter d-none">
@@ -18,7 +18,7 @@
       </span>
       <% end %>
       <%= link_to_document document, counter: counter %>
-    </h3>
+    </h2>
   </div>
   <div class="col-2 dropdown">
     <button type="button" class="btn btn-success btn-sm float-right" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

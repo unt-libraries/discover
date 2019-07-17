@@ -1,0 +1,9 @@
+<% if show_pagination? and @response.total_pages > 1 %>
+ <div class="row justify-content-center record-padding my-4">
+  <div class="col-auto">
+    <nav class="pagination" role="region" aria-label="<%= t('views.pagination.aria.container_label') %>">
+      <%= paginate @response, :outer_window => 2, :theme => 'blacklight' %>
+    </nav>
+  </div>
+ </div>
+<% end %>
