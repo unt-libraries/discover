@@ -1,1 +1,5 @@
-<h1><%= get_number_search_results(@response) %> Matching Results</h1>
+<% if get_number_search_results(@response).to_i == 1 %>
+  <h1>1 Matching Result</h1>
+<% else %>
+  <h1><%= get_number_search_results(@response) %> Matching Results</h1>
+<% end %>

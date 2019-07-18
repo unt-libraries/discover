@@ -1,0 +1,8 @@
+.alert {
+  .suggest {
+    @extend .alert-warning;
+    a {
+      @extend .alert-link;
+    }
+  }
+}
