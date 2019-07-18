@@ -22,7 +22,7 @@ module Blacklight
     # Classes used for sizing the main content of a Blacklight page
     # @return [String]
     def main_content_classes
-      'content col-12 col-md-8 order-2 mt-4'
+      'content col-12 col-md-8 order-2 my-4'
     end
 
     ##

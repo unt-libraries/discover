@@ -4,6 +4,8 @@
       padding-top: 30px;
       padding-bottom: 30px;
       border-bottom: #d5d5d5 solid 1px;
+      margin-left: -$card-spacer-x;
+      margin-right: -$card-spacer-x;
     }
     .document-title-heading {
       font-size: $h4-font-size;
