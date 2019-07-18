@@ -8,7 +8,7 @@
 %>
 
 <a href="<%= options[:remove] %>"
-   class="btn btn-sm btn-outline-secondary applied-filter constraint <%= options[:classes].join(" ") if options[:classes] %> <%= "disabled" if options[:remove].blank? %>"
+   class="btn btn-sm btn-dark-teal applied-filter constraint <%= options[:classes].join(" ") if options[:classes] %> <%= "disabled" if options[:remove].blank? %>"
    role="button"
  <%= 'aria-disabled="true"' if options[:remove].blank? %>>
   <span class="constraint-value">
