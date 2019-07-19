@@ -26,6 +26,13 @@ module Blacklight
     end
 
     ##
+    # Classes used for sizing the main content when full width
+    # @return [String]
+    def main_content_full_width_classes
+      'content col-12 my-4'
+    end
+
+    ##
     # Classes used for sizing the sidebar content of a Blacklight page
     # @return [String]
     def sidebar_classes
