@@ -36,3 +36,5 @@ en:
         pages:
           one: '<span class="results-count__label">Results: </span><span class="results-count__current">%{start_num} - %{end_num} <span class="d-none d-md-inline">of %{total_num}</span></span>'
           other: '<span class="results-count__label">Results: </span><span class="results-count__current">%{start_num} - %{end_num} <span class="d-none d-md-inline">of %{total_num}</span></span>'
+      documents:
+        counter: 'Result #%{counter}:'

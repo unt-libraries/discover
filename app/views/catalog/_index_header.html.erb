@@ -13,7 +13,7 @@
     <h2 class="index_title document-title-heading">
       <!--  <h3 class="index_title document-title-heading <%#= document_actions.present? ? "col-sm-9 col-lg-10" : "col-md-12" %>">-->
       <% if counter = document_counter_with_offset(document_counter) %>
-      <span class="document-counter d-none">
+      <span class="document-counter sr-only">
         <%= t('blacklight.search.documents.counter', counter: counter) %>
       </span>
       <% end %>
@@ -27,20 +27,28 @@
     <div class="dropdown-menu dropdown-menu-right">
       <%# Refworks -%>
       <% if document.identifier_data[:"bib-id"] != '' -%>
-        <%= link_to "Add to Refworks", "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document.identifier_data[:"bib-id"]}",
-                    class: "dropdown-item", target: "_blank" %>
+        <%= link_to "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document.identifier_data[:"bib-id"]}",
+                    class: "dropdown-item", target: "_blank" do -%>
+          Add <span class="sr-only"><%= document[:full_title] -%></span>to Refworks
+        <% end -%>
       <% end -%>
       <%# ILLiad -%>
       <% if document.identifier_data[:"bib-id"] != '' -%>
-        <%= link_to "Request through ILLiad", "https://unt.illiad.oclc.org/illiad/illiad.dll?Action%3D10&Form%3D30",
-                    class: "dropdown-item", target: "_blank" %>
+        <%= link_to "https://unt.illiad.oclc.org/illiad/illiad.dll?Action%3D10&Form%3D30",
+                    class: "dropdown-item", target: "_blank" do -%>
+          Request <span class="sr-only"><%= document[:full_title] -%></span>through ILLiad
+        <% end -%>
       <% end -%>
-      <a class="dropdown-item" href="#">Request through AEON</a>
+      <a class="dropdown-item" href="#">
+        Request <span class="sr-only"><%= document[:full_title] -%></span>through AEON
+      </a>
       <div class="dropdown-divider"></div>
       <%= link_to "Find It", "#",
-                  class: "dropdown-item", target: "_blank" %>
+                  class: "dropdown-item", target: "_blank", "aria-label": "Find #{document[:full_title]}" %>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Faculty: Book This Item</a>
+      <a class="dropdown-item" href="#">
+        Faculty: Book This Item<span class="sr-only">,<%= document[:full_title] -%></span>
+      </a>
     </div>
   </div>
 
