@@ -10,7 +10,7 @@
 
     <div class="input-group-append">
     <% if search_fields.length > 1 %>
-      <div class="dropdown">
+      <div class="dropdown" id="searchFieldDropdownGroup">
         <button class="btn dropdown-toggle search__btn" type="button" id="search-fields" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= t('blacklight.search.form.search_field.label') %>
           <span class="selected"><%= dropdown_label_for_search_field(params[:search_field]) %></span>
