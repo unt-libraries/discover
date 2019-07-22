@@ -12,6 +12,26 @@ function ready(fn) {
   }
 }
 
+// IE8+ compatible test for class on element
+function elHasClass(el, className) {
+  let hasClass;
+  if (el.classList) {
+    hasClass = el.classList.contains(className);
+  } else {
+    hasClass = new RegExp(`(^| )${className}( |$)`, 'gi').test(el.className);
+  }
+  return hasClass;
+}
+
+// IE8+ compatible add class to element
+function elAddClass(el, className) {
+  if (el.classList) {
+    el.classList.add(className);
+  } else {
+    el.className += ` ${className}`;
+  }
+}
+
 function docIDObject() {
   const thumbnails = document.querySelectorAll('.thumbnail-link');
   const docObject = {};
@@ -36,9 +56,9 @@ function docIDObject() {
 
 window.replaceImages = function (payload) {
   let documentsEl;
-  if (document.body.classList.contains('blacklight-catalog-index')) {
+  if (elHasClass(document.body, 'blacklight-catalog-index')) {
     documentsEl = document.querySelector('#documents');
-  } else if (document.body.classList.contains('blacklight-catalog-show')) {
+  } else if (elHasClass(document.body, 'blacklight-catalog-show')) {
     documentsEl = document.querySelector('#document');
   }
   const docIDs = docIDObject();
@@ -46,12 +66,15 @@ window.replaceImages = function (payload) {
     const [idType, id] = bookKey.split(':');
     const docThumbEl = documentsEl.querySelector(`[data-bib-id="${docIDs[idType][id].bib}"]`);
     if (has.call(bookData, 'thumbnail_url')) {
-      const thumbPlaceholder = docThumbEl.querySelector('.document-thumbnail');
-      if (thumbPlaceholder) {
+      const thumbContainer = docThumbEl.querySelector('.document-thumbnail');
+      if (thumbContainer && !elHasClass(thumbContainer, 'thumbnail-loaded')) {
+        const titleEl = thumbContainer.querySelector('.item-title');
+        const itemTitle = titleEl.textContent;
         const imgSrcZoom = bookData.thumbnail_url.replace(/zoom=./, 'zoom=1');
         const imgSrc = imgSrcZoom.replace('&edge=curl', '');
-        console.log(`${imgSrc}`);
-        thumbPlaceholder.outerHTML = `<img class="document-thumbnail thumbnail-loaded img-fluid" src="${imgSrc}">`;
+        console.log(`imgSrc: ${imgSrc}`);
+        thumbContainer.innerHTML = `<img class="img-fluid" src="${imgSrc}" alt="${itemTitle}">`;
+        elAddClass(thumbContainer, 'thumbnail-loaded');
       }
     }
   });
