@@ -210,8 +210,8 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'full_title', label: 'Title'
-    config.add_index_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
-    config.add_index_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
+    config.add_index_field 'creator', label: 'Author/Creator', helper_method: :author_facet_links
+    config.add_index_field 'contributors', label: 'Contributors', helper_method: :author_facet_links
     config.add_index_field 'material_type', label: 'Format', accessor: 'format_name'
     # config.add_index_field 'languages', label: 'Languages'
     config.add_index_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }

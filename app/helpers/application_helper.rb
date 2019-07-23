@@ -71,5 +71,17 @@ module ApplicationHelper
 
     field_config.display_label('search')
   end
-end
 
+  def author_facet_links(options={})
+    links = []
+
+    options[:value].each do |value|
+      link = link_to(value, "/?f[public_author_facet][]=#{CGI.escape(value)}",
+                     class: "",
+                     "data-toggle" => "tooltip",
+                     title: "Search for #{value}")
+      links.push(link)
+    end
+    links.join('; ').html_safe
+  end
+end
