@@ -1,0 +1,56 @@
+
+
+.sidenav {
+  .navbar {
+    z-index: 1;
+    background-color: theme-color("gray-darker");
+    box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  }
+  .navbar-toggler {
+    border-color: $navbar-dark-toggler-border-color;
+    color: $navbar-dark-active-color;
+
+    @include hover-focus {
+      color: $navbar-dark-active-color;
+    }
+  }
+
+  .navbar-toggler-icon {
+    background-image: $navbar-dark-toggler-icon-bg;
+  }
+  .facets-heading {
+    color: $white;
+  }
+  .facet-limit {
+    margin-bottom: 0;
+    border-top: 0;
+
+    .card-header {
+      background-color: $white;
+    }
+    &-active {
+      border-color: theme-color("dark-teal") !important;
+      .card-header {
+        background-color: theme-color("dark-teal") !important;
+      }
+      .selected {
+        color: theme-color("dark-teal") !important;
+      }
+      .remove {
+        color: theme-color("dark-teal") !important;
+        &:hover,
+        &:focus {
+          color: theme-color-level("dark-teal", 2) !important;
+        }
+      }
+      .facet-field-heading {
+        color: $white;
+      }
+    }
+  }
+  .facet-label {
+    .remove {
+      text-indent: 0;
+    }
+  }
+}
