@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/app
     ports:
-      - "3000:3000"
+      - "${RAILS_PORT}:3000"
     depends_on:
       - db
     restart: always
