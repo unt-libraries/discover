@@ -32,8 +32,7 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
 
 deploy:development:
   extends: .deploy
-  variables:
-    RAILS_PORT: 3000
   environment:
     name: development
     url: alpha.discover.library.unt.edu
+    RAILS_PORT: 3000
