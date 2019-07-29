@@ -82,7 +82,6 @@
           const itemTitle = titleEl.textContent;
           const imgSrcZoom = bookData.thumbnail_url.replace(/zoom=./, 'zoom=1');
           const imgSrc = imgSrcZoom.replace('&edge=curl', '');
-          console.log(`imgSrc: ${imgSrc}`);
           thumbContainer.innerHTML = `<img class="img-fluid" src="${imgSrc}" alt="${itemTitle}">`;
           elAddClass(thumbContainer, 'thumbnail-loaded');
         }
@@ -161,4 +160,27 @@
   }
 
   ready(searchSelector);
+
+  function bindAccordians() {
+    $('#facetsExpandCollapse').on('click', function () {
+      const $target = $(this);
+      const $facetElements = $('.panel-collapse.facet-content');
+      const buttonAction = $target.attr('data-button-action');
+      if (buttonAction === 'expand') {
+        $facetElements.collapse('show');
+        $target.attr('data-button-action', 'collapse')
+          .tooltip('hide')
+          .attr('data-original-title', 'Collapse all')
+          .tooltip('show');
+      } else if (buttonAction === 'collapse') {
+        $facetElements.collapse('hide');
+        $target.attr('data-button-action', 'expand')
+          .tooltip('hide')
+          .attr('data-original-title', 'Expand all')
+          .tooltip('show');
+      }
+    });
+  }
+
+  ready(bindAccordians);
 }());

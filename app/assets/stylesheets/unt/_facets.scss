@@ -1,5 +1,3 @@
-
-
 .sidenav {
   .navbar {
     z-index: 1;
@@ -21,12 +19,53 @@
   .facets-heading {
     color: $white;
   }
+  .facets-expand-collapse {
+    background-color: inherit;
+    border: 0;
+    padding: 0 4px 0 0;
+    transform: rotate(-90deg);
+    transition: transform 0.1s ease;
+
+
+
+    &[data-button-action="collapse"] {
+      transform: rotate(0deg);
+      transition: transform 0.1s ease;
+    }
+
+    @include hover-focus {
+      box-shadow: none;
+      color: $navbar-dark-active-color;
+    }
+  }
   .facet-limit {
     margin-bottom: 0;
     border-top: 0;
 
     .card-header {
       background-color: $white;
+
+      &.collapse-toggle {
+        margin-bottom: 0;
+
+        &::after {
+          content: none;
+        }
+
+        .expand-collapse-icon {
+          transform: rotate(0deg);
+          transition: transform 0.1s ease;
+        }
+
+        &.collapsed {
+          border-bottom: 0;
+
+          .expand-collapse-icon {
+            transform: rotate(-90deg);
+            transition: transform 0.1s ease;
+          }
+        }
+      }
     }
     &-active {
       border-color: theme-color("dark-teal") !important;
