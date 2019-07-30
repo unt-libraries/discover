@@ -23,6 +23,7 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
     - ssh $SSH_USER@$SSH_SERVER "
         cd $SITE_DEST_DIR &&
         git pull origin $GIT_BRANCH &&
+        export RAILS_PORT=$RAILS_PORT &&
         docker-compose down &&
         docker-compose build &&
         docker-compose run --rm web rake db:migrate &&
@@ -35,4 +36,5 @@ deploy:development:
   environment:
     name: development
     url: alpha.discover.library.unt.edu
+  variables:
     RAILS_PORT: 3000
