@@ -38,3 +38,11 @@ deploy:development:
     url: alpha.discover.library.unt.edu
   variables:
     RAILS_PORT: 3000
+
+deploy:beta:
+  extends: .deploy
+  environment:
+    name: beta
+    url: beta.discover.library.unt.edu
+  variables:
+    RAILS_PORT: 3100
