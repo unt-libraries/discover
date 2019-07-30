@@ -29,6 +29,17 @@ $ git clone https://github.com/unt-libraries/unt-blacklight unt-blacklight
 $ cd unt-blacklight
 ```
 
+Set the exposed port of your Rails app with a shell environment variable or
+with a [docker-compose .env file](https://docs.docker.com/v17.12/compose/environment-variables/):
+
+```console
+$ source RAILS_PORT=3000  # or port of your choice
+```
+or in `.env` file:
+```ruby
+RAILS_PORT=3000
+```
+
 Build the containers with:
 
 ```console
