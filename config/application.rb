@@ -15,7 +15,6 @@ module Discover
     config.x.site = config_for(:config)
 
     # Force SSL on all environments, can be overridden in environment config files.
-    config.force_ssl = true
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
