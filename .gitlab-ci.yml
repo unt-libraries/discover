@@ -24,6 +24,7 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
         cd $SITE_DEST_DIR &&
         git pull origin $GIT_BRANCH &&
         export RAILS_PORT=$RAILS_PORT &&
+        export RAILS_ENV=$RAILS_ENV &&
         docker-compose down &&
         docker-compose build &&
         docker-compose run --rm web rake db:migrate &&
@@ -38,6 +39,7 @@ deploy:alpha:
     url: alpha.discover.library.unt.edu
   variables:
     RAILS_PORT: 3000
+    RAILS_ENV: development
 
 deploy:beta:
   extends: .deploy
@@ -46,6 +48,7 @@ deploy:beta:
     url: beta.discover.library.unt.edu
   variables:
     RAILS_PORT: 3100
+    RAILS_ENV: production
 
 deploy:production:
   extends: .deploy
@@ -54,3 +57,4 @@ deploy:production:
     url: discover.library.unt.edu
   variables:
     RAILS_PORT: 3200
+    RAILS_ENV: production

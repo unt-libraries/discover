@@ -6,7 +6,7 @@ services:
       - ./tmp/db:/var/lib/postgresql/data
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "echo $RAILS_ENV && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/app
     ports:
@@ -16,3 +16,4 @@ services:
     restart: always
     environment:
       - SOLR_URL
+      - RAILS_ENV=${RAILS_ENV}
