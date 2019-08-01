@@ -18,7 +18,7 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
     UTIL_SCRIPTS: source ./prepare_ssh.sh
     GIT_SUBMODULE_STRATEGY: none
     GIT_BRANCH: master
-    SITE_DEST_DIR: /var/html/www/$CI_ENVIRONMENT_NAME
+    SITE_DEST_DIR: /var/html/www/$CI_ENVIRONMENT_URL
   script:
     - ssh $SSH_USER@$SSH_SERVER "
         cd $SITE_DEST_DIR &&
