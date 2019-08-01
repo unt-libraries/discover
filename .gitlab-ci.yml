@@ -42,7 +42,7 @@ deploy:alpha:
   variables:
     RAILS_PORT: 3000
     RAILS_ENV: development
-    RAILS_SERVE_STATIC_FILES: false
+    RAILS_SERVE_STATIC_FILES: "false"
 
 deploy:beta:
   extends: .deploy
@@ -52,7 +52,7 @@ deploy:beta:
   variables:
     RAILS_PORT: 3100
     RAILS_ENV: production
-    RAILS_SERVE_STATIC_FILES: true
+    RAILS_SERVE_STATIC_FILES: "true"
 
 deploy:production:
   extends: .deploy
@@ -62,4 +62,4 @@ deploy:production:
   variables:
     RAILS_PORT: 3200
     RAILS_ENV: production
-    RAILS_SERVE_STATIC_FILES: true
+    RAILS_SERVE_STATIC_FILES: "true"
