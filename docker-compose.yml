@@ -17,3 +17,4 @@ services:
     environment:
       - SOLR_URL
       - RAILS_ENV=${RAILS_ENV}
+      - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES}

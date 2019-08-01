@@ -18,13 +18,14 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
     UTIL_SCRIPTS: source ./prepare_ssh.sh
     GIT_SUBMODULE_STRATEGY: none
     GIT_BRANCH: master
-    SITE_DEST_DIR: /home/discover/$CI_ENVIRONMENT_NAME
+    SITE_DEST_DIR: /var/html/www/$CI_ENVIRONMENT_NAME
   script:
     - ssh $SSH_USER@$SSH_SERVER "
         cd $SITE_DEST_DIR &&
         git pull origin $GIT_BRANCH &&
         export RAILS_PORT=$RAILS_PORT &&
         export RAILS_ENV=$RAILS_ENV &&
+        export RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES &&
         docker-compose down &&
         docker-compose build &&
         docker-compose run --rm web rake db:migrate &&
@@ -41,6 +42,7 @@ deploy:alpha:
   variables:
     RAILS_PORT: 3000
     RAILS_ENV: development
+    RAILS_SERVE_STATIC_FILES: false
 
 deploy:beta:
   extends: .deploy
@@ -50,6 +52,7 @@ deploy:beta:
   variables:
     RAILS_PORT: 3100
     RAILS_ENV: production
+    RAILS_SERVE_STATIC_FILES: true
 
 deploy:production:
   extends: .deploy
@@ -59,3 +62,4 @@ deploy:production:
   variables:
     RAILS_PORT: 3200
     RAILS_ENV: production
+    RAILS_SERVE_STATIC_FILES: true
