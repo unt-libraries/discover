@@ -67,13 +67,39 @@
         }
       }
     }
+
+    .facet-values {
+      padding: 0.25rem;
+      font-size: 80%;
+      font-weight: 400;
+
+      .facet-values-item,
+      .more_facets {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 0;
+      }
+    }
+
+
+
+    .facet-label {
+      color: theme-color("dark-teal") !important;
+      padding-bottom: 0;
+
+      .remove {
+        text-indent: 0;
+      }
+    }
+
     &-active {
       border-color: theme-color("dark-teal") !important;
       .card-header {
         background-color: theme-color("dark-teal") !important;
       }
       .selected {
-        color: theme-color("dark-teal") !important;
+        //color: theme-color("dark-teal") !important;
       }
       .remove {
         color: theme-color("dark-teal") !important;
@@ -82,14 +108,16 @@
           color: theme-color-level("dark-teal", 2) !important;
         }
       }
+
       .facet-field-heading {
         color: $white;
       }
     }
   }
+}
+
+.facet-extended-list {
   .facet-label {
-    .remove {
-      text-indent: 0;
-    }
+    color: theme-color("dark-teal");
   }
 }
