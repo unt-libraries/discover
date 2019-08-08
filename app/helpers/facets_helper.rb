@@ -14,7 +14,7 @@ module FacetsHelper
     end.compact.map do |item|
       link_to(item[:rendered_element],
              item[:path],
-             class: "list-group-item list-group-item-action facet-values-item")
+             class: "#{item[:selected] ? 'selected ' : ''}list-group-item list-group-item-action facet-values-item")
     end)
   end
 
@@ -44,6 +44,7 @@ module FacetsHelper
     {
       :rendered_element => content_tag(:span, facet_display_value(facet_field, item), class: "facet-select facet-label") + render_facet_count(item.hits),
       :path => path_for_facet(facet_field, item),
+      :selected => false,
     }
   end
 
@@ -56,7 +57,7 @@ module FacetsHelper
   def render_selected_facet_value(facet_field, item)
     remove_href = search_action_path(search_state.remove_facet_params(facet_field, item))
 
-    rendered_element = content_tag(:span, class: "facet-label selected") do
+    rendered_element = content_tag(:span, class: "selected facet-label") do
       concat(facet_display_value(facet_field, item))
       # Remove icon
       concat(content_tag(:span, class: "remove") do
@@ -67,6 +68,7 @@ module FacetsHelper
     {
       :rendered_element => rendered_element,
       :path => remove_href,
+      :selected => true,
     }
   end
 

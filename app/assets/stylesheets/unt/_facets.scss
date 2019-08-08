@@ -81,13 +81,11 @@
         border: 0;
       }
     }
-
-
-
+    
     .facet-label {
       color: theme-color("dark-teal") !important;
       padding-bottom: 0;
-
+      padding-right: 0;
       .remove {
         text-indent: 0;
       }
@@ -102,10 +100,10 @@
         //color: theme-color("dark-teal") !important;
       }
       .remove {
-        color: theme-color("dark-teal") !important;
+        color: theme-color("danger") !important;
         &:hover,
         &:focus {
-          color: theme-color-level("dark-teal", 2) !important;
+          color: theme-color-level("danger", 2) !important;
         }
       }
 
