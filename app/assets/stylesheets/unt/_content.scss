@@ -3,6 +3,8 @@ html, html a {
   text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }
 .content {
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   &__title {
     border-bottom: 1px solid $gray-300;
   }
