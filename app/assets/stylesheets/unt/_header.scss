@@ -8,7 +8,6 @@ body {
 }
 
 .header {
-
     a:focus {
         outline-color: #FFF;
     }
@@ -34,8 +33,6 @@ body {
         .btn-link {
             padding: .175rem .5rem;
         }
-
-
     }
 
     @include media-breakpoint-only(sm) {
@@ -59,13 +56,9 @@ body {
         .btn-link {
             padding: .175rem .5rem;
         }
-
-
     }
 
     @include media-breakpoint-up(md) {
-
-
         &__banner {
             width: 7rem;
             height: auto;
@@ -88,9 +81,7 @@ body {
                 position: relative;
                 top: 16px;
             }
-
         }
-
 
         &__title {
             margin-left: 8.5rem;
@@ -101,7 +92,6 @@ body {
                 padding-bottom: .5rem;
             }
 
-
             &--parent, &--primary {
                 font-family: $font-family-site-title;
 
@@ -109,7 +99,6 @@ body {
                     display: inline;
                     font-size: $h5-font-size;
                 }
-
             }
             &--parent {
                 font-size: $font-size-sm;
@@ -125,7 +114,6 @@ body {
                 font-size: $h3-font-size;
             }
         }
-
     }
 
     &__link {
@@ -146,9 +134,7 @@ body {
         &:active{
             outline: none;
         }
-
     }
-
 }
 
 .scrolled .toggle--main {

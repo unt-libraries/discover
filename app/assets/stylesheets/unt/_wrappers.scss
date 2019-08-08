@@ -21,6 +21,7 @@
     }  
     &--navigation {
         background-color: $gray-900;
+        padding: 0.25rem;
         z-index: 90;
         transition: background-color 0.3s;
         &.js-is-sticky {
