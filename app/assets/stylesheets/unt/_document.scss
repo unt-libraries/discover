@@ -7,17 +7,19 @@
       margin-left: -$card-spacer-x;
       margin-right: -$card-spacer-x;
     }
+
     .document-title-heading {
       font-size: $h4-font-size;
       text-transform: none;
     }
-    .document-metadata {
 
+    .document-metadata {
       .result__field {
         border-left: #d5d5d5 solid 4px;
         padding-left: 15px;
         width: 100%;
       }
+
       .result__label {
         color: theme-color("gray-darker");
         font-weight: $font-weight-bold;
@@ -26,8 +28,14 @@
         display: inline;
         text-align: left;
       }
+
       .result__value {
         display: inline;
+      }
+    }
+    &.seen {
+      .document-title-heading a {
+        color: theme-color("indigo");
       }
     }
   }

@@ -1,5 +1,9 @@
 <% # container for a single doc -%>
-<article class="document row <%= render_document_class document %> document-position-<%= document_counter%> " data-document-counter="<%= document_counter %>" itemscope itemtype="<%= document.itemtype %>">
+<article class="document row <%= render_document_class document %> document-position-<%= document_counter%> "
+         data-document-counter="<%= document_counter %>"
+         data-doc-id="<%= document.id %>"
+         itemscope
+         itemtype="<%= document.itemtype %>">
   <%# image or icon for item %>
   <%= render_document_partials document, ['thumbnail'] %>
 

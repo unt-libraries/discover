@@ -5,14 +5,6 @@
     oclc: 'oclcNumbers',
   };
 
-  function ready(fn) {
-    if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading') {
-      fn();
-    } else {
-      document.addEventListener('turbolinks:load', fn);
-    }
-  }
-
   // IE8+ compatible test for class on element
   function elHasClass(el, className) {
     let hasClass;
@@ -52,13 +44,13 @@
       Object.entries(idTypes).forEach(([idKey, dataID]) => {
         const idString = thumb.dataset[dataID];
         const bibString = thumb.dataset.bibId;
-        if (idString !== undefined) {
-          const idStripped = idString.replace(/[[\]"']+/g, '');
-          const idArray = idStripped.split(',');
-          idArray.forEach((id) => {
-            docObject[idKey][id] = { bib: bibString };
-          });
-        }
+        if (idString === undefined) return;
+
+        const idStripped = idString.replace(/[[\]"']+/g, '');
+        const idArray = idStripped.split(',');
+        idArray.forEach((id) => {
+          docObject[idKey][id] = { bib: bibString };
+        });
       });
     });
     return docObject;
@@ -95,11 +87,11 @@
     thumbnails.forEach((thumb) => {
       Object.entries(idTypes).forEach(([idKey, dataID]) => {
         const idString = thumb.dataset[dataID];
-        if (idString !== undefined) {
-          const idStripped = idString.replace(/[[\]"']+/g, '');
-          const idArray = idStripped.split(',');
-          idArray.forEach(id => docArray.push(`${idKey}:${id}`));
-        }
+        if (idString === undefined) return;
+
+        const idStripped = idString.replace(/[[\]"']+/g, '');
+        const idArray = idStripped.split(',');
+        idArray.forEach(id => docArray.push(`${idKey}:${id}`));
       });
     });
     return docArray;
@@ -123,12 +115,12 @@
     }
   }
 
-  ready(replaceBookCovers);
-
   // Override link behavior within dropdown menu associated with search form for resource type,
   // appending values to hidden form element.
   function searchSelector() {
     const searchForm = document.querySelector('.search-query-form');
+    if (searchForm === null) return;
+
     const queryInput = searchForm.querySelector('#q');
     const dropdown = searchForm.querySelector('#searchFieldDropdownGroup');
     const dropdownItems = dropdown.querySelectorAll('#search_field_dropdown .dropdown-item');
@@ -159,8 +151,6 @@
     });
   }
 
-  ready(searchSelector);
-
   function bindAccordians() {
     $('#facetsExpandCollapse').on('click', function () {
       const $target = $(this);
@@ -182,5 +172,9 @@
     });
   }
 
-  ready(bindAccordians);
+  Blacklight.onLoad(() => {
+    replaceBookCovers();
+    searchSelector();
+    bindAccordians();
+  });
 }());

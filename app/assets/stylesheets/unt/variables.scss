@@ -31,6 +31,7 @@ $aqua:              #008265;           // Aqua. RGB: 0,130,101
 $yellow:            #ffc107;
 $mellow-yellow:     #C1D22D;           // Mellow Yellow. RGB: 193,210,45
 $mellow-limey:      #C0DB37;           // Limey Yellow. RGB: 192,219,55
+$indigo:            #1a237e;
 
 //
 // Library Colors
@@ -95,6 +96,7 @@ $theme-colors: (
         "gray":           mix(white, $brand-greyscale, 40),
         "gray-light":     mix(white, $brand-greyscale, 60),
         "gray-lighter":   mix(white, $brand-greyscale, 80),
+        "indigo":         $indigo,
 );
 
 // Set a specific jump point for requesting color jumps
