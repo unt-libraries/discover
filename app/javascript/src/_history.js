@@ -1,36 +1,8 @@
+import { elAddClass } from './_utils';
 // import $ from 'jquery';
 // import Cookies from 'js-cookie';
 
 (function () {
-  // IE8+ compatible test for class on element
-  function elHasClass(el, className) {
-    let hasClass;
-    if (el.classList) {
-      hasClass = el.classList.contains(className);
-    } else {
-      hasClass = new RegExp(`(^| )${className}( |$)`, 'gi').test(el.className);
-    }
-    return hasClass;
-  }
-
-  // IE8+ compatible add class to element
-  function elAddClass(el, className) {
-    if (el.classList) {
-      el.classList.add(className);
-    } else {
-      el.className += ` ${className}`;
-    }
-  }
-
-  // IE8+ compatible add class to element
-  function elRemoveClass(el, className) {
-    if (el.classList) {
-      el.classList.remove(className);
-    } else {
-      el.className = el.className.replace(new RegExp(`(^|\\b)${className.split(' ').join('|')  }(\\b|$)`, 'gi'), ' ');
-    }
-  }
-
   // When a user visits an ARK URL, set the MetaID of the object in localStorage so that subsequent
   // search results are annotated.
   function setDocHistory() {
