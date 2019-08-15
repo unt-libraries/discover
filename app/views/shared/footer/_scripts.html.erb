@@ -4,4 +4,16 @@
   lazySizes.init();
 </script>
 
-<script src="https://library.unt.edu/assets/scripts/unt.min.js"></script>
+<%# Wait until jQuery is loaded to load this JS %>
+<script>
+  (function defer() {
+    if (window.jQuery) {
+      var scriptEl = document.createElement('script');
+      scriptEl.src = 'https://library.unt.edu/assets/scripts/unt.min.js';
+      scriptEl.async = false;
+      document.head.appendChild(scriptEl);
+    } else {
+      setTimeout(function() { defer() }, 50);
+    }
+  }());
+</script>

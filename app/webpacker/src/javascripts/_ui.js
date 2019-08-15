@@ -1,3 +1,4 @@
+import 'blacklight-frontend/app/javascript/blacklight/core';
 import { elAddClass, elHasClass, elRemoveClass } from './_utils';
 
 (function () {

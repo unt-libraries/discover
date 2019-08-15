@@ -3,12 +3,23 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^4.0.7",
-    "jquery": "^3.4.1"
+    "blacklight-frontend": "^7.1.0-alpha",
+    "blacklight-marc": "https://github.com/projectblacklight/blacklight-marc.git",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0",
+    "rails-erb-loader": "^5.5.2",
+    "rails-ujs": "^5.2.3",
+    "turbolinks": "^5.2.0",
+    "typeahead": "^0.2.2"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
+    "node-sass": "^4.12.0",
+    "postcss-smart-import": "^0.7.6",
     "webpack-dev-server": "^3.8.0"
   },
   "eslintConfig": {
@@ -31,5 +42,6 @@
       "jquery": true,
       "serviceworker": true
     }
-  }
+  },
+  "version": "0.0.0"
 }

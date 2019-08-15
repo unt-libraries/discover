@@ -1,9 +1,8 @@
-import { elAddClass } from './_utils';
-// import $ from 'jquery';
-// import Cookies from 'js-cookie';
+import 'blacklight-frontend/app/javascript/blacklight/core';
+import { elAddClass, elHasClass } from './_utils';
 
 (function () {
-  // When a user visits an ARK URL, set the MetaID of the object in localStorage so that subsequent
+  // When a user visits an item URL, add the ID of the object to localStorage so that subsequent
   // search results are annotated.
   function setDocHistory() {
     if (document.querySelector('body.blacklight-catalog-show') === null) return;
@@ -12,12 +11,14 @@ import { elAddClass } from './_utils';
   }
 
   function getDocHistory() {
+    // Return early if we can
     if (document.querySelector('body.blacklight-catalog-index') === null) return;
     const documentsEl = document.querySelector('#documents');
     if (documentsEl === null) return;
 
     const documents = documentsEl.querySelectorAll('.document');
     documents.forEach((thisDoc) => {
+      if (elHasClass(thisDoc, 'seen')) return;
       const docID = thisDoc.dataset.docId;
       const seen = document.createElement('i');
       seen.className = 'fas fa-check';
@@ -31,23 +32,6 @@ import { elAddClass } from './_utils';
       }
     });
   }
-
-  // Set Cookie when user clicks a search result link to ARK. Subsequently read in template to
-  // remember scroll position
-  // function setSearchResultScrollPosition() {
-  //   if ($('body.results').length) {
-  //     $('#main-section').find('.result a').on('click', function () {
-  //       const $thisResult = $(this).closest('article.result').attr('id');
-  //       Cookies.set('aubreyBackToResult', $thisResult);
-  //     });
-  //   }
-  // }
-
-  // export {
-  //   setDocHistory,
-  //   getArkHistory,
-  //   setSearchResultScrollPosition,
-  // };
 
   Blacklight.onLoad(() => {
     setDocHistory();
