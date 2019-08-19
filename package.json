@@ -7,6 +7,7 @@
     "web:compileAssets": "docker-compose run --rm web rails assets:precompile",
     "web:dbCreate": "docker-compose run --rm web rake db:create",
     "web:dbMigrate": "docker-compose run --rm web rake db:migrate",
+    "web:credentials": "docker-compose run --rm web bash -c \"EDITOR=nano rails credentials:edit\"",
     "docker:stopAll": "docker stop $(docker ps -a -q)",
     "docker:removeAll": "docker rm $(docker ps -a -q)",
     "docker:prune": "docker system prune --volumes"
@@ -17,12 +18,11 @@
     "blacklight-frontend": "^7.1.0-alpha",
     "blacklight-marc": "https://github.com/projectblacklight/blacklight-marc.git",
     "bootstrap": "^4.3.1",
+    "corejs-typeahead": "git://github.com/unt-libraries/typeahead.js.git#acfe883",
     "jquery": "^3.4.1",
     "popper.js": "^1.15.0",
     "rails-erb-loader": "^5.5.2",
-    "rails-ujs": "^5.2.3",
-    "turbolinks": "^5.2.0",
-    "typeahead": "^0.2.2"
+    "turbolinks": "^5.2.0"
   },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
@@ -30,6 +30,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.3",
+    "expose-loader": "^0.7.5",
     "node-sass": "^4.12.0",
     "postcss-smart-import": "^0.7.6",
     "webpack-dev-server": "^3.8.0"

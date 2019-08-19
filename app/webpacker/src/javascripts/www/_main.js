@@ -1,22 +1,11 @@
 // Modified for Discover from unt-jekyll-theme/_assets/_scripts/main.js
 import 'bootstrap';
 import 'corejs-typeahead';
-import Bloodhound from 'bloodhound-js';
+import Bloodhound from 'corejs-typeahead/dist/bloodhound';
 
-$(document).ready(() => {
-  // Enable tooltips
-  $('[data-toggle="tooltip"]').tooltip({
-    container: 'body',
-  });
-  // enable popovers
-  $('[data-toggle="popover"]').popover({
-    container: 'body',
-  });
-
+$(function () {
   // set a number of reusable DOM variables
-  const $body = $('body');
   const $head = $('#head');
-  const $scrolledHead = $('#scrolled-header');
   const $toTop = $('#to-top');
   const $bannerImg = $('#unt-banner-img');
   const $bannerLetterMark = $('#unt-banner-lettermark');
@@ -49,7 +38,7 @@ $(document).ready(() => {
   });
 
   // pretty scroll to top of the screen on button push,
-  $('#to-top').on('click', (e) => {
+  $toTop.on('click', (e) => {
     e.preventDefault();
     $('body,html').animate({
       scrollTop: 0,
@@ -124,7 +113,7 @@ $(document).ready(() => {
     identify(obj) { return obj.name; },
     prefetch: {
       cache: true,
-      url: '//lgapi-us.libapps.com/1.1/assets?site_id=702&key=9a0320695e007513e3f56d6f5f9e2159&asset_types=10',
+      url: 'https://lgapi-us.libapps.com/1.1/assets?site_id=702&key=9a0320695e007513e3f56d6f5f9e2159&asset_types=10',
       transform(response) {
         return $.map(response, (option) => {
           const textDescription = $(`<div>${option.description}</div>`).text().replace(/"/g, "'");
@@ -152,7 +141,7 @@ $(document).ready(() => {
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name', 'description', 'subjects', 'type_machine'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     prefetch: {
-      url: '//lgapi-us.libapps.com/1.1/guides/?site_id=702&key=9a0320695e007513e3f56d6f5f9e2159&status[]=1&sort_by=name&expand=owner,subjects',
+      url: 'https://lgapi-us.libapps.com/1.1/guides/?site_id=702&key=9a0320695e007513e3f56d6f5f9e2159&status[]=1&sort_by=name&expand=owner,subjects',
       cache: true,
       transform(response) {
         return $.map(response, (option) => {
@@ -177,7 +166,7 @@ $(document).ready(() => {
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     prefetch: {
-      url: '//lgapi-us.libapps.com/1.1/subjects?site_id=702&key=9a0320695e007513e3f56d6f5f9e2159',
+      url: 'https://lgapi-us.libapps.com/1.1/subjects?site_id=702&key=9a0320695e007513e3f56d6f5f9e2159',
       cache: true,
       transform(response) {
         return $.map(response, option => ({
@@ -214,7 +203,7 @@ $(document).ready(() => {
     },
   })
     .on('typeahead:selected', (event, datum) => {
-      const path = '//guides.library.unt.edu/sb.php?subject_id=';
+      const path = 'https://guides.library.unt.edu/sb.php?subject_id=';
       ga('send', 'event', 'link - typeahead', 'subjects', datum.name, {
         hitCallback: actWithTimeOut(() => {
           goToSubjectUrl(datum, path);
@@ -238,7 +227,7 @@ $(document).ready(() => {
     },
   })
     .on('typeahead:selected', (event, datum) => {
-      const path = '//guides.library.unt.edu/az.php?s=';
+      const path = 'https://guides.library.unt.edu/az.php?s=';
       ga('send', 'event', 'link - typeahead', 'subjects - databases', datum.name, {
         hitCallback: actWithTimeOut(() => {
           goToSubjectUrl(datum, path);

@@ -72,12 +72,20 @@
   <%= render '/shared/head/opengraph' %>
 
   <!-- Head scripts -->
+  <%= render '/shared/head/gtag' %>
+  <%= javascript_pack_tag 'priority', 'data-turbo-links-track': 'reload' %>
   <!-- Window variables for external javascript -->
   <script>
     window.untLibVars = {};
   </script>
 
-  <%= javascript_packs_with_chunks_tag 'vendor', 'application' %>
+  <script src="https://library.unt.edu/assets/scripts/lazysizes.min.js"></script>
+
+  <script>
+    lazySizes.init();
+  </script>
+
+  <%= javascript_packs_with_chunks_tag 'vendor', 'base', 'data-turbolinks-track': 'reload' %>
 
   <%= csrf_meta_tags %>
   <%= content_for(:head) %>

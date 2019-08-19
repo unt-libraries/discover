@@ -12,5 +12,16 @@ environment.plugins.append('Provide', new webpack.ProvidePlugin({
 
 environment.plugins.append('CleanWebpack', new CleanWebpackPlugin());
 
+environment.loaders.append('expose', {
+  test: require.resolve('jquery'),
+  use: [{
+    loader: 'expose-loader',
+    options: '$',
+  }, {
+    loader: 'expose-loader',
+    options: 'jQuery',
+  }],
+});
+
 environment.loaders.prepend('erb', erb);
 module.exports = environment;
