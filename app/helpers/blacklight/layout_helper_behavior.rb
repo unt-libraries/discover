@@ -15,7 +15,7 @@ module Blacklight
     # Classes added to a document's sidebar div
     # @return [String]
     def show_sidebar_classes
-      sidebar_classes
+      "#{sidebar_classes} show-sidebar"
     end
 
     ##

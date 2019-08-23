@@ -3,14 +3,19 @@
 <% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe %>
 <% content_for(:head) { render_link_rel_alternates } %>
 
-<div id="document" data-doc-id="<%= @document.id.to_s.parameterize %>" class="document <%= render_document_class %>" itemscope  itemtype="<%= @document.itemtype %>">
+<%= tag.div id: "document", class: "document #{render_document_class}",
+            data: {
+                doc_id: @document.id.to_s.parameterize
+            }.merge(@document.identifier_data),
+            "itemscope": true,
+            "itemtype": @document.itemtype do -%>
   <div id="doc_<%= @document.id.to_s.parameterize %> row">
-    <%= render_document_partials @document, ['thumbnail'] %>
+    <%#= render_document_partials @document, ['thumbnail'] %>
     <div class="col-sm-8  col-md-9">
       <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
     </div>
   </div>
-</div>
+<% end -%>
 
 <% if @document.respond_to?(:export_as_openurl_ctx_kev) %>
   <!--

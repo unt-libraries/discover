@@ -9,15 +9,15 @@ const idTypes = {
 };
 
 function docIDObject() {
-  const thumbnails = document.querySelectorAll('.thumbnail-link');
+  const documents = document.querySelectorAll('.document');
   const docObject = {};
   Object.keys(idTypes).forEach((idKey) => {
     docObject[idKey] = {};
   });
-  thumbnails.forEach((thumb) => {
+  documents.forEach((doc) => {
     Object.entries(idTypes).forEach(([idKey, dataID]) => {
-      const idString = thumb.dataset[dataID];
-      const bibString = thumb.dataset.bibId;
+      const idString = doc.dataset[dataID];
+      const bibString = doc.dataset.bibId;
       if (idString === undefined) return;
 
       const idStripped = idString.replace(/[[\]"']+/g, '');
@@ -30,37 +30,55 @@ function docIDObject() {
   return docObject;
 }
 
-window.replaceImages = function (payload) {
-  let documentsEl;
-  if (elHasClass(document.body, 'blacklight-catalog-index')) {
-    documentsEl = document.querySelector('#documents');
-  } else if (elHasClass(document.body, 'blacklight-catalog-show')) {
-    documentsEl = document.querySelector('#document');
-  }
+function replaceThumbnailElement(thumbContainer, bookData) {
+  const titleEl = thumbContainer.querySelector('.item-title');
+  const itemTitle = titleEl.textContent;
+  const imgSrcZoom = bookData.thumbnail_url.replace(/zoom=./, 'zoom=1');
+  const imgSrc = imgSrcZoom.replace('&edge=curl', '');
+  thumbContainer.innerHTML = `<img class="img-fluid" src="${imgSrc}" alt="${itemTitle}">`;
+  elAddClass(thumbContainer, 'thumbnail-loaded');
+}
+
+window.replaceIndexThumbs = function (payload) {
+  if (!elHasClass(document.body, 'blacklight-catalog-index')) return;
+
+  const documentsEl = document.querySelector('#documents');
   const docIDs = docIDObject();
+
   Object.entries(payload).forEach(([bookKey, bookData]) => {
     const [idType, id] = bookKey.split(':');
     const docThumbEl = documentsEl.querySelector(`[data-bib-id="${docIDs[idType][id].bib}"]`);
     if (has.call(bookData, 'thumbnail_url')) {
       const thumbContainer = docThumbEl.querySelector('.document-thumbnail');
       if (thumbContainer && !elHasClass(thumbContainer, 'thumbnail-loaded')) {
-        const titleEl = thumbContainer.querySelector('.item-title');
-        const itemTitle = titleEl.textContent;
-        const imgSrcZoom = bookData.thumbnail_url.replace(/zoom=./, 'zoom=1');
-        const imgSrc = imgSrcZoom.replace('&edge=curl', '');
-        thumbContainer.innerHTML = `<img class="img-fluid" src="${imgSrc}" alt="${itemTitle}">`;
-        elAddClass(thumbContainer, 'thumbnail-loaded');
+        replaceThumbnailElement(thumbContainer, bookData);
+      }
+    }
+  });
+};
+
+window.replaceShowThumb = function (payload) {
+  if (!elHasClass(document.body, 'blacklight-catalog-show')) return;
+
+  const thumbWrapper = document.querySelector('.thumbnail-wrapper');
+  const thumbContainer = thumbWrapper.querySelector('.document-thumbnail');
+
+  Object.entries(payload).forEach(([bookKey, bookData]) => {
+    if (has.call(bookData, 'thumbnail_url')) {
+      if (thumbContainer && !elHasClass(thumbContainer, 'thumbnail-loaded')) {
+        replaceThumbnailElement(thumbContainer, bookData);
       }
     }
   });
 };
 
 function docIDArray() {
-  const thumbnails = document.querySelectorAll('.thumbnail-link');
+  const mainContaner = document.querySelector('#main-container');
+  const documents = mainContaner.querySelectorAll('.document');
   const docArray = [];
-  thumbnails.forEach((thumb) => {
+  documents.forEach((doc) => {
     Object.entries(idTypes).forEach(([idKey, dataID]) => {
-      const idString = thumb.dataset[dataID];
+      const idString = doc.dataset[dataID];
       if (idString === undefined) return;
 
       const idStripped = idString.replace(/[[\]"']+/g, '');
@@ -78,72 +96,21 @@ function docIDQueryString() {
 
 function replaceBookCovers() {
   const bibkeyQueryString = docIDQueryString();
+  let booksCallback;
+  if (elHasClass(document.body, 'blacklight-catalog-index')) {
+    booksCallback = 'replaceIndexThumbs';
+  } else if (elHasClass(document.body, 'blacklight-catalog-show')) {
+    booksCallback = 'replaceShowThumb';
+  }
 
   if (bibkeyQueryString.length > 0) {
     const scriptElement = document.createElement('script');
     scriptElement.setAttribute('id', 'jsonScript');
     scriptElement.setAttribute('src',
-      `https://books.google.com/books?bibkeys=${bibkeyQueryString}&jscmd=viewapi&callback=replaceImages`);
+      `https://books.google.com/books?bibkeys=${bibkeyQueryString}&jscmd=viewapi&callback=${booksCallback}`);
     scriptElement.setAttribute('type', 'text/javascript');
-    document.documentElement.firstChild.appendChild(scriptElement);
+    document.head.appendChild(scriptElement);
   }
-}
-
-// Override link behavior within dropdown menu associated with search form for resource type,
-// appending values to hidden form element.
-function searchSelector() {
-  const searchForm = document.querySelector('.search-query-form');
-  if (searchForm === null) return;
-
-  const queryInput = searchForm.querySelector('#q');
-  const dropdown = searchForm.querySelector('#searchFieldDropdownGroup');
-  const dropdownItems = dropdown.querySelectorAll('#search_field_dropdown .dropdown-item');
-
-  dropdownItems.forEach((dropdownItem) => {
-    dropdownItem.addEventListener('click', (e) => {
-      // stop the link from acting like a link
-      e.preventDefault();
-
-      // set variables
-      const selected = e.target;
-      const selectedText = selected.dataset.pretty;
-      const scopeValue = selected.dataset.searchField;
-
-      // Set the visible text of the dropdown menu to whatever was selected
-      dropdown.querySelector('.selected').innerHTML = selectedText;
-
-      searchForm.querySelector('#search_field_input').value = scopeValue;
-
-      // close the dropdown
-      if (elHasClass(dropdown, 'open')) {
-        elRemoveClass(dropdown, 'open');
-      }
-
-      // Send focus back to the text input
-      queryInput.focus();
-    });
-  });
-}
-
-function bindAccordians() {
-  $('#facetsExpandCollapse').on('click', function () {
-    const $target = $(this);
-    const $facetElements = $('.panel-collapse.facet-content');
-    const buttonAction = $target.attr('data-button-action');
-    if (buttonAction === 'expand') {
-      $facetElements.collapse('show');
-      $target.attr('data-button-action', 'collapse')
-        .tooltip('hide')
-        .attr('data-original-title', 'Collapse all')
-        .tooltip('show');
-    } else if (buttonAction === 'collapse') {
-      $facetElements.collapse('hide');
-      $target.attr('data-button-action', 'expand')
-        .tooltip('hide')
-        .attr('data-original-title', 'Expand all')
-        .tooltip('show');
-    }
-  });
 }
 
 function initTooltips() {
@@ -160,8 +127,6 @@ function initPopovers() {
 
 export {
   replaceBookCovers,
-  searchSelector,
-  bindAccordians,
   initTooltips,
   initPopovers,
 };
