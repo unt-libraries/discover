@@ -1,6 +1,5 @@
 import Turbolinks from 'turbolinks';
 import 'corejs-typeahead';
-import 'bootstrap';
 
 import 'blacklight-frontend/app/javascript/blacklight/core';
 import 'blacklight-frontend/app/javascript/blacklight/autocomplete';
