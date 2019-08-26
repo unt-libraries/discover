@@ -5,7 +5,7 @@ import * as facets from '../src/javascripts/_facets';
 import * as search from '../src/javascripts/_search';
 import * as history from '../src/javascripts/_history';
 
-document.addEventListener('turbolinks:load', () => {
+Blacklight.onLoad(() => {
   ui.replaceBookCovers();
   ui.initTooltips();
   ui.initPopovers();

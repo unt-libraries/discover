@@ -1,6 +1,4 @@
-import 'blacklight-frontend/app/javascript/blacklight/core';
 import { elAddClass, elHasClass, elRemoveClass } from './_utils';
-import 'bootstrap';
 
 const has = Object.prototype.hasOwnProperty;
 const idTypes = {

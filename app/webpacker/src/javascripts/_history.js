@@ -1,4 +1,3 @@
-import 'blacklight-frontend/app/javascript/blacklight/core';
 import { elAddClass, elHasClass } from './_utils';
 
 // When a user visits an item URL, add the ID of the object to localStorage so that subsequent

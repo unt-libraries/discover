@@ -54,6 +54,9 @@
       "es6": true,
       "jquery": true,
       "serviceworker": true
+    },
+    "globals": {
+      "Blacklight": "readonly"
     }
   },
   "version": "0.0.0"

@@ -11,11 +11,9 @@ function searchSelector() {
   const dropdownItems = dropdown.querySelectorAll('#search_field_dropdown .dropdown-item');
 
   dropdownItems.forEach((dropdownItem) => {
-    console.log(dropdownItem);
     dropdownItem.addEventListener('click', (e) => {
       // stop the link from acting like a link
       e.preventDefault();
-      console.log(`${e.target} clicked`);
 
       // set variables
       const selected = e.target;
