@@ -6,6 +6,9 @@ en:
       previous: '&laquo;'
       next: '&raquo;'
       truncate: '…'
+      facets:
+        previous: '&laquo; Previous'
+        next: 'Next &raquo;'
       aria:
         container_label: 'pagination links'
         current_page: 'Current Page, Page %{page}'
