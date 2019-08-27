@@ -1,4 +1,4 @@
-// Script files that should be included at the bottom of all pages
+// Script files that should be included in all pages
 import '../src/javascripts/www/_main';
 import * as ui from '../src/javascripts/_ui';
 import * as facets from '../src/javascripts/_facets';

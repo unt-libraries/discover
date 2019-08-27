@@ -10,54 +10,39 @@
     "web:credentials": "docker-compose run --rm web bash -c \"EDITOR=nano rails credentials:edit\"",
     "docker:stopAll": "docker stop $(docker ps -a -q)",
     "docker:removeAll": "docker rm $(docker ps -a -q)",
-    "docker:prune": "docker system prune --volumes"
+    "docker:prune": "docker system prune --volumes",
+    "updateBrowserStats": "npx browserslist-ga"
   },
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "@rails/webpacker": "^4.0.7",
-    "babel-preset-env": "^1.7.0",
+    "babel-loader": "^8.0.6",
     "blacklight-frontend": "^7.1.0-alpha",
     "blacklight-marc": "https://github.com/projectblacklight/blacklight-marc.git",
     "bootstrap": "^4.3.1",
     "clean-webpack-plugin": "^3.0.0",
+    "core-js": "^3.2.1",
     "corejs-typeahead": "git://github.com/unt-libraries/typeahead.js.git#acfe883",
+    "css-loader": "^2.1.1",
     "expose-loader": "^0.7.5",
     "jquery": "^3.4.1",
     "node-sass": "^4.12.0",
     "popper.js": "^1.15.0",
     "postcss-smart-import": "^0.7.6",
     "rails-erb-loader": "^5.5.2",
-    "turbolinks": "^5.2.0"
+    "sass-loader": "^7.3.1",
+    "style-loader": "^1.0.0",
+    "turbolinks": "^5.2.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint": "^6.2.2",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.17.3",
     "webpack-dev-server": "^3.8.0"
-  },
-  "eslintConfig": {
-    "extends": "airbnb-base",
-    "rules": {
-      "func-names": [
-        "error",
-        "never"
-      ],
-      "func-style": [
-        "off"
-      ],
-      "import/no-extraneous-dependencies": [
-        "off"
-      ]
-    },
-    "env": {
-      "browser": true,
-      "es6": true,
-      "jquery": true,
-      "serviceworker": true
-    },
-    "globals": {
-      "Blacklight": "readonly"
-    }
   },
   "version": "0.0.0"
 }
