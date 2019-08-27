@@ -1,0 +1,20 @@
+.show-document {
+  .pagination-search-widgets {
+    border: 0;
+    margin: 0;
+    padding: 0.75rem 1rem;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  .result__field {
+    border-left: 0;
+  }
+
+  .result__label {
+    color: theme-color("gray-dark");
+  }
+}

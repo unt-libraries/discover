@@ -1,6 +1,5 @@
 // Main & Secondary navigtation styles
 .navigation {
-
     &__title {
         font-size: $h5-font-size;
         font-weight: bold;
@@ -16,11 +15,9 @@
     &--group {
         margin-left: 7.5rem;
         @include media-breakpoint-down(md) {
-        
             .ml-auto {
                 margin-left: initial !important;
             }
-
         }
     }
     &--desktop {
@@ -39,16 +36,13 @@
             color: #000;
             font-weight: bold;
         }
-
         &:hover {
             background-color: $dark-green;
         }
         &:focus {
             outline-color: #FFF;
         }
-
     }
-
 }
 
 
@@ -66,8 +60,6 @@
               @include media-breakpoint-up(md) {
                 font-size: $font-size-lg;
               }
-
-
         }        
     }
     &--sidebar {
@@ -79,7 +71,6 @@
                 color: $black;
                 border-left-color: $blue;
                 text-shadow: 0 0 .15px $gray-600, 0 0 .15px $gray-600;
-
             }
             &.child::before {
                 content: '\00a0\00a0\00a0- ';

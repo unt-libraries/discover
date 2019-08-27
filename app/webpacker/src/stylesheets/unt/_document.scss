@@ -12,31 +12,32 @@
       font-size: $h4-font-size;
       text-transform: none;
     }
-
-    .document-metadata {
-      .result__field {
-        border-left: #d5d5d5 solid 4px;
-        padding-left: 15px;
-        width: 100%;
-      }
-
-      .result__label {
-        color: theme-color("gray-darker");
-        font-weight: $font-weight-bold;
-        font-size: $font-size-sm;
-        text-transform: uppercase;
-        display: inline;
-        text-align: left;
-      }
-
-      .result__value {
-        display: inline;
-      }
-    }
     &.seen {
       .document-title-heading a {
         color: theme-color("indigo");
       }
     }
+  }
+}
+
+.document-metadata {
+  .result__field {
+    border-left: #d5d5d5 solid 4px;
+    padding-bottom: .25rem;
+    padding-left: 15px;
+    width: 100%;
+  }
+
+  .result__label {
+    color: theme-color("gray-darker");
+    font-weight: $font-weight-bold;
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    display: inline;
+    text-align: left;
+  }
+
+  .result__value {
+    display: inline;
   }
 }
