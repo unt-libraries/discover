@@ -1,36 +1,38 @@
 .footer {
-    font-size: $font-size-sm;
-    a {
-        color: $light-green;
-        @include hover {
-            color: #FFF;
-            text-decoration: $link-hover-decoration;
-          }
+  font-size: $font-size-sm;
+
+  a {
+    color: $light-green;
+
+    @include hover {
+      color: #fff;
+      text-decoration: $link-hover-decoration;
     }
+  }
 }
 
 .colophon {
-    font-size: $font-size-sm;
-    font-weight: bold;
+  font-size: $font-size-sm;
+  font-weight: bold;
 }
 
 .btn--top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: none;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    padding: 10px 15px;
-    font-size: .6rem;
-    line-height: .5rem;
-    border-radius: 35px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  padding: 10px 15px;
+  font-size: 0.6rem;
+  line-height: 0.5rem;
+  border-radius: 35px;
 
-    .fa {
-        display: block;
-        font-size: 1rem;
-        position: relative;
-        top: -3px;
-    }
+  .fa {
+    display: block;
+    font-size: 1rem;
+    position: relative;
+    top: -3px;
+  }
 }

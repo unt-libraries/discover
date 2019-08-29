@@ -1,13 +1,15 @@
 .document-thumbnail {
   float: none !important;
+
   &.thumbnail-loaded {
     img {
       width: 198px;
       max-width: 100%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       transition: all 0.2s ease-in-out;
+
       &:hover {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
       }
     }
   }
@@ -15,6 +17,7 @@
   .icon {
     color: theme-color("mint-green");
     transition: all 0.2s ease-in-out;
+
     &:hover {
       transform: scale(1.05);
       color: theme-color-level("mint-green", 1);
@@ -24,6 +27,7 @@
   @include media-breakpoint-down(lg) {
     font-size: 0.5rem;
   }
+
   @include media-breakpoint-down(sm) {
     font-size: 1rem;
   }

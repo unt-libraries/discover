@@ -1,15 +1,15 @@
-
-// extending the width utilities with responsive variants. 
+// extending the width utilities with responsive variants.
 // Defaults; (.w-25, .w-50, etc.)
 // Extendted: (.w-sm-25, .w-sm-50, .w-md-75, etc.)
 
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {
     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-	@each $prop, $abbrev in (width: w, height: h) {
-	  @each $size, $length in $sizes {
-	    .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
-	  }
-	}
+
+    @each $prop, $abbrev in (width: w, height: h) {
+      @each $size, $length in $sizes {
+        .#{$abbrev}#{$infix}-#{$size} { #{$prop}: $length !important; }
+      }
+    }
   }
 }

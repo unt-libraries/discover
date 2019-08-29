@@ -1,119 +1,121 @@
 // Largely renaming with overrides to bootstrap's modal dialog.
 
-
 // Container that the drawer scrolls within
 .drawer {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: $zindex-modal;
-    display: none;
-    overflow: hidden;
-    outline: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $zindex-modal;
+  display: none;
+  overflow: hidden;
+  outline: 0;
 
-    .modal-open & {
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
+  .modal-open & {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 
+  // Nested for inheritance
+  .modal-dialog {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    // allow clicks to pass through for custom click handling to close drawer
+    pointer-events: none;
+    background-color: $lime;
 
+    &--right {
+      right: 0;
 
-    // Nested for inheritance 
-    .modal-dialog {
-        position: absolute;
-        width: 50%;
-        height: 100%;
-        margin: 0;
-        // allow clicks to pass through for custom click handling to close drawer
-        pointer-events: none;
-        background-color: $lime;
-
-        &--right {
-            right: 0;
-
-            @media (min-height: 1060px) {
-              .cute {
-                  position: absolute;
-                  bottom: 0;
-                  left: -10%;
-                  max-width: 120%;
-                  display: inline !important;
-              }
-            }
-
+      @media (min-height: 1060px) {
+        .cute {
+          position: absolute;
+          bottom: 0;
+          left: -10%;
+          max-width: 120%;
+          display: inline !important;
         }
-        &--left {
-            left: 0;
-        }
-
-
-      // When fading in the drawer, animate it to slide down
-      .drawer.fade & {
-        @include transition($modal-transition);
-        transform: translate(0, -25%);
-      }
-      .drawer.show & {
-        transform: translate(0, 0);
       }
     }
 
-     // Extend the dropdown-divider (<hr>) concept into drawers
-    &__divider {
-        @include nav-divider($dark-green);
-        margin: .5rem 1rem;
-
+    &--left {
+      left: 0;
     }
-    // vertical seperators 
-    &__divider--inline {
+
+    // When fading in the drawer, animate it to slide down
+    .drawer.fade & {
+      @include transition($modal-transition);
+
+      transform: translate(0, -25%);
+    }
+
+    .drawer.show & {
+      transform: translate(0, 0);
+    }
+  }
+
+  // Extend the dropdown-divider (<hr>) concept into drawers
+  &__divider {
+    @include nav-divider($dark-green);
+
+    margin: 0.5rem 1rem;
+  }
+  // vertical seperators
+  &__divider--inline {
+    color: $black;
+  }
+
+  &__sub-heading {
+    font-size: $h4-font-size;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  &__text {
+    font-size: $h6-font-size;
+  }
+
+  // overrides for standard bs styles
+  // override nav-link
+  .nav-link {
+    color: $black;
+    text-transform: uppercase;
+    padding: 0.25rem 1rem;
+
+    @include hover-focus {
+      color: $black;
+      text-decoration: none;
+      background-color: $white;
+    }
+
+    &--social {
+      padding: 0.25rem 0.75rem;
+    }
+
+    &.d-inline.icon-links {
+      padding: 0;
+
+      @include hover-focus {
         color: $black;
-    }
-
-    &__sub-heading {
-        font-size: $h4-font-size;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;  
-    }
-
-    &__text {
-        font-size: $h6-font-size;
-    }
-
-    // overrides for standard bs styles
-    // override nav-link
-    .nav-link {
-          color: $black;
-          text-transform: uppercase;
-          padding: .25rem 1rem;
-          @include hover-focus {
-            color: $black;
-            text-decoration: none;
-            background-color: $white;
-          }
-          &--social {
-            padding: .25rem .75rem;
-          }
-          &.d-inline.icon-links {
-            padding:0;
-            @include hover-focus {
-              color: $black;
-              background-color: transparent;        
-            }
-          }
-    }
-
-    .select-widget {
-      select.form-control {
-        width: 65%;
-        @extend .mr-3;
-      }
-      button.btn{
-        @extend .btn-success;
+        background-color: transparent;
       }
     }
+  }
 
+  .select-widget {
+    select.form-control {
+      width: 65%;
 
+      @extend .mr-3;
+    }
+
+    button.btn {
+      @extend .btn-success;
+    }
+  }
 }
 
 // Actual modal
@@ -132,7 +134,6 @@
   background-color: $lime;
   color: white;
 }
-
 
 // drawer header
 // Top section of the drawer w/ title and dismiss
@@ -166,7 +167,6 @@
   padding: $modal-inner-padding;
 }
 
-
 // Measure scrollbar width for padding body during drawer show/hide
 .drawer-scrollbar-measure {
   position: absolute;
@@ -190,6 +190,7 @@
     margin: 0;
   }
 }
+
 @include media-breakpoint-only(md) {
   .drawer .modal-dialog {
     max-width: 50%;
@@ -198,10 +199,9 @@
 }
 
 @include media-breakpoint-only(sm) {
-    .drawer .modal-dialog {width: 75%;}
+  .drawer .modal-dialog { width: 75%; }
 }
 
 @include media-breakpoint-only(xs) {
-    .drawer .modal-dialog {width: 100%;}
+  .drawer .modal-dialog { width: 100%; }
 }
-

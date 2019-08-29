@@ -2,14 +2,16 @@
   &__form {
     margin-bottom: $form-group-margin-bottom;
   }
+
   &__label {
     font-weight: normal;
-    font-size: $font-size-base * .9;
+    font-size: $font-size-base * 0.9;
   }
 
   &__input {
     background-color: $input-bg;
     box-shadow: none;
+
     &:focus {
       background-color: $input-focus-bg;
     }
@@ -23,7 +25,7 @@
     border-left: 1px solid $input-border-color;
 
     &:focus {
-      border-color: #66AFEC;
+      border-color: #66afec;
       background-color: $input-focus-bg;
       box-shadow: $input-focus-box-shadow;
     }

@@ -3,6 +3,7 @@
     color: #fff;
     background-color: $green;
     border-color: $green;
+
     &:active,
     &:hover,
     &:focus {
@@ -14,19 +15,21 @@
     &-secondary {
       color: $green;
       border-color: $green;
+
       &:active,
       &:hover,
       &:focus {
         background-color: $green;
         color: $white;
       }
+
       &:focus {
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 59, 0.25);
       }
     }
   }
 
-  &-link--inline{
+  &-link--inline {
     padding: 0;
     font-size: inherit;
     line-height: inherit;
@@ -34,23 +37,28 @@
     vertical-align: inherit;
     color: $green;
   }
+
   &-info {
     color: #000;
   }
 }
+
 .btn-group-justified {
   display: table;
   width: 100%;
   table-layout: fixed;
   border-collapse: separate;
+
   .btn,
   .btn-group {
     float: none;
     display: table-cell;
     width: 1%;
+
     .btn {
       width: 100%;
     }
+
     .dropdown-menu {
       left: auto;
     }

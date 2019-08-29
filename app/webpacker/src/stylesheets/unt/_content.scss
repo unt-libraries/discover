@@ -1,16 +1,20 @@
-html, html a {
+html,
+html a {
   -webkit-font-smoothing: antialiased;
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
+
 .content {
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
+
   &__title {
     border-bottom: 1px solid $gray-300;
   }
 
   h2 {
     text-transform: uppercase;
+
     &.normal-case {
       text-transform: initial;
     }
@@ -41,14 +45,12 @@ html, html a {
     padding-bottom: 1.5rem;
     border-bottom: 1px solid $gray-200;
   }
-
 }
 
 .ip {
   font-size: 1.1rem;
   color: $dark-charcoal;
 }
-
 
 .breadcrumb {
   font-size: $font-size-sm;
@@ -57,71 +59,71 @@ html, html a {
 }
 
 .sidebar {
-
   &--left {
     // border-left: 1px solid $gray-300;
     //border-right: 1px solid $gray-300;
     //background-color: rgba(0,106,50, .04);
-    color: $light-charcoal
+    color: $light-charcoal;
   }
-
 }
 
-
 .section-nav {
-
   text-transform: uppercase;
 
   .roman & {
     counter-reset: h2;
-    @include list-unstyled;
 
-    & li:not(.toc-h3) >  a:before {
-      content: counter(h2, upper-roman) ". ";
-      counter-increment: h2;
-    }
+    @include list-unstyled;
 
     & ul {
       @include list-unstyled;
+
       padding-left: 1.25rem;
       counter-reset: ul;
 
-      a:before {
+      a::before {
         content: counter(ul, upper-alpha) ". ";
         counter-increment: ul;
       }
+    }
 
+    & li:not(.toc-h3) > a::before {
+      content: counter(h2, upper-roman) ". ";
+      counter-increment: h2;
     }
   }
-
 }
 
-.numbered-list-roman{
+.numbered-list-roman {
   counter-reset: h2;
 
   & h2 {
     counter-reset: h3;
   }
+
   & h3 {
     counter-reset: h4;
     text-transform: uppercase;
   }
+
   & h4 {
     counter-reset: h5;
     text-transform: uppercase;
   }
+
   & h5 {
     counter-reset: h6;
     text-transform: uppercase;
   }
 
-  & h2:not(.no-toc):before {
+  & h2:not(.no-toc)::before {
     content: counter(h2, upper-roman) ". ";
     counter-increment: h2;
     font-size: 3rem;
     color: $gray-600;
   }
-  & h3:not(.no-toc):before {
+
+  & h3:not(.no-toc)::before {
     content: counter(h3, upper-alpha) ". ";
     counter-increment: h3;
     font-size: 2.25rem;

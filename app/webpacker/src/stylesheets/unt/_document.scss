@@ -12,6 +12,7 @@
       font-size: $h4-font-size;
       text-transform: none;
     }
+
     &.seen {
       .document-title-heading a {
         color: theme-color("indigo");
@@ -23,7 +24,7 @@
 .document-metadata {
   .result__field {
     border-left: #d5d5d5 solid 4px;
-    padding-bottom: .25rem;
+    padding-bottom: 0.25rem;
     padding-left: 15px;
     width: 100%;
   }
