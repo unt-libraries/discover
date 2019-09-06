@@ -39,5 +39,10 @@ en:
         pages:
           one: '<span class="results-count__label">Results: </span><span class="results-count__current">%{start_num} - %{end_num} <span class="d-none d-md-inline">of %{total_num}</span></span>'
           other: '<span class="results-count__label">Results: </span><span class="results-count__current">%{start_num} - %{end_num} <span class="d-none d-md-inline">of %{total_num}</span></span>'
+      entry_pagination_info:
+        one: '<strong>1 of 1</strong>'
+        other: 'Result %{current} of %{total}'
+        previous: 'PREV'
+        next: 'NEXT'
       documents:
         counter: 'Result #%{counter}:'

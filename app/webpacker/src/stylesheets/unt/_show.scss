@@ -1,10 +1,4 @@
 .show-document {
-  .pagination-search-widgets {
-    border: 0;
-    margin: 0;
-    padding: 0.75rem 1rem;
-  }
-
   h1 {
     font-size: 1.75rem;
     padding-top: 1.5rem;
@@ -16,6 +10,7 @@
   }
 
   .result__label {
+    text-transform: none;
     color: theme-color("gray-dark");
   }
 }

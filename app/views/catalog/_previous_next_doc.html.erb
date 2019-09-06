@@ -1,0 +1,11 @@
+<% # Using the Bootstrap Pagination class  -%>
+<div>
+  <% if @search_context[:prev] || @search_context[:next] %>
+    <%=link_to_document @document, item_page_entry_info %>
+    <div class="page-links">
+      <%= link_to_previous_document @search_context[:prev] %>
+       |
+      <%= link_to_next_document @search_context[:next] %>
+    </div>
+  <% end %>
+</div>
