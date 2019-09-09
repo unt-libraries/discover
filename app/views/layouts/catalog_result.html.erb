@@ -1,13 +1,32 @@
 <% content_for(:content) do %>
   <section id="content" class="<%= show_content_classes %>">
     <div class="card">
-      <div class="card-body pb-0">
+      <div class="card-body">
         <div class="row">
           <div class="col-12">
             <%= render partial: 'shared/content/breadcrumbs' %>
           </div>
         </div>
-        <%= yield %>
+        <div class="row">
+          <div class="col-12">
+            <%= render partial: 'shared/content/search-bar' %>
+          </div>
+        </div>
+        <%# Facet constraints should be added here once they are fed into 'show' context %>
+<!--        <div class="row">-->
+<!--          <div class="col-12">-->
+            <%#= render 'constraints' %>
+<!--          </div>-->
+<!--        </div>-->
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <%= yield %>
+          </div>
+        </div>
       </div>
     </div>
   </section>

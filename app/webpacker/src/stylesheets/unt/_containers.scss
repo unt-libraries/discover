@@ -13,6 +13,7 @@
 
 .main-container {
   max-width: 1600px;
+  margin-top: 1.5rem;
 
   @include media-breakpoint-up(md) {
     padding-left: 48px;
