@@ -22,7 +22,8 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
   script:
     - ssh $SSH_USER@$SSH_SERVER "
         cd $SITE_DEST_DIR &&
-        git pull origin $GIT_BRANCH &&
+        git fetch --all &&
+        git checkout $CI_COMMIT_SHA &&
         export RAILS_PORT=$RAILS_PORT &&
         export RAILS_ENV=$RAILS_ENV &&
         export RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES &&
