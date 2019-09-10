@@ -4,6 +4,10 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Blacklight::Marc::Catalog
 
+  def search_action_url options = {}
+    options[:protocol] = request.headers['X-Forwarded-Proto'] or request.protocol
+    super options
+  end
 
   configure_blacklight do |config|
     ## Class for sending and receiving requests from a search index
