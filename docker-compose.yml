@@ -4,7 +4,7 @@ services:
     image: postgres
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
-    restart: unless-stopped
+    restart: always
   web:
     build: .
     command: bash -c "echo $RAILS_ENV && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -14,7 +14,7 @@ services:
       - "${RAILS_PORT}:3000"
     depends_on:
       - db
-    restart: unless-stopped
+    restart: always
     environment:
       - SOLR_URL
       - RAILS_ENV=${RAILS_ENV}
