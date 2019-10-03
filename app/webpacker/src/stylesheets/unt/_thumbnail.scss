@@ -12,15 +12,28 @@
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
       }
     }
+
+    &.show-thumbnail {
+      img {
+        box-shadow: none;
+
+        &:hover {
+          box-shadow: none;
+        }
+      }
+    }
   }
 
   .icon {
     color: theme-color("mint-green");
-    transition: all 0.2s ease-in-out;
 
-    &:hover {
-      transform: scale(1.05);
-      color: theme-color-level("mint-green", 1);
+    &.index-icon {
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.05);
+        color: theme-color-level("mint-green", 1);
+      }
     }
   }
   // Font size for font awesome icons

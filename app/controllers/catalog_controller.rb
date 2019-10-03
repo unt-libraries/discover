@@ -222,8 +222,12 @@ class CatalogController < ApplicationController
     # config.add_show_field 'full_title', label: 'Title'
     config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
     config.add_show_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
+    config.add_show_field 'summary_notes', label: 'Summary'
+    config.add_show_field 'toc_notes', label: 'Table of Contents'
+    config.add_show_field 'physical_characteristics', label: 'Physical Description'
     config.add_show_field 'material_type', label: 'Format', accessor: 'format_name'
     config.add_show_field 'urls', label: 'URLs', separator_options: { words_connector: '; ' }
+    config.add_show_field 'url_labels', label: 'URL Labels', separator_options: { words_connector: '; ' }
     # config.add_show_field 'url_suppl_display', label: 'More Information'
     config.add_show_field 'languages', label: 'Languages', separator_options: { words_connector: '; ' }
     config.add_show_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
@@ -231,6 +235,9 @@ class CatalogController < ApplicationController
     config.add_show_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
     config.add_show_field 'main_call_number', label: 'Call number'
     config.add_show_field 'isbn_numbers', label: 'ISBN', separator_options: { words_connector: '; ' }
+    config.add_show_field 'issn_numbers', label: 'ISSN', separator_options: { words_connector: '; ' }
+    config.add_show_field 'lccn_numbers', label: 'LCCN', separator_options: { words_connector: '; ' }
+    config.add_show_field 'oclc_numbers', label: 'OCLC Number', separator_options: { words_connector: '; ' }
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
