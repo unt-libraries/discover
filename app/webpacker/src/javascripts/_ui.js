@@ -58,14 +58,15 @@ window.replaceIndexThumbs = function (payload) {
 window.replaceShowThumb = function (payload) {
   if (!elHasClass(document.body, 'blacklight-catalog-show')) return;
 
-  const thumbWrapper = document.querySelector('.thumbnail-wrapper');
-  const thumbContainer = thumbWrapper.querySelector('.document-thumbnail');
+  const thumbContainers = document.querySelectorAll('.document-thumbnail');
 
   Object.entries(payload).forEach(([bookKey, bookData]) => {
     if (has.call(bookData, 'thumbnail_url')) {
-      if (thumbContainer && !elHasClass(thumbContainer, 'thumbnail-loaded')) {
-        replaceThumbnailElement(thumbContainer, bookData);
-      }
+      Array.prototype.forEach.call(thumbContainers, (thumbContainer) => {
+        if (thumbContainer && !elHasClass(thumbContainer, 'thumbnail-loaded')) {
+          replaceThumbnailElement(thumbContainer, bookData);
+        }
+      });
     }
   });
 };
