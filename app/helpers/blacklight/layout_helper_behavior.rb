@@ -5,17 +5,31 @@ module Blacklight
   # A module for useful methods used in layout configuration
   module LayoutHelperBehavior
     ##
-    # Classes added to a document's show content div
+    # Classes added to a document's sidebar div
     # @return [String]
-    def show_content_classes
-      "#{main_content_classes} show-document"
+    def show_sidebar_desktop_classes
+      "d-none d-md-block col-md-4 col-xl-3 order-first show-thumbnail-tools"
     end
 
     ##
     # Classes added to a document's sidebar div
     # @return [String]
-    def show_sidebar_classes
-      "#{sidebar_classes} show-sidebar"
+    def show_sidebar_mobile_classes
+      "d-md-none show-thumbnail-tools"
+    end
+
+    ##
+    # # Classes added to a document's show breadcrumb and search div
+    # @return [String]
+    def show_breadcrumb_search_classes
+      "show-breadcrumb-search"
+    end
+
+    ##
+    # Classes added to a document's show content div
+    # @return [String]
+    def show_content_classes
+      "show-document"
     end
 
     ##

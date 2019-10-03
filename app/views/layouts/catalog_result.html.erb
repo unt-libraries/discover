@@ -1,41 +1,59 @@
 <% content_for(:content) do %>
-  <section id="content" class="<%= show_content_classes %>">
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12">
-            <%= render partial: 'shared/content/breadcrumbs' %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <%= render partial: 'shared/content/search-bar' %>
-          </div>
-        </div>
-        <%# Facet constraints should be added here once they are fed into 'show' context %>
-<!--        <div class="row">-->
-<!--          <div class="col-12">-->
-            <%#= render 'constraints' %>
-<!--          </div>-->
-<!--        </div>-->
+  <section class="content col">
+    <div class="row">
+      <div class="<%= show_sidebar_desktop_classes %>">
+        <%= render partial: 'catalog/show_thumbnail' %>
+        <%= render partial: 'catalog/show_tools' %>
       </div>
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12">
-            <%= yield %>
+
+      <div class="col">
+        <div class="<%= show_breadcrumb_search_classes %>">
+          <div class="card ">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <%= render partial: 'shared/content/breadcrumbs' %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <%= render partial: 'shared/content/search-bar' %>
+                </div>
+              </div>
+              <%# Facet constraints should be added here once they are fed into 'show' context %>
+              <!--        <div class="row">-->
+              <!--          <div class="col-12">-->
+              <%#= render 'constraints' %>
+              <!--          </div>-->
+              <!--        </div>-->
+            </div>
           </div>
         </div>
+
+        <div class="<%= show_sidebar_mobile_classes %>">
+          <%= render partial: 'catalog/show_thumbnail' %>
+        </div>
+
+        <div class="<%= show_content_classes %>">
+          <div class="card ">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <%= yield %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="<%= show_sidebar_mobile_classes %>">
+          <%= render partial: 'catalog/show_tools' %>
+        </div>
       </div>
+
     </div>
   </section>
 
-  <% if content_for? :sidebar %>
-    <section id="sidebar" class="<%= show_sidebar_classes %>">
-      <%= content_for(:sidebar) %>
-    </section>
-  <% end %>
 <% end %>
 
 <%= render template: "layouts/blacklight/base" %>
