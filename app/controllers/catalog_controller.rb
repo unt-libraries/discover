@@ -114,7 +114,7 @@ class CatalogController < ApplicationController
       :willis => { label: 'Willis Library', fq: "bib_location_codes:w* OR item_location_codes:w*" },
     }
 
-    config.add_facet_field 'material_type', label: 'Format', :query => {
+    config.add_facet_field 'material_type', label: 'Format', collapse: false, :query => {
       :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
       :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },
       :books_audio => { label: 'Books (Audio)', fq: "material_type:i" },
