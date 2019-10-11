@@ -4,6 +4,47 @@ module FacetsHelper
   include Blacklight::FacetsHelperBehavior
 
   ##
+  # Render a collection of facet fields.
+  # @see #render_facet_limit
+  #
+  # @param [Array<String>] fields
+  # @param [Hash] options
+  # @return String
+  def render_home_facet_partials fields = facet_field_names, options = {}
+    safe_join(facets_from_request(fields).map do |display_facet|
+      render_home_facet_limit(display_facet, options)
+    end.compact, "\n")
+  end
+
+  ##
+  # Renders a single section for facet limit with a specified
+  # solr field used for faceting. Can be over-ridden for custom
+  # display on a per-facet basis.
+  #
+  # @param [Blacklight::Solr::Response::Facets::FacetField] display_facet
+  # @param [Hash] options parameters to use for rendering the facet limit partial
+  # @option options [String] :partial partial to render
+  # @option options [String] :layout partial layout to render
+  # @option options [Hash] :locals locals to pass to the partial
+  # @return [String]
+  def render_home_facet_limit(display_facet, options = {})
+    field_config = facet_configuration_for_field(display_facet.name)
+    return unless field_config.home == true
+    return unless should_render_facet?(display_facet, field_config)
+
+    options = options.dup
+    options[:partial] ||= facet_partial_name(display_facet)
+    options[:layout] ||= "facet_layout" unless options.key?(:layout)
+    options[:locals] ||= {}
+    options[:locals][:field_name] ||= display_facet.name
+    options[:locals][:facet_field] ||= field_config
+    options[:locals][:display_facet] ||= display_facet
+    options[:locals][:facet_field][:collapse] = field_config[:home_collapse].nil? ? true : field_config[:home_collapse]
+
+    render(options)
+  end
+
+  ##
   # Overrides default Blacklight implementation
   # Renders the list of values
   # removes any elements where render_facet_item returns a nil value. This enables an application

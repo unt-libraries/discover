@@ -92,8 +92,11 @@ class CatalogController < ApplicationController
     # set :index_range to true if you want the facet pagination view to have facet prefix-based navigation
     #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
     # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
+    #
+    # set `home` to true for it to appear on the home screen facets list. Default is false.
+    # set `home_collapse` to true for it to collapse on the home page, false to expand it. Default is true.
 
-    config.add_facet_field 'access', label: 'Online Access', :query => {
+    config.add_facet_field 'access', label: 'Online Access', home: true, home_collapse: false, :query => {
       :online => { label: 'Online Copy Available', fq: "bib_location_codes:*www OR item_location_codes:*www" },
       # I'm not sure the best way to create the Solr query to find items that have a physical copy.
       # I think this facet could work as just a single "Online Copy Available" value, so maybe we don't even
@@ -101,7 +104,7 @@ class CatalogController < ApplicationController
       # :physical => { label: 'Copy Available at Library', fq: "bib_location_codes:/(.{1,2}|(.*[^w][^w][^w])/ AND item_location_codes:/(.{1,2}|(.*[^w][^w][^w])/" },
     }
 
-    config.add_facet_field 'bib_location_codes', label: 'Library Location', :query => {
+    config.add_facet_field 'bib_location_codes', label: 'Library Location', home: true, :query => {
       :dpl => { label: 'Discovery Park Library', fq: "bib_location_codes:r* OR item_location_codes:r*" },
       :ecl => { label: 'Eagle Commons Library', fq: "bib_location_codes:s* OR item_location_codes:s*" },
       :factory => { label: 'The Factory (Makerspace)', fq: "bib_location_codes:*mak OR item_location_codes:*mak" },
@@ -114,7 +117,7 @@ class CatalogController < ApplicationController
       :willis => { label: 'Willis Library', fq: "bib_location_codes:w* OR item_location_codes:w*" },
     }
 
-    config.add_facet_field 'material_type', label: 'Format', collapse: false, :query => {
+    config.add_facet_field 'material_type', label: 'Format', collapse: false, home: true, :query => {
       :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
       :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },
       :books_audio => { label: 'Books (Audio)', fq: "material_type:i" },
@@ -136,7 +139,7 @@ class CatalogController < ApplicationController
       :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
     }
 
-    config.add_facet_field 'languages', label: 'Language', limit: 10
+    config.add_facet_field 'languages', label: 'Language', home: true, limit: 10
 
     config.add_facet_field 'publication_dates_facet', label: 'Publication Date', :query => {
       :years_21st_cent => { label: '21st Century', fq: "publication_dates_facet:[2000 TO 2099] OR publication_dates_facet:\"21st century\"" },

@@ -23,7 +23,7 @@
   </div>
 
   <div id="facet-panel-collapse" class="facets-collapse collapse">
-    <%= render_facet_partials %>
+    <%= current_search_session ? render_facet_partials : render_home_facet_partials %>
   </div>
 </div>
 <% end %>
