@@ -16,10 +16,18 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
 test:
   stage: test
   variables:
+    ADD_PACKAGES: docker py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
     RAILS_PORT: 3300
     RAILS_ENV: test
     RAILS_SERVE_STATIC_FILES: "true"
-  script: "docker-compose run -e \"RAILS_ENV=test\" --rm web bundle exec rspec --format documentation && docker-compose down"
+  script:
+    - "service docker start"
+    - "pip install docker-compose"
+    - "docker-compose build"
+    - "docker-compose run --rm web rake db:migrate"
+    - "docker-compose run --rm web rails assets:precompile"
+    - "docker-compose run --rm web bundle exec rspec --format documentation"
+    - "docker-compose down"
   when: manual
 
 .deploy:
