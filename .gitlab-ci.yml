@@ -21,6 +21,7 @@ test:
     RAILS_ENV: test
     RAILS_SERVE_STATIC_FILES: "true"
   script:
+    - "rc-update add docker boot"
     - "service docker start"
     - "pip install docker-compose"
     - "docker-compose build"
