@@ -290,3 +290,26 @@ If you find yourself needing to generate a new secret, you can so so with:
 ```console
 $ docker-compose run web rake secret
 ```
+
+## Scripts
+
+Several convenience scripts exist in `package.json` that can be invoked with yarn (or npm).
+Example: `$ yarn start` to build the docker containers and start the web server.
+
+- `start`: Starts the Docker containers in the terminal
+- `build`: Builds the Docker containers, required before starting
+- `web:run`: Issue a command to the web container and then stop the containers
+- `test`: Run tests using Rails and Docker test configurations
+- `web:compileAssets`: Precompile assets with Rails
+- `web:dbCreate`: Create the database with Rails
+- `web:dbMigrate`: Migrate databases with Rails
+- `web:credentials`: Edit Rails credentials
+- `docker:stopAll`: Stop all currently running Docker containers
+- `docker:removeAll`: Remove all Docker containers
+- `docker:prune`: Prune Docker containers
+- `updateBrowserStats`: Update `browserslist-stats.json` for BrowsersList and Google Analytics integration
+
+## Testing
+
+Testing is done with RSpec, Capybara, and headless Chrome by running `$ yarn test`. Test files
+can be found in the `/spec` directory.

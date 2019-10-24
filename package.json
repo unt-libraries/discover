@@ -4,6 +4,8 @@
     "start": "docker-compose up",
     "build": "docker-compose build",
     "web:run": "docker-compose run --rm web",
+    "test": "docker-compose run -e \"RAILS_ENV=test\" --rm web bundle exec rspec",
+    "test:verbose": "yarn test --format documentation",
     "web:compileAssets": "docker-compose run --rm web rails assets:precompile",
     "web:dbCreate": "docker-compose run --rm web rake db:create",
     "web:dbMigrate": "docker-compose run --rm web rake db:migrate",

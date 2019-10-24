@@ -1,6 +1,7 @@
 image: alpine
 
 stages:
+  - test
   - deploy
 
 variables:
@@ -11,6 +12,15 @@ variables:
 
 # Include before_script to download utilities repo & run scripts
 include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitlab-ci/.before-script-utils-repo.yml'
+
+test:
+  stage: test
+  variables:
+    RAILS_PORT: 3300
+    RAILS_ENV: test
+    RAILS_SERVE_STATIC_FILES: "true"
+  script: "docker-compose run -e \"RAILS_ENV=test\" --rm web bundle exec rspec --format documentation && docker-compose down"
+  when: manual
 
 .deploy:
   stage: deploy

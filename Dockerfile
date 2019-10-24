@@ -1,4 +1,4 @@
-FROM ruby:2.5.3-alpine
+FROM ruby:2.6.5-alpine
 
 # Install dependencies
 RUN apk add --no-cache \
@@ -19,6 +19,9 @@ WORKDIR /app
 COPY Gemfile* /app/
 RUN bundle install
 
+WORKDIR /app
+RUN mkdir -p tmp/db
+
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
@@ -27,3 +30,9 @@ ENTRYPOINT ["entrypoint.sh"]
 WORKDIR /app
 COPY . /app
 CMD bundle exec rails server -p 3000 -b '0.0.0.0'
+
+# Bundle installs with binstubs to our custom /bundle/bin volume path. Let system use those stubs.
+ENV BUNDLE_PATH=/bundle \
+    BUNDLE_BIN=/bundle/bin \
+    GEM_HOME=/bundle
+ENV PATH="${BUNDLE_BIN}:${PATH}"
