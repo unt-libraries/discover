@@ -1,4 +1,4 @@
-image: alpine
+image: alpine:3.10.3
 
 stages:
   - test
@@ -6,7 +6,6 @@ stages:
 
 variables:
   DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://docker:2375
   DOCKER_TLS_CERTDIR: ""
   GIT_SUBMODULE_STRATEGY: none
   SSH_PRIVATE_KEY: $LIBWEBRUNNER_PRIVATE_KEY
@@ -17,9 +16,11 @@ variables:
 include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitlab-ci/.before-script-utils-repo.yml'
 
 test:
-  image: docker:19.03.4-dind
+  services:
+    - docker:19.03.4-dind
   stage: test
   variables:
+    DOCKER_HOST: tcp://docker:2375
     ADD_PACKAGES: py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
     RAILS_PORT: 3300
     RAILS_ENV: test
