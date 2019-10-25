@@ -16,6 +16,7 @@ variables:
 include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitlab-ci/.before-script-utils-repo.yml'
 
 test:
+  image: docker:19.03.4
   services:
     - docker:19.03.4-dind
   stage: test
