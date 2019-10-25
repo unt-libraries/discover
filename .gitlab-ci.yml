@@ -32,9 +32,10 @@ test:
     - "docker info"
     - "pip install docker-compose"
     - "echo \"$RAILS_MASTER_KEY\" > config/master.key"
-    - "RAILS_ENV=production docker-compose build"
-    - "RAILS_ENV=production docker-compose run --rm web rake db:migrate"
-    - "RAILS_ENV=production docker-compose run --rm web rails assets:precompile"
+    - "docker-compose build"
+    - "docker-compose run --rm web rake db:create"
+    - "docker-compose run --rm web rake db:migrate"
+    - "docker-compose run --rm web rails assets:precompile"
     - "docker-compose run --rm web bundle exec rspec --format documentation"
     - "docker-compose down"
   when: manual
