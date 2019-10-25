@@ -15,6 +15,9 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
 
 test:
   image: docker:19.03.4
+  tags: 
+    - docker
+    - privileged
   services:
     - docker:19.03.4-dind
   stage: test
