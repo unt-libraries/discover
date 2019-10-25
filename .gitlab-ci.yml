@@ -31,7 +31,7 @@ test:
   script:
     - "docker info"
     - "pip install docker-compose"
-    - "echo '$RAILS_MASTER_KEY' > config/master.key"
+    - "echo \"$RAILS_MASTER_KEY\" > config/master.key"
     - "RAILS_ENV=production docker-compose build"
     - "RAILS_ENV=production docker-compose run --rm web rake db:migrate"
     - "RAILS_ENV=production docker-compose run --rm web rails assets:precompile"
