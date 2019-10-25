@@ -31,9 +31,9 @@ test:
   script:
     - "docker info"
     - "pip install docker-compose"
-    - "docker-compose build"
-    - "docker-compose run --rm web rake db:migrate"
-    - "docker-compose run --rm web rails assets:precompile"
+    - "RAILS_ENV=production docker-compose build"
+    - "RAILS_ENV=production docker-compose run --rm web rake db:migrate"
+    - "RAILS_ENV=production docker-compose run --rm web rails assets:precompile"
     - "docker-compose run --rm web bundle exec rspec --format documentation"
     - "docker-compose down"
   when: manual
