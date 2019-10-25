@@ -25,6 +25,7 @@ test:
     RAILS_ENV: test
     RAILS_SERVE_STATIC_FILES: "true"
   script:
+    - "docker info"
     - "pip install docker-compose"
     - "docker-compose build"
     - "docker-compose run --rm web rake db:migrate"
