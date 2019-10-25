@@ -14,15 +14,14 @@ variables:
 include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitlab-ci/.before-script-utils-repo.yml'
 
 test:
+  image: docker:dind
   stage: test
   variables:
-    ADD_PACKAGES: docker py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
+    ADD_PACKAGES: py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
     RAILS_PORT: 3300
     RAILS_ENV: test
     RAILS_SERVE_STATIC_FILES: "true"
   script:
-    - "rc-update add docker boot"
-    - "service docker start"
     - "pip install docker-compose"
     - "docker-compose build"
     - "docker-compose run --rm web rake db:migrate"
