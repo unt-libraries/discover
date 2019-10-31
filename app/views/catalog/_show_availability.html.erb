@@ -1,0 +1,19 @@
+<% document ||= @document
+   id = document[:id] %>
+
+<div class="card">
+  <div class="card-header">Availability</div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col">Location</div>
+      <div class="col">Call Number</div>
+      <div class="col">Availability</div>
+    </div>
+
+    <div class="row">
+        <div class="col">Location TBD</div>
+        <div class="col"><%= document[:main_call_number] %></div>
+        <div class="col">Availability TBD</div>
+    </div>
+  </div>
+</div>

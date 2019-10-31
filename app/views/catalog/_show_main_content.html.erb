@@ -7,8 +7,7 @@
             }.merge(@document.identifier_data),
             "itemscope": true,
             "itemtype": @document.itemtype do -%>
-  <div id="doc_<%= @document.id.to_s.parameterize %> row">
-    <%#= render_document_partials @document, ['thumbnail'] %>
+  <div id="doc_<%= @document.id.to_s.parameterize %>">
     <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
   </div>
 <% end -%>

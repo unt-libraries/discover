@@ -8,7 +8,7 @@ module Blacklight
     # Classes added to a document's sidebar div
     # @return [String]
     def show_sidebar_desktop_classes
-      "d-none d-md-block col-md-4 col-xl-3 order-first show-thumbnail-tools"
+      "d-none d-md-block col-md-3 col-xl-2 order-first show-thumbnail-tools"
     end
 
     ##

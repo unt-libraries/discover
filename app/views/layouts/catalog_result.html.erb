@@ -37,13 +37,10 @@
         <div class="<%= show_content_classes %>">
           <div class="card ">
             <div class="card-body">
-              <div class="row">
-                <div class="col-12">
-                  <%= yield %>
-                </div>
-              </div>
+              <%= yield %>
             </div>
           </div>
+          <%= render partial: 'show_availability', locals: { document: @document } if @document %>
         </div>
 
         <div class="<%= show_sidebar_mobile_classes %>">
