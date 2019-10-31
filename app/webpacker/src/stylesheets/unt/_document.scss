@@ -18,17 +18,17 @@
         color: theme-color("indigo");
       }
     }
+
+    .result__field {
+      border-left: #d5d5d5 solid 4px;
+      padding-bottom: 0.25rem;
+      padding-left: 15px;
+      width: 100%;
+    }
   }
 }
 
 .document-metadata {
-  .result__field {
-    border-left: #d5d5d5 solid 4px;
-    padding-bottom: 0.25rem;
-    padding-left: 15px;
-    width: 100%;
-  }
-
   .result__label {
     color: theme-color("gray-darker");
     font-weight: $font-weight-bold;
