@@ -1,4 +1,3 @@
-import 'corejs-typeahead';
 // Modal manually imported, otherwise isn't available for blacklight modal
 import 'bootstrap/js/dist/modal';
 

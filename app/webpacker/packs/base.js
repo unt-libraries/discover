@@ -1,5 +1,6 @@
 // Script files that should be included in all pages
 import '../src/javascripts/www/_main';
+import '../src/javascripts/www/_typeaheads';
 import * as ui from '../src/javascripts/_ui';
 import * as facets from '../src/javascripts/_facets';
 import * as search from '../src/javascripts/_search';
