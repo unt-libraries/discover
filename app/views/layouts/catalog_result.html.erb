@@ -7,36 +7,18 @@
       </div>
 
       <div class="col">
-        <div class="<%= show_breadcrumb_search_classes %>">
-          <div class="card ">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-12">
-                  <%= render partial: 'shared/content/breadcrumbs' %>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <%= render partial: 'shared/content/search-bar' %>
-                </div>
-              </div>
-              <%# Facet constraints should be added here once they are fed into 'show' context %>
-              <!--        <div class="row">-->
-              <!--          <div class="col-12">-->
-              <%#= render 'constraints' %>
-              <!--          </div>-->
-              <!--        </div>-->
-            </div>
-          </div>
-        </div>
-
-        <div class="<%= show_sidebar_mobile_classes %>">
+        <div class="<%= show_sidebar_mobile_classes %> d-none">
           <%= render partial: 'catalog/show_thumbnail' %>
         </div>
 
         <div class="<%= show_content_classes %>">
           <div class="card ">
             <div class="card-body">
+              <div class="row">
+                <div class="col-12 <%= show_breadcrumb_search_classes %>">
+                  <%= render partial: 'shared/content/breadcrumbs' %>
+                </div>
+              </div>
               <%= yield %>
             </div>
           </div>

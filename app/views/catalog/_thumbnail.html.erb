@@ -1,18 +1,24 @@
 <% if presenter(document).respond_to?('thumbnail') && presenter(document).thumbnail.exists? && tn = presenter(document).thumbnail.thumbnail_tag({}, counter: document_counter_with_offset(document_counter)) %>
   <%= tn %>
 <% else %>
+  <% current_action = params[:action] %>
+  <% thumbnail_url = document[:thumbnail_url] %>
   <%# Only link to the document if in index, not in show %>
-  <% if params[:action] == 'show' %>
-    <div class="show-thumbnail document-thumbnail text-center">
-      <i class="show-icon icon far fa-10x fa-<%= document.format_icon %>"></i>
-      <span class="sr-only item-title"><%= document[:full_title] %></span>
-    </div>
+  <% if current_action == 'index' %>
+    <a href="" class="thumbnail-link" tabindex="-1">
+    <% action_classes = "index-thumbnail d-none d-lg-block #{thumbnail_url.nil? ? '' : 'thumbnail-loaded'}" %>
   <% else %>
-    <%= link_to(document, class: "thumbnail-link", tabindex: "-1") do %>
-      <div class="index-thumbnail document-thumbnail text-center">
-        <i class="index-icon icon far fa-10x fa-<%= document.format_icon %>"></i>
+    <% action_classes = "show-thumbnail d-none d-md-block #{thumbnail_url.nil? ? '' : 'thumbnail-loaded'}" %>
+  <% end %>
+    <div class="document-thumbnail text-center <%= action_classes %>">
+      <% if thumbnail_url.nil? %>
+        <i class="<%= current_action %>-icon icon far fa-10x fa-<%= document.format_icon %>"></i>
         <span class="sr-only item-title"><%= document[:full_title] %></span>
-      </div>
-    <% end %>
+      <% else %>
+        <img src="<%= thumbnail_url %>" class="img-fluid">
+      <% end %>
+    </div>
+  <% if current_action == 'index' %>
+    </a>
   <% end %>
 <% end %>

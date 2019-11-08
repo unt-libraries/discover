@@ -8,20 +8,18 @@
 
 -%>
 <% if show_doc_actions? %>
-  <div class="card">
-    <div class="card-header">
-      <h2 class="mb-0 h6"><%= t('blacklight.tools.title') %></h2>
-    </div>
+  <div class="card show-tools">
+    <h3 class="card-header show-tools-heading"><%= t('blacklight.tools.title') %></h3>
 
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item catalog-tool">
+    <div class="card-body show-tools-values list-group list-group-flush">
+      <div class="list-group-item show-tools-item catalog-tool">
         <a id="catalogLink" class="nav-link" target="_blank" href="https://iii.library.unt.edu/record=<%= @document.id.to_s.parameterize %>">View in Catalog</a>
-      </li>
+      </div>
       <%= render_show_doc_actions @document do |config, inner| %>
-        <li class="list-group-item <%= config.key %>">
+        <div class="list-group-item show-tools-item <%= config.key %>">
           <%= inner %>
-        </li>
+        </div>
       <% end %>
-    </ul>
+    </div>
   </div>
 <% end %>
