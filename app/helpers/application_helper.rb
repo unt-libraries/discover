@@ -84,4 +84,14 @@ module ApplicationHelper
     end
     links.join('; ').html_safe
   end
+
+  def json_str_to_array(value)
+    value.map! do |item|
+      JSON.parse(item)
+    end
+  end
+
+  def items_have_notes?(items)
+    items.any? {|h| h['n'] != nil}
+  end
 end

@@ -1,0 +1,41 @@
+<%# Refworks -%>
+<div class="row">
+  <div class="col-auto">
+    <% if document.identifier_data[:"bib-id"] != '' -%>
+      <%= link_to "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document.identifier_data[:"bib-id"]}",
+                  class: "", target: "_blank" do -%>
+        Add <span class="sr-only"><%= document[:full_title] -%></span>to Refworks
+      <% end -%>
+    <% end -%>
+  </div>
+
+  <%# ILLiad -%>
+  <div class="col-auto">
+    <% if document.identifier_data[:"bib-id"] != '' -%>
+      <%= link_to "https://unt.illiad.oclc.org/illiad/illiad.dll?Action%3D10&Form%3D30",
+                  class: "", target: "_blank" do -%>
+        Request <span class="sr-only"><%= document[:full_title] -%></span>through ILLiad
+      <% end -%>
+    <% end -%>
+  </div>
+
+  <%# More items dropdown %>
+  <div class="col-auto">
+    <div class="dropdown d-inline-block">
+      <a class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+        MORE <i class="far fa-chevron-down"></i>
+      </a>
+
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">
+          Request <span class="sr-only"><%= document[:full_title] -%></span>through AEON
+        </a>
+        <%= link_to "Find It", "#",
+                    class: "dropdown-item", target: "_blank", "aria-label": "Find #{document[:full_title]}" %>
+        <a class="dropdown-item" href="#">
+          Faculty: Book This Item<span class="sr-only">,<%= document[:full_title] -%></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

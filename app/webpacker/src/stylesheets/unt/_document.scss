@@ -1,10 +1,11 @@
+// document list on search results page
 .documents-list {
   .document {
     margin-top: 0;
 
     &.row {
-      padding-top: 30px;
-      padding-bottom: 30px;
+      padding-top: 20px;
+      padding-bottom: 20px;
       border-bottom: #d5d5d5 solid 1px;
     }
 
@@ -29,12 +30,29 @@
         border-left: none;
       }
     }
+
+    .result__label {
+      color: theme-color("gray-darker");
+      font-weight: $font-weight-bold;
+      font-size: $font-size-sm;
+      text-transform: uppercase;
+      display: inline;
+      text-align: left;
+    }
+
+    .result__value {
+      display: inline;
+    }
+  }
+
+  .document-metadata {
+    margin-bottom: 0;
   }
 }
 
-.document-metadata {
-  margin-bottom: 0;
-
+// Applies to all documents, whether on search results or single item view
+.document,
+.show-document {
   .result__label {
     color: theme-color("gray-darker");
     font-weight: $font-weight-bold;

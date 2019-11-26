@@ -1,19 +1,43 @@
 <% document ||= @document
-   id = document[:id] %>
+   id = document[:id]
+   doc_presenter = show_presenter(document)
+%>
 
-<div class="card">
-  <div class="card-header">Availability</div>
-  <div class="card-body">
-    <div class="row">
-      <div class="col">Location</div>
-      <div class="col">Call Number</div>
-      <div class="col">Availability</div>
-    </div>
+<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :availability && should_render_show_field?(document, f) } -%>
+  <% items = json_str_to_array(document[:items_json]) %>
+  <div class="card">
+    <div class="card-header">Availability</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col result__label">Location</div>
+        <div class="col result__label">Call Number</div>
+        <div class="col result__label">Availability</div>
+        <% if items_have_notes?(items) %>
+          <div class="col result__label">Notes</div>
+        <% end %>
+      </div>
 
-    <div class="row">
-        <div class="col">Location TBD</div>
-        <div class="col"><%= document[:main_call_number] %></div>
-        <div class="col">Availability TBD</div>
+      <% items.each do |record| %>
+        <div class="row"
+             data-item-id="<%= record['i'] %>"
+             data-item-call-number="<%= record['c'] %>"
+             data-item-barcode="<%= record['b'] %>"
+             data-item-notes="<%= record['n'] %>"
+             data-item-requestability="<%= record['r'] %>">
+          <div class="col">Location TBD</div>
+          <div class="col"><%= record['c'] %></div>
+          <div class="col">Availability TBD</div>
+          <% if items_have_notes?(items) %>
+            <div class="col">
+              <% unless record['n'].nil? %>
+              <% record['n'].each do |note| %>
+                  <%= note %><br>
+              <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
-</div>
+<% end %>

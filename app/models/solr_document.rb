@@ -12,7 +12,7 @@ class SolrDocument
                          :title => "title_display",
                          :author => "author_display",
                          :language => "language_facet",
-                         :format => "format",
+                         :resource_type => "resource_type",
                          :identifier => "isbn_s"
                          )
 
@@ -49,7 +49,7 @@ class SolrDocument
     end.compact
   end
 
-  def material_type_map
+  def resource_type_map
       {
           :p => { :name => 'Archival Collection', :icon => 'book' },
           :i => { :name => 'Book (Audio)', :icon => 'headphones' },
@@ -74,12 +74,12 @@ class SolrDocument
       }
   end
 
-  def format_name
-    material_type_map.dig(self[:material_type].to_sym, :name)
+  def resource_type_name
+    resource_type_map.dig(self[:material_type].to_sym, :name)
   end
 
-  def format_icon
-    material_type_map.dig(self[:material_type].to_sym, :icon)
+  def resource_type_icon
+    resource_type_map.dig(self[:material_type].to_sym, :icon)
   end
 
   private

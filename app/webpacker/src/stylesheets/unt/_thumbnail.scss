@@ -9,7 +9,8 @@
 
   &.thumbnail-loaded {
     img {
-      max-width: 100%;
+      width: 150px;
+      //max-width: 100%;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
       transition: all 0.2s ease-in-out;
 
@@ -40,14 +41,6 @@
         color: theme-color-level("gray-light");
       }
     }
-  }
-  // Font size for font awesome icons
-  @include media-breakpoint-down(lg) {
-    font-size: 0.5rem;
-  }
-
-  @include media-breakpoint-down(sm) {
-    font-size: 1rem;
   }
 
   &.show-thumbnail {

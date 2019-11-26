@@ -118,7 +118,7 @@ class CatalogController < ApplicationController
       :willis => { label: 'Willis Library', fq: "bib_location_codes:w* OR item_location_codes:w*" },
     }
 
-    config.add_facet_field 'material_type', label: 'Format', collapse: false, home: true, :query => {
+    config.add_facet_field 'material_type', label: 'Resource Type', collapse: false, home: true, :query => {
       :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
       :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },
       :books_audio => { label: 'Books (Audio)', fq: "material_type:i" },
@@ -214,34 +214,43 @@ class CatalogController < ApplicationController
     # config.add_index_field 'full_title', label: 'Title'
     config.add_index_field 'creator', label: 'Author/Creator', helper_method: :author_facet_links
     config.add_index_field 'contributors', label: 'Contributors', helper_method: :author_facet_links
-    config.add_index_field 'material_type', label: 'Format', accessor: 'format_name'
+    config.add_index_field 'material_type', label: 'Resource Type', accessor: 'resource_type_name'
     # config.add_index_field 'languages', label: 'Languages'
     config.add_index_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
     config.add_index_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
     config.add_index_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
-    config.add_index_field 'main_call_number', label: 'Call number'
+    config.add_index_field 'main_call_number', label: 'Call number', if: false
+    config.add_index_field 'items_json', label: 'Items', display: :availability
+    config.add_index_field 'has_more_items'
 
     # solr fields to be displayed in the show (single result) view
-    #   The ordering of the field names is the order of the display
-    # config.add_show_field 'full_title', label: 'Title'
+    # The ordering of the field names is the order of the display
+    # The :display property controls where in the template the field appears
     config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
     config.add_show_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
-    config.add_show_field 'summary_notes', label: 'Summary'
-    config.add_show_field 'toc_notes', label: 'Table of Contents'
-    config.add_show_field 'physical_characteristics', label: 'Physical Description'
-    config.add_show_field 'material_type', label: 'Format', accessor: 'format_name'
-    config.add_show_field 'urls', label: 'URLs', separator_options: { words_connector: '; ' }
-    config.add_show_field 'url_labels', label: 'URL Labels', separator_options: { words_connector: '; ' }
-    # config.add_show_field 'url_suppl_display', label: 'More Information'
+    config.add_show_field 'material_type', label: 'Resource Type', accessor: 'resource_type_name'
+
+    # Links and media
+    config.add_show_field 'urls_json', label: 'Links & Media', helper_method: 'format_urls', display: :links_media
+
+    # More Details
+    config.add_show_field 'physical_characteristics', label: 'Physical Description', display: :more_details
+    config.add_show_field 'summary_notes', label: 'Summary', display: :more_details
+    config.add_show_field 'toc_notes', label: 'Table of Contents', display: :more_details
+    config.add_show_field 'isbn_numbers', label: 'ISBN', display: :more_details, separator_options: { words_connector: '; ' }
+    config.add_show_field 'issn_numbers', label: 'ISSN', display: :more_details, separator_options: { words_connector: '; ' }
+    config.add_show_field 'lccn_numbers', label: 'LCCN', display: :more_details, separator_options: { words_connector: '; ' }
+    config.add_show_field 'oclc_numbers', label: 'OCLC Number', display: :more_details, separator_options: { words_connector: '; ' }
+
     config.add_show_field 'languages', label: 'Languages', separator_options: { words_connector: '; ' }
     config.add_show_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
     config.add_show_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
     config.add_show_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
     config.add_show_field 'main_call_number', label: 'Call number'
-    config.add_show_field 'isbn_numbers', label: 'ISBN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'issn_numbers', label: 'ISSN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'lccn_numbers', label: 'LCCN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'oclc_numbers', label: 'OCLC Number', separator_options: { words_connector: '; ' }
+
+    # Availability
+    config.add_show_field 'items_json', label: 'Items', display: :availability
+    config.add_show_field 'has_more_items'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
