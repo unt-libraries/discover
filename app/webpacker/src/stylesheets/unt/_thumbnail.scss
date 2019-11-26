@@ -30,14 +30,14 @@
   }
 
   .icon {
-    color: theme-color("mint-green");
+    color: theme-color("gray-lighter");
 
     &.index-icon {
       transition: all 0.2s ease-in-out;
 
       &:hover {
         transform: scale(1.05);
-        color: theme-color-level("mint-green", 1);
+        color: theme-color-level("gray-light");
       }
     }
   }
