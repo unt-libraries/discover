@@ -92,6 +92,8 @@ module ApplicationHelper
   end
 
   def items_have_notes?(items)
-    items.any? {|h| h['n'] != nil}
+    unless items.nil?
+      items.any? {|h| h['n'] != nil}
+    end
   end
 end

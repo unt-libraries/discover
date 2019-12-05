@@ -24,6 +24,7 @@
       border-left: #d5d5d5 solid 4px;
       padding-bottom: 0.25rem;
       padding-left: 15px;
+      padding-right: 15px;
       width: 100%;
 
       @include media-breakpoint-down(md) {
@@ -42,6 +43,39 @@
 
     .result__value {
       display: inline;
+    }
+
+    .result__table {
+      display: inline-block;
+      width: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      thead,
+      tbody {
+        display: inline-block;
+        width: 100%;
+      }
+
+      tr {
+        display: flex;
+        flex-wrap: wrap;
+        padding-bottom: 4px;
+      }
+
+      td,
+      th {
+        display: block;
+        flex: 1;
+        border-top: 0;
+        border-bottom: 0;
+        padding: 0;
+      }
+
+      .blacklight-notes {
+        width: 100%;
+        flex: auto;
+      }
     }
   }
 
