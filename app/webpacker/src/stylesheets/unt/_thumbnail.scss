@@ -31,14 +31,15 @@
   }
 
   .icon {
-    color: theme-color("gray-lighter");
+    fill: theme-color("gray-lighter");
+    width: 150px;
 
     &.index-icon {
       transition: all 0.2s ease-in-out;
 
       &:hover {
         transform: scale(1.05);
-        color: theme-color-level("gray-light");
+        fill: theme-color-level("gray-light");
       }
     }
   }

@@ -12,7 +12,9 @@
   <% end %>
     <div class="document-thumbnail text-center <%= action_classes %>">
       <% if thumbnail_url.nil? %>
-        <i class="<%= current_action %>-icon icon far fa-10x fa-<%= document.resource_type_icon %>"></i>
+        <svg class="img-fluid <%= current_action %>-icon icon">
+          <use xlink:href="<%= asset_pack_path 'media/images/icons/regular.svg' %>#<%= document.resource_type_icon %>"></use>
+        </svg>
         <span class="sr-only item-title"><%= document[:full_title] %></span>
       <% else %>
         <img src="<%= thumbnail_url %>" class="img-fluid">
