@@ -118,6 +118,8 @@ class CatalogController < ApplicationController
       :willis => { label: 'Willis Library', fq: "bib_location_codes:w* OR item_location_codes:w*" },
     }
 
+    # Shares relationship with /app/helpers/facets_helper.rb#resource_type_map and
+    # /app/models/solr_document.rb#resource_type_map
     config.add_facet_field 'material_type', label: 'Resource Type', collapse: false, home: true, :query => {
       :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
       :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },

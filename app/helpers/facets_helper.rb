@@ -82,8 +82,13 @@ module FacetsHelper
   # @option options [Boolean] :suppress_link display the facet, but don't link to it
   # @return [Hash]
   def render_facet_value(facet_field, item, options = {})
+    display_value = facet_display_value(facet_field, item)
+    if facet_field == 'material_type'
+      display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
+    end
+
     {
-      :rendered_element => content_tag(:span, facet_display_value(facet_field, item), class: "facet-select facet-label") + render_facet_count(item.hits),
+      :rendered_element => content_tag(:span, display_value, class: "facet-select facet-label") + render_facet_count(item.hits),
       :path => path_for_facet(facet_field, item),
       :selected => false,
     }
@@ -127,4 +132,43 @@ module FacetsHelper
     content_tag("span", t('blacklight.search.facets.count', number: number_with_delimiter(num)), class: classes)
   end
 
+  ##
+  # Add icon for resource type facets
+  #
+  # @param [String] item
+  # @return [String]
+  def resource_type_facet_display_value(item)
+    icon = resource_type_icon(item)
+    content_tag(:i, '', class: "#{icon}-icon icon fal fa-#{icon}")
+  end
+
+  def resource_type_icon(item)
+    resource_type_map[item.to_sym]
+  end
+
+  # Shares relationship with /app/controllers/catalog_controller.rb#config.add_facet_field 'material_type' and
+  # /app/models/solr_document.rb#resource_type_map
+  def resource_type_map
+    {
+        :archival_collections => 'book',
+        :books => 'book',
+        :books_audio => 'headphones',
+        :books_electronic => 'tablet-android-alt',
+        :books_print => 'book',
+        :computer_files => 'file',
+        :databases => 'database',
+        :educational_kits => 'book',
+        :journals => 'book-alt',
+        :journals_online => 'book-alt',
+        :journals_print => 'book-alt',
+        :manuscripts => 'scroll',
+        :maps => 'map',
+        :music_cds => 'compact-disc',
+        :music_scores => 'music',
+        :physical_objects => 'cube',
+        :print_graphics => 'images',
+        :theses_and_dissertations => 'book',
+        :video => 'film',
+    }
+  end
 end

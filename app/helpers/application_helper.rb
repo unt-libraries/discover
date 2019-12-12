@@ -1,11 +1,4 @@
 module ApplicationHelper
-  def render_format_with_icon value
-    content_tag :span do
-      content_tag(:span, '', class: "fal fa-#{value.is_a?(String)}") +
-          content_tag(:span, value)
-    end
-  end
-
   ##
   # Return the number of search results from the response object
   #

@@ -49,6 +49,8 @@ class SolrDocument
     end.compact
   end
 
+      # Shares relationship with /app/controllers/catalog_controller.rb#config.add_facet_field 'material_type' and
+      # /app/helpers/facets_helper.rb#resource_type_map
   def resource_type_map
       {
           :p => { :name => 'Archival Collection', :icon => 'book' },
