@@ -1,4 +1,5 @@
 <% url_home = "https://library.unt.edu" %>
+<%= debug @search_context %>
 
 <nav aria-label="breadcrumb" class="">
   <ol class="breadcrumb justify-content-end">
@@ -47,7 +48,7 @@
     <% else %>
      <% if params[:action] == 'show' %>
         <li class="breadcrumb-item">
-          <%= link_to_document @document, "This #{@document.format_name}",
+          <%= link_to_document @document, "This #{@document.resource_type_name}",
                                class: 'btn btn-link btn-sm p-0',
                                'data-event-category': 'link',
                                'data-event-action': 'breadcrumb',
