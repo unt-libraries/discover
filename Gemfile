@@ -22,7 +22,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 2.7.2'
 gem 'webpacker', '~> 4.x'
 
-gem 'blacklight', '>= 7.2'
+gem 'blacklight', '>= 7.4.2'
 gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
 
 group :development do
