@@ -5,6 +5,7 @@ import * as ui from '../src/javascripts/_ui';
 import * as facets from '../src/javascripts/_facets';
 import * as search from '../src/javascripts/_search';
 import * as history from '../src/javascripts/_history';
+import * as availability from '../src/javascripts/_availability.js';
 
 Blacklight.onLoad(() => {
   ui.replaceBookCovers();
@@ -14,4 +15,5 @@ Blacklight.onLoad(() => {
   search.searchSelector();
   history.setDocHistory();
   history.getDocHistory();
+  availability.checkAvailability();
 });

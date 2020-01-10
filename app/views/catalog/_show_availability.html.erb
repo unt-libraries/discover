@@ -3,23 +3,25 @@
    doc_presenter = show_presenter(document)
    items = document[:items_json].nil? ? nil : json_str_to_array(document[:items_json])
 %>
-
-<div class="card">
+<div class="card item-availability">
   <div class="card-header">Availability</div>
   <div class="card-body">
     <div class="row">
-      <div class="col result__label">Location</div>
-      <div class="col result__label">Call Number</div>
-      <div class="col result__label">Availability</div>
+      <div class="col blacklight-location result__label">Location</div>
+      <div class="col blacklight-call-number result__label">Call Number</div>
+      <div class="col blacklight-availability result__label">Availability</div>
+      <div class="col blacklight-request result__label d-none">Request</div>
       <% if items_have_notes?(items) %>
-        <div class="col result__label">Notes</div>
+        <div class="col blacklight-notes result__label">Notes</div>
       <% end %>
     </div>
     <% if items.nil? -%>
-      <div class="row">
-        <div class="col">Location TBD</div>
-        <div class="col"><%= document.identifier_data[:"bib-id"] %></div>
-        <div class="col">ASK AT SERVICE DESK</div>
+      <div class="row"
+          data-item-id="<%= document[:id][1..-1] %>"
+          data-item-call-number="<%= document[:main_call_number] %>">
+        <div class="col blacklight-location result__value">Location TBD</div>
+        <div class="col blacklight-call-number result__value"><%= document[:main_call_number] || 'N/A' %></div>
+        <div class="col blacklight-availability result__value">Checking availability</div>
       </div>
     <% else %>
       <% items.each do |record| %>
@@ -29,11 +31,12 @@
              data-item-barcode="<%= record['b'] %>"
              data-item-notes="<%= record['n'] %>"
              data-item-requestability="<%= record['r'] %>">
-          <div class="col">Location TBD</div>
-          <div class="col"><%= record['c'] %></div>
-          <div class="col">Availability TBD</div>
+          <div class="col blacklight-location result__value">Location TBD</div>
+          <div class="col blacklight-call-number result__value"><%= record['c'] || 'N/A' %></div>
+          <div class="col blacklight-availability result__value">Checking availability</div>
+          <div class="col blacklight-request result__value d-none">Request for pickup</div>
           <% if items_have_notes?(items) %>
-            <div class="col">
+            <div class="col blacklight-notes result__value">
               <% unless record['n'].nil? %>
                 <% record['n'].each do |note| %>
                   <%= note %><br>

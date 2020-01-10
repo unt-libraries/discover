@@ -1,20 +1,24 @@
 <% items = document[:items_json].nil? ? nil : json_str_to_array(document[:items_json]) %>
 
-<div class="document-metadata row">
+<div class="document-metadata row item-availability">
   <table class="table table-striped table-sm result__field result__table">
     <thead>
       <tr>
         <th scope="col" class="blacklight-location result__label">Location</th>
         <th scope="col" class="blacklight-call-number result__label">Call Number</th>
         <th scope="col" class="blacklight-availability result__label">Availability</th>
+        <th scope="col" class="blacklight-request result__label d-none">Request</th>
       </tr>
     </thead>
     <tbody>
       <% if items.nil? -%>
-        <tr>
+        <tr
+            data-item-id="<%= document[:id][1..-1] %>"
+            data-item-call-number="<%= document[:main_call_number] %>">
           <td class="blacklight-location result__value">Location TBD</td>
-          <td class="blacklight-call-number result__value"><%= document.identifier_data[:"bib-id"] %></td>
-          <td class="blacklight-availability result__value">ASK AT SERVICE DESK</td>
+          <td class="blacklight-call-number result__value"><%= document[:main_call_number] || 'N/A' %></td>
+          <td class="blacklight-availability result__value">Checking availability</td>
+          <td class="blacklight-request result__value d-none">Request for pickup</td>
         </tr>
       <% else %>
         <% items.each do |record| %>
@@ -25,8 +29,9 @@
                data-item-notes="<%= record['n'] %>"
                data-item-requestability="<%= record['r'] %>">
             <td class="blacklight-location result__value">Location TBD</td>
-            <td class="blacklight-call-number result__value"><%= record['c'] %></td>
-            <td class="blacklight-availability result__value">Availability TBD</td>
+            <td class="blacklight-call-number result__value"><%= record['c'] || 'N/A' %></td>
+            <td class="blacklight-availability result__value">Checking availability</td>
+            <td class="blacklight-request result__value d-none">Request for pickup</td>
             <% unless record['n'].nil? %>
               <td class="blacklight-notes">
                 <div class="col result__label">Notes: </div>

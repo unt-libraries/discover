@@ -6,6 +6,7 @@ ruby '2.6.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
+gem 'httparty', '~> 0.17.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use PostgreSQL as the database for Active Record
