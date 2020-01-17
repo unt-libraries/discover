@@ -76,6 +76,7 @@ class AvailabilityController < ApplicationController
       @api_failures += 1
       get_new_access_token
       puts 'api failures', @api_failures
+      puts 'api response', response
       get_items(bib_ids)
     else
       response

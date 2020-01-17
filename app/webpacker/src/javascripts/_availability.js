@@ -40,15 +40,14 @@ function updateUI(foundItems = [], missingItems = []) {
 
       // Show the Request column if this isn't an online only record
       if (item.status.code !== 'w') {
-        const itemTBody = itemEl.parentNode;
-        const itemTable = itemTBody.parentNode;
-        const requestLabelEl = itemTable.querySelector('.blacklight-request.result__label');
-        const requestValueEl = itemEl.querySelector('.blacklight-request.result__value');
-        if (requestLabelEl) {
-          requestLabelEl.classList.remove('d-none');
-        }
-        if (requestValueEl) {
-          requestValueEl.classList.remove('d-none');
+        const availTableBody = itemEl.parentNode;
+        const availTable = availTableBody.parentNode;
+        const requestEls = availTable.querySelectorAll('.blacklight-request.d-none');
+
+        if (requestEls) {
+          requestEls.forEach((node) => {
+            node.classList.remove('d-none');
+          });
         }
       }
     } else {
