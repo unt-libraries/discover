@@ -8,10 +8,10 @@ class AvailabilityController < ApplicationController
   def get_items_availability(params)
     @api_failures = 0
     @access_token = get_access_token
-    item_id = params[:availability][:item_id]
-    item_string = item_id.join(',')
+    item_ids = params[:availability][:item_id]
+    @bib_id_string = item_ids.join(',')
 
-    render json: get_items(item_string)
+    render json: get_items
   end
 
   def bearer_headers(headers = {})
@@ -64,21 +64,26 @@ class AvailabilityController < ApplicationController
     set_session_token
   end
 
-  def get_items(bib_ids)
+  def get_items
     options = bearer_headers
     uri = "https://iii.library.unt.edu/iii/sierra-api/v5/items/?"
-    bib_ids = "id=#{bib_ids}"
+    bib_ids = "id=#{@bib_id_string}"
     fields = "fields=location,status"
     response = HTTParty.get("#{uri}#{bib_ids}&#{fields}", options)
 
     # TODO: Need to work on error handling
-    if response['code'] == 123 && @api_failures < 2
+    api_error_codes = [
+        102, # HTTP 500, Internal server error, Number format error
+        123 # HTTP 401, Unauthorized, invalid_grant
+    ]
+    if api_error_codes.include?(response['code']) && @api_failures < 2
       @api_failures += 1
       get_new_access_token
       puts 'api failures', @api_failures
       puts 'api response', response
-      get_items(bib_ids)
+      get_items
     else
+      puts 'api success'
       response
     end
   end
