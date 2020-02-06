@@ -226,6 +226,13 @@ class CatalogController < ApplicationController
     config.add_index_field 'items_json', label: 'Items', display: :availability
     config.add_index_field 'has_more_items'
 
+    # Publication-related statements
+    config.add_index_field 'creation_display', label: 'Creation', tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
+    config.add_index_field 'publication_display', label: 'Publication', tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
+    config.add_index_field 'distribution_display', label: 'Distribution', tooltip: 'Statement(s) about the distribution of the resource.'
+    config.add_index_field 'manufacture_display', label: 'Printing', tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
+    config.add_index_field 'copyright_display', label: 'Copyright', tooltip: 'Date that the resource was copyrighted.'
+
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
     # The :display property controls where in the template the field appears
@@ -235,6 +242,13 @@ class CatalogController < ApplicationController
 
     # Links and media
     config.add_show_field 'urls_json', label: 'Links & Media', helper_method: 'format_urls', display: :links_media
+
+    # Publication-related statements
+    config.add_show_field 'creation_display', label: 'Creation', display: :pub_statements, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
+    config.add_show_field 'publication_display', label: 'Publication', display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
+    config.add_show_field 'distribution_display', label: 'Distribution', display: :pub_statements, tooltip: 'Statement(s) about the distribution of the resource.'
+    config.add_show_field 'manufacture_display', label: 'Printing', display: :pub_statements, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
+    config.add_show_field 'copyright_display', label: 'Copyright', display: :pub_statements, tooltip: 'Date that the resource was copyrighted.'
 
     # More Details
     config.add_show_field 'physical_characteristics', label: 'Physical Description', display: :more_details
