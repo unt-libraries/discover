@@ -7,6 +7,7 @@
   # functions by default only on detail.
 
 -%>
+<%# TODO: Move items to separate categories and UI locations %>
 <% if show_doc_actions? %>
   <div class="card show-tools">
     <h3 class="card-header show-tools-heading"><%= t('blacklight.tools.title') %></h3>
@@ -15,11 +16,29 @@
       <div class="list-group-item show-tools-item catalog-tool">
         <a id="catalogLink" class="nav-link" target="_blank" href="https://iii.library.unt.edu/record=<%= @document.id.to_s.parameterize %>">View in Catalog</a>
       </div>
+
       <%= render_show_doc_actions @document do |config, inner| %>
         <div class="list-group-item show-tools-item <%= config.key %>">
           <%= inner %>
         </div>
       <% end %>
+
+      <% if @document.identifier_data[:"bib-id"] != '' -%>
+        <div class="list-group-item show-tools-item refworks-tool">
+          <%= link_to "http://export2refworks.library.unt.edu/processor_a.php?bib=#{@document.identifier_data[:"bib-id"]}",
+                      class: "", target: "_blank" do -%>
+            Add <span class="sr-only"><%= @document[:full_title] -%></span>to Refworks
+          <% end -%>
+        </div>
+
+        <div class="list-group-item show-tools-item illiad-tool">
+          <%= link_to "https://unt.illiad.oclc.org/illiad/illiad.dll?Action%3D10&Form%3D30",
+                      class: "", target: "_blank" do -%>
+            Request <span class="sr-only"><%= @document[:full_title] -%></span>through ILLiad
+          <% end -%>
+        </div>
+      <% end -%>
+
     </div>
   </div>
 <% end %>
