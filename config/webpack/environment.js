@@ -7,7 +7,10 @@ const erb = require('./loaders/erb');
 environment.plugins.append('Provide', new webpack.ProvidePlugin({
   $: 'jquery',
   jQuery: 'jquery',
+  jquery: 'jquery',
+  'window.jQuery': 'jquery',
   Popper: ['popper.js', 'default'],
+  Rails: '@rails/ujs',
 }));
 
 environment.plugins.append('CleanWebpack', new CleanWebpackPlugin());
