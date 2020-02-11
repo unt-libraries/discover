@@ -124,8 +124,24 @@ function initPopovers() {
   });
 }
 
+function bindRevealMoreFields() {
+  const moreLinks = document.querySelectorAll('.reveal-more');
+
+  moreLinks.forEach((el) => {
+    el.addEventListener('click', () => {
+      const elParent = el.parentNode;
+      const moreMin = elParent.querySelector('.more-min');
+      const moreMax = elParent.querySelector('.more-max');
+      el.classList.add('d-none');
+      moreMin.classList.add('d-none');
+      moreMax.classList.remove('d-none');
+    });
+  });
+}
+
 export {
   replaceBookCovers,
   initTooltips,
   initPopovers,
+  bindRevealMoreFields,
 };

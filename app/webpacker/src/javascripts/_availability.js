@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 function chunkArray(arr, chunkSize) {
   const chunkedArray = [];
   while (arr.length) {
@@ -28,15 +30,20 @@ function updateUI(foundItems = [], missingItems = []) {
       const locationEl = itemEl.querySelector('.blacklight-location.result__value');
       locationEl.dataset.locationCode = item.location.code;
       locationEl.innerText = item.location.name;
-      locationEl.style.color = 'green';
     }
 
     // Update the status field whether or not the API returned status data
     const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
     if (item.status) {
       availabilityEl.dataset.statusCode = item.status.code;
-      availabilityEl.innerText = item.status.display;
-      availabilityEl.style.color = 'green';
+
+      // If the item is checked out
+      if (item.status.duedate) {
+        const dueDate = moment(item.status.duedate).format('MMM DD, YYYY');
+        availabilityEl.innerText = `Checked out\nDue ${dueDate}`;
+      } else {
+        availabilityEl.innerText = item.status.display;
+      }
 
       // Show the Request column if this isn't an online only record
       if (item.status.code !== 'w') {
@@ -52,7 +59,6 @@ function updateUI(foundItems = [], missingItems = []) {
       }
     } else {
       availabilityEl.innerText = 'ASK AT SERVICE DESK';
-      availabilityEl.style.color = 'green';
     }
   });
 
@@ -61,9 +67,8 @@ function updateUI(foundItems = [], missingItems = []) {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
     const locationEl = itemEl.querySelector('.blacklight-location.result__value');
     const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-    locationEl.style.color = 'red';
     availabilityEl.innerText = 'ASK AT SERVICE DESK';
-    availabilityEl.style.color = 'red';
+    console.log(`Item ${item.id} not returned by the API`);
   });
 }
 

@@ -217,6 +217,14 @@ class CatalogController < ApplicationController
     # config.add_index_field 'full_title', label: 'Title'
     config.add_index_field 'creator', label: 'Author/Creator', helper_method: :author_facet_links
     config.add_index_field 'contributors', label: 'Contributors', helper_method: :author_facet_links
+
+    # Publication-related statements
+    config.add_index_field 'creation_display', label: 'Creation', display: :pub_statements, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
+    config.add_index_field 'publication_display', label: 'Publication', display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
+    config.add_index_field 'distribution_display', label: 'Distribution', display: :pub_statements, tooltip: 'Statement(s) about the distribution of the resource.'
+    config.add_index_field 'manufacture_display', label: 'Printing', display: :pub_statements, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
+    config.add_index_field 'copyright_display', label: 'Copyright', display: :pub_statements, tooltip: 'Date that the resource was copyrighted.'
+
     config.add_index_field 'material_type', label: 'Resource Type', accessor: 'resource_type_name'
     # config.add_index_field 'languages', label: 'Languages'
     config.add_index_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
@@ -225,13 +233,6 @@ class CatalogController < ApplicationController
     config.add_index_field 'main_call_number', label: 'Call number', if: false
     config.add_index_field 'items_json', label: 'Items', display: :availability
     config.add_index_field 'has_more_items'
-
-    # Publication-related statements
-    config.add_index_field 'creation_display', label: 'Creation', tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
-    config.add_index_field 'publication_display', label: 'Publication', tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
-    config.add_index_field 'distribution_display', label: 'Distribution', tooltip: 'Statement(s) about the distribution of the resource.'
-    config.add_index_field 'manufacture_display', label: 'Printing', tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
-    config.add_index_field 'copyright_display', label: 'Copyright', tooltip: 'Date that the resource was copyrighted.'
 
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
