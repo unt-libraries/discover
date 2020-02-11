@@ -232,7 +232,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
     config.add_index_field 'main_call_number', label: 'Call number', if: false
     config.add_index_field 'items_json', label: 'Items', display: :availability
-    config.add_index_field 'has_more_items'
+    config.add_index_field 'has_more_items', if: false
 
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
@@ -268,7 +268,7 @@ class CatalogController < ApplicationController
 
     # Availability
     config.add_show_field 'items_json', label: 'Items', display: :availability
-    config.add_show_field 'has_more_items'
+    config.add_show_field 'has_more_items', if: false
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

@@ -45,6 +45,11 @@
           </tr>
         <% end %>
       <% end %>
+    <% if document[:has_more_items] %>
+      <tr>
+        <td><%= link_to_document document, 'More available', counter: document_counter_with_offset(document_counter) %></td>
+      </tr>
+    <% end %>
     </tbody>
   </table>
 </div>

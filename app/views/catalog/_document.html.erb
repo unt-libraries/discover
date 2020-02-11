@@ -15,7 +15,7 @@
 
   <div class="col">
     <%= render_document_partials document, ['index_header', 'index'], document_counter: document_counter %>
-    <%= render_document_partial document, 'index_availability' %>
+    <%= render_document_partial document, 'index_availability', document_counter: document_counter %>
   </div>
 
   <%# Actions to appear at the bottom of each result %>
