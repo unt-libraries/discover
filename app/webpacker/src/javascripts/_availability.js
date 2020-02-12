@@ -1,8 +1,6 @@
 import moment from 'moment';
-
-const locationMapUrls = {
-  w3: 'https://library.unt.edu/assets/images/spaces/floor-maps/willis-3rd-floor.png',
-};
+import { elRemoveClass } from './_utils';
+import { locationMapUrls } from './data/_availability_data';
 
 function chunkArray(arr, chunkSize) {
   const chunkedArray = [];
@@ -58,7 +56,7 @@ function updateStatusElement(itemEl, itemStatus) {
 
     if (requestEls) {
       requestEls.forEach((node) => {
-        node.classList.remove('d-none');
+        elRemoveClass(node, 'd-none');
       });
     }
   }

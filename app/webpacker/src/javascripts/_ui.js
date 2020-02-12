@@ -132,9 +132,9 @@ function bindRevealMoreFields() {
       const elParent = el.parentNode;
       const moreMin = elParent.querySelector('.more-min');
       const moreMax = elParent.querySelector('.more-max');
-      el.classList.add('d-none');
-      moreMin.classList.add('d-none');
-      moreMax.classList.remove('d-none');
+      elAddClass(el, 'd-none');
+      elAddClass(moreMin, 'd-none');
+      elRemoveClass(moreMax, 'd-none');
     });
   });
 }
