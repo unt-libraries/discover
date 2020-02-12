@@ -52,9 +52,17 @@ function updateStatusElement(itemEl, itemStatus) {
   if (itemStatus.code !== 'w') {
     const availTableBody = itemEl.parentNode;
     const availTable = availTableBody.parentNode;
+    const availRows = availTableBody.querySelectorAll('.item-row');
     const requestEls = availTable.querySelectorAll('.blacklight-request.d-none');
+    let requestColumn = false;
 
-    if (requestEls) {
+    availRows.forEach((node) => {
+      if (node.dataset.itemRequestability) {
+        requestColumn = true;
+      }
+    });
+
+    if (requestColumn) {
       requestEls.forEach((node) => {
         elRemoveClass(node, 'd-none');
       });

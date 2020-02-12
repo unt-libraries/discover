@@ -22,7 +22,7 @@
         </tr>
       <% else %>
         <% items.each do |record| %>
-          <tr
+          <tr class="item-row"
                data-item-id="<%= record['i'] %>"
                data-item-call-number="<%= record['c'] %>"
                data-item-barcode="<%= record['b'] %>"
@@ -31,7 +31,11 @@
             <td class="blacklight-location result__value">Location TBD</td>
             <td class="blacklight-call-number result__value"><%= record['c'] || 'N/A' %></td>
             <td class="blacklight-availability result__value">Checking availability</td>
-            <td class="blacklight-request result__value d-none">Request for pickup</td>
+            <td class="blacklight-request result__value d-none">
+              <% unless record['r'].nil? %>
+                Request from <%= record['r'] %>
+              <% end %>
+            </td>
             <% unless record['n'].nil? %>
               <td class="blacklight-notes">
                 <div class="col result__label">Notes: </div>

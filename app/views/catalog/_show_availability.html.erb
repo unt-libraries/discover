@@ -25,7 +25,7 @@
       </div>
     <% else %>
       <% items.each do |record| %>
-        <div class="row"
+        <div class="row item-row"
              data-item-id="<%= record['i'] %>"
              data-item-call-number="<%= record['c'] %>"
              data-item-barcode="<%= record['b'] %>"
@@ -34,7 +34,11 @@
           <div class="col blacklight-location result__value">Location TBD</div>
           <div class="col blacklight-call-number result__value"><%= record['c'] || 'N/A' %></div>
           <div class="col blacklight-availability result__value">Checking availability</div>
-          <div class="col blacklight-request result__value d-none">Request for pickup</div>
+          <div class="col blacklight-request result__value d-none">
+            <% unless record['r'].nil? %>
+              Request from <%= record['r'] %>
+            <% end %>
+          </div>
           <% if items_have_notes?(items) %>
             <div class="col blacklight-notes result__value">
               <% unless record['n'].nil? %>
