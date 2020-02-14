@@ -18,7 +18,9 @@
       </span>
       <% end %>
       <%= link_to_document document, counter: counter %>
-      <span class="document-title-date">[<%= document['publication_year_display'] %>]</span>
+      <% unless document[:publication_year_display].nil? %>
+        <span class="document-title-date">[<%= document[:publication_year_display] %>]</span>
+      <% end %>
     </h2>
   </div>
 
