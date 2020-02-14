@@ -7,7 +7,8 @@ module CatalogHelper
     field_data = urls_json[:value]
     contents = field_data.map do |item|
       json = JSON.parse item
-      link_to "#{json['n']}", json['u']
+      link_text = json['n'] || json['l'] || json['u']
+      link_to "#{link_text}", json['u'], class: "link-media-item #{json['t']}"
     end
     content_tag 'span', contents.join('<br>'), nil, false
   end

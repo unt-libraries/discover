@@ -1,3 +1,5 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 // Script files that should be included in all pages
 import '../src/javascripts/www/_main';
 import '../src/javascripts/www/_typeaheads';

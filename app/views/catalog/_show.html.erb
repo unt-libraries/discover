@@ -17,7 +17,6 @@
 <%# TODO: should_render_field? is soon to be deprecated, but the recommended method is private as of 7.0.2 %>
   <dl class="dl-invert document-metadata">
     <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :links_media }.each do |field_name, field| -%>
-      <%# doc_presenter.fields_to_render.each do |field_name, field| -%>
       <div class="row result__field">
         <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label"><%= render_document_show_field_label document, field: field_name %></dt>
         <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>

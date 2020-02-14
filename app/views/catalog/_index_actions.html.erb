@@ -12,10 +12,7 @@
   <%# ILLiad -%>
   <div class="col-auto">
     <% if document.identifier_data[:"bib-id"] != '' -%>
-      <%= link_to "https://unt.illiad.oclc.org/illiad/illiad.dll?Action%3D10&Form%3D30",
-                  class: "", target: "_blank" do -%>
-        Request <span class="sr-only"><%= document[:full_title] -%></span>through ILLiad
-      <% end -%>
+      <%= link_to_request_illiad(document) %>
     <% end -%>
   </div>
 

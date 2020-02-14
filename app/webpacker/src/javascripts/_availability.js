@@ -25,7 +25,7 @@ function findMissing(foundItems = [], allItems) {
 
 function getLocationUrl(locationCode) {
   if (Object.hasOwnProperty.call(locationMapUrls, locationCode)) {
-    return locationMapUrls[locationCode];
+    return locationMapUrls[locationCode].url;
   }
   return false;
 }
