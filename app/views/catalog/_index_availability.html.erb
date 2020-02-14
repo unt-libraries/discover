@@ -1,6 +1,7 @@
 <% items = document[:items_json].nil? ? nil : json_str_to_array(document[:items_json])
    id = document[:id]%>
 
+<% unless items.nil? %>
 <div class="document-metadata row item-availability">
   <table class="table table-striped table-sm result__field result__table">
     <thead>
@@ -58,3 +59,4 @@
     </tbody>
   </table>
 </div>
+<% end %>

@@ -3,6 +3,7 @@
    doc_presenter = show_presenter(document)
    items = document[:items_json].nil? ? nil : json_str_to_array(document[:items_json])
 %>
+<% unless items.nil? %>
 <div class="card item-availability">
   <div class="card-header">Availability</div>
   <div class="card-body">
@@ -17,7 +18,6 @@
     </div>
     <% if items.nil? -%>
       <div class="row"
-          data-item-id="<%= document[:id][1..-1] %>"
           data-item-call-number="<%= document[:main_call_number] %>">
         <div class="col blacklight-location result__value">Location TBD</div>
         <div class="col blacklight-call-number result__value"><%= document[:main_call_number] || 'N/A' %></div>
@@ -53,3 +53,4 @@
     <% end %>
   </div>
 </div>
+<% end %>

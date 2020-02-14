@@ -56,7 +56,7 @@ module UrlHelper
 
     # Journals and e-journals are 'article', the rest are 'book'
     genre = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
-    au = document[:creator] || document[:contributors][0]
+    au = document[:creator] || document[:contributors][0] unless document[:contributors].nil?
     notes = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
     pub = document[:publication_display].join('; ') ||
         document[:creation_display].join('; ') ||
