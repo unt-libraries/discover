@@ -21,6 +21,13 @@ module UrlHelper
     end
   end
 
+  def link_to_request_refworks(document)
+    url = "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document[:id]}"
+    content_tag(:span, document[:full_title], class: 'sr-only')
+    text = "Add #{content_tag(:span, document[:full_title], class: 'sr-only')} to Refworks".html_safe
+    link_to text, url, class: "", target: "_blank"
+  end
+
   def link_to_request_illiad(document)
     url = construct_illiad_url(document)
     content_tag(:span, document[:full_title], class: 'sr-only')

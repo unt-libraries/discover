@@ -1,12 +1,7 @@
 <%# Refworks -%>
 <div class="row">
   <div class="col-auto">
-    <% if document.identifier_data[:"bib-id"] != '' -%>
-      <%= link_to "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document.identifier_data[:"bib-id"]}",
-                  class: "", target: "_blank" do -%>
-        Add <span class="sr-only"><%= document[:full_title] -%></span>to Refworks
-      <% end -%>
-    <% end -%>
+    <%= link_to_request_refworks(document) %>
   </div>
 
   <%# ILLiad -%>
