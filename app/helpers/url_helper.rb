@@ -63,12 +63,17 @@ module UrlHelper
 
     # Journals and e-journals are 'article', the rest are 'book'
     genre = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
-    au = document[:creator] || document[:contributors][0] unless document[:contributors].nil?
+    au = document[:creator] || document[:contributors][0] unless document[:contributors].nil? || nil
     notes = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
-    pub = document[:publication_display].join('; ') ||
-        document[:creation_display].join('; ') ||
-        document[:distribution_display].join('; ') ||
-        document[:manufacture_display].join('; ')
+    pub = if !document[:publication_display].nil?
+            document[:publication_display].join('; ')
+          elsif !document[:creation_display].nil?
+            document[:creation_display].join('; ')
+          elsif !document[:distribution_display].nil?
+            document[:distribution_display].join('; ')
+          elsif !document[:manufacture_display].nil?
+            document[:manufacture_display].join('; ')
+          end
 
     # Required parameters
     query_hash = {
@@ -85,8 +90,6 @@ module UrlHelper
     query_hash['rft.isbn'] = document[:isbn_numbers][0] unless document[:isbn_numbers].nil?
     query_hash['rft.issn'] = document[:issn_numbers][0] unless document[:issn_numbers].nil?
     query_hash['rft.pub'] = pub unless pub.nil?
-
-    URI.encode_www_form(query_hash)
 
     if item.nil?
       query_hash[:Action] = '10'
