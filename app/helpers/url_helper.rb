@@ -37,59 +37,47 @@ module UrlHelper
 
   def link_to_request_item(document, item=nil)
     id = document[:id]
-    call_number = item['c']
-    barcode = item['b']
-    notes = item['n']
     requestability = item['r']
 
     case requestability
     when 'catalog'
       url = "https://iii.library.unt.edu/search~S12?/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}"
       text = "Request through Catalog"
-      "<a href=\"#{url}\" target=\"_blank\">#{text}</a>".html_safe
+      link_to text, url, class:"request-catalog", target: "_blank"
     when 'jlf'
       url = construct_illiad_url(document, item)
       text = "Request through ILLiad"
-      link_to text, url, class: "", target: "_blank"
+      link_to text, url, class: "request-illiad", target: "_blank"
     when 'aeon'
-      'Request through Aeon (coming soon)'
+      url = construct_aeon_url(document, item)
+      text = "Request through Aeon"
+      link_to text, url, class: "request-aeon", target: "_blank"
     else
-      'Not requestable'
+      'Cannot request this item'
     end
   end
 
   def construct_illiad_url(document, item=nil)
     # Construct URL for ILLiad and use gateway if an item is provided
 
+    query_hash = {}
+
+    # Add query string parameters unless values
+    query_hash[:sid] = 'Discover Request'
     # Journals and e-journals are 'article', the rest are 'book'
-    genre = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
-    au = document[:creator] || document[:contributors][0] unless document[:contributors].nil? || nil
-    notes = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
-    pub = if !document[:publication_display].nil?
-            document[:publication_display].join('; ')
-          elsif !document[:creation_display].nil?
-            document[:creation_display].join('; ')
-          elsif !document[:distribution_display].nil?
-            document[:distribution_display].join('; ')
-          elsif !document[:manufacture_display].nil?
-            document[:manufacture_display].join('; ')
-          end
-
-    # Required parameters
-    query_hash = {
-        :sid => 'Discover Request',
-        'rft.genre' => genre,
-        'rft.au' => au,
-        :notes => notes,
-    }
-
-    # Optional parameters
-    query_hash['rft.title'] = document[:full_title] unless document[:full_title].nil?
-    query_hash['rft.date'] = document[:publication_year_display] unless document[:publication_year_display].nil?
-    query_hash['rft.edition'] = "" unless document[:edition].nil?
-    query_hash['rft.isbn'] = document[:isbn_numbers][0] unless document[:isbn_numbers].nil?
-    query_hash['rft.issn'] = document[:issn_numbers][0] unless document[:issn_numbers].nil?
-    query_hash['rft.pub'] = pub unless pub.nil?
+    query_hash['rft.genre'] = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
+    query_hash['rft.title'] = document[:full_title]
+    query_hash['rft.au'] = document[:creator] || document[:contributors][0] if document[:contributors]
+    query_hash['rft.isbn'] = document[:isbn_numbers][0] if document[:isbn_numbers]
+    query_hash['rft.issn'] = document[:issn_numbers][0] if document[:issn_numbers]
+    # Edition will be added in the future
+    query_hash['rft.edition'] = nil
+    query_hash['rft.date'] = document[:publication_year_display]
+    pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
+    query_hash['rft.pub'] = pub.join('; ') unless pub.nil?
+    query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
+    # Remove nil values
+    query_hash.compact!
 
     if item.nil?
       query_hash[:Action] = '10'
@@ -98,5 +86,37 @@ module UrlHelper
     else
       URI::HTTPS.build(host: 'iii.library.unt.edu', path: '/screens/jlf-illiad-gateway.html', query: query_hash.to_query).to_s
     end
+  end
+
+  def construct_aeon_url(document, item)
+    # Construct URL for Aeon
+    #
+    # 'Location' & 'Site' parameters are updated via javascript after the Sierra API call
+
+    query_hash = {}
+
+    # Add query string parameters unless values
+    query_hash['rft.genre'] = 'monograph'
+    query_hash[:ItemTitle] = document[:full_title]
+    query_hash[:ItemAuthor] = document[:creator] || document[:contributors][0] if document[:contributors]
+    query_hash[:ItemNumber] = "#{document[:id]}a"
+    # ItemEdition will be added in the future
+    query_hash[:ItemEdition] = nil
+    query_hash[:ItemDate] = document[:publication_year_display]
+    pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
+    query_hash[:ItemPublisher] = pub.join('; ') unless pub.nil?
+    # SubLocation will be added in the future
+    query_hash[:SubLocation] = nil
+    query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
+    query_hash[:CallNumber] = item['c']
+    query_hash[:Volume] = item['v']
+    query_hash[:ReferenceNumber] = item[:b]
+    # Remove nil values
+    query_hash.compact!
+
+    query_hash[:Action] = '10'
+    query_hash[:Form] = '30'
+
+    URI::HTTPS.build(host: 'aeon.library.unt.edu', path: '/logon/', query: query_hash.to_query).to_s
   end
 end

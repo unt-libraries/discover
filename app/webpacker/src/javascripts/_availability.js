@@ -70,14 +70,32 @@ function updateStatusElement(itemEl, itemStatus) {
   }
 }
 
+function updateAeonRequestUrl(itemEl, itemLocation) {
+  const locationCode = itemLocation.code.startsWith('w4m') ? 'UNTMUSIC' : 'UNTSPECCOLL';
+  const locationName = itemLocation.name;
+  const linkEl = itemEl.querySelector('.request-aeon');
+  const aeonUrl = new URL(linkEl.href);
+  const queryString = aeonUrl.search;
+  const params = new URLSearchParams(queryString);
+
+  aeonUrl.search = params.toString();
+
+  params.append('Location', locationName);
+  params.append('Site', locationCode);
+  aeonUrl.search = params.toString();
+  linkEl.href = aeonUrl.toString();
+}
+
 function updateLocationElement(itemEl, itemLocation) {
+  if (!itemLocation) return;
+
   const locationEl = itemEl.querySelector('.blacklight-location.result__value');
 
-  if (!itemLocation) {
-    return;
-  }
-
   locationEl.dataset.locationCode = itemLocation.code;
+
+  // Aeon request URLs must be updated to include data from the Sierra API call
+  if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
+
   const locationUrl = getLocationUrl(itemLocation.code);
   if (locationUrl) {
     locationEl.innerHTML = `<a href="${locationUrl}" target="_blank">${itemLocation.name}</a>`;
