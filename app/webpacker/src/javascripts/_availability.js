@@ -2,7 +2,14 @@ import moment from 'moment';
 import { elRemoveClass } from './_utils';
 import { locationMapUrls } from './data/_availability_data';
 
-function chunkArray(arr, chunkSize) {
+
+/**
+ * Splits an array into chunks of 50 for more manageable API calls
+ * @param {Array} arr
+ * @param {number} chunkSize
+ * @return {Array}
+ */
+function chunkArray(arr, chunkSize = 50) {
   const chunkedArray = [];
   while (arr.length) {
     chunkedArray.push(arr.splice(0, chunkSize));
@@ -10,6 +17,10 @@ function chunkArray(arr, chunkSize) {
   return chunkedArray;
 }
 
+/**
+ * Crawls the DOM to find IDs for every item
+ * @return {Array}
+ */
 function getItemsIDs() {
   const itemEls = document.querySelectorAll('[data-item-id]');
   const itemsArray = Array.from(itemEls);
@@ -18,11 +29,22 @@ function getItemsIDs() {
   return chunkArray(itemBibs, 50);
 }
 
+/**
+ * Filters the items that were not returned by the Sierra API to determine what is missing
+ * @param {Array} foundItems
+ * @param {Array} allItems
+ * @return {Object}
+ */
 function findMissing(foundItems = [], allItems) {
   const foundIDs = foundItems.map((el) => el.id);
   return allItems.filter((el) => !foundIDs.includes(el));
 }
 
+/**
+ * Accesses the mapped location data to determine the URL to use for linkage
+ * @param {string} locationCode
+ * @return {(string|boolean)}
+ */
 function getLocationUrl(locationCode) {
   if (Object.hasOwnProperty.call(locationMapUrls, locationCode)) {
     return locationMapUrls[locationCode].url;
@@ -30,7 +52,12 @@ function getLocationUrl(locationCode) {
   return false;
 }
 
-function updateStatusElement(itemEl, itemStatus) {
+/**
+ * Updates the status element for an item, including due date
+ * @param {(HTMLElement|Element)} itemEl
+ * @param {Object} itemStatus
+ */
+function updateStatusElement(itemEl, itemStatus = null) {
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
 
   if (!itemStatus) {
@@ -56,20 +83,25 @@ function updateStatusElement(itemEl, itemStatus) {
     const requestEls = availTable.querySelectorAll('.blacklight-request.d-none');
     let requestColumn = false;
 
-    availRows.forEach((node) => {
-      if (node.dataset.itemRequestability) {
+    availRows.forEach((el) => {
+      if (el.dataset.itemRequestability) {
         requestColumn = true;
       }
     });
 
     if (requestColumn) {
-      requestEls.forEach((node) => {
-        elRemoveClass(node, 'd-none');
+      requestEls.forEach((el) => {
+        elRemoveClass(el, 'd-none');
       });
     }
   }
 }
 
+/**
+ * Appends required query string parameters to an Aeon URL that require the Sierra API call.
+ * @param {(HTMLElement|Element)} itemEl
+ * @param {Object} itemLocation
+ */
 function updateAeonRequestUrl(itemEl, itemLocation) {
   const locationCode = itemLocation.code.startsWith('w4m') ? 'UNTMUSIC' : 'UNTSPECCOLL';
   const locationName = itemLocation.name;
@@ -86,6 +118,11 @@ function updateAeonRequestUrl(itemEl, itemLocation) {
   linkEl.href = aeonUrl.toString();
 }
 
+/**
+ * Updates the location element for an item and calls function to update Aeon URL if necessary
+ * @param {(HTMLElement|Element)} itemEl
+ * @param {Object} itemLocation
+ */
 function updateLocationElement(itemEl, itemLocation) {
   if (!itemLocation) return;
 
@@ -104,6 +141,11 @@ function updateLocationElement(itemEl, itemLocation) {
   }
 }
 
+/**
+ * Calls UI update functions for items returned by the Sierra API as well as those missing
+ * @param {Array} foundItems
+ * @param {Array} missingItems
+ */
 function updateUI(foundItems = [], missingItems = []) {
   // Update elements for items returned by the API
   foundItems.forEach((item) => {
@@ -117,11 +159,14 @@ function updateUI(foundItems = [], missingItems = []) {
   missingItems.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
     updateStatusElement(itemEl);
-    updateLocationElement(itemEl);
+    // updateLocationElement(itemEl);
     console.log(`Item ${item} not returned by the API`);
   });
 }
 
+/**
+ * Entry point to update availability of items through the Sierra API.
+ */
 function checkAvailability() {
   const itemBibs = getItemsIDs();
 
