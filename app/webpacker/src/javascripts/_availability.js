@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { elRemoveClass } from './_utils';
-import { locationMapUrls } from './data/_availability_data';
+import { locationMapData } from './data/availability_locations';
 
 
 /**
@@ -41,15 +41,43 @@ function findMissing(foundItems = [], allItems) {
 }
 
 /**
- * Accesses the mapped location data to determine the URL to use for linkage
+ * Searches the mapped location data to find the closest matching key
  * @param {string} locationCode
+ * @return {(Object|boolean)}
+ */
+function getLocationData(locationCode) {
+  // Return an exact match if one exists
+  if (Object.hasOwnProperty.call(locationMapData, locationCode)) {
+    return locationMapData[locationCode];
+  }
+
+  // Create new array of wildcard keys that start with the same letter as locationCode then sort
+  const wildcardMatches = Object.keys(locationMapData).filter((key) => key[0] === locationCode[0] && key.endsWith('*'));
+  wildcardMatches.sort((a, b) => b.length - a.length);
+
+  // Try to match a wildcard starting with the longest value
+  let wildcardMatch = false;
+  for (let i = 0; i < wildcardMatches.length; i++) {
+    const wildcard = wildcardMatches[i];
+    if (locationCode.startsWith(wildcard.slice(0, -1))) {
+      wildcardMatch = locationMapData[wildcard];
+      break;
+    }
+  }
+
+  return wildcardMatch;
+}
+/**
+ * Accesses the mapped location data to determine the URL to use for linkage
+ * @param {Object} itemLocation
  * @return {(string|boolean)}
  */
-function getLocationUrl(locationCode) {
-  if (Object.hasOwnProperty.call(locationMapUrls, locationCode)) {
-    return locationMapUrls[locationCode].url;
+function createLocationLink(itemLocation) {
+  const locationData = getLocationData(itemLocation.code);
+  if (locationData && locationData.url) {
+    return `<a href="${locationData.url}" title="${locationData.title}" target="_blank">${itemLocation.name}</a>`;
   }
-  return false;
+  return itemLocation.name;
 }
 
 /**
@@ -133,12 +161,7 @@ function updateLocationElement(itemEl, itemLocation) {
   // Aeon request URLs must be updated to include data from the Sierra API call
   if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
 
-  const locationUrl = getLocationUrl(itemLocation.code);
-  if (locationUrl) {
-    locationEl.innerHTML = `<a href="${locationUrl}" target="_blank">${itemLocation.name}</a>`;
-  } else {
-    locationEl.innerText = itemLocation.name;
-  }
+  locationEl.innerHTML = createLocationLink(itemLocation);
 }
 
 /**

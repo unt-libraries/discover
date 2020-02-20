@@ -1,0 +1,378 @@
+const locationMapData = {
+  'czm*': {
+    title: 'Media Library Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/media.png',
+    options: ['fancybox_location', 'limit-pickup-loc', 'media'],
+  },
+  czmrf: {
+    title: 'Media Library Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/media.png',
+    options: ['fancybox_location', 'media', 'no-request'],
+  },
+  czmrs: {
+    title: 'Media Library Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/media.png',
+    options: ['fancybox_location', 'media', 'no-request'],
+  },
+  czwww: { title: '', url: '', options: ['no-request'] },
+  'd*': {
+    title: '',
+    url: 'https://www.untdallas.edu/visit/location" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  'f*': { title: '', url: '', options: ['no-request'] },
+  gwww: { title: '', url: '', options: ['no-request'] },
+  hscfw: {
+    title: '',
+    url: 'http://library.hsc.unt.edu/content/visit-lewis-library" target="_blank',
+    options: ['no-request'],
+  },
+  ill: { title: '', url: '', options: ['no-request'] },
+  'j*': { title: '', url: '', options: ['jlf-request'] },
+  'k*': { title: '', url: '', options: ['no-request'] },
+  'law*': { title: '', url: '', options: ['no-request'] },
+  libr: { title: '', url: '', options: ['no-request'] },
+  lwww: { title: '', url: '', options: ['no-request'] },
+  mwww: { title: '', url: '', options: ['no-request'] },
+  'r*': {
+    title: 'Discovery Park Library Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/discovery-park.png',
+    options: ['fancybox_location'],
+  },
+  rmak: {
+    title: 'Discovery Park Map',
+    url: 'https://engineering.unt.edu/about/map" target="_blank',
+    options: ['ignore', 'limit-pickup-loc', 'makerspace', 'rmak'],
+  },
+  rzzrf: {
+    title: 'Discovery Park Library Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/discovery-park.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  rzzrs: {
+    title: 'Discovery Park Library Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/discovery-park.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  's*': {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore'],
+  },
+  sdai: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdbi: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdmp: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdov: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdtov: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdvf: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdzmr: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdzrf: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdzrs: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  sdzsd: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  spe: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  spec: { title: '', url: '', options: ['no-request'] },
+  swr: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  szmp: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  'szz*': {
+    title: 'Eagle Commons Library Main Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/eagle-commons-1st-floor.png',
+    options: ['fancybox_location'],
+  },
+  szzov: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  szzrf: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  szzrs: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  szzsd: {
+    title: 'Eagle Commons Library Location &amp; Hours',
+    url: 'https://library.unt.edu/hours/#eagle-commons" target="_blank',
+    options: ['ignore', 'no-request'],
+  },
+  tamc: { title: '', url: '', options: ['no-request'] },
+  test: { title: '', url: '', options: ['no-request'] },
+  twu: { title: '', url: '', options: ['no-request'] },
+  txsha: { title: '', url: '', options: ['no-request'] },
+  unt: { title: '', url: '', options: ['no-request'] },
+  'w1*': {
+    title: 'Willis Library 1st Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-1st-floor.png',
+    options: ['fancybox_location'],
+  },
+  w1grs: {
+    title: 'Willis Library 1st Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-1st-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w1gwt: {
+    title: 'Willis Library 1st Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-1st-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w1ia: {
+    title: 'Willis Library 1st Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-1st-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w1ind: {
+    title: 'Willis Library 1st Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-1st-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w1mak: {
+    title: 'Willis Library 1st Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-1st-floor.png',
+    options: ['fancybox_location', 'limit-pickup-loc', 'makerspace', 'w1mak'],
+  },
+  'w2*': {
+    title: 'Willis Library 2nd Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-2nd-floor.png',
+    options: ['fancybox_location'],
+  },
+  w2awt: {
+    title: 'Willis Library 2nd Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-2nd-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w2lan: {
+    title: 'Willis Library 2nd Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-2nd-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  'w3*': {
+    title: 'Willis Library 3rd Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-3rd-floor.png',
+    options: ['fancybox_location'],
+  },
+  w3dai: {
+    title: 'Willis Library 3rd Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-3rd-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w3lab: {
+    title: 'Willis Library 3rd Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-3rd-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w3mfa: {
+    title: 'Willis Library 3rd Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-3rd-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w3per: {
+    title: 'Willis Library 3rd Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-3rd-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  'w4*': {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location'],
+  },
+  w433a: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4422: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4438: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4fil: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4m: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'limit-pickup-loc', 'music'],
+  },
+  w4mai: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4mau: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'limit-pickup-loc', 'music'],
+  },
+  w4mbg: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4mfb: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4mla: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4moc: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4mr1: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'music', 'aeon-request'],
+  },
+  w4mr2: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'music', 'aeon-request'],
+  },
+  w4mr3: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'music', 'aeon-request'],
+  },
+  w4mrb: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'music', 'aeon-request'],
+  },
+  w4mrf: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4mrs: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4mrx: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'music', 'aeon-request'],
+  },
+  w4mts: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4mwf: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4mwr: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  w4spe: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'aeon-request'],
+  },
+  w4srf: {
+    title: 'Willis Library 4th Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-4th-floor.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  'wex*': {
+    title: 'Willis Library 1st Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-1st-floor.png',
+    options: ['fancybox_location'],
+  },
+  wgrc: { title: '', url: '', options: ['no-request'] },
+  'wl*': {
+    title: 'Willis Library Lower Level Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-lower-level.png',
+    options: ['fancybox_location'],
+  },
+  wlper: {
+    title: 'Willis Library Lower Level Floor Map',
+    url: '//library.unt.edu/assets/images/spaces/floor-maps/willis-lower-level.png',
+    options: ['fancybox_location', 'no-request'],
+  },
+  'x*': { title: '', url: '', options: [] },
+  xdmic: { title: '', url: '', options: ['limit-pickup-loc', 's'] },
+  xdmp: { title: '', url: '', options: ['limit-pickup-loc', 's'] },
+  xmed: { title: '', url: '', options: ['limit-pickup-loc', 'media'] },
+  xmic: { title: '', url: '', options: ['limit-pickup-loc', 'w'] },
+  xmus: { title: '', url: '', options: ['limit-pickup-loc', 'music'] },
+  xprsv: { title: '', url: '', options: ['no-request'] },
+  xspe: { title: '', url: '', options: ['aeon-request'] },
+  xts: { title: '', url: '', options: ['no-request'] },
+  zzzzz: { title: '', url: '', options: ['no-request'] },
+};
+
+export {
+  locationMapData,
+};
