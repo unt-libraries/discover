@@ -42,3 +42,20 @@
     color: theme-color("gray-dark");
   }
 }
+
+.link-media-item.fulltext {
+  display: inline-block;
+
+  span {
+    vertical-align: top;
+  }
+
+  .find-it-image {
+    display: inline-block;
+    content: '';
+    margin-right: 4px;
+    background: url(../images/catalog/find-it-round.png) no-repeat center;
+    height: 20px;
+    width: 87px;
+  }
+}

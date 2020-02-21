@@ -242,7 +242,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'material_type', label: 'Resource Type', accessor: 'resource_type_name'
 
     # Links and media
-    config.add_show_field 'urls_json', label: 'Links & Media', helper_method: 'format_urls', display: :links_media
+    config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls, display: :links_media
 
     # Publication-related statements
     config.add_show_field 'creation_display', label: 'Creation', display: :pub_statements, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'

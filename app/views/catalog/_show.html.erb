@@ -15,14 +15,13 @@
 <% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :links_media && should_render_show_field?(document, f) } -%>
   <h3>Links & Media</h3>
 <%# TODO: should_render_field? is soon to be deprecated, but the recommended method is private as of 7.0.2 %>
-  <dl class="dl-invert document-metadata">
+  <div class="document-metadata mb-3">
     <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :links_media }.each do |field_name, field| -%>
       <div class="row result__field">
-        <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label"><%= render_document_show_field_label document, field: field_name %></dt>
-        <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
+        <span class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></span>
       </div>
     <% end -%>
-  </dl>
+  </div>
 <% end %>
 
 <% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :more_details && should_render_show_field?(document, f) } -%>
