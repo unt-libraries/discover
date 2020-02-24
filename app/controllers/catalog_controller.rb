@@ -237,9 +237,9 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
     # The :display property controls where in the template the field appears
-    config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
-    config.add_show_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
-    config.add_show_field 'material_type', label: 'Resource Type', accessor: 'resource_type_name'
+    config.add_show_field 'creator', label: 'Author/Creator', display: :priority, link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
+    config.add_show_field 'contributors', label: 'Contributors', display: :priority, link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
+    config.add_show_field 'material_type', label: 'Resource Type', display: :priority, accessor: 'resource_type_name'
 
     # Links and media
     config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls, display: :links_media
@@ -252,19 +252,73 @@ class CatalogController < ApplicationController
     config.add_show_field 'copyright_display', label: 'Copyright', display: :pub_statements, tooltip: 'Date that the resource was copyrighted.'
 
     # More Details
-    config.add_show_field 'physical_characteristics', label: 'Physical Description', display: :more_details
-    config.add_show_field 'summary_notes', label: 'Summary', display: :more_details
-    config.add_show_field 'toc_notes', label: 'Table of Contents', display: :more_details
-    config.add_show_field 'isbn_numbers', label: 'ISBN', display: :more_details, separator_options: { words_connector: '; ' }
-    config.add_show_field 'issn_numbers', label: 'ISSN', display: :more_details, separator_options: { words_connector: '; ' }
-    config.add_show_field 'lccn_numbers', label: 'LCCN', display: :more_details, separator_options: { words_connector: '; ' }
-    config.add_show_field 'oclc_numbers', label: 'OCLC Number', display: :more_details, separator_options: { words_connector: '; ' }
-
-    config.add_show_field 'languages', label: 'Languages', separator_options: { words_connector: '; ' }
     config.add_show_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
     config.add_show_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
     config.add_show_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
-    config.add_show_field 'main_call_number', label: 'Call number'
+
+    # Fields to review, may be revised or removed
+    config.add_show_field 'imprints'
+    config.add_show_field 'publication_country'
+    config.add_show_field 'publication'
+    # Locations
+    config.add_show_field 'bib_location_codes'
+    config.add_show_field 'item_location_codes'
+    # Language Field
+    config.add_show_field 'languages', label: 'Languages', separator_options: { words_connector: '; ' }
+    # Standard Number Fields
+    config.add_show_field 'isbn_numbers', label: 'ISBN', separator_options: { words_connector: '; ' }
+    config.add_show_field 'issn_numbers', label: 'ISSN', separator_options: { words_connector: '; ' }
+    config.add_show_field 'lccn_numbers', label: 'LCCN', separator_options: { words_connector: '; ' }
+    config.add_show_field 'oclc_numbers', label: 'OCLC Number', separator_options: { words_connector: '; ' }
+    # Title Fields
+    config.add_show_field 'full_title'
+    config.add_show_field 'main_title'
+    config.add_show_field 'subtitle'
+    config.add_show_field 'statement_of_responsibility'
+    config.add_show_field 'uniform_title'
+    config.add_show_field 'alternate_titles'
+    config.add_show_field 'related_titles'
+    # Title Sort Field
+    config.add_show_field 'title_sort'
+    # Series Fields
+    config.add_show_field 'series'
+    config.add_show_field 'series_exact'
+    # Author/Title Search Fields
+    config.add_show_field 'author_title_search'
+    # Creator/Contributor Fields
+    config.add_show_field 'series_creators'
+    config.add_show_field 'people'
+    config.add_show_field 'corporations'
+    config.add_show_field 'meetings'
+    # Creator Sort Field
+    config.add_show_field 'creator_sort'
+    # Subject Search Fields
+    config.add_show_field 'full_subjects'
+    config.add_show_field 'topic_terms'
+    config.add_show_field 'general_terms'
+    config.add_show_field 'genre_terms'
+    config.add_show_field 'geographic_terms'
+    config.add_show_field 'era_terms'
+    config.add_show_field 'form_terms'
+    config.add_show_field 'other_terms'
+    # Call Number Fields
+    config.add_show_field 'main_call_number'
+    config.add_show_field 'main_call_number_sort'
+    config.add_show_field 'loc_call_numbers'
+    config.add_show_field 'dewey_call_numbers'
+    config.add_show_field 'sudoc_numbers'
+    config.add_show_field 'other_call_numbers'
+    # Physical Fields
+    config.add_show_field 'physical_characteristics', label: 'Physical Description'
+    # Media Game Facet Fields
+    config.add_show_field 'game_facet'
+    # Table of Contents
+    config.add_show_field 'toc_notes', label: 'Table of Contents'
+    # Context
+    config.add_show_field 'context_notes'
+    # Summary
+    config.add_show_field 'summary_notes'
+    config.add_show_field 'formats'
 
     # Availability
     config.add_show_field 'items_json', label: 'Items', display: :availability
