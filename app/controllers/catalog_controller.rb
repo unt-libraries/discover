@@ -143,6 +143,8 @@ class CatalogController < ApplicationController
       :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
     }
 
+    config.add_facet_field 'publication_sort', label: 'Date', limit: 10, index_range: true
+
     config.add_facet_field 'languages', label: 'Language', home: true, limit: 10
 
     config.add_facet_field 'publication_dates_facet', label: 'Publication Date', :query => {
