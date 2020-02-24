@@ -143,7 +143,8 @@ class CatalogController < ApplicationController
       :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
     }
 
-    config.add_facet_field 'publication_sort', label: 'Date', limit: 10, index_range: true
+    config.add_facet_field 'publication_year_facet', label: 'Year', limit: 10, index_range: true
+    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: 10, index_range: true
 
     config.add_facet_field 'languages', label: 'Language', home: true, limit: 10
 
@@ -382,7 +383,7 @@ class CatalogController < ApplicationController
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     config.add_sort_field 'score desc, title_sort asc', label: 'Relevance'
-    config.add_sort_field 'publication_dates desc, title_sort asc', label: 'Publication Date'
+    config.add_sort_field 'publication_sort desc, title_sort asc', label: 'Publication Date'
     config.add_sort_field 'creator_sort asc, title_sort asc', label: 'Creator'
     config.add_sort_field 'title_sort asc', label: 'Title'
 
