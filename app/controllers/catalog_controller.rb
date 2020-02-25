@@ -143,10 +143,10 @@ class CatalogController < ApplicationController
       :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
     }
 
-    config.add_facet_field 'publication_year_facet', label: 'Year', limit: 10, index_range: true
-    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: 10, index_range: true
+    config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, helper_method: :get_date_facet_display
+    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, helper_method: :get_date_facet_display
 
-    config.add_facet_field 'languages', label: 'Language', home: true, limit: 10
+    config.add_facet_field 'languages', label: 'Language', home: true, limit: true
 
     config.add_facet_field 'publication_dates_facet', label: 'Publication Date', :query => {
       :years_21st_cent => { label: '21st Century', fq: "publication_dates_facet:[2000 TO 2099] OR publication_dates_facet:\"21st century\"" },

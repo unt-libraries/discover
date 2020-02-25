@@ -47,4 +47,8 @@ module CatalogHelper
       concat(text_el)
     end
   end
+
+  def get_date_facet_display(value)
+    value.split('|')[1]
+  end
 end
