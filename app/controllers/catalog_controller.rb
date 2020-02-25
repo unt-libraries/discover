@@ -143,8 +143,8 @@ class CatalogController < ApplicationController
       :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
     }
 
-    config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, helper_method: :get_date_facet_display
-    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, helper_method: :get_date_facet_display
+    config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, sort: 'index', helper_method: :get_date_facet_display
+    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index', helper_method: :get_date_facet_display
 
     config.add_facet_field 'languages', label: 'Language', home: true, limit: true
 
@@ -254,6 +254,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'manufacture_display', label: 'Printing', display: :pub_statements, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
     config.add_show_field 'copyright_display', label: 'Copyright', display: :pub_statements, tooltip: 'Date that the resource was copyrighted.'
 
+    # Availability
+    config.add_show_field 'items_json', label: 'Items', display: :availability
+    config.add_show_field 'has_more_items', if: false
+
     # More Details
     config.add_show_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
     config.add_show_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
@@ -323,9 +327,6 @@ class CatalogController < ApplicationController
     config.add_show_field 'summary_notes'
     config.add_show_field 'formats'
 
-    # Availability
-    config.add_show_field 'items_json', label: 'Items', display: :availability
-    config.add_show_field 'has_more_items', if: false
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
