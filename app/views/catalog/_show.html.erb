@@ -35,7 +35,7 @@
     <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.each do |field_name, field| -%>
       <div class="row result__field">
         <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label">
-          <span data-toggle="tooltip" data-title="<%= field.tooltip %>"><%= render_document_show_field_label document, field: field_name %></span>
+          <span data-toggle="tooltip" data-title="<%= field.tooltip %>" data-placement="left" class="tooltip-nolink"><%= render_document_show_field_label document, field: field_name %></span>
         </dt>
         <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
       </div>

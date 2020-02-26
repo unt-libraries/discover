@@ -11,7 +11,9 @@
 
   <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.each do |field_name, field| -%>
     <div class="result__field">
-      <dt class="blacklight-<%= field_name.parameterize %> result__label text-muted"><%= render_index_field_label document, field: field_name %></dt>
+      <dt class="blacklight-<%= field_name.parameterize %> result__label text-muted">
+        <span data-toggle="tooltip" data-title="<%= field.tooltip %>" data-placement="left" class="tooltip-nolink"><%= render_index_field_label document, field: field_name %></span>
+      </dt>
       <dd class="blacklight-<%= field_name.parameterize %> result__value text-muted font-italic small">
         <% if document[field_name].count <= 1 %>
           <%= document[field_name][0] %>
