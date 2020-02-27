@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { elRemoveClass } from './_utils';
 import { locationMapData } from './data/availability_locations';
+import { statusDescData } from './data/availability_statuses';
+import { initTooltips } from './_ui';
 
 
 /**
@@ -67,6 +69,7 @@ function getLocationData(locationCode) {
 
   return wildcardMatch;
 }
+
 /**
  * Accesses the mapped location data to determine the URL to use for linkage
  * @param {Object} itemLocation
@@ -78,6 +81,29 @@ function createLocationLink(itemLocation) {
     return `<a href="${locationData.url}" title="${locationData.title}" target="_blank">${itemLocation.name}</a>`;
   }
   return itemLocation.name;
+}
+
+/**
+ * Accesses the mapped item status to add a tooltip and create an element
+ * @param {Object} itemStatus
+ * @return {(string|boolean)}
+ */
+function createStatusElement(itemStatus) {
+  const statusCode = itemStatus.code;
+  const statusDueDate = itemStatus.duedate;
+  const statusDisplay = itemStatus.display;
+  const statusDesc = statusDescData[statusCode].desc;
+
+  // If the item is checked out
+  if (statusDueDate) {
+    const dueDate = moment(itemStatus.duedate).format('MMM DD, YYYY');
+    return `Checked out</br>Due ${dueDate}`;
+  }
+
+  if (statusDesc) {
+    return `<span class="tooltip-nolink" data-toggle="tooltip" data-title="${statusDesc}">${statusDisplay}</span>`;
+  }
+  return statusDisplay;
 }
 
 /**
@@ -94,14 +120,7 @@ function updateStatusElement(itemEl, itemStatus = null) {
   }
 
   availabilityEl.dataset.statusCode = itemStatus.code;
-
-  // If the item is checked out
-  if (itemStatus.duedate) {
-    const dueDate = moment(itemStatus.duedate).format('MMM DD, YYYY');
-    availabilityEl.innerText = `Checked out\nDue ${dueDate}`;
-  } else {
-    availabilityEl.innerText = itemStatus.display;
-  }
+  availabilityEl.innerHTML = createStatusElement(itemStatus);
 
   // Show the Request column if this isn't an online only record
   if (itemStatus.code !== 'w') {
@@ -185,6 +204,8 @@ function updateUI(foundItems = [], missingItems = []) {
     // updateLocationElement(itemEl);
     console.log(`Item ${item} not returned by the API`);
   });
+
+  initTooltips();
 }
 
 /**
