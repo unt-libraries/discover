@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Blacklight::BlacklightHelperBehavior
   ##
   # Return the number of search results from the response object
   #
@@ -88,5 +89,30 @@ module ApplicationHelper
     unless items.nil?
       items.any? {|h| h['n'] != nil}
     end
+  end
+
+  ##
+  # Override function from Blacklight 7.3
+  # Render the document "heading" (title) in a content tag
+  # @overload render_document_heading(document, options)
+  #   @param [SolrDocument] document
+  #   @param [Hash] options
+  #   @option options [Symbol] :tag
+  # @overload render_document_heading(options)
+  #   @param [Hash] options
+  #   @option options [Symbol] :tag
+  def render_document_heading(*args)
+    options = args.extract_options!
+    document = args.first
+    tag = options.fetch(:tag, :h4)
+    document ||= @document
+
+    content_tag(:div, class: 'show-heading-title') do
+      concat(content_tag(tag, presenter(document).heading, { class: 'show-heading-title__main', itemprop: "name" }))
+      if document[:subtitle]
+        concat(content_tag(:div, document[:subtitle], { class: 'show-heading-title__sub'}))
+      end
+    end
+
   end
 end
