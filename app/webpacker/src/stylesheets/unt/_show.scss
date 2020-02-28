@@ -28,9 +28,17 @@
 }
 
 .show-document {
-  h1 {
+  .show-heading-title {
     padding-top: 0;
     padding-bottom: 1.5rem;
+
+    &__main {
+      padding-bottom: 0;
+    }
+
+    &__sub {
+      @extend .text-muted;
+    }
   }
 
   .result__field {
