@@ -240,8 +240,8 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
     # The :display property controls where in the template the field appears
-    config.add_show_field 'creator', label: 'Author/Creator', display: :priority, link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
-    config.add_show_field 'contributors', label: 'Contributors', display: :priority, link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
+    config.add_show_field 'creator', label: 'Author/Creator', display: :priority, link_to_facet: 'public_author_facet'
+    config.add_show_field 'contributors', label: 'Contributors', display: :priority, link_to_facet: 'public_author_facet'
     config.add_show_field 'material_type', label: 'Resource Type', display: :priority, accessor: 'resource_type_name'
 
     # Links and media
@@ -259,9 +259,9 @@ class CatalogController < ApplicationController
     config.add_show_field 'has_more_items', if: false
 
     # More Details
-    config.add_show_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
-    config.add_show_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
-    config.add_show_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
+    config.add_show_field 'publishers', label: 'Publisher'
+    config.add_show_field 'publication_places', label: 'Publication Place'
+    config.add_show_field 'publication_dates', label: 'Publication Date'
 
     # Fields to review, may be revised or removed
     config.add_show_field 'imprints'
@@ -271,12 +271,12 @@ class CatalogController < ApplicationController
     config.add_show_field 'bib_location_codes'
     config.add_show_field 'item_location_codes'
     # Language Field
-    config.add_show_field 'languages', label: 'Languages', separator_options: { words_connector: '; ' }
+    config.add_show_field 'languages', label: 'Languages', link_to_facet: 'languages'
     # Standard Number Fields
-    config.add_show_field 'isbn_numbers', label: 'ISBN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'issn_numbers', label: 'ISSN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'lccn_numbers', label: 'LCCN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'oclc_numbers', label: 'OCLC Number', separator_options: { words_connector: '; ' }
+    config.add_show_field 'isbn_numbers', label: 'ISBN'
+    config.add_show_field 'issn_numbers', label: 'ISSN'
+    config.add_show_field 'lccn_numbers', label: 'LCCN'
+    config.add_show_field 'oclc_numbers', label: 'OCLC Number'
     # Title Fields
     config.add_show_field 'full_title'
     config.add_show_field 'main_title'
