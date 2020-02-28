@@ -2,11 +2,12 @@
    id = document[:id]
    doc_presenter = show_presenter(document)
    items = document[:items_json].nil? ? nil : json_str_to_array(document[:items_json])
+   more_items = document[:more_items_json].nil? ? nil : json_str_to_array(document[:more_items_json])
 %>
 <% unless items.nil? %>
 <div class="card item-availability">
   <div class="card-header">Availability</div>
-  <div class="card-body">
+  <span class="card-body">
     <div class="row">
       <div class="col blacklight-location result__label">Location</div>
       <div class="col blacklight-call-number result__label">Call Number</div>
@@ -25,32 +26,18 @@
       </div>
     <% else %>
       <% items.each do |item| %>
-        <div class="row item-row"
-             data-item-id="<%= item['i'] %>"
-             data-item-call-number="<%= item['c'] %>"
-             data-item-barcode="<%= item['b'] %>"
-             data-item-notes="<%= item['n'] %>"
-             data-item-requestability="<%= item['r'] %>">
-          <div class="col blacklight-location result__value">Location TBD</div>
-          <div class="col blacklight-call-number result__value"><%= item['c'] || 'N/A' %></div>
-          <div class="col blacklight-availability result__value">Checking availability</div>
-          <div class="col blacklight-request result__value d-none">
-            <% unless item['r'].nil? %>
-              <%= link_to_request_item document, item %>
-            <% end %>
-          </div>
-          <% if items_have_notes?(items) %>
-            <div class="col blacklight-notes result__value">
-              <% unless item['n'].nil? %>
-                <% item['n'].each do |note| %>
-                  <%= note %><br>
-                <% end %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
+        <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item} %>
+      <% end %>
+      <% if more_items %>
+        <span class="more-min"></span>
+        <a href="#" onclick="return false" class="reveal-more">more...</a>
+        <span class="more-max d-none">
+        <% more_items.each do |item| %>
+          <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item} %>
+        <% end %>
+        </span>
       <% end %>
     <% end %>
-  </div>
+  </span>
 </div>
 <% end %>
