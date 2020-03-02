@@ -148,38 +148,6 @@ class CatalogController < ApplicationController
 
     config.add_facet_field 'languages', label: 'Language', home: true, limit: true
 
-    config.add_facet_field 'publication_dates_facet', label: 'Publication Date', :query => {
-      :years_21st_cent => { label: '21st Century', fq: "publication_dates_facet:[2000 TO 2099] OR publication_dates_facet:\"21st century\"" },
-      :years_highest => { label: '2015 or later', fq: "publication_dates_facet:[2015 TO 2099]" },
-      :years_2010_2014 => { label: '2010 to 2014', fq: "publication_dates_facet:[2010 TO 2014]" },
-      :years_2000_2009 => { label: '2000 to 2009', fq: "publication_dates_facet:[2000 TO 2009]" },
-      :years_20th_cent => { label: '20th Century', fq: "publication_dates_facet:[1900 TO 1999] OR publication_dates_facet:\"20th century\"" },
-      :years_1990_1999 => { label: '1990 to 1999', fq: "publication_dates_facet:[1990 TO 1999]" },
-      :years_1980_1989 => { label: '1980 to 1989', fq: "publication_dates_facet:[1980 TO 1989]" },
-      :years_1970_1979 => { label: '1970 to 1979', fq: "publication_dates_facet:[1970 TO 1979]" },
-      :years_1960_1969 => { label: '1960 to 1969', fq: "publication_dates_facet:[1960 TO 1969]" },
-      :years_1950_1959 => { label: '1950 to 1959', fq: "publication_dates_facet:[1950 TO 1959]" },
-      :years_1940_1949 => { label: '1940 to 1949', fq: "publication_dates_facet:[1940 TO 1949]" },
-      :years_1900_1939 => { label: '1900 to 1939', fq: "publication_dates_facet:[1900 TO 1939]" },
-      :years_19th_cent => { label: '19th Century', fq: "publication_dates_facet:[1800 TO 1899] OR publication_dates_facet:\"19th century\"" },
-      :years_1850_1899 => { label: '1850 to 1899', fq: "publication_dates_facet:[1850 TO 1899]" },
-      :years_1800_1849 => { label: '1800 to 1849', fq: "publication_dates_facet:[1800 TO 1849]" },
-      :years_18th_cent => { label: '18th Century', fq: "publication_dates_facet:[1700 TO 1799] OR publication_dates_facet:\"18th century\"" },
-      :years_1750_1799 => { label: '1750 to 1799', fq: "publication_dates_facet:[1750 TO 1799]" },
-      :years_1700_1749 => { label: '1700 to 1749', fq: "publication_dates_facet:[1700 TO 1749]" },
-      :years_17th_cent => { label: '17th Century', fq: "publication_dates_facet:[1600 TO 1699] OR publication_dates_facet:\"17th century\"" },
-      :years_1650_1699 => { label: '1650 to 1699', fq: "publication_dates_facet:[1650 TO 1699]" },
-      :years_1600_1649 => { label: '1600 to 1649', fq: "publication_dates_facet:[1600 TO 1649]" },
-      :years_16th_cent => { label: '16th Century', fq: "publication_dates_facet:[1500 TO 1599] OR publication_dates_facet:\"16th century\"" },
-      :years_15th_cent => { label: '15th Century', fq: "publication_dates_facet:[1400 TO 1499] OR publication_dates_facet:\"15th century\"" },
-      :years_14th_cent => { label: '14th Century', fq: "publication_dates_facet:[1300 TO 1399] OR publication_dates_facet:\"14th century\"" },
-      :years_13th_cent => { label: '13th Century', fq: "publication_dates_facet:[1200 TO 1299] OR publication_dates_facet:\"13th century\"" },
-      :years_12th_cent => { label: '12th Century', fq: "publication_dates_facet:[1100 TO 1199] OR publication_dates_facet:\"12th century\"" },
-      :years_11th_cent => { label: '11th Century', fq: "publication_dates_facet:[1000 TO 1099] OR publication_dates_facet:\"11th century\"" },
-      :years_10th_cent => { label: '10th Century', fq: "publication_dates_facet:[900 TO 999] OR publication_dates_facet:\"10th century\"" },
-      :years_lowest => { label: 'Pre-10th Century', fq: "publication_dates_facet:/..?.?/ AND publication_dates_facet:[0 TO 899]" },
-    }
-
     # config.add_facet_field 'publication_dates_facet', label: 'Year of Publication'
     config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10, index_range: 'A'..'Z'
     config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z'
