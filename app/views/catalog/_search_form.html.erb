@@ -23,7 +23,7 @@
                                  class: "dropdown-menu",
                                  'aria-labelledby': "search-fields") %>
       </div>
-      <input type="hidden" name="search_field" id="search_field_input" value="<%= params[:search_field] %>">
+        <%= hidden_field_tag :search_field, (params[:search_field] || search_fields.first.last) %>
     <% elsif search_fields.length == 1 %>
       <%= hidden_field_tag :search_field, search_fields.first.last %>
     <% end %>

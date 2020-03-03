@@ -23,7 +23,7 @@ function searchSelector() {
       // Set the visible text of the dropdown menu to whatever was selected
       dropdown.querySelector('.selected').innerHTML = selectedText;
 
-      searchForm.querySelector('#search_field_input').value = scopeValue;
+      searchForm.querySelector('#search_field').value = scopeValue;
 
       // close the dropdown
       if (elHasClass(dropdown, 'open')) {
