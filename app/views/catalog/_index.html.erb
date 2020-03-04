@@ -1,28 +1,48 @@
-<% doc_presenter = index_presenter(document) %>
+<% doc_presenter = index_presenter(document)
+   creator = doc_presenter.fields_to_render.select { |name, f| f[:display] == :creator }
+   contrib = doc_presenter.fields_to_render.select { |name, f| f[:display] == :contrib } %>
 <%# default partial to display solr document fields in catalog index view -%>
-<dl class="document-metadata dl-invert row">
+<dl class="dl-invert">
+  <%# Creator and Contributor fields, combined %>
+  <div class="result__field">
+    <% creator.each do |field_name, field| -%>
+      <dt class="blacklight-<%= field_name.parameterize %> result__label sr-only"><%= render_index_field_label document, field: field_name %></dt>
+      <dd class="blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %><%= '; ' unless contrib.empty? %></dd>
+    <% end -%>
+    <% contrib.each do |field_name, field| -%>
+      <dt class="blacklight-<%= field_name.parameterize %> result__label sr-only"><%= render_index_field_label document, field: field_name %></dt>
+      <dd class="blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
+    <% end -%>
+  </div>
 
-  <% doc_presenter.fields_to_render.select { |name, f| f[:display].blank? }.each do |field_name, field| -%>
+  <%# Priority fields %>
+  <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field| -%>
     <div class="result__field">
-      <dt class="blacklight-<%= field_name.parameterize %> result__label"><%= render_index_field_label document, field: field_name %></dt>
+      <dt class="blacklight-<%= field_name.parameterize %> result__label<% if field[:no_label] %> sr-only<% end %>">
+        <%= render_index_field_label document, field: field_name %>
+      </dt>
       <dd class="blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
     </div>
   <% end -%>
 
-  <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.each do |field_name, field| -%>
+  <%# First publication statement field %>
+  <% first_pub_name, first_pub_value = doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.first %>
+  <%# doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.each do |field_name, field| -%>
     <div class="result__field">
-      <dt class="blacklight-<%= field_name.parameterize %> result__label text-muted">
-        <span data-toggle="tooltip" data-title="<%= field.tooltip %>" data-placement="left" class="tooltip-nolink"><%= render_index_field_label document, field: field_name %></span>
+      <dt class="blacklight-<%= first_pub_name.parameterize %> result__label muted<% if first_pub_value[:no_label] %> sr-only<% end %>">
+        <%= render_index_field_label document, field: first_pub_value %>
       </dt>
-      <dd class="blacklight-<%= field_name.parameterize %> result__value text-muted font-italic small">
-        <% if document[field_name].count <= 1 %>
-          <%= document[field_name][0] %>
-        <% else %>
-          <span class="more-min"><%= document[field_name][0] %></span>
-          <span class="more-max d-none"><%= doc_presenter.field_value field %></span>
-          <a href="#" onclick="return false" class="reveal-more">more...</a>
-        <% end %>
-      </dd>
+      <dd class="blacklight-<%= first_pub_name.parameterize %> result__value muted"><%= doc_presenter.field_value first_pub_value %></dd>
+    </div>
+  <%# end -%>
+
+  <%# Fields with no display value, but set to render in catalog_controller.rb %>
+  <% doc_presenter.fields_to_render.select { |name, f| f[:display].blank? }.each do |field_name, field| -%>
+    <div class="result__field">
+      <dt class="blacklight-<%= field_name.parameterize %> result__label muted <% if field[:no_label] %>sr-only<% end %>">
+        <%= render_index_field_label document, field: field_name %>
+      </dt>
+      <dd class="blacklight-<%= field_name.parameterize %> result__value muted"><%= doc_presenter.field_value field %></dd>
     </div>
   <% end -%>
 

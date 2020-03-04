@@ -21,7 +21,6 @@
     }
 
     .result__field {
-      border-left: #d5d5d5 solid 4px;
       padding-bottom: 0.25rem;
       padding-left: 15px;
       padding-right: 15px;
@@ -35,18 +34,33 @@
     .result__label {
       color: theme-color("gray-darker");
       font-weight: $font-weight-bold;
-      font-size: $font-size-sm;
       text-transform: uppercase;
       display: inline;
       text-align: left;
+
+      &.muted {
+        @extend .text-muted;
+
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+      }
     }
 
     .result__value {
       display: inline;
+
+      &.muted {
+        @extend .text-muted;
+        @extend .font-italic;
+
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+      }
     }
 
     .result__table {
       display: inline-block;
+      margin-bottom: 0;
       width: 100%;
       padding-left: 15px;
       padding-right: 15px;
@@ -80,6 +94,7 @@
   }
 
   .document-metadata {
+    border-left: #d5d5d5 solid 4px;
     margin-bottom: 0;
   }
 }
@@ -102,6 +117,8 @@
 }
 
 .documentHeader {
+  margin-left: 4px;
+
   .document-title-date {
     font-weight: 300;
     font-size: 1.15rem;
