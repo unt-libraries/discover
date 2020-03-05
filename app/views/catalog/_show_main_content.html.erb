@@ -23,13 +23,12 @@
   </div>
 </div>
 
+<%= render partial: 'show_availability', locals: { document: @document } %>
+
 <% if doc_presenter.fields_to_render.any? { |name, f| f[:display].blank? && should_render_show_field?(document, f) } -%>
   <% fields = doc_presenter.fields_to_render.select { |name, f| f[:display].blank? } %>
   <%= render partial: 'show_field_card', locals: { document: @document, display_name: 'more_details', fields: fields } %>
 <% end %>
-
-<%= render partial: 'show_availability', locals: { document: @document } %>
-
 
 <% if @document.respond_to?(:export_as_openurl_ctx_kev) %>
   <!--
