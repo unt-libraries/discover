@@ -24,6 +24,7 @@ gem 'uglifier', '>= 2.7.2'
 gem 'webpacker', '~> 4.x'
 
 gem 'blacklight', '>= 7.5.1'
+gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
 gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
 
 group :development do

@@ -34,4 +34,12 @@
       </button>
     </div>
   </div>
+
+  <%# Disabled link to advanced search %>
+  <% if false %>
+    <div>
+      <%# TODO: add existing search state to advanced search %>
+      <%= link_to 'More options', blacklight_advanced_search_engine.advanced_search_path, class: 'advanced_search btn btn-secondary'%>
+    </div>
+  <% end %>
 <% end %>
