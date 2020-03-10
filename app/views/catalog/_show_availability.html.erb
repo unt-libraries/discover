@@ -5,7 +5,7 @@
    more_items = document[:more_items_json].nil? ? nil : json_str_to_array(document[:more_items_json])
 %>
 <% unless items.nil? %>
-<div class="card item-availability">
+<div id="show-availability" class="card item-availability">
   <div class="card-header">Availability</div>
   <span class="card-body">
     <div class="row">

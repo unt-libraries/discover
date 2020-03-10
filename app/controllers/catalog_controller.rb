@@ -197,7 +197,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'creator', label: 'Author/Creator', display: :creator, helper_method: :author_facet_links
     config.add_index_field 'contributors', label: 'Contributors', display: :contrib, helper_method: :author_facet_links
 
-    config.add_index_field 'material_type', label: 'Resource Type', display: :priority, accessor: 'resource_type_name'
+    config.add_index_field 'material_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
 
     # Publication-related statements
     config.add_index_field 'publication_display', label: 'Publication', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'

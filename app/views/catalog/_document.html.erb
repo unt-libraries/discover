@@ -10,7 +10,7 @@
                 "itemtype": document.itemtype do -%>
   <%# image or icon for item %>
   <div class="thumbnail-wrapper d-none d-lg-block col-auto" aria-hidden="true">
-    <%= render_document_partial document, 'thumbnail' %>
+    <%= render_document_partial document, 'thumbnail', document_counter: document_counter %>
   </div>
 
   <div class="col">
