@@ -183,7 +183,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'creator', label: 'Author/Creator', display: :creator, helper_method: :author_facet_links
     config.add_index_field 'contributors', label: 'Contributors', display: :contrib, helper_method: :author_facet_links
 
-    config.add_index_field 'material_type', label: 'Resource Type', display: :priority, accessor: 'resource_type_name'
+    config.add_index_field 'material_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
 
     # Publication-related statements
     config.add_index_field 'publication_display', label: 'Publication', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
@@ -232,13 +232,13 @@ class CatalogController < ApplicationController
     config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet'
     config.add_show_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet'
     config.add_show_field 'series_creators', label: 'Series Creators', link_to_facet: 'public_author_facet'
-    
+
     # Title Fields
     config.add_show_field 'uniform_title', label: 'Uniform Title', link_to_facet: 'public_title_facet'
     config.add_show_field 'alternate_titles', label: 'Alternate Titles'
     config.add_show_field 'series', label: 'Series', link_to_facet: 'public_series_facet'
     config.add_show_field 'related_titles', label: 'Related Titles', link_to_facet: 'public_title_facet'
-    
+
     # Subject Search Fields
     config.add_show_field 'full_subjects', label: 'Subjects'
 
@@ -254,7 +254,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'oclc_numbers', label: 'OCLC Number'
     # Notes fields -- eventually we will have a lot more of these
     # Context
-    config.add_show_field 'context_notes' label: 'Event Notes'
+    config.add_show_field 'context_notes', label: 'Event Notes'
 
 
     # "fielded" search configuration. Used by pulldown among other places.
