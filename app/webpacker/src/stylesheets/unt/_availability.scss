@@ -1,0 +1,47 @@
+// Availability on index template
+.documents-list {
+  .document {
+    .item-availability {
+      font-size: 0.9rem;
+      color: $text-muted;
+
+      .result__field {
+        padding-bottom: 0;
+      }
+
+      .result__value {
+        margin-bottom: 0.25rem;
+      }
+
+      // Buttons used for availability status buttons
+      .blacklight-availability {
+        .availability-text {
+          margin-top: 0.25rem;
+        }
+
+        .btn {
+          font-weight: 700;
+          padding: 0.15rem 0.5rem;
+
+          &.available {
+            color: white;
+            background-color: theme-color('primary');
+            border-color: theme-color('primary');
+          }
+
+          &.online {
+            color: white;
+            background-color: theme-color('light-teal');
+            border-color: theme-color('light-teal');
+          }
+
+          &.unavailable {
+            color: white;
+            background-color: theme-color('gray-light');
+            border-color: theme-color('gray-light');
+          }
+        }
+      }
+    }
+  }
+}

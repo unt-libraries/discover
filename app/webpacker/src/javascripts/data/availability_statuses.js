@@ -2,14 +2,17 @@ const statusDescData = {
   f: {
     label: 'AT OFFSITE PROCESSING',
     desc: 'The item is being processed off site and is not currently available. It cannot be requested.',
+    btnClass: 'unavailable',
   },
   d: {
     label: 'DISCARDED',
     desc: 'The item is no longer part of our collection.',
+    btnClass: 'unavailable',
   },
   e: {
     label: 'AT OFFSITE CATALOGING',
     desc: 'The item is being processed off site and is not currently available. It cannot be requested.',
+    btnClass: 'unavailable',
   },
   '!': {
     label: 'ON HOLDSHELF',
@@ -18,10 +21,12 @@ const statusDescData = {
   b: {
     label: 'PAM BINDING',
     desc: 'The item is being processed and is not currently available.',
+    btnClass: 'unavailable',
   },
   $: {
     label: 'LOST AND PAID',
     desc: 'A patron lost the item, and we are no longer looking for it. It cannot be requested.',
+    btnClass: 'unavailable',
   },
   a: {
     label: 'TO BINDERY',
@@ -34,10 +39,12 @@ const statusDescData = {
   n: {
     label: 'BILLED',
     desc: 'The item was checked out and never returned. The last person to have the item was sent a bill. The item cannot be requested.',
+    btnClass: 'unavailable',
   },
   o: {
     label: 'LIB USE ONLY',
     desc: 'The item should be available on the shelf at the given location, but it can only be used in the library. It cannot be checked out or requested.',
+    btnClass: 'unavailable',
   },
   m: {
     label: 'ON SEARCH',
@@ -46,6 +53,7 @@ const statusDescData = {
   j: {
     label: 'LOST',
     desc: 'A patron lost the item, and we are no longer looking for it. It cannot be requested.',
+    btnClass: 'unavailable',
   },
   k: {
     label: 'ON ORDER',
@@ -58,10 +66,12 @@ const statusDescData = {
   '-': {
     label: 'AVAILABLE',
     desc: 'The item is available for checkout. It should be on the shelf at the listed location; if you can\'t find it, please ask for help at a Service Desk.',
+    btnClass: 'available',
   },
   w: {
     label: 'ONLINE',
     desc: 'This item or copy is available online--look for the FIND IT button. You may need to be on campus or authenticate using your EUID to access it.',
+    btnClass: 'online',
   },
   t: {
     label: 'IN TRANSIT',
@@ -74,10 +84,12 @@ const statusDescData = {
   z: {
     label: 'CLMS RETD',
     desc: 'Short for "Claims Returned." The item was checked out, and the person claims to have returned it, but we cannot find it. It cannot be requested.',
+    btnClass: 'unavailable',
   },
   y: {
     label: 'MISSING',
     desc: 'We cannot find the item, and we do not know what happened to it. We are no longer looking for it. It cannot be requested.',
+    btnClass: 'unavailable',
   },
 };
 

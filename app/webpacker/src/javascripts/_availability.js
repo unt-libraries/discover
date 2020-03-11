@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { elRemoveClass } from './_utils';
+import { elAddClass, elHasClass, elRemoveClass } from './_utils';
 import { locationMapData } from './data/availability_locations';
 import { statusDescData } from './data/availability_statuses';
 import { initTooltips } from './_ui';
@@ -75,7 +75,7 @@ function getLocationData(locationCode) {
  * @param {Object} itemLocation
  * @return {(string|boolean)}
  */
-function createLocationLink(itemLocation) {
+function createShowLocationLink(itemLocation) {
   const locationData = getLocationData(itemLocation.code);
   if (locationData && locationData.url) {
     return `<a href="${locationData.url}" title="${locationData.title}" target="_blank">${itemLocation.name}</a>`;
@@ -88,7 +88,7 @@ function createLocationLink(itemLocation) {
  * @param {Object} itemStatus
  * @return {(string|boolean)}
  */
-function createStatusElement(itemStatus) {
+function createShowStatusElement(itemStatus) {
   const statusCode = itemStatus.code;
   const statusDueDate = itemStatus.duedate;
   const statusDisplay = itemStatus.display;
@@ -111,7 +111,7 @@ function createStatusElement(itemStatus) {
  * @param {(HTMLElement|Element)} itemEl
  * @param {Object} itemStatus
  */
-function updateStatusElement(itemEl, itemStatus = null) {
+function updateShowStatusElement(itemEl, itemStatus = null) {
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
 
   if (!itemStatus) {
@@ -120,7 +120,7 @@ function updateStatusElement(itemEl, itemStatus = null) {
   }
 
   availabilityEl.dataset.statusCode = itemStatus.code;
-  availabilityEl.innerHTML = createStatusElement(itemStatus);
+  availabilityEl.innerHTML = createShowStatusElement(itemStatus);
 
   // Show the Request column if this isn't an online only record
   if (itemStatus.code !== 'w') {
@@ -141,6 +141,49 @@ function updateStatusElement(itemEl, itemStatus = null) {
         elRemoveClass(el, 'd-none');
       });
     }
+  }
+}
+
+function updateIndexStatusElement(itemEl, itemStatus = null) {
+  console.log(itemEl);
+  const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
+  const availabilityBtn = availabilityEl.querySelector('.btn');
+  const availabilityText = availabilityEl.querySelector('.availability-text');
+
+  if (!itemStatus) {
+    availabilityBtn.innerText = 'Not Available';
+    availabilityText.innerText = 'ASK AT SERVICE DESK';
+    elRemoveClass(availabilityText, 'd-none');
+    return;
+  }
+
+  const statusCode = itemStatus.code;
+  const statusDueDate = itemStatus.duedate;
+  const statusDisplay = itemStatus.display;
+  const statusDesc = statusDescData[statusCode].desc;
+  const statusBtnClass = statusDescData[statusCode].btnClass;
+
+  availabilityEl.dataset.statusCode = statusCode;
+
+  if (statusBtnClass) {
+    elRemoveClass(availabilityBtn, 'btn-outline-secondary');
+    elAddClass(availabilityBtn, statusBtnClass);
+  }
+  // If the item is checked out
+  if (statusDueDate) {
+    const dueDate = moment(itemStatus.duedate).format('MMM DD, YYYY');
+    availabilityBtn.innerText = 'Checked Out';
+    availabilityBtn.dataset.toggle = 'tooltip';
+    availabilityBtn.dataset.title = statusDesc;
+    availabilityText.innerText = `Due ${dueDate}`;
+    elRemoveClass(availabilityText, 'd-none');
+    return;
+  }
+
+  if (statusDesc) {
+    availabilityBtn.innerText = statusDisplay;
+    availabilityBtn.dataset.toggle = 'tooltip';
+    availabilityBtn.dataset.title = statusDesc;
   }
 }
 
@@ -170,7 +213,7 @@ function updateAeonRequestUrl(itemEl, itemLocation) {
  * @param {(HTMLElement|Element)} itemEl
  * @param {Object} itemLocation
  */
-function updateLocationElement(itemEl, itemLocation) {
+function updateShowLocationElement(itemEl, itemLocation) {
   if (!itemLocation) return;
 
   const locationEl = itemEl.querySelector('.blacklight-location.result__value');
@@ -180,7 +223,25 @@ function updateLocationElement(itemEl, itemLocation) {
   // Aeon request URLs must be updated to include data from the Sierra API call
   if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
 
-  locationEl.innerHTML = createLocationLink(itemLocation);
+  locationEl.innerHTML = createShowLocationLink(itemLocation);
+}
+
+function updateIndexLocationElement(itemEl, itemLocation) {
+  if (!itemLocation) return;
+
+  const locationEl = itemEl.querySelector('.blacklight-location.result__value');
+  const locationData = getLocationData(itemLocation.code);
+
+  locationEl.dataset.locationCode = itemLocation.code;
+
+  // Aeon request URLs must be updated to include data from the Sierra API call
+  if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
+
+  if (locationData && locationData.url) {
+    locationEl.innerHTML = `<a href="${locationData.url}" title="${locationData.title}" target="_blank">${itemLocation.name}</a>`;
+  } else {
+    locationEl.innerHTML = itemLocation.name;
+  }
 }
 
 /**
@@ -192,16 +253,28 @@ function updateUI(foundItems = [], missingItems = []) {
   // Update elements for items returned by the API
   foundItems.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item.id}']`);
+    // const itemElNew = document.querySelector(`.new[data-item-id='${item.id}']`);
 
-    updateStatusElement(itemEl, item.status);
-    updateLocationElement(itemEl, item.location);
+    if (elHasClass(itemEl, 'new')) {
+      updateIndexStatusElement(itemEl, item.status);
+      updateIndexLocationElement(itemEl, item.location);
+    } else {
+      updateShowStatusElement(itemEl, item.status);
+      updateShowLocationElement(itemEl, item.location);
+    }
   });
 
   // Update elements for items that were not found by the API
   missingItems.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
-    updateStatusElement(itemEl);
-    // updateLocationElement(itemEl);
+    // const itemElNew = document.querySelector(`.new[data-item-id='${item.id}']`);
+
+    if (elHasClass(itemEl, 'new')) {
+      updateIndexStatusElement(itemEl);
+    } else {
+      updateShowStatusElement(itemEl);
+    }
+    // updateShowLocationElement(itemEl);
     console.log(`Item ${item} not returned by the API`);
   });
 

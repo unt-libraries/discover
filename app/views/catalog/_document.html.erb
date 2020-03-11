@@ -17,7 +17,9 @@
     <%= render_document_partial document, 'index_header', document_counter: document_counter %>
     <div class="document-metadata">
       <%= render_document_partial document, 'index', document_counter: document_counter %>
-      <%= render_document_partial document, 'index_availability', document_counter: document_counter %>
     </div>
+  </div>
+  <div class="col-3">
+    <%= render_document_partial document, 'index_availability', document_counter: document_counter %>
   </div>
 <% end -%>

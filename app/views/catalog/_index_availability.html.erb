@@ -1,62 +1,47 @@
 <% items = document[:items_json].nil? ? nil : json_str_to_array(document[:items_json])
-   id = document[:id]%>
+   id = document[:id]
+   counter = document_counter_with_offset(document_counter)
+   avail_context_href = "#{(document_link_params(document, {:counter => counter}))[:data][:"context-href"]}#show-availability"
+   avail_url = "#{solr_document_path document}#show-availability"%>
 
-<% unless items.nil? %>
-<div class="item-availability">
-  <table class="table table-striped table-sm result__field result__table">
-    <thead>
-      <tr>
-        <th scope="col" class="blacklight-location result__label">Location</th>
-        <th scope="col" class="blacklight-call-number result__label">Call Number</th>
-        <th scope="col" class="blacklight-availability result__label">Availability</th>
-        <th scope="col" class="blacklight-request result__label d-none">Request</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% if items.nil? -%>
-        <tr
-            data-item-id="<%= document[:id][1..-1] %>"
-            data-item-call-number="<%= document[:main_call_number] %>">
-          <td class="blacklight-location result__value">Location TBD</td>
-          <td class="blacklight-call-number result__value"><%= document[:main_call_number] || 'N/A' %></td>
-          <td class="blacklight-availability result__value">Checking availability</td>
-          <td class="blacklight-request result__value d-none">Request for pickup</td>
-        </tr>
-      <% else %>
-        <% items.each do |item| %>
-          <tr class="item-row"
-               data-item-id="<%= item['i'] %>"
-               data-item-call-number="<%= item['c'] %>"
-               data-item-barcode="<%= item['b'] %>"
-               data-item-notes="<%= item['n'] %>"
-               data-item-requestability="<%= item['r'] %>">
-            <td class="blacklight-location result__value">Location TBD</td>
-            <td class="blacklight-call-number result__value"><%= item['c'] || 'N/A' %></td>
-            <td class="blacklight-availability result__value">Checking availability</td>
-            <td class="blacklight-request result__value d-none">
-              <% unless item['r'].nil? %>
-                <%= link_to_request_item document, item %>
-              <% end %>
-            </td>
-            <% unless item['n'].nil? %>
-              <td class="blacklight-notes">
-                <div class="col result__label">Notes: </div>
-                <div class="col result__value">
-                  <% item['n'].each do |note| %>
-                    <%= note %><br>
-                  <% end %>
-                </div>
-              </td>
+<div class="item-availability d-flex flex-column">
+  <% if items.nil? %>
+      <div class="result__field new d-flex flex-column">
+        <span class="blacklight-availability result__value flex-column text-center mx-auto">
+          <a class="btn btn-sm btn-secondary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">Not available</a>
+          <div class="availability-text"> Ask at the service desk</div>
+        </span>
+      </div>
+  <% else %>
+    <% items.each do |item| %>
+      <div class="result__field new d-flex flex-column"
+           data-bib-id="<%= id %>"
+           data-item-id="<%= item['i'] %>"
+           data-item-call-number="<%= item['c'] %>"
+           data-item-barcode="<%= item['b'] %>"
+           data-item-notes="<%= item['n'] %>"
+           data-bib-requestability="<%= item['r'] %>">
+        <span class="blacklight-availability result__value flex-column text-center mx-auto">
+          <a class="btn btn-sm btn-outline-secondary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">Checking...</a>
+          <div class="availability-text d-none"></div>
+        </span>
+        <span class="blacklight-location result__value flex-column text-center"></span>
+        <span class="blacklight-call-number result__value flex-column text-center"><%= item['c'] %></span>
+        <% unless item['n'].nil? %>
+          <span class="blacklight-notes text-center">
+            <% item['n'].each do |note| %>
+              <div class="result__value">
+                <%= note %>
+              </div>
             <% end %>
-          </tr>
+          </span>
         <% end %>
-      <% end %>
-    <% if document[:has_more_items] %>
-      <tr>
-        <td><%= link_to_document document, 'More available', counter: document_counter_with_offset(document_counter) %></td>
-      </tr>
+      </div>
     <% end %>
-    </tbody>
-  </table>
+    <% if document[:has_more_items] %>
+      <div class="more-items-available mx-auto">
+        <a class="btn btn-sm btn-block btn-outline-primary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">More available</a>
+      </div>
+    <% end %>
+  <% end %>
 </div>
-<% end %>
