@@ -1,6 +1,22 @@
 <% doc_presenter = show_presenter(document) %>
 <%# default partial to display solr document fields in catalog show view -%>
 
+<%# render fields with :pub_statements display property %>
+<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :pub_statements && should_render_show_field?(document, f) } -%>
+  <%# <h3>Publication-related Statements</h3> %>
+
+  <dl class="dl-invert document-metadata">
+    <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.each do |field_name, field| -%>
+      <div class="row result__field">
+        <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label">
+          <span data-toggle="tooltip" data-title="<%= field.tooltip %>" data-placement="left" class="tooltip-nolink"><%= render_document_show_field_label document, field: field_name %></span>
+        </dt>
+        <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
+      </div>
+    <% end -%>
+  </dl>
+<% end %>
+
 <%# render fields with :priority display property %>
 <% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :priority && should_render_show_field?(document, f) } -%>
   <dl class="dl-invert document-metadata">
@@ -25,20 +41,4 @@
       </div>
     <% end -%>
   </div>
-<% end %>
-
-<%# render fields with :pub_statements display property %>
-<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :pub_statements && should_render_show_field?(document, f) } -%>
-  <h3>Publication-related Statements</h3>
-
-  <dl class="dl-invert document-metadata">
-    <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.each do |field_name, field| -%>
-      <div class="row result__field">
-        <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label">
-          <span data-toggle="tooltip" data-title="<%= field.tooltip %>" data-placement="left" class="tooltip-nolink"><%= render_document_show_field_label document, field: field_name %></span>
-        </dt>
-        <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
-      </div>
-    <% end -%>
-  </dl>
 <% end %>

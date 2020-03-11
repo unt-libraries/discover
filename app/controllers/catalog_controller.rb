@@ -75,8 +75,8 @@ class CatalogController < ApplicationController
     #######################################
 
     # solr field configuration for document/show views
-    config.show.title_field = 'main_title'
-    config.show.display_type_field = 'material_type'
+    config.show.title_field = 'full_title'
+    config.show.display_type_field = 'resource_type'
     #config.show.thumbnail_field = 'thumbnail_path_ss'
 
     # solr fields that will be treated as facets by the blacklight application
@@ -106,55 +106,41 @@ class CatalogController < ApplicationController
     # set `home` to true for it to appear on the home screen facets list. Default is false.
     # set `home_collapse` to true for it to collapse on the home page, false to expand it. Default is true.
 
-    config.add_facet_field 'access', label: 'Online Access', home: true, home_collapse: false, :query => {
-      :online => { label: 'Online Copy Available', fq: "bib_location_codes:*www OR item_location_codes:*www" },
-      # I'm not sure the best way to create the Solr query to find items that have a physical copy.
-      # I think this facet could work as just a single "Online Copy Available" value, so maybe we don't even
-      # need this. I started implementing it as a regex but that's probably not the best way to do it.
-      # :physical => { label: 'Copy Available at Library', fq: "bib_location_codes:/(.{1,2}|(.*[^w][^w][^w])/ AND item_location_codes:/(.{1,2}|(.*[^w][^w][^w])/" },
-    }
 
-    config.add_facet_field 'bib_location_codes', label: 'Library Location', home: true, :query => {
-      :dpl => { label: 'Discovery Park Library', fq: "bib_location_codes:r* OR item_location_codes:r*" },
-      :ecl => { label: 'Eagle Commons Library', fq: "bib_location_codes:s* OR item_location_codes:s*" },
-      :factory => { label: 'The Factory (Makerspace)', fq: "bib_location_codes:*mak OR item_location_codes:*mak" },
-      :govdocs => { label: 'Government Documents', fq: "bib_location_codes:sd* OR bib_location_codes:xdoc OR item_location_codes:sd* OR item_location_codes:xdoc" },
-      :media => { label: 'Media Library', fq: "bib_location_codes:czm* OR item_location_codes:czm* OR bib_location_codes:xmed OR item_location_codes:xmed" },
-      :music => { label: 'Music Library', fq: "bib_location_codes:w4m OR item_location_codes:w4m OR bib_location_codes:xmus OR item_location_codes:xmus" },
-      :remote => { label: 'Remote Storage', fq: "bib_location_codes:x* OR item_location_codes:x*" },
-      :special => { label: 'Special Collections', fq: "bib_location_codes:w4s OR item_location_codes:w4s OR bib_location_codes:xspe OR item_location_codes:xspe" },
-      :frisco => { label: 'UNT Frisco', fq: "bib_location_codes:f* OR item_location_codes:f*" },
-      :willis => { label: 'Willis Library', fq: "bib_location_codes:w* OR item_location_codes:w*" },
-    }
+    config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false, sort: 'index'
+    config.add_facet_field 'resource_type_facet', label: 'Resource Type', home: true, sort: 'index'
+    config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false, sort: 'index'
+    config.add_facet_field 'building_facet', label: 'Building Location', limit: false, sort: 'index'
+    config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10, sort: 'index'
 
     # Shares relationship with /app/helpers/facets_helper.rb#resource_type_map and
     # /app/models/solr_document.rb#resource_type_map
-    config.add_facet_field 'material_type', label: 'Resource Type', collapse: false, home: true, :query => {
-      :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
-      :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },
-      :books_audio => { label: 'Books (Audio)', fq: "material_type:i" },
-      :books_electronic => { label: 'Books (Electronic)', fq: "material_type:n" },
-      :books_print => { label: 'Books (Print)', fq: "material_type:a" },
-      :computer_files => { label: 'Computer Files', fq: "material_type:m" },
-      :databases => { label: 'Databases', fq: "material_type:b" },
-      :educational_kits => { label: 'Educational Kits', fq: "material_type:o" },
-      :journals => { label: 'Journals (All)', fq: "material_type:q OR material_type:y" },
-      :journals_online => { label: 'Journals (Online)', fq: "material_type:y" },
-      :journals_print => { label: 'Journals (Print)', fq: "material_type:q" },
-      :manuscripts => { label: 'Manuscripts', fq: "material_type:t" },
-      :maps => { label: 'Maps', fq: "material_type:e OR material_type:f" },
-      :music_cds => { label: 'Music (CDs)', fq: "material_type:j" },
-      :music_scores => { label: 'Music (Scores)', fq: "material_type:c OR material_type:d OR material_type:s" },
-      :physical_objects => { label: 'Physical Objects', fq: "material_type:r" },
-      :print_graphics => { label: 'Print Graphics', fq: "material_type:k" },
-      :theses_and_dissertations => { label: 'Theses and Dissertations', fq: "material_type:z OR material_type:s" },
-      :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
-    }
+    # config.add_facet_field 'material_type', label: 'Resource Type', collapse: false, home: true, :query => {
+    #   :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
+    #   :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },
+    #   :books_audio => { label: 'Books (Audio)', fq: "material_type:i" },
+    #   :books_electronic => { label: 'Books (Electronic)', fq: "material_type:n" },
+    #   :books_print => { label: 'Books (Print)', fq: "material_type:a" },
+    #   :computer_files => { label: 'Computer Files', fq: "material_type:m" },
+    #   :databases => { label: 'Databases', fq: "material_type:b" },
+    #   :educational_kits => { label: 'Educational Kits', fq: "material_type:o" },
+    #   :journals => { label: 'Journals (All)', fq: "material_type:q OR material_type:y" },
+    #   :journals_online => { label: 'Journals (Online)', fq: "material_type:y" },
+    #   :journals_print => { label: 'Journals (Print)', fq: "material_type:q" },
+    #   :manuscripts => { label: 'Manuscripts', fq: "material_type:t" },
+    #   :maps => { label: 'Maps', fq: "material_type:e OR material_type:f" },
+    #   :music_cds => { label: 'Music (CDs)', fq: "material_type:j" },
+    #   :music_scores => { label: 'Music (Scores)', fq: "material_type:c OR material_type:d OR material_type:s" },
+    #   :physical_objects => { label: 'Physical Objects', fq: "material_type:r" },
+    #   :print_graphics => { label: 'Print Graphics', fq: "material_type:k" },
+    #   :theses_and_dissertations => { label: 'Theses and Dissertations', fq: "material_type:z OR material_type:s" },
+    #   :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
+    # }
 
     config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, sort: 'index', helper_method: :get_date_facet_display
     config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index', helper_method: :get_date_facet_display
 
-    config.add_facet_field 'languages', label: 'Language', home: true, limit: true
+    config.add_facet_field 'languages', label: 'Language', limit: 10
 
     # config.add_facet_field 'publication_dates_facet', label: 'Year of Publication'
     config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10, index_range: 'A'..'Z'
@@ -197,7 +183,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'creator', label: 'Author/Creator', display: :creator, helper_method: :author_facet_links
     config.add_index_field 'contributors', label: 'Contributors', display: :contrib, helper_method: :author_facet_links
 
-    config.add_index_field 'material_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
+    config.add_index_field 'material_type', label: 'Resource Type', display: :priority, accessor: 'resource_type_name'
 
     # Publication-related statements
     config.add_index_field 'publication_display', label: 'Publication', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
@@ -218,12 +204,8 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
     # The :display property controls where in the template the field appears
-    config.add_show_field 'creator', label: 'Author/Creator', display: :priority, link_to_facet: 'public_author_facet'
-    config.add_show_field 'contributors', label: 'Contributors', display: :priority, link_to_facet: 'public_author_facet'
-    config.add_show_field 'material_type', label: 'Resource Type', display: :priority, accessor: 'resource_type_name'
 
-    # Links and media
-    config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls, display: :links_media
+    config.add_show_field 'resource_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
 
     # Publication-related statements
     config.add_show_field 'creation_display', label: 'Creation', display: :pub_statements, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
@@ -231,79 +213,48 @@ class CatalogController < ApplicationController
     config.add_show_field 'distribution_display', label: 'Distribution', display: :pub_statements, tooltip: 'Statement(s) about the distribution of the resource.'
     config.add_show_field 'manufacture_display', label: 'Printing', display: :pub_statements, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
     config.add_show_field 'copyright_display', label: 'Copyright', display: :pub_statements, tooltip: 'Date that the resource was copyrighted.'
+    # Language Field
+    config.add_show_field 'languages', label: 'Languages', display: :priority, link_to_facet: 'languages'
+    # Physical Fields
+    config.add_show_field 'physical_characteristics', label: 'Physical Description'
+
+    # Links and media
+    config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls, display: :links_media
 
     # Availability
     config.add_show_field 'items_json', label: 'Items', display: :availability
     config.add_show_field 'has_more_items', if: false
 
-    # More Details
-    config.add_show_field 'publishers', label: 'Publisher'
-    config.add_show_field 'publication_places', label: 'Publication Place'
-    config.add_show_field 'publication_dates', label: 'Publication Date'
+    # TOC and Summary
+    config.add_show_field 'toc_notes', label: 'Table of Contents'
+    config.add_show_field 'summary_notes', label: 'Summary'
 
-    # Fields to review, may be revised or removed
-    config.add_show_field 'imprints'
-    config.add_show_field 'publication_country'
-    config.add_show_field 'publication'
-    # Locations
-    config.add_show_field 'bib_location_codes'
-    config.add_show_field 'item_location_codes'
-    # Language Field
-    config.add_show_field 'languages', label: 'Languages', link_to_facet: 'languages'
+    config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet'
+    config.add_show_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet'
+    config.add_show_field 'series_creators', label: 'Series Creators', link_to_facet: 'public_author_facet'
+    
+    # Title Fields
+    config.add_show_field 'uniform_title', label: 'Uniform Title', link_to_facet: 'public_title_facet'
+    config.add_show_field 'alternate_titles', label: 'Alternate Titles'
+    config.add_show_field 'series', label: 'Series', link_to_facet: 'public_series_facet'
+    config.add_show_field 'related_titles', label: 'Related Titles', link_to_facet: 'public_title_facet'
+    
+    # Subject Search Fields
+    config.add_show_field 'full_subjects', label: 'Subjects'
+
+    # Call Number Fields
+    config.add_show_field 'loc_call_numbers', label: 'LC Call Numbers'
+    config.add_show_field 'dewey_call_numbers', label: 'Dewey Call Numbers'
+    config.add_show_field 'sudoc_numbers', label: 'SuDoc Numbers'
+    config.add_show_field 'other_call_numbers', label: 'Local Call Numbers'
     # Standard Number Fields
     config.add_show_field 'isbn_numbers', label: 'ISBN'
     config.add_show_field 'issn_numbers', label: 'ISSN'
     config.add_show_field 'lccn_numbers', label: 'LCCN'
     config.add_show_field 'oclc_numbers', label: 'OCLC Number'
-    # Title Fields
-    config.add_show_field 'full_title'
-    config.add_show_field 'main_title'
-    config.add_show_field 'subtitle'
-    config.add_show_field 'statement_of_responsibility'
-    config.add_show_field 'uniform_title'
-    config.add_show_field 'alternate_titles'
-    config.add_show_field 'related_titles'
-    # Title Sort Field
-    config.add_show_field 'title_sort'
-    # Series Fields
-    config.add_show_field 'series'
-    config.add_show_field 'series_exact'
-    # Author/Title Search Fields
-    config.add_show_field 'author_title_search'
-    # Creator/Contributor Fields
-    config.add_show_field 'series_creators'
-    config.add_show_field 'people'
-    config.add_show_field 'corporations'
-    config.add_show_field 'meetings'
-    # Creator Sort Field
-    config.add_show_field 'creator_sort'
-    # Subject Search Fields
-    config.add_show_field 'full_subjects'
-    config.add_show_field 'topic_terms'
-    config.add_show_field 'general_terms'
-    config.add_show_field 'genre_terms'
-    config.add_show_field 'geographic_terms'
-    config.add_show_field 'era_terms'
-    config.add_show_field 'form_terms'
-    config.add_show_field 'other_terms'
-    # Call Number Fields
-    config.add_show_field 'main_call_number'
-    config.add_show_field 'main_call_number_sort'
-    config.add_show_field 'loc_call_numbers'
-    config.add_show_field 'dewey_call_numbers'
-    config.add_show_field 'sudoc_numbers'
-    config.add_show_field 'other_call_numbers'
-    # Physical Fields
-    config.add_show_field 'physical_characteristics', label: 'Physical Description'
-    # Media Game Facet Fields
-    config.add_show_field 'game_facet'
-    # Table of Contents
-    config.add_show_field 'toc_notes', label: 'Table of Contents'
+    # Notes fields -- eventually we will have a lot more of these
     # Context
-    config.add_show_field 'context_notes'
-    # Summary
-    config.add_show_field 'summary_notes'
-    config.add_show_field 'formats'
+    config.add_show_field 'context_notes' label: 'Event Notes'
 
 
     # "fielded" search configuration. Used by pulldown among other places.

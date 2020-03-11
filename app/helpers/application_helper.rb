@@ -109,8 +109,8 @@ module ApplicationHelper
 
     content_tag(:div, class: 'show-heading-title') do
       concat(content_tag(tag, presenter(document).heading, { class: 'show-heading-title__main', itemprop: "name" }))
-      if document[:subtitle]
-        concat(content_tag(:div, document[:subtitle], { class: 'show-heading-title__sub'}))
+      if document[:statement_of_responsibility]
+        concat(content_tag(:div, document[:statement_of_responsibility], { class: 'show-heading-title__sub'}))
       end
     end
 
