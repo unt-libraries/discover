@@ -134,11 +134,11 @@ module FacetsHelper
   end
 
   def resource_type_icon(item)
-    resource_type_map[item.to_sym][:icon]
+    resource_type_map.dig(item.to_sym, :icon)
   end
 
   def resource_type_label(item)
-    resource_type_map[item.to_sym][:label]
+    resource_type_map.dig(item.to_sym, :label)
   end
 
   # Shares some overlap with /app/models/solr_document.rb#resource_type_map

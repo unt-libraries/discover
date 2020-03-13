@@ -113,30 +113,6 @@ class CatalogController < ApplicationController
     config.add_facet_field 'building_facet', label: 'Building Location', limit: false, sort: 'index'
     config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10, sort: 'index'
 
-    # Shares relationship with /app/helpers/facets_helper.rb#resource_type_map and
-    # /app/models/solr_document.rb#resource_type_map
-    # config.add_facet_field 'material_type', label: 'Resource Type', collapse: false, home: true, :query => {
-    #   :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
-    #   :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },
-    #   :books_audio => { label: 'Books (Audio)', fq: "material_type:i" },
-    #   :books_electronic => { label: 'Books (Electronic)', fq: "material_type:n" },
-    #   :books_print => { label: 'Books (Print)', fq: "material_type:a" },
-    #   :computer_files => { label: 'Computer Files', fq: "material_type:m" },
-    #   :databases => { label: 'Databases', fq: "material_type:b" },
-    #   :educational_kits => { label: 'Educational Kits', fq: "material_type:o" },
-    #   :journals => { label: 'Journals (All)', fq: "material_type:q OR material_type:y" },
-    #   :journals_online => { label: 'Journals (Online)', fq: "material_type:y" },
-    #   :journals_print => { label: 'Journals (Print)', fq: "material_type:q" },
-    #   :manuscripts => { label: 'Manuscripts', fq: "material_type:t" },
-    #   :maps => { label: 'Maps', fq: "material_type:e OR material_type:f" },
-    #   :music_cds => { label: 'Music (CDs)', fq: "material_type:j" },
-    #   :music_scores => { label: 'Music (Scores)', fq: "material_type:c OR material_type:d OR material_type:s" },
-    #   :physical_objects => { label: 'Physical Objects', fq: "material_type:r" },
-    #   :print_graphics => { label: 'Print Graphics', fq: "material_type:k" },
-    #   :theses_and_dissertations => { label: 'Theses and Dissertations', fq: "material_type:z OR material_type:s" },
-    #   :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
-    # }
-
     config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, sort: 'index', helper_method: :get_date_facet_display
     config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index', helper_method: :get_date_facet_display
 
@@ -183,7 +159,8 @@ class CatalogController < ApplicationController
     config.add_index_field 'creator', label: 'Author/Creator', display: :creator, helper_method: :author_facet_links
     config.add_index_field 'contributors', label: 'Contributors', display: :contrib, helper_method: :author_facet_links
 
-    config.add_index_field 'material_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
+    # config.add_index_field 'material_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
+    config.add_index_field 'resource_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
 
     # Publication-related statements
     config.add_index_field 'publication_display', label: 'Publication', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
@@ -205,14 +182,14 @@ class CatalogController < ApplicationController
     # The ordering of the field names is the order of the display
     # The :display property controls where in the template the field appears
 
-    config.add_show_field 'resource_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
+    config.add_show_field 'resource_type', label: 'Resource Type', no_label: true, display: :priority, accessor: 'resource_type_name'
 
     # Publication-related statements
-    config.add_show_field 'creation_display', label: 'Creation', display: :pub_statements, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
-    config.add_show_field 'publication_display', label: 'Publication', display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
-    config.add_show_field 'distribution_display', label: 'Distribution', display: :pub_statements, tooltip: 'Statement(s) about the distribution of the resource.'
-    config.add_show_field 'manufacture_display', label: 'Printing', display: :pub_statements, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
-    config.add_show_field 'copyright_display', label: 'Copyright', display: :pub_statements, tooltip: 'Date that the resource was copyrighted.'
+    config.add_show_field 'creation_display', label: 'Creation', display: :priority, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
+    config.add_show_field 'publication_display', label: 'Publication', display: :priority, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
+    config.add_show_field 'distribution_display', label: 'Distribution', display: :priority, tooltip: 'Statement(s) about the distribution of the resource.'
+    config.add_show_field 'manufacture_display', label: 'Printing', display: :priority, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
+    config.add_show_field 'copyright_display', label: 'Copyright', display: :priority, tooltip: 'Date that the resource was copyrighted.'
     # Language Field
     config.add_show_field 'languages', label: 'Languages', display: :priority, link_to_facet: 'languages'
     # Physical Fields
