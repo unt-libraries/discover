@@ -61,17 +61,6 @@ module FacetsHelper
 
   ##
   # Overrides default Blacklight implementation
-  # Renders a single facet item
-  def render_facet_item(facet_field, item)
-    if facet_in_params?(facet_field, item.value)
-      render_selected_facet_value(facet_field, item)
-    else
-      render_facet_value(facet_field, item)
-    end
-  end
-
-  ##
-  # Overrides default Blacklight implementation
   # Standard display of a facet value in a list. Used in both _facets sidebar
   # partial and catalog/facet expanded list. Will output facet value name as
   # a link to add that to your restrictions, with count in parens.
@@ -83,7 +72,9 @@ module FacetsHelper
   # @return [Hash]
   def render_facet_value(facet_field, item, options = {})
     display_value = facet_display_value(facet_field, item)
-    if facet_field == 'material_type'
+
+    if facet_field == 'resource_type_facet'
+      display_value = facet_display_value(facet_field, resource_type_label(item.value))
       display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
     end
 
@@ -143,32 +134,32 @@ module FacetsHelper
   end
 
   def resource_type_icon(item)
-    resource_type_map[item.to_sym]
+    resource_type_map[item.to_sym][:icon]
   end
 
-  # Shares relationship with /app/controllers/catalog_controller.rb#config.add_facet_field 'material_type' and
-  # /app/models/solr_document.rb#resource_type_map
+  def resource_type_label(item)
+    resource_type_map[item.to_sym][:label]
+  end
+
+  # Shares some overlap with /app/models/solr_document.rb#resource_type_map
   def resource_type_map
     {
-        :archival_collections => 'book',
-        :books => 'book',
-        :books_audio => 'headphones',
-        :books_electronic => 'tablet-android-alt',
-        :books_print => 'book',
-        :computer_files => 'file',
-        :databases => 'database',
-        :educational_kits => 'book',
-        :journals => 'book-alt',
-        :journals_online => 'book-alt',
-        :journals_print => 'book-alt',
-        :manuscripts => 'scroll',
-        :maps => 'map',
-        :music_cds => 'compact-disc',
-        :music_scores => 'music',
-        :physical_objects => 'cube',
-        :print_graphics => 'images',
-        :theses_and_dissertations => 'book',
-        :video => 'film',
+        :archives_manuscripts => {:label => 'Archives/Manuscripts', :icon => 'book'},
+        :audio => {:label => 'Audio', :icon => 'headphones'},
+        :books => {:label => 'Books', :icon => 'book'},
+        :educational_kits => {:label => 'Educational Kits', :icon => 'book'},
+        :equipment => {:label => 'Equipment', :icon => 'cube'},
+        :games => {:label => 'Games', :icon => 'gamepad'},
+        :images => {:label => 'Images', :icon => 'image'},
+        :journals_periodicals => {:label => 'Journals/Periodicals', :icon => 'book-alt'},
+        :online_databases => {:label => 'Online Databases', :icon => 'database'},
+        :music_recordings => {:label => 'Music Recordings', :icon => 'music'},
+        :music_scores => {:label => 'Music Scores', :icon => 'music'},
+        :maps => {:label => 'Maps', :icon => 'map'},
+        :objects_artifacts => {:label => 'Objects/Artifacts', :icon => 'cube'},
+        :software => {:label => 'Software', :icon => 'file'},
+        :theses_dissertations => {:label => 'Theses/Dissertations', :icon => 'book'},
+        :video_film => {:label => 'Video/Film', :icon => 'film'},
     }
   end
 end
