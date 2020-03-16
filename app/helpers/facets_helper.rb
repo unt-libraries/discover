@@ -71,11 +71,11 @@ module FacetsHelper
   # @option options [Boolean] :suppress_link display the facet, but don't link to it
   # @return [Hash]
   def render_facet_value(facet_field, item, options = {})
-    display_value = facet_display_value(facet_field, item)
-
     if facet_field == 'resource_type_facet'
       display_value = facet_display_value(facet_field, resource_type_label(item.value))
       display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
+    else
+      display_value = facet_display_value(facet_field, item)
     end
 
     {
@@ -94,8 +94,15 @@ module FacetsHelper
   def render_selected_facet_value(facet_field, item)
     remove_href = search_action_path(search_state.remove_facet_params(facet_field, item))
 
+    if facet_field == 'resource_type_facet'
+      display_value = facet_display_value(facet_field, resource_type_label(item.value))
+      display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
+    else
+      display_value = facet_display_value(facet_field, item)
+    end
+
     rendered_element = content_tag(:span, class: "selected facet-label") do
-      concat(facet_display_value(facet_field, item))
+      concat(display_value)
       # Remove icon
       concat(content_tag(:span, class: "remove") do
         content_tag(:i, '', class: "fa fa-times-circle remove-icon",
