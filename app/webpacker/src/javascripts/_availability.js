@@ -20,11 +20,19 @@ function chunkArray(arr, chunkSize = 50) {
 }
 
 /**
+ * Gets the elements for "fake" items that exist when there are no items to check on Sierra
+ * @return {NodeList}
+ */
+function getNoApiElements() {
+  return document.querySelectorAll('[data-no-api-request]');
+}
+
+/**
  * Crawls the DOM to find IDs for every item
  * @return {Array}
  */
 function getItemsIDs() {
-  const itemEls = document.querySelectorAll('[data-item-id]');
+  const itemEls = document.querySelectorAll('[data-item-id]:not([data-item-id=""])');
   const itemsArray = Array.from(itemEls);
 
   const itemBibs = itemsArray.map((el) => el.dataset.itemId.replace(/\D/g, ''));
@@ -59,7 +67,7 @@ function getLocationData(locationCode) {
 
   // Try to match a wildcard starting with the longest value
   let wildcardMatch = false;
-  for (let i = 0; i < wildcardMatches.length; i++) {
+  for (let i = 0; i < wildcardMatches.length; i += 1) {
     const wildcard = wildcardMatches[i];
     if (locationCode.startsWith(wildcard.slice(0, -1))) {
       wildcardMatch = locationMapData[wildcard];
@@ -69,6 +77,31 @@ function getLocationData(locationCode) {
 
   return wildcardMatch;
 }
+
+/**
+ * Appends required query string parameters to an Aeon URL that require the Sierra API call.
+ * @param {(HTMLElement|Element)} itemEl
+ * @param {Object} itemLocation
+ */
+function updateAeonRequestUrl(itemEl, itemLocation) {
+  const locationCode = itemLocation.code.startsWith('w4m') ? 'UNTMUSIC' : 'UNTSPECCOLL';
+  const locationName = itemLocation.name;
+  const linkEl = itemEl.querySelector('.request-aeon');
+  const aeonUrl = new URL(linkEl.href);
+  const queryString = aeonUrl.search;
+  const params = new URLSearchParams(queryString);
+
+  aeonUrl.search = params.toString();
+
+  params.append('Location', locationName);
+  params.append('Site', locationCode);
+  aeonUrl.search = params.toString();
+  linkEl.href = aeonUrl.toString();
+}
+
+/**
+ * FUNCTIONS FOR `SHOW` VIEWS
+ */
 
 /**
  * Accesses the mapped location data to determine the URL to use for linkage
@@ -144,70 +177,6 @@ function updateShowStatusElement(itemEl, itemStatus = null) {
   }
 }
 
-function updateIndexStatusElement(itemEl, itemStatus = null) {
-  console.log(itemEl);
-  const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-  const availabilityBtn = availabilityEl.querySelector('.btn');
-  const availabilityText = availabilityEl.querySelector('.availability-text');
-
-  if (!itemStatus) {
-    availabilityBtn.innerText = 'Not Available';
-    availabilityText.innerText = 'ASK AT SERVICE DESK';
-    elRemoveClass(availabilityText, 'd-none');
-    return;
-  }
-
-  const statusCode = itemStatus.code;
-  const statusDueDate = itemStatus.duedate;
-  const statusDisplay = itemStatus.display;
-  const statusDesc = statusDescData[statusCode].desc;
-  const statusBtnClass = statusDescData[statusCode].btnClass;
-
-  availabilityEl.dataset.statusCode = statusCode;
-
-  if (statusBtnClass) {
-    elRemoveClass(availabilityBtn, 'btn-outline-secondary');
-    elAddClass(availabilityBtn, statusBtnClass);
-  }
-  // If the item is checked out
-  if (statusDueDate) {
-    const dueDate = moment(itemStatus.duedate).format('MMM DD, YYYY');
-    availabilityBtn.innerText = 'Checked Out';
-    availabilityBtn.dataset.toggle = 'tooltip';
-    availabilityBtn.dataset.title = statusDesc;
-    availabilityText.innerText = `Due ${dueDate}`;
-    elRemoveClass(availabilityText, 'd-none');
-    return;
-  }
-
-  if (statusDesc) {
-    availabilityBtn.innerText = statusDisplay;
-    availabilityBtn.dataset.toggle = 'tooltip';
-    availabilityBtn.dataset.title = statusDesc;
-  }
-}
-
-/**
- * Appends required query string parameters to an Aeon URL that require the Sierra API call.
- * @param {(HTMLElement|Element)} itemEl
- * @param {Object} itemLocation
- */
-function updateAeonRequestUrl(itemEl, itemLocation) {
-  const locationCode = itemLocation.code.startsWith('w4m') ? 'UNTMUSIC' : 'UNTSPECCOLL';
-  const locationName = itemLocation.name;
-  const linkEl = itemEl.querySelector('.request-aeon');
-  const aeonUrl = new URL(linkEl.href);
-  const queryString = aeonUrl.search;
-  const params = new URLSearchParams(queryString);
-
-  aeonUrl.search = params.toString();
-
-  params.append('Location', locationName);
-  params.append('Site', locationCode);
-  aeonUrl.search = params.toString();
-  linkEl.href = aeonUrl.toString();
-}
-
 /**
  * Updates the location element for an item and calls function to update Aeon URL if necessary
  * @param {(HTMLElement|Element)} itemEl
@@ -226,21 +195,107 @@ function updateShowLocationElement(itemEl, itemLocation) {
   locationEl.innerHTML = createShowLocationLink(itemLocation);
 }
 
-function updateIndexLocationElement(itemEl, itemLocation) {
-  if (!itemLocation) return;
+/**
+ * Calls UI update functions for items returned by the Sierra API as well as those missing
+ * @param {Array} foundItems
+ * @param {Array} missingItems
+ */
+function updateShowUI(foundItems = [], missingItems = []) {
+  foundItems.forEach((item) => {
+    const itemEl = document.querySelector(`[data-item-id='${item.id}']`);
+    if (itemEl === null) return;
+    updateShowStatusElement(itemEl, item.status);
+    updateShowLocationElement(itemEl, item.location);
+  });
 
-  const locationEl = itemEl.querySelector('.blacklight-location.result__value');
-  const locationData = getLocationData(itemLocation.code);
+  missingItems.forEach((item) => {
+    const itemEl = document.querySelector(`[data-item-id='${item}']`);
+    updateShowStatusElement(itemEl);
+    console.log(`Item ${item} not returned by the API`);
+  });
 
-  locationEl.dataset.locationCode = itemLocation.code;
+  initTooltips();
+}
 
-  // Aeon request URLs must be updated to include data from the Sierra API call
-  if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
+function updateShowNoApiItems() {
+  const noApiElements = getNoApiElements();
 
-  if (locationData && locationData.url) {
-    locationEl.innerHTML = `<a href="${locationData.url}" title="${locationData.title}" target="_blank">${itemLocation.name}</a>`;
+  noApiElements.forEach((item) => {
+    const locationEl = item.querySelector('.blacklight-location.result__value');
+    const locationCode = locationEl.dataset.itemLocation;
+    const locationData = getLocationData(locationCode);
+    locationEl.innerText = `Ask at the ${locationData.title} service desk`;
+  });
+
+  initTooltips();
+}
+
+/**
+ * FUNCTIONS FOR `INDEX` VIEWS
+ */
+
+function updateIndexStatusElement(itemEl, item = null) {
+  const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
+  const availabilityBtn = availabilityEl.querySelector('.btn');
+  const availabilityText = availabilityEl.querySelector('.availability-text');
+  const itemStatus = item.status;
+  const itemLocation = item.location;
+
+  if (!itemStatus) {
+    availabilityBtn.innerText = 'Not Available';
+    availabilityText.innerText = 'ASK AT SERVICE DESK';
+    elRemoveClass(availabilityText, 'd-none');
+    return;
+  }
+
+  const statusCode = itemStatus.code;
+  const statusDueDate = itemStatus.duedate;
+
+  availabilityEl.dataset.statusCode = statusCode;
+
+  if (statusDescData[statusCode]) {
+    const statusDesc = statusDescData[statusCode].desc;
+    const statusBtnClass = statusDescData[statusCode].btnClass;
+    const statusDisplay = statusDescData[statusCode].label;
+
+    if (statusCode !== 'w') {
+      const callNumberEl = itemEl.querySelector('.blacklight-call-number.result__value');
+      elRemoveClass(callNumberEl, 'd-none');
+    }
+
+    if (statusBtnClass) {
+      elRemoveClass(availabilityBtn, 'btn-outline-secondary');
+      elAddClass(availabilityBtn, statusBtnClass);
+    }
+
+    // If the item is checked out
+    if (statusDueDate) {
+      const dueDate = moment(itemStatus.duedate).format('MMM DD, YYYY');
+      availabilityBtn.innerText = 'Checked Out';
+      availabilityText.innerText = `Due ${dueDate}`;
+      elRemoveClass(availabilityText, 'd-none');
+      return;
+    }
+
+    if (statusDesc) {
+      availabilityBtn.innerText = statusDisplay;
+      availabilityBtn.dataset.toggle = 'tooltip';
+      availabilityBtn.dataset.title = statusDesc;
+    }
   } else {
-    locationEl.innerHTML = itemLocation.name;
+    availabilityBtn.innerText = itemStatus.display;
+  }
+
+  if (itemLocation) {
+    const locationData = getLocationData(itemLocation.code);
+
+    availabilityEl.dataset.locationCode = itemLocation.code;
+
+    // Aeon request URLs must be updated to include data from the Sierra API call
+    if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
+
+    // availabilityBtn.append(` - ${locationData.title}`);
+    availabilityBtn.append(` - ${itemLocation.name}`);
   }
 }
 
@@ -249,33 +304,30 @@ function updateIndexLocationElement(itemEl, itemLocation) {
  * @param {Array} foundItems
  * @param {Array} missingItems
  */
-function updateUI(foundItems = [], missingItems = []) {
-  // Update elements for items returned by the API
+function updateIndexUI(foundItems = [], missingItems = []) {
   foundItems.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item.id}']`);
-    // const itemElNew = document.querySelector(`.new[data-item-id='${item.id}']`);
-
-    if (elHasClass(itemEl, 'new')) {
-      updateIndexStatusElement(itemEl, item.status);
-      updateIndexLocationElement(itemEl, item.location);
-    } else {
-      updateShowStatusElement(itemEl, item.status);
-      updateShowLocationElement(itemEl, item.location);
-    }
+    updateIndexStatusElement(itemEl, item);
+    // updateIndexLocationElement(itemEl, item.location);
   });
 
-  // Update elements for items that were not found by the API
   missingItems.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
-    // const itemElNew = document.querySelector(`.new[data-item-id='${item.id}']`);
-
-    if (elHasClass(itemEl, 'new')) {
-      updateIndexStatusElement(itemEl);
-    } else {
-      updateShowStatusElement(itemEl);
-    }
-    // updateShowLocationElement(itemEl);
+    updateIndexStatusElement(itemEl);
     console.log(`Item ${item} not returned by the API`);
+  });
+
+  initTooltips();
+}
+
+function updateIndexNoApiItems() {
+  const noApiElements = getNoApiElements();
+
+  noApiElements.forEach((item) => {
+    const availabilityTextEl = item.querySelector('.availability-text');
+    const locationCode = availabilityTextEl.dataset.itemLocation;
+    const locationData = getLocationData(locationCode);
+    availabilityTextEl.innerText = `Ask at the ${locationData.title} service desk`;
   });
 
   initTooltips();
@@ -285,7 +337,15 @@ function updateUI(foundItems = [], missingItems = []) {
  * Entry point to update availability of items through the Sierra API.
  */
 function checkAvailability() {
+  const bodyEl = document.querySelector('body');
+  const pageContext = bodyEl.dataset.blacklightContext;
   const itemBibs = getItemsIDs();
+
+  if (pageContext === 'show') {
+    updateShowNoApiItems();
+  } else if (pageContext === 'index') {
+    updateIndexNoApiItems();
+  }
 
   itemBibs.forEach((chunk) => {
     const request = new XMLHttpRequest();
@@ -303,7 +363,11 @@ function checkAvailability() {
         const responseJSON = JSON.parse(this.response);
         const foundItems = responseJSON.entries;
         const missingItems = findMissing(foundItems, chunk);
-        updateUI(foundItems, missingItems);
+        if (pageContext === 'show') {
+          updateShowUI(foundItems, missingItems);
+        } else if (pageContext === 'index') {
+          updateIndexUI(foundItems, missingItems);
+        }
       } else {
         console.log('Error from API');
         console.log(this.response);

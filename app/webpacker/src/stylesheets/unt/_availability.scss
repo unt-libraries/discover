@@ -6,16 +6,21 @@
       color: $text-muted;
 
       .result__field {
+        margin-bottom: 1rem;
         padding-bottom: 0;
       }
 
       .result__value {
-        margin-bottom: 0.25rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
       }
 
       // Buttons used for availability status buttons
       .blacklight-availability {
+        margin-top: 0;
+
         .availability-text {
+          margin-bottom: 0.25rem;
           margin-top: 0.25rem;
         }
 

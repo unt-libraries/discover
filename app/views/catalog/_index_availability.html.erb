@@ -1,47 +1,33 @@
-<% items = document[:items_json].nil? ? nil : json_str_to_array(document[:items_json])
+<% items = json_str_to_array(document[:items_json])
    id = document[:id]
    counter = document_counter_with_offset(document_counter)
    avail_context_href = "#{(document_link_params(document, {:counter => counter}))[:data][:"context-href"]}#show-availability"
    avail_url = "#{solr_document_path document}#show-availability"%>
 
 <div class="item-availability d-flex flex-column">
-  <% if items.nil? %>
-      <div class="result__field new d-flex flex-column">
-        <span class="blacklight-availability result__value flex-column text-center mx-auto">
-          <a class="btn btn-sm btn-secondary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">Not available</a>
-          <div class="availability-text"> Ask at the service desk</div>
-        </span>
-      </div>
-  <% else %>
-    <% items.each do |item| %>
-      <div class="result__field new d-flex flex-column"
-           data-bib-id="<%= id %>"
-           data-item-id="<%= item['i'] %>"
-           data-item-call-number="<%= item['c'] %>"
-           data-item-barcode="<%= item['b'] %>"
-           data-item-notes="<%= item['n'] %>"
-           data-bib-requestability="<%= item['r'] %>">
-        <span class="blacklight-availability result__value flex-column text-center mx-auto">
-          <a class="btn btn-sm btn-outline-secondary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">Checking...</a>
-          <div class="availability-text d-none"></div>
-        </span>
-        <span class="blacklight-location result__value flex-column text-center"></span>
-        <span class="blacklight-call-number result__value flex-column text-center"><%= item['c'] %></span>
-        <% unless item['n'].nil? %>
-          <span class="blacklight-notes text-center">
-            <% item['n'].each do |note| %>
-              <div class="result__value">
-                <%= note %>
-              </div>
-            <% end %>
-          </span>
-        <% end %>
-      </div>
-    <% end %>
-    <% if document[:has_more_items] %>
-      <div class="more-items-available mx-auto">
-        <a class="btn btn-sm btn-block btn-outline-primary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">More available</a>
-      </div>
-    <% end %>
+  <% items.each do |item| %>
+    <div class="result__field new d-flex flex-column"
+         <%= item['i'].blank? ? "data-no-api-request" : "data-item-id=#{item['i']}" %>
+         data-item-call-number="<%= item['c'] %>"
+         data-item-location="<%= item['l'] %>"
+         data-item-barcode="<%= item['b'] %>"
+         data-item-notes="<%= item['n'] %>"
+         data-bib-requestability="<%= item['r'] %>">
+      <span class="blacklight-availability result__value flex-column text-center">
+        <a class="btn btn-sm btn-block btn-outline-secondary" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">
+          <%= item['i'] ? "Checking availability" : "Unavailable" %>
+        </a>
+        <div class="availability-text <%= "d-none" unless item['i'].blank? %>" data-item-location="<%= item['l'] %>"><%= "Ask at the service desk" if item['i'].blank? %></div>
+      </span>
+      <span class="blacklight-call-number result__value flex-column text-center d-none" data-item-call-number="<%= item['c'] %>"><%= item['c'] %></span>
+      <% unless item['n'].blank? %>
+        <span class="blacklight-notes result__value text-center">See full record for additional info.</span>
+      <% end %>
+    </div>
+  <% end %>
+  <% if document[:has_more_items] %>
+    <div class="more-items-available mx-auto">
+      <a class="btn btn-sm btn-block btn-outline-primary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">More available</a>
+    </div>
   <% end %>
 </div>

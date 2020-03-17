@@ -1,10 +1,9 @@
 <% document ||= @document
    id = document[:id]
    doc_presenter = show_presenter(document)
-   items = document[:items_json].nil? ? nil : json_str_to_array(document[:items_json])
+   items = json_str_to_array(document[:items_json])
    more_items = document[:more_items_json].nil? ? nil : json_str_to_array(document[:more_items_json])
 %>
-<% unless items.nil? %>
 <div id="show-availability" class="card item-availability">
   <div class="card-header">Availability</div>
   <span class="card-body">
@@ -17,27 +16,17 @@
         <div class="col blacklight-notes result__label">Notes</div>
       <% end %>
     </div>
-    <% if items.nil? -%>
-      <div class="row"
-          data-item-call-number="<%= document[:main_call_number] %>">
-        <div class="col blacklight-location result__value">Location TBD</div>
-        <div class="col blacklight-call-number result__value"><%= document[:main_call_number] || 'N/A' %></div>
-        <div class="col blacklight-availability result__value">Checking availability</div>
-      </div>
-    <% else %>
-      <% items.each do |item| %>
-        <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item} %>
+    <% items.each do |item| %>
+      <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item} %>
+    <% end %>
+    <% if more_items %>
+      <span class="more-min"></span>
+      <a href="#" onclick="return false" class="reveal-more">more...</a>
+      <span class="more-max d-none">
+      <% more_items.each do |item| %>
+        <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item} %>
       <% end %>
-      <% if more_items %>
-        <span class="more-min"></span>
-        <a href="#" onclick="return false" class="reveal-more">more...</a>
-        <span class="more-max d-none">
-        <% more_items.each do |item| %>
-          <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item} %>
-        <% end %>
-        </span>
-      <% end %>
+      </span>
     <% end %>
   </span>
 </div>
-<% end %>
