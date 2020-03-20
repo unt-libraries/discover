@@ -1,4 +1,6 @@
 import { elAddClass, elHasClass, elRemoveClass } from './_utils';
+import 'bootstrap/js/dist/tooltip';
+import 'bootstrap/js/dist/popover';
 
 const has = Object.prototype.hasOwnProperty;
 const idTypes = {
@@ -82,7 +84,7 @@ function docIDArray() {
 
       const idStripped = idString.replace(/[[\]"']+/g, '');
       const idArray = idStripped.split(',');
-      idArray.forEach(id => docArray.push(`${idKey}:${id}`));
+      idArray.forEach((id) => docArray.push(`${idKey}:${id}`));
     });
   });
   return docArray;
@@ -113,14 +115,14 @@ function replaceBookCovers() {
 }
 
 function initTooltips() {
-  $('[data-toggle="tooltip"]').tooltip({
-    container: 'body',
+  $(document).tooltip({
+    selector: '[data-toggle="tooltip"]',
   });
 }
 
 function initPopovers() {
-  $('[data-toggle="popover"]').popover({
-    container: 'body',
+  $(document).popover({
+    selector: '[data-toggle="popover"]',
   });
 }
 

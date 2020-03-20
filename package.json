@@ -4,6 +4,7 @@
     "start": "docker-compose up",
     "build": "docker-compose build",
     "web:run": "docker-compose run --rm web",
+    "web:assetServer": "docker-compose run -e \"RAILS_ENV=development\" --rm web ./bin/webpack --watch --colors --progress",
     "test": "docker-compose run -e \"RAILS_ENV=test\" --rm web bundle exec rspec",
     "test:verbose": "yarn test --format documentation",
     "web:compileAssets": "docker-compose run --rm web rails assets:precompile",

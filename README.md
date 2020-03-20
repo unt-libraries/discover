@@ -1,4 +1,4 @@
-# UNT Blacklight interface
+# UNT Discover
 
 ## About
 
@@ -19,14 +19,14 @@ search interface for accessing the online catalog.
 
 SSH:
 ```console
-$ git clone git@github.com:unt-libraries/unt-blacklight.git unt-blacklight
+$ git clone git@github.com:unt-libraries/discover.git discover
 $ cd unt-blacklight
 ```
 
 or HTTPS:
 ```console
-$ git clone https://github.com/unt-libraries/unt-blacklight unt-blacklight
-$ cd unt-blacklight
+$ git clone https://github.com/unt-libraries/discover discover
+$ cd discover
 ```
 
 Set the exposed port of your Rails app with a shell environment variable or
@@ -46,6 +46,11 @@ Build the containers with:
 $ docker-compose build
 ```
 
+or with yarn:
+```console
+$ yarn build
+```
+
 After building the containers, [create your credentials](#managing-secrets) and add your secrets.
 
 If you do not already have a database for the app, create one with:
@@ -54,10 +59,20 @@ If you do not already have a database for the app, create one with:
 $ docker-compose run web rake db:create
 ```
 
+or with yarn:
+```console
+$ yarn web:dbCreate
+```
+
 Run database migrations with:
 
 ```console
 $ docker-compose run web rake db:migrate
+```
+
+or with yarn:
+```console
+$ yarn web:dbMigrate
 ```
 
 Start the app and database with:
@@ -66,7 +81,15 @@ Start the app and database with:
 $ docker-compose up
 ```
 
+or with yarn:
+```console
+$ yarn start
+```
+
 You should now be able to go to `localhost:3000` in your browser to see the running app.
+
+In the development environment, you can use Webpacker's live code reloading by 
+running `yarn web:assetServer` in a separate terminal.
 
 ### Without Docker
 
@@ -136,14 +159,14 @@ or [OpenJDK](https://openjdk.java.net/install/)
 
 SSH:
 ```console
-$ git clone git@github.com:unt-libraries/unt-blacklight.git unt-blacklight
-$ cd unt-blacklight
+$ git clone git@github.com:unt-libraries/discover.git discover
+$ cd discover
 ```
 
 or HTTPS:
 ```console
-$ git clone https://github.com/unt-libraries/unt-blacklight unt-blacklight
-$ cd unt-blacklight
+$ git clone https://github.com/unt-libraries/discover discover
+$ cd discover
 ```
 
 **Install gems**
@@ -210,6 +233,11 @@ To edit secrets stored in `credentials.yml.enc`, use the following command:
 
 ```console
 $ docker-compose run web bash -c "EDITOR=vim rails credentials:edit"
+```
+
+or with yarn:
+```console
+$ yarn web:credentials
 ```
 
 NOTE: If you're not using Docker, you only need the command in quotes
