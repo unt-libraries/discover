@@ -90,6 +90,8 @@
 
   <%= javascript_packs_with_chunks_tag 'vendor', 'base', 'data-turbolinks-track': 'reload' %>
 
+  <%= content_for(:head_scripts) %>
+
   <%= csrf_meta_tags %>
   <%= content_for(:head) %>
 </head>
