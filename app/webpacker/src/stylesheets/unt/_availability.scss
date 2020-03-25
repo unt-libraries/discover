@@ -28,22 +28,61 @@
           font-weight: 700;
           padding: 0.15rem 0.5rem;
 
+          &.loading {
+            color: theme-color('gray-light');
+            background-color: white;
+            border-color: theme-color('gray-light');
+          }
+
           &.available {
             color: white;
             background-color: theme-color('primary');
             border-color: theme-color('primary');
+
+            &:active,
+            &:hover,
+            &:focus {
+              background-color: darken(theme-color('primary'), 5%);
+            }
           }
 
           &.online {
             color: white;
             background-color: theme-color('light-teal');
             border-color: theme-color('light-teal');
+
+            &:active,
+            &:hover,
+            &:focus {
+              background-color: darken(theme-color('light-teal'), 5%);
+            }
           }
 
           &.unavailable {
             color: white;
             background-color: theme-color('gray-light');
             border-color: theme-color('gray-light');
+
+            &:active,
+            &:hover,
+            &:focus {
+              background-color: darken(theme-color('gray-light'), 5%);
+            }
+          }
+
+          & .loading-spinner {
+            & span {
+              @extend .spinner-grow;
+              @extend .spinner-grow-sm;
+
+              &:nth-child(2) {
+                animation-delay: 0.16s;
+              }
+
+              &:nth-child(3) {
+                animation-delay: 0.32s;
+              }
+            }
           }
         }
       }

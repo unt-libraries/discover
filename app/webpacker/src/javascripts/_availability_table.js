@@ -16,10 +16,12 @@ import { elRemoveClass } from './_utils';
  */
 function createShowLocationLink(itemLocation) {
   const locationData = getLocationData(itemLocation.code);
+  const locationText = locationData.name ? locationData.name : itemLocation.name;
+  const linkText = locationData.linkText? locationData.linkText : itemLocation.name;
   if (locationData && locationData.url) {
-    return `<a href="${locationData.url}" title="${locationData.title}" target="_blank">${itemLocation.name}</a>`;
+    return `<a href="${locationData.url}" title="${linkText}" target="_blank">${locationText}</a>`;
   }
-  return itemLocation.name;
+  return locationText;
 }
 
 /**
@@ -30,8 +32,9 @@ function createShowLocationLink(itemLocation) {
 function createShowStatusElement(itemStatus) {
   const statusCode = itemStatus.code;
   const statusDueDate = itemStatus.duedate;
-  const statusDisplay = itemStatus.display;
-  const statusDesc = getStatusData(statusCode).desc;
+  const statusData = getStatusData(statusCode);
+  const statusDisplay = statusData.label ? statusData.label : itemStatus.display;
+  const statusDesc = statusData.desc;
 
   // If the item is checked out
   if (statusDueDate) {

@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { elAddClass, elHasClass, elRemoveClass } from './_utils';
-import { locationMapData } from './data/availability_locations';
+import { locationData } from './data/availability_locations';
 import { statusDescData } from './data/availability_statuses';
 
 
@@ -56,12 +56,12 @@ function findMissing(foundItems = [], allItems) {
  */
 function getLocationData(locationCode) {
   // Return an exact match if one exists
-  if (Object.hasOwnProperty.call(locationMapData, locationCode)) {
-    return locationMapData[locationCode];
+  if (Object.hasOwnProperty.call(locationData, locationCode)) {
+    return locationData[locationCode];
   }
 
   // Create new array of wildcard keys that start with the same letter as locationCode then sort
-  const wildcardMatches = Object.keys(locationMapData).filter((key) => key[0] === locationCode[0] && key.endsWith('*'));
+  const wildcardMatches = Object.keys(locationData).filter((key) => key[0] === locationCode[0] && key.endsWith('*'));
   wildcardMatches.sort((a, b) => b.length - a.length);
 
   // Try to match a wildcard starting with the longest value
@@ -69,7 +69,7 @@ function getLocationData(locationCode) {
   for (let i = 0; i < wildcardMatches.length; i += 1) {
     const wildcard = wildcardMatches[i];
     if (locationCode.startsWith(wildcard.slice(0, -1))) {
-      wildcardMatch = locationMapData[wildcard];
+      wildcardMatch = locationData[wildcard];
       break;
     }
   }

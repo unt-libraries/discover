@@ -14,8 +14,13 @@
          data-item-notes="<%= item['n'] %>"
          data-bib-requestability="<%= item['r'] %>">
       <span class="blacklight-availability result__value flex-column text-center">
-        <a class="btn btn-sm btn-block btn-outline-secondary" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">
-          <%= item['i'] ? "Checking availability" : "Unavailable" %>
+        <a class="btn btn-sm btn-block loading disabled" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">
+          <% if item['i'].blank? %>
+            Contact the Service Desk
+          <% else %>
+            <span class="loading-spinner" role="status" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span class="sr-only">Loading...</span>
+          <% end %>
         </a>
         <div class="availability-text <%= "d-none" unless item['i'].blank? %>" data-item-location="<%= item['l'] %>"><%= "Ask at the service desk" if item['i'].blank? %></div>
       </span>

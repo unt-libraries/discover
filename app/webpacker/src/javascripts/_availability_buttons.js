@@ -45,7 +45,7 @@ function updateIndexStatusElement(itemEl, item = null) {
     }
 
     if (statusBtnClass) {
-      elRemoveClass(availabilityBtn, 'btn-outline-secondary');
+      elRemoveClass(availabilityBtn, 'loading', 'disabled');
       elAddClass(availabilityBtn, statusBtnClass);
     }
 
@@ -69,14 +69,16 @@ function updateIndexStatusElement(itemEl, item = null) {
 
   if (itemLocation) {
     const locationData = getLocationData(itemLocation.code);
+    const locationText = locationData.abbr ? locationData.abbr : locationData.name;
 
     availabilityEl.dataset.locationCode = itemLocation.code;
 
     // Aeon request URLs must be updated to include data from the Sierra API call
     if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
 
-    // availabilityBtn.append(` - ${locationData.title}`);
-    availabilityBtn.append(` - ${itemLocation.name}`);
+    if (locationText) {
+      availabilityBtn.append(` - ${locationText}`);
+    }
   }
 }
 
@@ -116,7 +118,7 @@ function updateIndexNoApiItems() {
     const availabilityTextEl = item.querySelector('.availability-text');
     const locationCode = availabilityTextEl.dataset.itemLocation;
     const locationData = getLocationData(locationCode);
-    availabilityTextEl.innerText = `Ask at the ${locationData.title} service desk`;
+    availabilityTextEl.innerText = `Ask at the ${locationData.name} service desk`;
   });
 }
 
