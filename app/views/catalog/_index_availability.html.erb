@@ -13,6 +13,7 @@
          data-item-barcode="<%= item['b'] %>"
          data-item-notes="<%= item['n'] %>"
          data-bib-requestability="<%= item['r'] %>">
+      <%# Status and Location Information %>
       <span class="blacklight-availability result__value flex-column text-center">
         <a class="btn btn-sm btn-block loading disabled" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">
           <% if item['i'].blank? %>
@@ -24,12 +25,20 @@
         </a>
         <div class="availability-text <%= "d-none" unless item['i'].blank? %>" data-item-location="<%= item['l'] %>"><%= "Ask at the service desk" if item['i'].blank? %></div>
       </span>
-      <span class="blacklight-call-number result__value flex-column text-center d-none" data-item-call-number="<%= item['c'] %>"><%= item['c'] %></span>
+      <%# Call Number %>
+      <span class="blacklight-call-number result__value flex-column text-center d-none tooltip-nolink"
+            data-item-call-number="<%= item['c'] %>"
+            data-toggle="tooltip"
+            data-title="The call number of this item">
+        <%= item['c'] %>
+      </span>
+      <%# Notes %>
       <% unless item['n'].blank? %>
         <span class="blacklight-notes result__value text-center">See full record for additional info.</span>
       <% end %>
     </div>
   <% end %>
+  <%# "More Available Button" %>
   <% if document[:has_more_items] %>
     <div class="more-items-available mx-auto">
       <a class="btn btn-sm btn-block btn-outline-primary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">More available</a>
