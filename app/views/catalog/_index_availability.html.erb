@@ -1,8 +1,6 @@
 <% items = json_str_to_array(document[:items_json])
    id = document[:id]
-   counter = document_counter_with_offset(document_counter)
-   avail_context_href = "#{(document_link_params(document, {:counter => counter}))[:data][:"context-href"]}#show-availability"
-   avail_url = "#{solr_document_path document}#show-availability"%>
+   counter = document_counter_with_offset(document_counter)%>
 
 <div class="item-availability d-flex flex-column">
   <% items.each do |item| %>
@@ -15,33 +13,15 @@
          data-bib-requestability="<%= item['r'] %>">
       <%# Status and Location Information %>
       <span class="blacklight-availability result__value flex-column text-center">
-        <a class="btn btn-sm btn-block loading disabled" style="overflow: hidden; white-space: nowrap; text-overflow: ellipsis" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">
-          <% if item['i'].blank? %>
-            Contact the Service Desk
-          <% else %>
-            <span class="loading-spinner" role="status" aria-hidden="true"><span></span><span></span><span></span></span>
-            <span class="sr-only">Loading...</span>
-          <% end %>
-        </a>
-        <div class="availability-text <%= "d-none" unless item['i'].blank? %>" data-item-location="<%= item['l'] %>"><%= "Ask at the service desk" if item['i'].blank? %></div>
+        <%= render_item_button(document, counter, item) %>
+        <%= render_availability_text(item) %>
       </span>
       <%# Call Number %>
-      <span class="blacklight-call-number result__value flex-column text-center d-none tooltip-nolink"
-            data-item-call-number="<%= item['c'] %>"
-            data-toggle="tooltip"
-            data-title="The call number of this item">
-        <%= item['c'] %>
-      </span>
+      <%= render_call_number(item) %>
       <%# Notes %>
-      <% unless item['n'].blank? %>
-        <span class="blacklight-notes result__value text-center">See full record for additional info.</span>
-      <% end %>
+      <%= render_notes(item) %>
     </div>
   <% end %>
   <%# "More Available Button" %>
-  <% if document[:has_more_items] %>
-    <div class="more-items-available mx-auto">
-      <a class="btn btn-sm btn-block btn-outline-primary" href="<%= avail_url %>" data-context-href="<%= avail_context_href %>">More available</a>
-    </div>
-  <% end %>
+  <%= render_more_available(document, counter) %>
 </div>

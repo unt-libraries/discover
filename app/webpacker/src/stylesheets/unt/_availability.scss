@@ -24,7 +24,14 @@
           margin-top: 0.25rem;
         }
 
-        .btn {
+        .availability-btn {
+          @extend .btn;
+          @extend .btn-sm;
+          @extend .btn-block;
+
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
           font-weight: 700;
           padding: 0.15rem 0.5rem;
 
@@ -48,13 +55,13 @@
 
           &.online {
             color: white;
-            background-color: theme-color('light-teal');
-            border-color: theme-color('light-teal');
+            background-color: theme-color('primary');
+            border-color: theme-color('primary');
 
             &:active,
             &:hover,
             &:focus {
-              background-color: darken(theme-color('light-teal'), 5%);
+              background-color: darken(theme-color('primary'), 5%);
             }
           }
 
@@ -85,6 +92,15 @@
             }
           }
         }
+      }
+
+      .more-available {
+        @extend .btn;
+        @extend .btn-sm;
+        @extend .btn-block;
+        @extend .btn-outline-primary;
+
+        padding: 0.15rem 0.5rem;
       }
     }
   }

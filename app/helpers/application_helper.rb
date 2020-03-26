@@ -113,6 +113,5 @@ module ApplicationHelper
         concat(content_tag(:div, document[:statement_of_responsibility], { class: 'show-heading-title__sub'}))
       end
     end
-
   end
 end

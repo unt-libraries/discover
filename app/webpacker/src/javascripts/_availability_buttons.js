@@ -11,7 +11,7 @@ import { elAddClass, elRemoveClass } from './_utils';
 
 function updateIndexStatusElement(itemEl, item = null) {
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-  const availabilityBtn = availabilityEl.querySelector('.btn');
+  const availabilityBtn = availabilityEl.querySelector('.availability-btn');
   const availabilityText = availabilityEl.querySelector('.availability-text');
   let itemStatus = null;
   let itemLocation = null;
@@ -29,6 +29,7 @@ function updateIndexStatusElement(itemEl, item = null) {
   }
 
   const statusCode = itemStatus.code;
+  const isOnlineItem = statusCode === 'w';
   const statusDueDate = itemStatus.duedate;
   const statusData = getStatusData(statusCode);
 
@@ -39,7 +40,7 @@ function updateIndexStatusElement(itemEl, item = null) {
     const statusBtnClass = statusData.btnClass;
     const statusDisplay = statusData.label;
 
-    if (statusCode !== 'w') {
+    if (isOnlineItem) {
       const callNumberEl = itemEl.querySelector('.blacklight-call-number.result__value');
       elRemoveClass(callNumberEl, 'd-none');
     }
@@ -76,7 +77,7 @@ function updateIndexStatusElement(itemEl, item = null) {
     // Aeon request URLs must be updated to include data from the Sierra API call
     if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
 
-    if (locationText) {
+    if (locationText && !isOnlineItem) {
       availabilityBtn.append(` - ${locationText}`);
     }
   }
@@ -87,7 +88,7 @@ function updateIndexUIError(items) {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
     if (itemEl === null) return;
     const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-    const availabilityBtn = availabilityEl.querySelector('.btn');
+    const availabilityBtn = availabilityEl.querySelector('.availability-btn');
     availabilityBtn.innerText = 'Ask at the Service Desk';
   });
 }
