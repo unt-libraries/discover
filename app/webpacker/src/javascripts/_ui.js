@@ -49,48 +49,21 @@ function replaceThumbnailElement(thumbContainer, bookData) {
 }
 
 /**
- * Iterates through images found in Google Books API to replace on the index view
+ * Iterates through images found in Google Books API to replace on the index view.
+ * Attached to the window object so that it may be used as a callback from JSONP
  * @param {Object} payload
  */
-window.replaceIndexThumbs = function (payload) {
-  if (!elHasClass(document.body, 'blacklight-catalog-index')) return;
-
-  const documentsEl = document.querySelector('#documents');
+window.replaceThumbs = function (payload) {
+  const documentsEl = document.querySelector('#main-container');
   const docIDs = docIDObject();
-
-  console.log(documentsEl);
-  console.log(docIDs);
-  console.log(payload);
 
   Object.entries(payload).forEach(([bookKey, bookData]) => {
     const [idType, id] = bookKey.split(':');
-    const docThumbEl = documentsEl.querySelector(`[data-bib-id="${docIDs[idType][id].bib}"]`);
+    const docThumbEl = documentsEl.querySelectorAll(`.document-thumbnail[data-bib-id="${docIDs[idType][id].bib}"]`);
     if (has.call(bookData, 'thumbnail_url')) {
-      const thumbContainer = docThumbEl.querySelector('.document-thumbnail');
-      if (thumbContainer && !elHasClass(thumbContainer, 'thumbnail-loaded')) {
-        replaceThumbnailElement(thumbContainer, bookData);
-      }
-    }
-  });
-};
-
-/**
- * Iterates through images found in Google Books API to replace on the show view
- * @param {Object} payload
- */
-window.replaceShowThumb = function (payload) {
-  if (!elHasClass(document.body, 'blacklight-catalog-show')) return;
-
-  const thumbContainers = document.querySelectorAll('.document-thumbnail');
-
-  console.log(thumbContainers);
-  console.log(payload);
-
-  Object.entries(payload).forEach(([bookKey, bookData]) => {
-    if (has.call(bookData, 'thumbnail_url')) {
-      Array.prototype.forEach.call(thumbContainers, (thumbContainer) => {
-        if (thumbContainer && !elHasClass(thumbContainer, 'thumbnail-loaded')) {
-          replaceThumbnailElement(thumbContainer, bookData);
+      docThumbEl.forEach((thumbEl) => {
+        if (!elHasClass(thumbEl, 'thumbnail-loaded')) {
+          replaceThumbnailElement(thumbEl, bookData);
         }
       });
     }
@@ -131,21 +104,15 @@ function docIDQueryString() {
  */
 function replaceBookCovers() {
   const bibkeyQueryString = docIDQueryString();
-  let booksCallback;
-  if (elHasClass(document.body, 'blacklight-catalog-index')) {
-    booksCallback = 'replaceIndexThumbs';
-  } else if (elHasClass(document.body, 'blacklight-catalog-show')) {
-    booksCallback = 'replaceShowThumb';
-  }
+  if (bibkeyQueryString.length === 0) return;
+  const booksCallback = 'replaceThumbs';
 
-  if (bibkeyQueryString.length > 0) {
-    const scriptElement = document.createElement('script');
-    scriptElement.setAttribute('id', 'jsonScript');
-    scriptElement.setAttribute('src',
-      `https://books.google.com/books?bibkeys=${bibkeyQueryString}&jscmd=viewapi&callback=${booksCallback}`);
-    scriptElement.setAttribute('type', 'text/javascript');
-    document.head.appendChild(scriptElement);
-  }
+  const scriptElement = document.createElement('script');
+  scriptElement.setAttribute('id', 'jsonScript');
+  scriptElement.setAttribute('src',
+    `https://books.google.com/books?bibkeys=${bibkeyQueryString}&jscmd=viewapi&callback=${booksCallback}`);
+  scriptElement.setAttribute('type', 'text/javascript');
+  document.head.appendChild(scriptElement);
 }
 
 /**
