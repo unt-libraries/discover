@@ -1,35 +1,8 @@
-<% if presenter(document).respond_to?('thumbnail') && presenter(document).thumbnail.exists? && tn = presenter(document).thumbnail.thumbnail_tag({}, counter: document_counter_with_offset(document_counter)) %>
-  <%= tn %>
+<%# Render a thumbnail link for index view (with counter), image for show view %>
+<% if defined? document_counter %>
+  <% counter = document_counter_with_offset(document_counter) %>
+  <%= render_thumbnail(document, { counter: counter }) %>
 <% else %>
-  <% thumbnail_url = document[:thumbnail_url] %>
-  <%# Only link to the document if in index, not in show %>
-  <% if params[:action] == 'index' %>
-    <%
-      counter = document_counter_with_offset(document_counter)
-      context_href = (document_link_params(document, {:counter => counter}))[:data][:"context-href"]
-    %>
-    <a class="thumbnail-link" href="<%= solr_document_path document %>" data-context-href="<%= context_href %>" tabindex="-1">
-      <div class="document-thumbnail text-center index-thumbnail d-none d-lg-block <%=  thumbnail_url.nil? ? '' : 'thumbnail-loaded' %>">
-        <% if thumbnail_url.nil? %>
-          <svg class="img-fluid index-icon icon">
-            <use xlink:href="<%= asset_pack_path 'media/images/icons/regular.svg' %>#<%= document.resource_type_icon %>"></use>
-          </svg>
-          <span class="sr-only item-title"><%= document[:full_title] %></span>
-        <% else %>
-          <img src="<%= thumbnail_url %>" class="img-fluid">
-        <% end %>
-      </div>
-    </a>
-  <% else %>
-    <div class="document-thumbnail text-center show-thumbnail d-none d-md-block <%=  thumbnail_url.nil? ? '' : 'thumbnail-loaded' %>">
-      <% if thumbnail_url.nil? %>
-        <svg class="img-fluid show-icon icon">
-          <use xlink:href="<%= asset_pack_path 'media/images/icons/regular.svg' %>#<%= document.resource_type_icon %>"></use>
-        </svg>
-        <span class="sr-only item-title"><%= document[:full_title] %></span>
-      <% else %>
-        <img src="<%= thumbnail_url %>" class="img-fluid">
-      <% end %>
-    </div>
-  <% end %>
+  <%= render_thumbnail(document) %>
 <% end %>
+
