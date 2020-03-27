@@ -4,7 +4,7 @@
 <%= tag.article class: "document row #{render_document_class document} document-position-#{document_counter} ",
                 data: {
                     document_counter: document_counter,
-                    doc_id: document[:id],
+                    doc_id: document.id.to_s.parameterize
                 }.merge(document.identifier_data),
                 "itemscope": true,
                 "itemtype": document.itemtype do -%>

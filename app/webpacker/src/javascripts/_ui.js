@@ -8,6 +8,10 @@ const idTypes = {
   oclc: 'oclcNumbers',
 };
 
+/**
+ * Collects ISBN and OCLC numbers and associates with bib IDs.
+ * @return {Object}
+ */
 function docIDObject() {
   const documents = document.querySelectorAll('.document');
   const docObject = {};
@@ -30,6 +34,11 @@ function docIDObject() {
   return docObject;
 }
 
+/**
+ * Replaces thumbnail container element with thumbnail image from Google Books API data
+ * @param {(HTMLElement|Element)} thumbContainer
+ * @param {Object} bookData
+ */
 function replaceThumbnailElement(thumbContainer, bookData) {
   const titleEl = thumbContainer.querySelector('.item-title');
   const itemTitle = titleEl.textContent;
@@ -39,11 +48,19 @@ function replaceThumbnailElement(thumbContainer, bookData) {
   elAddClass(thumbContainer, 'thumbnail-loaded');
 }
 
+/**
+ * Iterates through images found in Google Books API to replace on the index view
+ * @param {Object} payload
+ */
 window.replaceIndexThumbs = function (payload) {
   if (!elHasClass(document.body, 'blacklight-catalog-index')) return;
 
   const documentsEl = document.querySelector('#documents');
   const docIDs = docIDObject();
+
+  console.log(documentsEl);
+  console.log(docIDs);
+  console.log(payload);
 
   Object.entries(payload).forEach(([bookKey, bookData]) => {
     const [idType, id] = bookKey.split(':');
@@ -57,10 +74,17 @@ window.replaceIndexThumbs = function (payload) {
   });
 };
 
+/**
+ * Iterates through images found in Google Books API to replace on the show view
+ * @param {Object} payload
+ */
 window.replaceShowThumb = function (payload) {
   if (!elHasClass(document.body, 'blacklight-catalog-show')) return;
 
   const thumbContainers = document.querySelectorAll('.document-thumbnail');
+
+  console.log(thumbContainers);
+  console.log(payload);
 
   Object.entries(payload).forEach(([bookKey, bookData]) => {
     if (has.call(bookData, 'thumbnail_url')) {
@@ -73,9 +97,13 @@ window.replaceShowThumb = function (payload) {
   });
 };
 
+/**
+ * Collects bib ID numbers from documents and removes 'b' to create and array of document IDs.
+ * @return {Array}
+ */
 function docIDArray() {
-  const mainContaner = document.querySelector('#main-container');
-  const documents = mainContaner.querySelectorAll('.document');
+  const mainContainer = document.querySelector('#main-container');
+  const documents = mainContainer.querySelectorAll('.document');
   const docArray = [];
   documents.forEach((doc) => {
     Object.entries(idTypes).forEach(([idKey, dataID]) => {
@@ -90,11 +118,17 @@ function docIDArray() {
   return docArray;
 }
 
+/**
+ * Create query string of doc IDs for Google Books API
+ */
 function docIDQueryString() {
   const bibArray = docIDArray();
   return bibArray.join(',');
 }
 
+/**
+ * Entry point to updating book covers and calling Google Books API with callback
+ */
 function replaceBookCovers() {
   const bibkeyQueryString = docIDQueryString();
   let booksCallback;
@@ -114,18 +148,28 @@ function replaceBookCovers() {
   }
 }
 
+/**
+ * Initializes tooltips already in the DOM, as well as dynamically added tooltips.
+ */
 function initTooltips() {
   $(document).tooltip({
     selector: '[data-toggle="tooltip"]',
   });
 }
 
+/**
+ * Initializes popovers already in the DOM, as well as dynamically added popovers.
+ */
 function initPopovers() {
   $(document).popover({
     selector: '[data-toggle="popover"]',
   });
 }
 
+/**
+ * Finds buttons with class `.reveal-more` and binds click event to hide
+ * sibling `.more-min` and reveal `.more-max`
+ */
 function bindRevealMoreFields() {
   const moreLinks = document.querySelectorAll('.reveal-more');
 
