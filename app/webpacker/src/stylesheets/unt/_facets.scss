@@ -128,6 +128,11 @@
       padding-bottom: 0;
       padding-right: 0;
 
+      .icon {
+        color: theme-color("gray-darker");
+        display: inline;
+      }
+
       .remove {
         text-indent: 0;
       }

@@ -61,17 +61,6 @@ module FacetsHelper
 
   ##
   # Overrides default Blacklight implementation
-  # Renders a single facet item
-  def render_facet_item(facet_field, item)
-    if facet_in_params?(facet_field, item.value)
-      render_selected_facet_value(facet_field, item)
-    else
-      render_facet_value(facet_field, item)
-    end
-  end
-
-  ##
-  # Overrides default Blacklight implementation
   # Standard display of a facet value in a list. Used in both _facets sidebar
   # partial and catalog/facet expanded list. Will output facet value name as
   # a link to add that to your restrictions, with count in parens.
@@ -82,8 +71,15 @@ module FacetsHelper
   # @option options [Boolean] :suppress_link display the facet, but don't link to it
   # @return [Hash]
   def render_facet_value(facet_field, item, options = {})
+    if facet_field == 'resource_type_facet'
+      display_value = facet_display_value(facet_field, resource_type_label(item.value))
+      display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
+    else
+      display_value = facet_display_value(facet_field, item)
+    end
+
     {
-      :rendered_element => content_tag(:span, facet_display_value(facet_field, item), class: "facet-select facet-label") + render_facet_count(item.hits),
+      :rendered_element => content_tag(:span, display_value, class: "facet-select facet-label") + render_facet_count(item.hits),
       :path => path_for_facet(facet_field, item),
       :selected => false,
     }
@@ -98,8 +94,15 @@ module FacetsHelper
   def render_selected_facet_value(facet_field, item)
     remove_href = search_action_path(search_state.remove_facet_params(facet_field, item))
 
+    if facet_field == 'resource_type_facet'
+      display_value = facet_display_value(facet_field, resource_type_label(item.value))
+      display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
+    else
+      display_value = facet_display_value(facet_field, item)
+    end
+
     rendered_element = content_tag(:span, class: "selected facet-label") do
-      concat(facet_display_value(facet_field, item))
+      concat(display_value)
       # Remove icon
       concat(content_tag(:span, class: "remove") do
         content_tag(:i, '', class: "fa fa-times-circle remove-icon",
@@ -127,4 +130,43 @@ module FacetsHelper
     content_tag("span", t('blacklight.search.facets.count', number: number_with_delimiter(num)), class: classes)
   end
 
+  ##
+  # Add icon for resource type facets
+  #
+  # @param [String] item
+  # @return [String]
+  def resource_type_facet_display_value(item)
+    icon = resource_type_icon(item)
+    content_tag(:i, '', class: "#{icon}-icon icon fal fa-#{icon}")
+  end
+
+  def resource_type_icon(item)
+    resource_type_map.dig(item.to_sym, :icon)
+  end
+
+  def resource_type_label(item)
+    resource_type_map.dig(item.to_sym, :label)
+  end
+
+  # Shares some overlap with /app/models/solr_document.rb#resource_type_map
+  def resource_type_map
+    {
+        :archives_manuscripts => {:label => 'Archives/Manuscripts', :icon => 'book'},
+        :audio => {:label => 'Audio', :icon => 'headphones'},
+        :books => {:label => 'Books', :icon => 'book'},
+        :educational_kits => {:label => 'Educational Kits', :icon => 'book'},
+        :equipment => {:label => 'Equipment', :icon => 'cube'},
+        :games => {:label => 'Games', :icon => 'gamepad'},
+        :images => {:label => 'Images', :icon => 'image'},
+        :journals_periodicals => {:label => 'Journals/Periodicals', :icon => 'book-alt'},
+        :online_databases => {:label => 'Online Databases', :icon => 'database'},
+        :music_recordings => {:label => 'Music Recordings', :icon => 'music'},
+        :music_scores => {:label => 'Music Scores', :icon => 'music'},
+        :maps => {:label => 'Maps', :icon => 'map'},
+        :objects_artifacts => {:label => 'Objects/Artifacts', :icon => 'cube'},
+        :software => {:label => 'Software', :icon => 'file'},
+        :theses_dissertations => {:label => 'Theses/Dissertations', :icon => 'book'},
+        :video_film => {:label => 'Video/Film', :icon => 'film'},
+    }
+  end
 end

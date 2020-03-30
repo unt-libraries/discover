@@ -1,10 +1,32 @@
 <% doc_presenter = show_presenter(document) %>
 <%# default partial to display solr document fields in catalog show view -%>
-<dl class="dl-invert document-metadata">
-  <% doc_presenter.fields_to_render.each do |field_name, field| -%>
-    <div class="row result__field">
-      <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label"><%= render_document_show_field_label document, field: field_name %></dt>
-      <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
-    </div>
-  <% end -%>
-</dl>
+
+<%# render fields with :priority display property %>
+<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :priority && should_render_show_field?(document, f) } -%>
+  <dl class="dl-invert document-metadata">
+    <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field| -%>
+      <div class="row result__field">
+        <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label">
+          <span <%= raw("data-toggle=\"tooltip\" data-title=\"#{field.tooltip}\" data-placement=\"left\" class=\"tooltip-nolink\"") if field.tooltip %>>
+            <%= render_document_show_field_label document, field: field_name %>
+          </span>
+        </dt>
+        <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
+      </div>
+    <% end -%>
+  </dl>
+<% end %>
+
+<%# render fields with :links_media display property %>
+<%# TODO: should_render_field? is soon to be deprecated, but the recommended method is private as of 7.0.2 %>
+<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :links_media && should_render_show_field?(document, f) } -%>
+  <h3>Links & Media</h3>
+  <%# TODO: should_render_field? is soon to be deprecated, but the recommended method is private as of 7.0.2 %>
+  <div class="document-metadata mb-3">
+    <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :links_media }.each do |field_name, field| -%>
+      <div class="row result__field">
+        <span class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></span>
+      </div>
+    <% end -%>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+<%# render general fields without :display property %>
+<% document ||= @document
+   id = document[:id]
+   doc_presenter = show_presenter(document)
+%>
+
+<div class="card item-more-details">
+  <div class="card-header <%= display_name.parameterize %>-heading"><%= display_name.titlecase %></div>
+  <span class="card-body">
+
+    <dl class="dl-invert document-metadata">
+      <% fields.each do |field_name, field| -%>
+        <div class="row result__field">
+          <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label"><%= render_document_show_field_label document, field: field_name %></dt>
+          <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
+        </div>
+      <% end -%>
+    </dl>
+
+  </span>
+</div>

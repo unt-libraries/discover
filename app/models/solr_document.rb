@@ -12,7 +12,7 @@ class SolrDocument
                          :title => "title_display",
                          :author => "author_display",
                          :language => "language_facet",
-                         :format => "format",
+                         :resource_type => "resource_type",
                          :identifier => "isbn_s"
                          )
 
@@ -49,37 +49,41 @@ class SolrDocument
     end.compact
   end
 
-  def material_type_map
-      {
-          :p => { :name => 'Archival Collection', :icon => 'book' },
-          :i => { :name => 'Book (Audio)', :icon => 'headphones' },
-          :n => { :name => 'Book (Electronic)', :icon => 'tablet-android-alt' },
-          :a => { :name => 'Book (Print)', :icon => 'book' },
-          :m => { :name => 'Computer File', :icon => 'file' },
-          :b => { :name => 'Database', :icon => 'database' },
-          :o => { :name => 'Educational Kit', :icon => 'book' },
-          :y => { :name => 'Journal (Online)', :icon => 'book-alt' },
-          :q => { :name => 'Journal (Print)', :icon => 'book-alt' },
-          :t => { :name => 'Manuscript', :icon => 'scroll' },
-          :e => { :name => 'Map', :icon => 'map' },
-          :f => { :name => 'Map', :icon => 'map' },
-          :j => { :name => 'Music (CD)', :icon => 'compact-disc' },
-          :c => { :name => 'Music (Score)', :icon => 'music' },
-          :d => { :name => 'Music (Score)', :icon => 'music' },
-          :s => { :name => 'Music (Score), Theses and Dissertations', :icon => 'volume' },
-          :r => { :name => 'Physical Object', :icon => 'cube' },
-          :k => { :name => 'Print Graphics', :icon => 'images' },
-          :z => { :name => 'Theses and Dissertations', :icon => 'book' },
-          :g => { :name => 'Video (DVD, VHS, Film)', :icon => 'film' }
-      }
+  # Shares overlap with /app/helpers/facets_helper.rb#resource_type_map
+  def resource_type_map
+    {
+      :unknown => {:label => 'Unknown', :icon => 'question-square'},
+      :book => {:label => 'Book', :icon => 'book'},
+      :online_database => {:label => 'Online Database', :icon => 'database'},
+      :music_score => {:label => 'Music Score', :icon => 'music'},
+      :map => {:label => 'Map', :icon => 'map'},
+      :video_film => {:label => 'Video/Film', :icon => 'film'},
+      :audiobook => {:label => 'Audiobook', :icon => 'headphones'},
+      :music_recording => {:label => 'Music Recording', :icon => 'music'},
+      :print_graphic => {:label => 'Print Graphic', :icon => 'images'},
+      :software => {:label => 'Software', :icon => 'file'},
+      :video_game => {:label => 'Video Game', :icon => 'gamepad'},
+      :eresource => {:label => 'E-Resource', :icon => ''},
+      :ebook => {:label => 'E-Book', :icon => 'tablet-android-alt'},
+      :educational_kit => {:label => 'Educational Kit', :icon => 'book'},
+      :archival_collection => {:label => 'Archival Collection', :icon => 'book'},
+      :print_journal => {:label => 'Print Journal/Periodical', :icon => 'book-alt'},
+      :object_artifact => {:label => 'Object/Artifact', :icon => 'cube'},
+      :tabletop_game => {:label => 'Tabletop Game', :icon => 'game-board'},
+      :equipment => {:label => 'Equipment', :icon => 'cube'},
+      :score_thesis => {:label => 'Music Score (Thesis/Dissertation)', :icon => 'volume'},
+      :manuscript => {:label => 'Manuscript', :icon => 'scroll'},
+      :ejournal => {:label => 'E-Journal', :icon => 'book-alt'},
+      :thesis_dissertation => {:label => 'Theses/Dissertation', :icon => 'book'},
+    }
   end
 
-  def format_name
-    material_type_map.dig(self[:material_type].to_sym, :name)
+  def resource_type_name
+    resource_type_map.dig(self[:resource_type].to_sym, :label)
   end
 
-  def format_icon
-    material_type_map.dig(self[:material_type].to_sym, :icon)
+  def resource_type_icon
+    resource_type_map.dig(self[:resource_type].to_sym, :icon)
   end
 
   private

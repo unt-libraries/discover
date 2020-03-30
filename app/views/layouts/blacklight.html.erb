@@ -1,3 +1,7 @@
+<% content_for(:head_scripts) do %>
+  <%= javascript_pack_tag 'index', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
 <% content_for(:content) do %>
   <section id="content" class="<%= content_for?(:sidebar) ? main_content_classes : main_content_full_width_classes %>">
     <div class="row">

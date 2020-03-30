@@ -1,11 +1,5 @@
 module ApplicationHelper
-  def render_format_with_icon value
-    content_tag :span do
-      content_tag(:span, '', class: "fal fa-#{value.is_a?(String)}") +
-          content_tag(:span, value)
-    end
-  end
-
+  include Blacklight::BlacklightHelperBehavior
   ##
   # Return the number of search results from the response object
   #
@@ -83,5 +77,41 @@ module ApplicationHelper
       links.push(link)
     end
     links.join('; ').html_safe
+  end
+
+  def json_str_to_array(value)
+    value.map! do |item|
+      JSON.parse(item)
+    end
+  end
+
+  def items_have_notes?(items)
+    unless items.nil?
+      items.any? {|h| h['n'] != nil}
+    end
+  end
+
+  ##
+  # Override function from Blacklight 7.3
+  # Render the document "heading" (title) in a content tag
+  # @overload render_document_heading(document, options)
+  #   @param [SolrDocument] document
+  #   @param [Hash] options
+  #   @option options [Symbol] :tag
+  # @overload render_document_heading(options)
+  #   @param [Hash] options
+  #   @option options [Symbol] :tag
+  def render_document_heading(*args)
+    options = args.extract_options!
+    document = args.first
+    tag = options.fetch(:tag, :h4)
+    document ||= @document
+
+    content_tag(:div, class: 'show-heading-title') do
+      concat(content_tag(tag, presenter(document).heading, { class: 'show-heading-title__main', itemprop: "name" }))
+      if document[:statement_of_responsibility]
+        concat(content_tag(:div, document[:statement_of_responsibility], { class: 'show-heading-title__sub'}))
+      end
+    end
   end
 end

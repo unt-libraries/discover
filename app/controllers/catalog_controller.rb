@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 class CatalogController < ApplicationController
+  include BlacklightAdvancedSearch::Controller
 
   include Blacklight::Catalog
   include Blacklight::Marc::Catalog
@@ -10,6 +11,13 @@ class CatalogController < ApplicationController
   end
 
   configure_blacklight do |config|
+    # default advanced config values
+    config.advanced_search ||= Blacklight::OpenStructWithHashAccess.new
+    # config.advanced_search[:qt] ||= 'advanced'
+    config.advanced_search[:url_key] ||= 'advanced'
+    config.advanced_search[:query_parser] ||= 'dismax'
+    config.advanced_search[:form_solr_parameters] ||= {}
+
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
@@ -57,6 +65,7 @@ class CatalogController < ApplicationController
     config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
     config.add_show_tools_partial(:citation)
     config.show.document_actions.delete(:sms)
+    config.show.document_actions.delete(:email)
 
     config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
     config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
@@ -66,8 +75,8 @@ class CatalogController < ApplicationController
     #######################################
 
     # solr field configuration for document/show views
-    config.show.title_field = 'main_title'
-    config.show.display_type_field = 'material_type'
+    config.show.title_field = 'full_title'
+    config.show.display_type_field = 'resource_type'
     #config.show.thumbnail_field = 'thumbnail_path_ss'
 
     # solr fields that will be treated as facets by the blacklight application
@@ -97,82 +106,17 @@ class CatalogController < ApplicationController
     # set `home` to true for it to appear on the home screen facets list. Default is false.
     # set `home_collapse` to true for it to collapse on the home page, false to expand it. Default is true.
 
-    config.add_facet_field 'access', label: 'Online Access', home: true, home_collapse: false, :query => {
-      :online => { label: 'Online Copy Available', fq: "bib_location_codes:*www OR item_location_codes:*www" },
-      # I'm not sure the best way to create the Solr query to find items that have a physical copy.
-      # I think this facet could work as just a single "Online Copy Available" value, so maybe we don't even
-      # need this. I started implementing it as a regex but that's probably not the best way to do it.
-      # :physical => { label: 'Copy Available at Library', fq: "bib_location_codes:/(.{1,2}|(.*[^w][^w][^w])/ AND item_location_codes:/(.{1,2}|(.*[^w][^w][^w])/" },
-    }
 
-    config.add_facet_field 'bib_location_codes', label: 'Library Location', home: true, :query => {
-      :dpl => { label: 'Discovery Park Library', fq: "bib_location_codes:r* OR item_location_codes:r*" },
-      :ecl => { label: 'Eagle Commons Library', fq: "bib_location_codes:s* OR item_location_codes:s*" },
-      :factory => { label: 'The Factory (Makerspace)', fq: "bib_location_codes:*mak OR item_location_codes:*mak" },
-      :govdocs => { label: 'Government Documents', fq: "bib_location_codes:sd* OR bib_location_codes:xdoc OR item_location_codes:sd* OR item_location_codes:xdoc" },
-      :media => { label: 'Media Library', fq: "bib_location_codes:czm* OR item_location_codes:czm* OR bib_location_codes:xmed OR item_location_codes:xmed" },
-      :music => { label: 'Music Library', fq: "bib_location_codes:w4m OR item_location_codes:w4m OR bib_location_codes:xmus OR item_location_codes:xmus" },
-      :remote => { label: 'Remote Storage', fq: "bib_location_codes:x* OR item_location_codes:x*" },
-      :special => { label: 'Special Collections', fq: "bib_location_codes:w4s OR item_location_codes:w4s OR bib_location_codes:xspe OR item_location_codes:xspe" },
-      :frisco => { label: 'UNT Frisco', fq: "bib_location_codes:f* OR item_location_codes:f*" },
-      :willis => { label: 'Willis Library', fq: "bib_location_codes:w* OR item_location_codes:w*" },
-    }
+    config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false, sort: 'index'
+    config.add_facet_field 'resource_type_facet', label: 'Resource Type', home: true, sort: 'index'
+    config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false, sort: 'index'
+    config.add_facet_field 'building_facet', label: 'Building Location', limit: false, sort: 'index'
+    config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10, sort: 'index'
 
-    config.add_facet_field 'material_type', label: 'Format', collapse: false, home: true, :query => {
-      :archival_collections => { label: 'Archival Collections', fq: "material_type:p" },
-      :books => { label: 'Books (All)', fq: "material_type:a OR material_type:i OR material_type:n" },
-      :books_audio => { label: 'Books (Audio)', fq: "material_type:i" },
-      :books_electronic => { label: 'Books (Electronic)', fq: "material_type:n" },
-      :books_print => { label: 'Books (Print)', fq: "material_type:a" },
-      :computer_files => { label: 'Computer Files', fq: "material_type:m" },
-      :databases => { label: 'Databases', fq: "material_type:b" },
-      :educational_kits => { label: 'Educational Kits', fq: "material_type:o" },
-      :journals => { label: 'Journals (All)', fq: "material_type:q OR material_type:y" },
-      :journals_online => { label: 'Journals (Online)', fq: "material_type:y" },
-      :journals_print => { label: 'Journals (Print)', fq: "material_type:q" },
-      :manuscripts => { label: 'Manuscripts', fq: "material_type:t" },
-      :maps => { label: 'Maps', fq: "material_type:e OR material_type:f" },
-      :music_cds => { label: 'Music (CDs)', fq: "material_type:j" },
-      :music_scores => { label: 'Music (Scores)', fq: "material_type:c OR material_type:d OR material_type:s" },
-      :physical_objects => { label: 'Physical Objects', fq: "material_type:r" },
-      :print_graphics => { label: 'Print Graphics', fq: "material_type:k" },
-      :theses_and_dissertations => { label: 'Theses and Dissertations', fq: "material_type:z OR material_type:s" },
-      :video => { label: 'Video (DVD, VHS, Film)', fq: "material_type:g" },
-    }
+    config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, sort: 'index', helper_method: :get_date_facet_display
+    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index', helper_method: :get_date_facet_display
 
-    config.add_facet_field 'languages', label: 'Language', home: true, limit: 10
-
-    config.add_facet_field 'publication_dates_facet', label: 'Publication Date', :query => {
-      :years_21st_cent => { label: '21st Century', fq: "publication_dates_facet:[2000 TO 2099] OR publication_dates_facet:\"21st century\"" },
-      :years_highest => { label: '2015 or later', fq: "publication_dates_facet:[2015 TO 2099]" },
-      :years_2010_2014 => { label: '2010 to 2014', fq: "publication_dates_facet:[2010 TO 2014]" },
-      :years_2000_2009 => { label: '2000 to 2009', fq: "publication_dates_facet:[2000 TO 2009]" },
-      :years_20th_cent => { label: '20th Century', fq: "publication_dates_facet:[1900 TO 1999] OR publication_dates_facet:\"20th century\"" },
-      :years_1990_1999 => { label: '1990 to 1999', fq: "publication_dates_facet:[1990 TO 1999]" },
-      :years_1980_1989 => { label: '1980 to 1989', fq: "publication_dates_facet:[1980 TO 1989]" },
-      :years_1970_1979 => { label: '1970 to 1979', fq: "publication_dates_facet:[1970 TO 1979]" },
-      :years_1960_1969 => { label: '1960 to 1969', fq: "publication_dates_facet:[1960 TO 1969]" },
-      :years_1950_1959 => { label: '1950 to 1959', fq: "publication_dates_facet:[1950 TO 1959]" },
-      :years_1940_1949 => { label: '1940 to 1949', fq: "publication_dates_facet:[1940 TO 1949]" },
-      :years_1900_1939 => { label: '1900 to 1939', fq: "publication_dates_facet:[1900 TO 1939]" },
-      :years_19th_cent => { label: '19th Century', fq: "publication_dates_facet:[1800 TO 1899] OR publication_dates_facet:\"19th century\"" },
-      :years_1850_1899 => { label: '1850 to 1899', fq: "publication_dates_facet:[1850 TO 1899]" },
-      :years_1800_1849 => { label: '1800 to 1849', fq: "publication_dates_facet:[1800 TO 1849]" },
-      :years_18th_cent => { label: '18th Century', fq: "publication_dates_facet:[1700 TO 1799] OR publication_dates_facet:\"18th century\"" },
-      :years_1750_1799 => { label: '1750 to 1799', fq: "publication_dates_facet:[1750 TO 1799]" },
-      :years_1700_1749 => { label: '1700 to 1749', fq: "publication_dates_facet:[1700 TO 1749]" },
-      :years_17th_cent => { label: '17th Century', fq: "publication_dates_facet:[1600 TO 1699] OR publication_dates_facet:\"17th century\"" },
-      :years_1650_1699 => { label: '1650 to 1699', fq: "publication_dates_facet:[1650 TO 1699]" },
-      :years_1600_1649 => { label: '1600 to 1649', fq: "publication_dates_facet:[1600 TO 1649]" },
-      :years_16th_cent => { label: '16th Century', fq: "publication_dates_facet:[1500 TO 1599] OR publication_dates_facet:\"16th century\"" },
-      :years_15th_cent => { label: '15th Century', fq: "publication_dates_facet:[1400 TO 1499] OR publication_dates_facet:\"15th century\"" },
-      :years_14th_cent => { label: '14th Century', fq: "publication_dates_facet:[1300 TO 1399] OR publication_dates_facet:\"14th century\"" },
-      :years_13th_cent => { label: '13th Century', fq: "publication_dates_facet:[1200 TO 1299] OR publication_dates_facet:\"13th century\"" },
-      :years_12th_cent => { label: '12th Century', fq: "publication_dates_facet:[1100 TO 1199] OR publication_dates_facet:\"12th century\"" },
-      :years_11th_cent => { label: '11th Century', fq: "publication_dates_facet:[1000 TO 1099] OR publication_dates_facet:\"11th century\"" },
-      :years_10th_cent => { label: '10th Century', fq: "publication_dates_facet:[900 TO 999] OR publication_dates_facet:\"10th century\"" },
-      :years_lowest => { label: 'Pre-10th Century', fq: "publication_dates_facet:/..?.?/ AND publication_dates_facet:[0 TO 899]" },
-    }
+    config.add_facet_field 'languages', label: 'Language', limit: 10
 
     # config.add_facet_field 'publication_dates_facet', label: 'Year of Publication'
     config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10, index_range: 'A'..'Z'
@@ -212,36 +156,83 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'full_title', label: 'Title'
-    config.add_index_field 'creator', label: 'Author/Creator', helper_method: :author_facet_links
-    config.add_index_field 'contributors', label: 'Contributors', helper_method: :author_facet_links
-    config.add_index_field 'material_type', label: 'Format', accessor: 'format_name'
+    config.add_index_field 'creator', label: 'Author/Creator', display: :creator, helper_method: :author_facet_links
+    config.add_index_field 'contributors', label: 'Contributors', display: :contrib, helper_method: :author_facet_links
+
+    # config.add_index_field 'material_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
+    config.add_index_field 'resource_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
+
+    # Publication-related statements
+    config.add_index_field 'publication_display', label: 'Publication', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
+    config.add_index_field 'distribution_display', label: 'Distribution', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the distribution of the resource.'
+    config.add_index_field 'manufacture_display', label: 'Printing', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
+    config.add_index_field 'creation_display', label: 'Creation', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
+
+    config.add_index_field 'physical_characteristics', no_label: true
+
     # config.add_index_field 'languages', label: 'Languages'
-    config.add_index_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
-    config.add_index_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
-    config.add_index_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
-    config.add_index_field 'main_call_number', label: 'Call number'
+    config.add_index_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }, no_label: true
+    config.add_index_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }, no_label: true
+    config.add_index_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }, no_label: true
+    config.add_index_field 'main_call_number', label: 'Call number', if: false
+    config.add_index_field 'items_json', label: 'Items', display: :availability
+    config.add_index_field 'has_more_items', if: false
 
     # solr fields to be displayed in the show (single result) view
-    #   The ordering of the field names is the order of the display
-    # config.add_show_field 'full_title', label: 'Title'
-    config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
-    config.add_show_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet', separator_options: { words_connector: '; ' }
-    config.add_show_field 'summary_notes', label: 'Summary'
-    config.add_show_field 'toc_notes', label: 'Table of Contents'
+    # The ordering of the field names is the order of the display
+    # The :display property controls where in the template the field appears
+
+    config.add_show_field 'resource_type', label: 'Resource Type', no_label: true, display: :priority, accessor: 'resource_type_name'
+
+    # Publication-related statements
+    config.add_show_field 'creation_display', label: 'Creation', display: :priority, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
+    config.add_show_field 'publication_display', label: 'Publication', display: :priority, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
+    config.add_show_field 'distribution_display', label: 'Distribution', display: :priority, tooltip: 'Statement(s) about the distribution of the resource.'
+    config.add_show_field 'manufacture_display', label: 'Printing', display: :priority, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
+    config.add_show_field 'copyright_display', label: 'Copyright', display: :priority, tooltip: 'Date that the resource was copyrighted.'
+    # Language Field
+    config.add_show_field 'languages', label: 'Languages', display: :priority, link_to_facet: 'languages'
+    # Physical Fields
     config.add_show_field 'physical_characteristics', label: 'Physical Description'
-    config.add_show_field 'material_type', label: 'Format', accessor: 'format_name'
-    config.add_show_field 'urls', label: 'URLs', separator_options: { words_connector: '; ' }
-    config.add_show_field 'url_labels', label: 'URL Labels', separator_options: { words_connector: '; ' }
-    # config.add_show_field 'url_suppl_display', label: 'More Information'
-    config.add_show_field 'languages', label: 'Languages', separator_options: { words_connector: '; ' }
-    config.add_show_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }
-    config.add_show_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }
-    config.add_show_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }
-    config.add_show_field 'main_call_number', label: 'Call number'
-    config.add_show_field 'isbn_numbers', label: 'ISBN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'issn_numbers', label: 'ISSN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'lccn_numbers', label: 'LCCN', separator_options: { words_connector: '; ' }
-    config.add_show_field 'oclc_numbers', label: 'OCLC Number', separator_options: { words_connector: '; ' }
+
+    # Links and media
+    config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls, display: :links_media
+
+    # Availability
+    config.add_show_field 'items_json', label: 'Items', display: :availability
+    config.add_show_field 'has_more_items', if: false
+
+    # TOC and Summary
+    config.add_show_field 'toc_notes', label: 'Table of Contents'
+    config.add_show_field 'summary_notes', label: 'Summary'
+
+    config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet'
+    config.add_show_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet'
+    config.add_show_field 'series_creators', label: 'Series Creators', link_to_facet: 'public_author_facet'
+
+    # Title Fields
+    config.add_show_field 'uniform_title', label: 'Uniform Title', link_to_facet: 'public_title_facet'
+    config.add_show_field 'alternate_titles', label: 'Alternate Titles'
+    config.add_show_field 'series', label: 'Series', link_to_facet: 'public_series_facet'
+    config.add_show_field 'related_titles', label: 'Related Titles', link_to_facet: 'public_title_facet'
+
+    # Subject Search Fields
+    config.add_show_field 'full_subjects', label: 'Subjects'
+
+    # Call Number Fields
+    config.add_show_field 'loc_call_numbers', label: 'LC Call Numbers'
+    config.add_show_field 'dewey_call_numbers', label: 'Dewey Call Numbers'
+    config.add_show_field 'sudoc_numbers', label: 'SuDoc Numbers'
+    config.add_show_field 'other_call_numbers', label: 'Local Call Numbers'
+    # Standard Number Fields
+    config.add_show_field 'isbn_numbers', label: 'ISBN'
+    config.add_show_field 'issn_numbers', label: 'ISSN'
+    config.add_show_field 'lccn_numbers', label: 'LCCN'
+    config.add_show_field 'oclc_numbers', label: 'OCLC Number'
+    # Notes fields -- eventually we will have a lot more of these
+    # Context
+    config.add_show_field 'context_notes', label: 'Event Notes'
+
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -299,7 +290,7 @@ class CatalogController < ApplicationController
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     config.add_sort_field 'score desc, title_sort asc', label: 'Relevance'
-    config.add_sort_field 'publication_dates desc, title_sort asc', label: 'Publication Date'
+    config.add_sort_field 'publication_sort desc, title_sort asc', label: 'Publication Date'
     config.add_sort_field 'creator_sort asc, title_sort asc', label: 'Creator'
     config.add_sort_field 'title_sort asc', label: 'Title'
 

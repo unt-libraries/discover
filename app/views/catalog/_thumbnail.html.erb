@@ -1,18 +1,8 @@
-<% if presenter(document).respond_to?('thumbnail') && presenter(document).thumbnail.exists? && tn = presenter(document).thumbnail.thumbnail_tag({}, counter: document_counter_with_offset(document_counter)) %>
-  <%= tn %>
+<%# Render a thumbnail link for index view (with counter), image for show view %>
+<% if defined? document_counter %>
+  <% counter = document_counter_with_offset(document_counter) %>
+  <%= render_thumbnail(document, { counter: counter }) %>
 <% else %>
-  <%# Only link to the document if in index, not in show %>
-  <% if params[:action] == 'show' %>
-    <div class="show-thumbnail document-thumbnail text-center">
-      <i class="show-icon icon far fa-10x fa-<%= document.format_icon %>"></i>
-      <span class="sr-only item-title"><%= document[:full_title] %></span>
-    </div>
-  <% else %>
-    <%= link_to(document, class: "thumbnail-link", tabindex: "-1") do %>
-      <div class="index-thumbnail document-thumbnail text-center">
-        <i class="index-icon icon far fa-10x fa-<%= document.format_icon %>"></i>
-        <span class="sr-only item-title"><%= document[:full_title] %></span>
-      </div>
-    <% end %>
-  <% end %>
+  <%= render_thumbnail(document) %>
 <% end %>
+

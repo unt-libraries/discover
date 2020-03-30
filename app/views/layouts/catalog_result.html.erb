@@ -1,54 +1,30 @@
 <% content_for(:content) do %>
-  <section class="content col">
+  <section id="content" class="<%= main_content_classes %>">
     <div class="row">
-      <div class="<%= show_sidebar_desktop_classes %>">
-        <%= render partial: 'catalog/show_thumbnail' %>
-        <%= render partial: 'catalog/show_tools' %>
-      </div>
-
       <div class="col">
-        <div class="<%= show_breadcrumb_search_classes %>">
-          <div class="card ">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-12">
-                  <%= render partial: 'shared/content/breadcrumbs' %>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <%= render partial: 'shared/content/search-bar' %>
-                </div>
-              </div>
-              <%# Facet constraints should be added here once they are fed into 'show' context %>
-              <!--        <div class="row">-->
-              <!--          <div class="col-12">-->
-              <%#= render 'constraints' %>
-              <!--          </div>-->
-              <!--        </div>-->
-            </div>
-          </div>
-        </div>
-
-        <div class="<%= show_sidebar_mobile_classes %>">
+        <div class="<%= show_sidebar_mobile_classes %> d-none">
           <%= render partial: 'catalog/show_thumbnail' %>
         </div>
 
+        <%# Main content column from _show_main_content %>
         <div class="<%= show_content_classes %>">
-          <div class="card ">
-            <div class="card-body">
-              <%= yield %>
-            </div>
-          </div>
-          <%= render partial: 'show_availability', locals: { document: @document } if @document %>
+          <%= yield %>
         </div>
 
         <div class="<%= show_sidebar_mobile_classes %>">
           <%= render partial: 'catalog/show_tools' %>
         </div>
       </div>
-
     </div>
+  </section>
+
+  <section id="sidebar" class="<%= show_sidebar_desktop_classes %>">
+    <%= render partial: 'catalog/show_thumbnail' %>
+    <%= render partial: 'catalog/show_tools' %>
+  </section>
+
+  <section class="<%= show_right_sidebar_desktop_classes %>">
+    <%= render partial: 'catalog/show_availability_summary' %>
   </section>
 
 <% end %>

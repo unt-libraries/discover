@@ -30,6 +30,8 @@
 // Discover
 @import '../src/stylesheets/utilities/responsive-positions';
 @import '../src/stylesheets/utilities/responsive-widths';
+@import '../src/stylesheets/unt/_advanced_search';
+@import '../src/stylesheets/unt/_availability';
 @import '../src/stylesheets/unt/_alerts';
 @import '../src/stylesheets/unt/_buttons';
 @import '../src/stylesheets/unt/_cards';
@@ -48,5 +50,6 @@
 @import '../src/stylesheets/unt/_show';
 @import '../src/stylesheets/unt/_sidebar';
 @import '../src/stylesheets/unt/_thumbnail';
+@import '../src/stylesheets/unt/_tooltips';
 @import '../src/stylesheets/unt/_typeahead';
 @import '../src/stylesheets/unt/_wrappers';

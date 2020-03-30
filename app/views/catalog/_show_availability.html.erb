@@ -1,19 +1,32 @@
 <% document ||= @document
-   id = document[:id] %>
-
-<div class="card">
+   id = document[:id]
+   doc_presenter = show_presenter(document)
+   items = json_str_to_array(document[:items_json])
+   more_items = document[:more_items_json].nil? ? nil : json_str_to_array(document[:more_items_json])
+%>
+<div id="show-availability" class="card item-availability">
   <div class="card-header">Availability</div>
-  <div class="card-body">
+  <span class="card-body">
     <div class="row">
-      <div class="col">Location</div>
-      <div class="col">Call Number</div>
-      <div class="col">Availability</div>
+      <div class="col blacklight-location result__label">Location</div>
+      <div class="col blacklight-call-number result__label">Call Number</div>
+      <div class="col blacklight-availability result__label">Availability</div>
+      <div class="col blacklight-request result__label d-none">Request</div>
+      <% if items_have_notes?(items) %>
+        <div class="col blacklight-notes result__label">Notes</div>
+      <% end %>
     </div>
-
-    <div class="row">
-        <div class="col">Location TBD</div>
-        <div class="col"><%= document[:main_call_number] %></div>
-        <div class="col">Availability TBD</div>
-    </div>
-  </div>
+    <% items.each do |item| %>
+      <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item} %>
+    <% end %>
+    <% if more_items %>
+      <span class="more-min"></span>
+      <a href="#" onclick="return false" class="reveal-more">more...</a>
+      <span class="more-max d-none">
+      <% more_items.each do |item| %>
+        <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item} %>
+      <% end %>
+      </span>
+    <% end %>
+  </span>
 </div>

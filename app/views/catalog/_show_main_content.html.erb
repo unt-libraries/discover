@@ -1,16 +1,34 @@
-<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe %>
+<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe
+    document ||= @document
+    doc_presenter = show_presenter(document) %>
 <% content_for(:head) { render_link_rel_alternates } %>
 
-<%= tag.div id: "document", class: "document #{render_document_class}",
-            data: {
-                doc_id: @document.id.to_s.parameterize
-            }.merge(@document.identifier_data),
-            "itemscope": true,
-            "itemtype": @document.itemtype do -%>
-  <div id="doc_<%= @document.id.to_s.parameterize %>">
-    <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+<div class="card ">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 <%= show_breadcrumb_search_classes %>">
+        <%= render partial: 'shared/content/breadcrumbs' %>
+      </div>
+    </div>
+    <%= tag.div id: "document", class: "document #{render_document_class}",
+                data: {
+                    doc_id: @document.id.to_s.parameterize
+                }.merge(@document.identifier_data),
+                "itemscope": true,
+                "itemtype": @document.itemtype do -%>
+      <div id="doc_<%= @document.id.to_s.parameterize %>">
+        <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
+      </div>
+    <% end -%>
   </div>
-<% end -%>
+</div>
+
+<%= render partial: 'show_availability', locals: { document: @document } %>
+
+<% if doc_presenter.fields_to_render.any? { |name, f| f[:display].blank? && should_render_show_field?(document, f) } -%>
+  <% fields = doc_presenter.fields_to_render.select { |name, f| f[:display].blank? } %>
+  <%= render partial: 'show_field_card', locals: { document: @document, display_name: 'more_details', fields: fields } %>
+<% end %>
 
 <% if @document.respond_to?(:export_as_openurl_ctx_kev) %>
   <!--

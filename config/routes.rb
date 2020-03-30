@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
   concern :marc_viewable, Blacklight::Marc::Routes::MarcViewable.new
   mount Blacklight::Engine => '/'
+  mount BlacklightAdvancedSearch::Engine => '/'
+
   root to: "catalog#index"
   concern :searchable, Blacklight::Routes::Searchable.new
 
@@ -22,4 +24,6 @@ Rails.application.routes.draw do
     end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  post '/availability/items', to: 'availability#items'
 end

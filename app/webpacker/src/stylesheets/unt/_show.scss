@@ -1,8 +1,44 @@
+.show-tools {
+  background-color: #fff;
+  margin-bottom: 0;
+  border-top: 0;
+
+  .show-tools-heading {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .show-tools-values {
+    padding: 0.5rem 0;
+    font-size: 90%;
+    font-weight: 400;
+
+    .show-tools-item {
+      border: 0;
+      padding: 0.5rem 1rem;
+
+      .nav-link {
+        padding: 0;
+        border: 0;
+      }
+    }
+  }
+}
+
 .show-document {
-  h1 {
-    font-size: 1.75rem;
-    padding-top: 1.5rem;
+  .show-heading-title {
+    padding-top: 0;
     padding-bottom: 1.5rem;
+
+    &__main {
+      padding-bottom: 0;
+    }
+
+    &__sub {
+      @extend .text-muted;
+    }
   }
 
   .result__field {
@@ -12,5 +48,22 @@
   .result__label {
     text-transform: none;
     color: theme-color("gray-dark");
+  }
+}
+
+.link-media-item.fulltext {
+  display: inline-block;
+
+  span {
+    vertical-align: top;
+  }
+
+  .find-it-image {
+    display: inline-block;
+    content: '';
+    margin-right: 4px;
+    background: url(../images/catalog/find-it-round.png) no-repeat center;
+    height: 20px;
+    width: 87px;
   }
 }

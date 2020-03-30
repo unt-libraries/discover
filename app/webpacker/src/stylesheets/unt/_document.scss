@@ -1,11 +1,12 @@
+// document list on search results page
 .documents-list {
   .document {
+    margin-top: 0;
+
     &.row {
-      padding-top: 30px;
-      padding-bottom: 30px;
+      padding-top: 20px;
+      padding-bottom: 20px;
       border-bottom: #d5d5d5 solid 1px;
-      margin-left: -$card-spacer-x;
-      margin-right: -$card-spacer-x;
     }
 
     .document-title-heading {
@@ -20,15 +21,87 @@
     }
 
     .result__field {
-      border-left: #d5d5d5 solid 4px;
       padding-bottom: 0.25rem;
       padding-left: 15px;
+      padding-right: 15px;
       width: 100%;
+
+      @include media-breakpoint-down(md) {
+        border-left: none;
+      }
     }
+
+    .result__label {
+      color: theme-color("gray-darker");
+      font-weight: $font-weight-bold;
+      text-transform: uppercase;
+      display: inline;
+      text-align: left;
+
+      &.muted {
+        @extend .text-muted;
+
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+      }
+    }
+
+    .result__value {
+      display: inline;
+
+      &.muted {
+        @extend .text-muted;
+        @extend .font-italic;
+
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+      }
+    }
+
+    .result__table {
+      display: inline-block;
+      margin-bottom: 0;
+      width: 100%;
+      padding-left: 15px;
+      padding-right: 15px;
+
+      thead,
+      tbody {
+        display: inline-block;
+        width: 100%;
+      }
+
+      tr {
+        display: flex;
+        flex-wrap: wrap;
+        padding-bottom: 4px;
+      }
+
+      td,
+      th {
+        display: block;
+        flex: 1;
+        border-top: 0;
+        border-bottom: 0;
+        padding: 0;
+      }
+
+      .blacklight-notes {
+        width: 100%;
+        flex: auto;
+      }
+    }
+  }
+
+  .document-metadata {
+    border-left: #d5d5d5 solid 4px;
+    margin-bottom: 0;
   }
 }
 
-.document-metadata {
+// Applies to all documents, whether on search results or single item view
+.document,
+.show-document {
   .result__label {
     color: theme-color("gray-darker");
     font-weight: $font-weight-bold;
@@ -40,5 +113,14 @@
 
   .result__value {
     display: inline;
+  }
+}
+
+.documentHeader {
+  margin-left: 4px;
+
+  .document-title-date {
+    font-weight: 300;
+    font-size: 1.15rem;
   }
 }

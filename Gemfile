@@ -6,6 +6,7 @@ ruby '2.6.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
+gem 'httparty', '~> 0.17.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use PostgreSQL as the database for Active Record
@@ -13,7 +14,7 @@ gem 'pg', '~> 0.18.4'
 gem 'puma', '~> 4.2.1'
 gem 'rails', '~> 5.2.3'
 gem 'rsolr', '>= 1.0', '< 3'
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails', '~> 6.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
@@ -22,7 +23,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 2.7.2'
 gem 'webpacker', '~> 4.x'
 
-gem 'blacklight', '>= 7.2'
+gem 'blacklight', '>= 7.5.1'
+gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
 gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
 
 group :development do
