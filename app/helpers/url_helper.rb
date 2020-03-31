@@ -119,4 +119,24 @@ module UrlHelper
 
     URI::HTTPS.build(host: 'aeon.library.unt.edu', path: '/logon/', query: query_hash.to_query).to_s
   end
+
+  def feedback_issue_url
+    gitlab = Rails.configuration.x.site['gitlab']
+    host = gitlab['url']
+    path = "#{gitlab['project_path']}#{gitlab['issues_path']}"
+    endpoint = "#{path}#{gitlab['new_endpoint']}"
+
+    query_hash = {
+        'issue[title]': 'Site feedback',
+        'issue[description]': "[your request here, attach file if needed.]\n\n\n\n
+<!-- due date, assignee, and label will automatically be filled below -->
+<!-- NO EDITS BELOW THIS LINE -->\n
+- [PUBLIC URL](#{request.original_url})\n
+/assign @UI
+/due <in 2 days
+/label ~feedback",
+    }
+
+    URI::HTTPS.build(host: host, path: endpoint, query: query_hash.to_query).to_s
+  end
 end

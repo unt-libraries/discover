@@ -1,6 +1,13 @@
 default: &default
   urls:
     home: "https://library.unt.edu"
+    gitlab_repo: "https://content.library.unt.edu/discover/discover"
+
+  gitlab:
+    url: "content.library.unt.edu"
+    project_path: "/discover/discover"
+    issues_path: "/issues"
+    new_endpoint: "/new"
 
   social:
     - name: facebook
