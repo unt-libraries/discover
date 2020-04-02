@@ -8,6 +8,11 @@
 
   <%= render partial: 'shared/header/header' %>
 
+  <%# Temporary banner to display on the site %>
+  <% if Rails.env.production? or Rails.env.development? %>
+    <%= render 'shared/announcement_banner' %>
+  <% end %>
+
   <%= render partial: 'shared/flash_msg', layout: 'shared/flash_messages' %>
 
   <div id="main-container" class="<%= container_classes %> main-container">
