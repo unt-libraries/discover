@@ -7,7 +7,7 @@ module ThumbnailHelper
     current_view = params[:action]
 
     thumbnail_tag = content_tag(:div,
-                { class: "document-thumbnail text-center #{current_view}-thumbnail d-none d-lg-block #{'thumbnail-loaded' if thumbnail_url}",
+                { class: "document-thumbnail text-center #{current_view}-thumbnail #{'thumbnail-loaded' if thumbnail_url}",
                   data: { 'bib-id': document.id.to_s.parameterize } }) do
       if thumbnail_url.blank?
         svg_icon = "#{asset_pack_path('media/images/icons/regular.svg')}##{document.resource_type_icon}"
