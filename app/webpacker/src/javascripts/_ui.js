@@ -44,7 +44,7 @@ function replaceThumbnailElement(thumbContainer, bookData) {
   const itemTitle = titleEl.textContent;
   const imgSrcZoom = bookData.thumbnail_url.replace(/zoom=./, 'zoom=1');
   const imgSrc = imgSrcZoom.replace('&edge=curl', '');
-  thumbContainer.innerHTML = `<img class="img-fluid" src="${imgSrc}" alt="${itemTitle}">`;
+  thumbContainer.innerHTML = `<img class="img-fluid lazyload" data-src="${imgSrc}" alt="${itemTitle}">`;
   elAddClass(thumbContainer, 'thumbnail-loaded');
 }
 

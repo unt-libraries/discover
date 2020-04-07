@@ -1,9 +1,26 @@
+import 'autotrack/lib/plugins/event-tracker';
+import 'autotrack/lib/plugins/max-scroll-tracker';
+import 'autotrack/lib/plugins/page-visibility-tracker';
+import 'autotrack/lib/plugins/outbound-link-tracker';
+
+
 export default function () {
-  document.addEventListener('turbolinks:load', function(event) {
-    if (typeof gtag === 'function') {
-      gtag('config', '<%= Rails.application.credentials[Rails.env.to_sym][:google_analytics] %>', {
-        'page_location': event.data.url
-      })
+  // Additional google analytics code
+  window.ga = window.ga || ((...args) => (ga.q = ga.q || []).push(args));
+
+  ga('create', '<%= Rails.application.credentials[Rails.env.to_sym][:google_analytics] %>', 'auto');
+  ga('require', 'eventTracker');
+  ga('require', 'maxScrollTracker');
+  ga('require', 'pageVisibilityTracker', {
+    sendInitialPageview: true,
+  });
+  ga('require', 'outboundLinkTracker', {
+    fieldsObj: {
+      "eventCategory": "link - content - external",
+      "eventAction": "{{ include.page_type | default: include.page_url }}"
     }
-  })
+  });
+  ga('set', 'anonymizeIp', true);
+  ga('set', 'transport', 'beacon');
+  console.log('analytics loaded');
 }
