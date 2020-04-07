@@ -16,7 +16,10 @@ module ThumbnailHelper
           concat("<span class=\"sr-only item-title\">#{document[:full_title]}</span>".html_safe)
         end
       else
-        image_tag(thumbnail_url, { class: 'image-fluid', alt: document[:full_title] })
+        image_tag('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
+                  { class: 'image-fluid lazyload',
+                    data: { src: thumbnail_url },
+                    alt: document[:full_title] })
       end
     end
 
