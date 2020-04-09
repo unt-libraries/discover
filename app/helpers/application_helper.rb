@@ -80,9 +80,9 @@ module ApplicationHelper
   end
 
   def index_creator_contrib_field(document, limit=2)
-    creators = document[:creators] || []
+    creator = document[:creator].nil? ? [] : [document[:creator]]
     contributors = document[:contributors] || []
-    combined = creators + contributors
+    combined = creator + contributors
     list_size = combined.length
     limited = combined.slice(0, limit)
     linked = author_facet_links(limited)
