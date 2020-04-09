@@ -1,18 +1,13 @@
 <% doc_presenter = index_presenter(document)
    creator = doc_presenter.fields_to_render.select { |name, f| f[:display] == :creator }
-   contrib = doc_presenter.fields_to_render.select { |name, f| f[:display] == :contrib } %>
+   contrib = doc_presenter.fields_to_render.select { |name, f| f[:display] == :contrib }
+   combined = creator.merge(contrib) %>
 <%# default partial to display solr document fields in catalog index view -%>
 <dl class="dl-invert">
   <%# Creator and Contributor fields, combined %>
   <div class="result__field">
-    <% creator.each do |field_name, field| -%>
-      <dt class="blacklight-<%= field_name.parameterize %> result__label sr-only"><%= render_index_field_label document, field: field_name %></dt>
-      <dd class="blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %><%= '; ' unless contrib.empty? %></dd>
-    <% end -%>
-    <% contrib.each do |field_name, field| -%>
-      <dt class="blacklight-<%= field_name.parameterize %> result__label sr-only"><%= render_index_field_label document, field: field_name %></dt>
-      <dd class="blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
-    <% end -%>
+    <dt class="blacklight-creator-contrib result__label sr-only">Creators & Contributors:</dt>
+    <dd class="blacklight-creator-contrib result__value"><%= index_creator_contrib_field document %></dd>
   </div>
 
   <%# Priority fields %>

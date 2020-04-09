@@ -91,6 +91,16 @@
         flex: auto;
       }
     }
+
+    .blacklight-creator-contrib {
+      .more {
+        @extend .text-muted;
+
+        display: inline-block;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-normal;
+      }
+    }
   }
 
   .document-metadata {

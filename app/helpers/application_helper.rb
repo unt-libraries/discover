@@ -66,10 +66,10 @@ module ApplicationHelper
     field_config.display_label('search')
   end
 
-  def author_facet_links(options={})
+  def author_facet_links(list=[])
     links = []
 
-    options[:value].each do |value|
+    list.each do |value|
       link = link_to(value, "/?f[public_author_facet][]=#{CGI.escape(value)}",
                      class: "",
                      "data-toggle" => "tooltip",
@@ -77,6 +77,18 @@ module ApplicationHelper
       links.push(link)
     end
     links.join('; ').html_safe
+  end
+
+  def index_creator_contrib_field(document, limit=2)
+    creators = document[:creators] || []
+    contributors = document[:contributors] || []
+    combined = creators + contributors
+    list_size = combined.length
+    limited = combined.slice(0, limit)
+    linked = author_facet_links(limited)
+    more = "<span class='more'>+#{list_size - limit} more</span>"
+
+    "#{linked} #{more if list_size > limit}".html_safe
   end
 
   def json_str_to_array(value)

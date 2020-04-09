@@ -156,8 +156,8 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     # config.add_index_field 'full_title', label: 'Title'
-    config.add_index_field 'creator', label: 'Author/Creator', display: :creator, helper_method: :author_facet_links
-    config.add_index_field 'contributors', label: 'Contributors', display: :contrib, helper_method: :author_facet_links
+    config.add_index_field 'creator', label: 'Author/Creator', if: false
+    config.add_index_field 'contributors', label: 'Contributors', if: false
 
     # config.add_index_field 'material_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
     config.add_index_field 'resource_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
