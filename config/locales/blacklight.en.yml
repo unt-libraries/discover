@@ -48,6 +48,9 @@ en:
         counter: 'Result #%{counter}:'
       zero_results:
         modify_search: "Try modifying your search"
-        use_fewer_keywords: "Use fewer keywords to start, then refine your search using the links on the left."
+        check_spelling: "Check the spelling of your query"
+        use_fewer_keywords: "Use fewer keywords to start, then refine your search using the facets on the left"
         search_fields: "You searched by %{search_fields}"
         search_everything: "try searching everything"
+        search_bento_box: "Or search more "
+        bento_box_link: "UNT online resources"

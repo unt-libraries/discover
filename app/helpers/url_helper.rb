@@ -139,4 +139,9 @@ module UrlHelper
 
     URI::HTTPS.build(host: host, path: endpoint, query: query_hash.to_query).to_s
   end
+
+  def link_to_bento_box_search(text, query)
+    url = URI::HTTPS.build(host: 'library.unt.edu', path: '/search/', query: "q=#{query}").to_s
+    link_to text, url, target: "_blank"
+  end
 end
