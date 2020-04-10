@@ -54,8 +54,8 @@ module FacetsHelper
       render_facet_item(facet_field, item)
     end.compact.map do |item|
       link_to(item[:rendered_element],
-             item[:path],
-             class: "#{item[:selected] ? 'selected ' : ''}list-group-item list-group-item-action facet-values-item")
+              item[:path],
+              class: "#{item[:selected] ? 'selected ' : ''}list-group-item list-group-item-action facet-values-item")
     end)
   end
 
@@ -106,7 +106,7 @@ module FacetsHelper
       # Remove icon
       concat(content_tag(:span, class: "remove") do
         content_tag(:i, '', class: "fa fa-times-circle remove-icon",
-                    "data-toggle" => "tooltip", "data-title" => "Remove facet")
+                            "data-toggle" => "tooltip", "data-title" => "Remove facet")
       end)
     end + render_facet_count(item.hits, classes: ["selected"])
     {

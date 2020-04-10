@@ -45,17 +45,17 @@ class MarcIndexer < Blacklight::Marc::Indexer
 
     #    additional title fields
     to_field 'title_addl_tsim',
-      extract_marc(%W{
-        245abnps
-        130#{ATOZ}
-        240abcdefgklmnopqrs
-        210ab
-        222ab
-        242abnp
-        243abcdefgklmnopqrs
-        246abcdefgnp
-        247abcdefgnp
-      }.join(':'))
+             extract_marc(%W{
+               245abnps
+               130#{ATOZ}
+               240abcdefgklmnopqrs
+               210ab
+               222ab
+               242abnp
+               243abcdefgklmnopqrs
+               246abcdefgnp
+               247abcdefgnp
+             }.join(':'))
 
     to_field 'title_added_entry_tsim', extract_marc(%W{
       700gklmnoprst

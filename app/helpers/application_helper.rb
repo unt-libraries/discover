@@ -9,7 +9,6 @@ module ApplicationHelper
     number_with_delimiter(response['response']['numFound'])
   end
 
-  #
   def bootstrap_select_tag(name, option_tags = nil, options = {}) # rubocop:disable Airbnb/OptArgParameters
     option_tags ||= ""
     html_name = (options[:multiple] == true && !name.to_s.ends_with?("[]")) ? "#{name}[]" : name
@@ -35,7 +34,6 @@ module ApplicationHelper
     content_tag "div".freeze, option_tags, { "name" => html_name, "id" => sanitize_to_id(name) }.update(options.stringify_keys)
   end
 
-  #
   def bootstrap_options_for_select(container, selected = nil) # rubocop:disable Airbnb/OptArgParameters
     return container if String === container
 
@@ -58,7 +56,6 @@ module ApplicationHelper
     end.join("\n").html_safe
   end
 
-  #
   def dropdown_label_for_search_field(key)
     field_config = blacklight_config.search_fields[key]
     field_config ||= blacklight_config.search_fields['text']

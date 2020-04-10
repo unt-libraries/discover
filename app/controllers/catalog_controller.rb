@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class CatalogController < ApplicationController
   include BlacklightAdvancedSearch::Controller
 
@@ -105,7 +106,6 @@ class CatalogController < ApplicationController
     #
     # set `home` to true for it to appear on the home screen facets list. Default is false.
     # set `home_collapse` to true for it to collapse on the home page, false to expand it. Default is true.
-
 
     config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false, sort: 'index'
     config.add_facet_field 'resource_type_facet', label: 'Resource Type', home: true, sort: 'index'
@@ -233,7 +233,6 @@ class CatalogController < ApplicationController
     # Context
     config.add_show_field 'context_notes', label: 'Event Notes'
 
-
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
@@ -253,7 +252,6 @@ class CatalogController < ApplicationController
     # since we aren't specifying it otherwise.
 
     config.add_search_field 'text', label: 'All Fields'
-
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
