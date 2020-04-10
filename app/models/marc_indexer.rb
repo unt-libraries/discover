@@ -109,7 +109,7 @@ class MarcIndexer < Blacklight::Marc::Indexer
     alpha_pat = /\A([A-Z]{1,3})\d.*\Z/
     alpha_only = lambda do |rec, acc|
       acc.map! do |x|
-        (m = alpha_pat.match(x)) ? m[1] : nil
+        (m = alpha_pat.match(x)) ? m[1] : nil # rubocop:disable Lint/AssignmentInCondition
       end
       acc.compact! # eliminate nils
     end

@@ -33,7 +33,7 @@ class CatalogController < ApplicationController
     ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
     config.default_solr_params = {
       qt: 'catalog-search',
-      rows: 10
+      rows: 10,
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -132,20 +132,20 @@ class CatalogController < ApplicationController
       :duration_1 => { label: 'less than 30 minutes', fq: "game_facet:d1t29" },
       :duration_30 => { label: '30 minutes to 1 hour', fq: "game_facet:d30t59" },
       :duration_60 => { label: '1 to 2 hours', fq: "game_facet:d60t120" },
-      :duration_120 => { label: 'more than 2 hours', fq: "game_facet:d120t500" }
+      :duration_120 => { label: 'more than 2 hours', fq: "game_facet:d120t500" },
     }
     config.add_facet_field 'game_players_facet_field', label: 'Games - Number of Players', :query => {
       :players_1 => { label: '1 player', fq: "game_facet:p1" },
       :players_2 => { label: '2 to 4 players', fq: "game_facet:p2t4" },
       :players_4 => { label: '5 to 8 players', fq: "game_facet:p4t8" },
-      :players_8 => { label: 'more than 8 players', fq: "game_facet:p9t99" }
+      :players_8 => { label: 'more than 8 players', fq: "game_facet:p9t99" },
     }
     config.add_facet_field 'game_age_facet_field', label: 'Games - Recommended Age', :query => {
       :age_1 => { label: '1 to 4 years', fq: "game_facet:a1t4" },
       :age_5 => { label: '5 to 9 years', fq: "game_facet:a5t9" },
       :age_10 => { label: '10 to 13 years', fq: "game_facet:a10t13" },
       :age_14 => { label: '14 to 16 years', fq: "game_facet:a14t16" },
-      :age_17 => { label: '17 years and up', fq: "game_facet:a17t100" }
+      :age_17 => { label: '17 years and up', fq: "game_facet:a17t100" },
     }
 
     # Have BL send all facet field names to Solr, which has been the default
@@ -264,7 +264,7 @@ class CatalogController < ApplicationController
       field.solr_parameters = { 'spellcheck.dictionary': 'default' }
       field.solr_local_parameters = {
         qf: '$title_qf',
-        pf: '$title_pf'
+        pf: '$title_pf',
       }
     end
 
@@ -272,7 +272,7 @@ class CatalogController < ApplicationController
       field.solr_parameters = { 'spellcheck.dictionary': 'default' }
       field.solr_local_parameters = {
         qf: '$creator_qf',
-        pf: '$creator_pf'
+        pf: '$creator_pf',
       }
     end
 
@@ -281,7 +281,7 @@ class CatalogController < ApplicationController
       field.qt = 'catalog-search'
       field.solr_local_parameters = {
         qf: '$subject_qf',
-        pf: '$subject_pf'
+        pf: '$subject_pf',
       }
     end
 

@@ -33,13 +33,13 @@ class SolrDocument
       {
           'isbn_s' => 'isbn',
           'lccn_s' => 'lccn',
-          'oclc_s' => 'http://purl.org/library/oclcnum'
+          'oclc_s' => 'http://purl.org/library/oclcnum',
       }
     end
 
     def itemprop_mapping
       {
-          'isbn_s' => 'isbn'
+          'isbn_s' => 'isbn',
       }
     end
 

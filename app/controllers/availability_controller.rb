@@ -74,7 +74,7 @@ class AvailabilityController < ApplicationController
     # TODO: Need to work on error handling
     api_error_codes = [
         102, # HTTP 500, Internal server error, Number format error
-        123 # HTTP 401, Unauthorized, invalid_grant
+        123, # HTTP 401, Unauthorized, invalid_grant
     ]
     if api_error_codes.include?(response['code']) && @api_failures < 2
       @api_failures += 1

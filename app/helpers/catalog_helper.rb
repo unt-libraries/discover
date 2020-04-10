@@ -40,7 +40,7 @@ module CatalogHelper
     text_el = content_tag :span, link_text
     html_options = {
         class: "link-media-item #{link_type}",
-        data: { "link-type": link_type }
+        data: { "link-type": link_type },
     }
     link_to(item['u'], html_options = html_options) do
       concat(find_it_img_el)

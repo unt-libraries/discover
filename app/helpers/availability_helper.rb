@@ -28,16 +28,22 @@ module AvailabilityHelper
   def render_availability_text(item)
     element_text = "Ask at the service desk" if item['i'].blank?
     content_tag(:div, element_text,
-                { class: "availability-text #{'d-none' unless item['i'].blank?}",
-                  data: { "item-location": item['l']}})
+                {
+                  class: "availability-text #{'d-none' if item['i'].present?}",
+                  data: { "item-location": item['l']},
+                })
   end
 
   def render_call_number(item)
     content_tag(:span, item['c'],
-                { class: 'blacklight-call-number result__value flex-column text-center d-none tooltip-nolink',
-                  data: { "item-call-number": item['c'],
-                          toggle: "tooltip",
-                          title: "The call number of this item"}})
+                {
+                  class: 'blacklight-call-number result__value flex-column text-center d-none tooltip-nolink',
+                  data: {
+                    "item-call-number": item['c'],
+                    toggle: "tooltip",
+                    title: "The call number of this item",
+                  },
+                })
   end
 
   def render_notes(item)

@@ -10,7 +10,7 @@ module FacetsHelper
   # @param [Array<String>] fields
   # @param [Hash] options
   # @return String
-  def render_home_facet_partials fields = facet_field_names, options = {}
+  def render_home_facet_partials(fields = facet_field_names, options = {}) # rubocop:disable Airbnb/OptArgParameters
     safe_join(facets_from_request(fields).map do |display_facet|
       render_home_facet_limit(display_facet, options)
     end.compact, "\n")
@@ -49,7 +49,7 @@ module FacetsHelper
   # Renders the list of values
   # removes any elements where render_facet_item returns a nil value. This enables an application
   # to filter undesireable facet items so they don't appear in the UI
-  def render_facet_limit_list(paginator, facet_field, options = nil)
+  def render_facet_limit_list(paginator, facet_field, options = nil) # rubocop:disable Airbnb/OptArgParameters
     safe_join(paginator.items.map do |item|
       render_facet_item(facet_field, item)
     end.compact.map do |item|

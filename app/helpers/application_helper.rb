@@ -10,7 +10,7 @@ module ApplicationHelper
   end
 
   #
-  def bootstrap_select_tag(name, option_tags = nil, options = {})
+  def bootstrap_select_tag(name, option_tags = nil, options = {}) # rubocop:disable Airbnb/OptArgParameters
     option_tags ||= ""
     html_name = (options[:multiple] == true && !name.to_s.ends_with?("[]")) ? "#{name}[]" : name
 
@@ -36,7 +36,7 @@ module ApplicationHelper
   end
 
   #
-  def bootstrap_options_for_select(container, selected = nil)
+  def bootstrap_options_for_select(container, selected = nil) # rubocop:disable Airbnb/OptArgParameters
     return container if String === container
 
     selected, disabled = extract_selected_and_disabled(selected).map do |r|
@@ -66,7 +66,7 @@ module ApplicationHelper
     field_config.display_label('search')
   end
 
-  def author_facet_links(list=[])
+  def author_facet_links(list: [])
     links = []
 
     list.each do |value|
@@ -79,13 +79,13 @@ module ApplicationHelper
     links.join('; ').html_safe
   end
 
-  def index_creator_contrib_field(document, limit=2)
+  def index_creator_contrib_field(document, limit: 2)
     creator = document[:creator].nil? ? [] : [document[:creator]]
     contributors = document[:contributors] || []
     combined = creator + contributors
     list_size = combined.length
     limited = combined.slice(0, limit)
-    linked = author_facet_links(limited)
+    linked = author_facet_links(list: limited)
     more = "<span class='more'>+#{list_size - limit} more</span>"
 
     "#{linked} #{more if list_size > limit}".html_safe
@@ -117,7 +117,7 @@ module ApplicationHelper
     options = args.extract_options!
     document = args.first
     tag = options.fetch(:tag, :h4)
-    document ||= @document
+    document ||= @document # rubocop:disable Rails/HelperInstanceVariable
 
     content_tag(:div, class: 'show-heading-title') do
       concat(content_tag(tag, presenter(document).heading, { class: 'show-heading-title__main', itemprop: "name" }))

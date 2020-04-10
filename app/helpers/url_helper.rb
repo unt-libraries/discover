@@ -25,17 +25,17 @@ module UrlHelper
     url = "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document[:id]}"
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Add #{content_tag(:span, document[:full_title], class: 'sr-only')} to Refworks".html_safe
-    link_to text, url, class: "", target: "_blank"
+    link_to text, url, class: "", target: "_blank", rel: 'noopener'
   end
 
   def link_to_request_illiad(document)
     url = construct_illiad_url(document)
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')} through ILLiad".html_safe
-    link_to text, url, class: "", target: "_blank"
+    link_to text, url, class: "", target: "_blank", rel: 'noopener'
   end
 
-  def link_to_request_item(document, item=nil)
+  def link_to_request_item(document, item: nil)
     id = document[:id]
     requestability = item['r']
 
@@ -43,21 +43,21 @@ module UrlHelper
     when 'catalog'
       url = "https://iii.library.unt.edu/search~S12?/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}"
       text = "Request through Catalog"
-      link_to text, url, class:"request-catalog", target: "_blank"
+      link_to text, url, class:"request-catalog", target: "_blank", rel: 'noopener'
     when 'jlf'
-      url = construct_illiad_url(document, item)
+      url = construct_illiad_url(document, item: item)
       text = "Request through ILLiad"
-      link_to text, url, class: "request-illiad", target: "_blank"
+      link_to text, url, class: "request-illiad", target: "_blank", rel: 'noopener'
     when 'aeon'
       url = construct_aeon_url(document, item)
       text = "Request through Aeon"
-      link_to text, url, class: "request-aeon", target: "_blank"
+      link_to text, url, class: "request-aeon", target: "_blank", rel: 'noopener'
     else
       'Cannot request this item'
     end
   end
 
-  def construct_illiad_url(document, item=nil)
+  def construct_illiad_url(document, item: nil)
     # Construct URL for ILLiad and use gateway if an item is provided
 
     query_hash = {}
@@ -142,6 +142,6 @@ module UrlHelper
 
   def link_to_bento_box_search(text, query)
     url = URI::HTTPS.build(host: 'library.unt.edu', path: '/search/', query: "q=#{query}").to_s
-    link_to text, url, target: "_blank"
+    link_to text, url, target: "_blank", rel: 'noopener'
   end
 end

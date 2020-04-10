@@ -14,6 +14,7 @@ gem 'pg', '~> 0.18.4'
 gem 'puma', '~> 4.2.1'
 gem 'rails', '~> 5.2.3'
 gem 'rsolr', '>= 1.0', '< 3'
+gem 'rubocop-airbnb'
 gem 'sass-rails', '~> 6.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'

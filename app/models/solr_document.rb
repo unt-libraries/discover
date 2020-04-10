@@ -89,9 +89,9 @@ class SolrDocument
   private
 
   def identifier_keys
-    %w[
+    %w(
         isbn_numbers
         oclc_numbers
-      ]
+      )
   end
 end
