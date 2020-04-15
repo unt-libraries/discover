@@ -1,7 +1,4 @@
-<% doc_presenter = index_presenter(document)
-   creator = doc_presenter.fields_to_render.select { |name, f| f[:display] == :creator }
-   contrib = doc_presenter.fields_to_render.select { |name, f| f[:display] == :contrib }
-   combined = creator.merge(contrib) %>
+<% doc_presenter = index_presenter(document) %>
 <%# default partial to display solr document fields in catalog index view -%>
 <dl class="dl-invert">
   <%# Creator and Contributor fields, combined %>
