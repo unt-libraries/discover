@@ -1,5 +1,7 @@
 // Modified for Discover from unt-jekyll-theme/_assets/_scripts/main.js
 import 'bootstrap';
+import size from 'lodash/size';
+import words from 'lodash/words';
 
 window.libutils = {};
 
@@ -51,7 +53,7 @@ $(function () {
 
   // Set scrolling header ui by observing main nav relative to viewport
   const scrolledNav = document.querySelector('#primary-navigation');
-  const scrolledNavObserver = new IntersectionObserver((entries, observer) => {
+  const scrolledNavObserver = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
       $head.removeClass('scrolled');
       $bannerImg.removeClass('d-none');
@@ -87,7 +89,8 @@ $(function () {
 
   // Search Form Analytics Tracking
   const searchForms = document.querySelectorAll('form.search');
-  for (let i = 0; i < searchForms.length; i++) {
+  for (let i = 0; i < searchForms.length; i += 1) {
+    // eslint-disable-next-line no-loop-func
     searchForms[i].addEventListener('submit', (e) => {
       e.preventDefault();
 
@@ -95,11 +98,12 @@ $(function () {
       const category = $this.data('ga-category') || 'form - search - untagged';
       const action = $this.find('input.query').val() || 'empty';
       const label = $this.data('ga-label') || document.location.href;
-      const value = _.size(_.words(action)) || 0;
+      const value = size(words(action)) || 0;
 
       function submitForm() {
         $this.submit();
       }
+      // eslint-disable-next-line no-undef
       ga('send', 'event', category, action, label, value, {
         hitCallback: window.libutils.actWithTimeOut(() => {
           submitForm();

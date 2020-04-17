@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
-  callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements, getStatusData,
-  updateAeonRequestUrl,
+  callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
+  getStatusData, updateAeonRequestUrl,
 } from './_availability_util';
 import { elAddClass, elRemoveClass } from './_utils';
 
@@ -143,5 +143,6 @@ function checkAvailability() {
 }
 
 export {
+  // eslint-disable-next-line import/prefer-default-export
   checkAvailability,
 };

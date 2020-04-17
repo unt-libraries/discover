@@ -1,5 +1,3 @@
-import moment from 'moment';
-import { elAddClass, elHasClass, elRemoveClass } from './_utils';
 import { locationData } from './data/availability_locations';
 import { statusDescData } from './data/availability_statuses';
 

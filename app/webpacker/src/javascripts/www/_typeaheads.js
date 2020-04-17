@@ -2,7 +2,9 @@
 import 'corejs-typeahead/dist/typeahead.jquery';
 import Bloodhound from 'corejs-typeahead/dist/bloodhound';
 
-$(function () {
+const has = Object.prototype.hasOwnProperty;
+
+$(() => {
   const $studentHelper = $('#student-helper');
   const $courseTypeAhead = $('input.course-typeahead');
   const $azTypeahead = $('input.az-typeahead');
@@ -31,7 +33,7 @@ $(function () {
         url: window.libutils.sprinshareUrls.subjects_list,
         cache: true,
         transform(response) {
-          return $.map(response, option => ({
+          return $.map(response, (option) => ({
             id: option.id,
             name: option.name,
           }));
@@ -41,6 +43,7 @@ $(function () {
 
     // Provide a default to subject queries. On focus of the input,
     // search for pre-defined best bets, otherwise, just search.
+    // eslint-disable-next-line no-inner-declarations
     function subjectSearchWithDefaults(query, syncResults) {
       if (query === '') {
         syncResults(allSubjects.index.all());
@@ -66,6 +69,7 @@ $(function () {
     })
       .on('typeahead:selected', (event, datum) => {
         const path = 'https://guides.library.unt.edu/sb.php?subject_id=';
+        // eslint-disable-next-line no-undef
         ga('send', 'event', 'link - typeahead', 'subjects', datum.name, {
           hitCallback: window.libutils.actWithTimeOut(() => {
             window.libutils.goToSubjectUrl(datum, path);
@@ -90,6 +94,7 @@ $(function () {
     })
       .on('typeahead:selected', (event, datum) => {
         const path = 'https://guides.library.unt.edu/az.php?s=';
+        // eslint-disable-next-line no-undef
         ga('send', 'event', 'link - typeahead', 'subjects - databases', datum.name, {
           hitCallback: window.libutils.actWithTimeOut(() => {
             window.libutils.goToSubjectUrl(datum, path);
@@ -104,6 +109,7 @@ $(function () {
     const currentDate = new Date();
     let azList;
 
+    // eslint-disable-next-line no-inner-declarations
     function makeAZList() {
       // Data source for LibGuides powered A-Z Database listing.
       azList = new Bloodhound({
@@ -117,6 +123,7 @@ $(function () {
 
     // Provide a default to database queries. On focus of the input,
     // search for pre-defined best bets, otherwise, just search.
+    // eslint-disable-next-line no-inner-declarations
     function databaseSearchWithDefaults(query, syncResults) {
       if (query === '') {
         syncResults(azList.get([2477452, 2478596, 2479459, 2477894, 2478101, 2478940]));
@@ -140,14 +147,12 @@ $(function () {
         // Transform the Data
         const springshareTransformed = $.map(data, (option) => {
           const textDescription = option.description.replace(/<\/?[^>]+>/gi, '').replace(/"/g, "'"); // strip any markup in descriptions
-          const urlPath = (!!+option.meta.enable_proxy) ? `https://libproxy.library.unt.edu/login?url=${option.url}` : option.url; // if proxy enabled, add it to the url, otherwise just the url
+          const urlPath = (+option.meta.enable_proxy) ? `https://libproxy.library.unt.edu/login?url=${option.url}` : option.url; // if proxy enabled, add it to the url, otherwise just the url
           const recentlyAdded = (option.enable_new === 1) ? 'recently added' : ''; // boilerplate in searchable text for 'new' items
           const isTrial = (option.enable_trial === 1) ? 'under consideration' : ''; // boilerplate in searchable text for 'trials'
-          const subjects = (option.hasOwnProperty('subjects')) ? option.subjects : []; // get subject object if it exists.
+          const subjects = (has.call(option, 'subjects')) ? option.subjects : []; // get subject object if it exists.
           let subjectString = (subjects.length) ? '<br /><strong>Subjects: </strong>' : ''; // if exists, generate a prefix
-          subjectString += subjects.map((subject) => {
-            return subject.name;
-          }).join(', '); // concat the prefix with a comma seperated subject list.
+          subjectString += subjects.map((subject) => subject.name).join(', '); // concat the prefix with a comma seperated subject list.
 
           return {
             id: option.id,
@@ -209,6 +214,7 @@ $(function () {
         $(this).attr('placeholder', 'type for suggestions');
       })
       .on('typeahead:selected', (event, datum) => {
+        // eslint-disable-next-line no-undef
         ga('send', 'event', 'link - typeahead', 'database', datum.name, {
           hitCallback: window.libutils.actWithTimeOut(() => {
             window.libutils.goToUrl(datum);
@@ -269,7 +275,7 @@ $(function () {
         cache: true,
         transform(response) {
           return $.map(response, (option) => {
-            const subjectsArray = $.map(option.subjects, (n, i) => [n.name]);
+            const subjectsArray = $.map(option.subjects, (n) => [n.name]);
             return {
               id: option.id,
               name: option.name,
@@ -286,6 +292,7 @@ $(function () {
 
     // Provide a default to database queries. On focus of the input,
     // search for pre-defined best bets, otherwise, just search.
+    // eslint-disable-next-line no-inner-declarations
     function coursesSource(query, syncResults) {
       allLibGuides.search(`${query} course-guide-2`, syncResults);
     }
@@ -306,6 +313,7 @@ $(function () {
       },
     })
       .on('typeahead:selected', (event, datum) => {
+        // eslint-disable-next-line no-undef
         ga('send', 'event', 'link - typeahead', 'courses', datum.name, {
           hitCallback: window.libutils.actWithTimeOut(() => {
             window.libutils.goToUrl(datum);

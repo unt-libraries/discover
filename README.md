@@ -327,7 +327,10 @@ Example: `$ yarn start` to build the docker containers and start the web server.
 - `start`: Starts the Docker containers in the terminal
 - `build`: Builds the Docker containers, required before starting
 - `web:run`: Issue a command to the web container and then stop the containers
+- `web:assetServer`: Runs the webpack asset server in a separate terminal session
+- `rubyStyle`: Runs RuboCop style check
 - `test`: Run tests using Rails and Docker test configurations
+- `test:verbose`: Runs test with additional verbosity
 - `web:compileAssets`: Precompile assets with Rails
 - `web:dbCreate`: Create the database with Rails
 - `web:dbMigrate`: Migrate databases with Rails
@@ -336,6 +339,23 @@ Example: `$ yarn start` to build the docker containers and start the web server.
 - `docker:removeAll`: Remove all Docker containers
 - `docker:prune`: Prune Docker containers
 - `updateBrowserStats`: Update `browserslist-stats.json` for BrowsersList and Google Analytics integration
+
+## Code style
+
+Style guides are included for Javascript and Ruby
+
+### Javascript
+
+Javascript linting uses [ESLint](https://eslint.org/) and Airbnb's [style guide](https://github.com/airbnb/javascript).
+Configuration can be found in `.eslintrc.js`. You can use the integration with your development
+environment, or run `yarn javascriptStyle` to check style guide compliance.
+
+### Ruby
+
+Ruby linting uses [RuboCop](https://github.com/rubocop-hq/rubocop) and Airbnb's [style guide](https://github.com/airbnb/ruby).
+Configuration can be found in `.rubocop.yml` and `.rubocop_airbnb.yml`. `rubocop_todo.yml` contains
+tests that have failed previously, but are ignored. You can use the integration with your development
+environment, or run `yarn rubyStyle` to check style guide compliance.
 
 ## Testing
 

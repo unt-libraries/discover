@@ -1,5 +1,6 @@
 module.exports = {
   "extends": "airbnb-base",
+  "ignorePatterns": ["node_modules/", "public/", "tmp/"],
   "rules": {
     "func-names": [
       "error",

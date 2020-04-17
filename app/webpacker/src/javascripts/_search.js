@@ -37,5 +37,6 @@ function searchSelector() {
 }
 
 export {
+  // eslint-disable-next-line import/prefer-default-export
   searchSelector,
 };

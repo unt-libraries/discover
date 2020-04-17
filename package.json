@@ -31,6 +31,7 @@
     "expose-loader": "^0.7.5",
     "jquery": "3.4.1",
     "lazysizes": "^5.2.0",
+    "lodash": "^4.17.15",
     "moment": "2.24.0",
     "moment-locales-webpack-plugin": "^1.1.2",
     "popper.js": "^1.16.0",

@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
-  callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements, getStatusData,
-  updateAeonRequestUrl,
+  callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
+  getStatusData, updateAeonRequestUrl,
 } from './_availability_util';
 import { elRemoveClass } from './_utils';
 
@@ -17,7 +17,7 @@ import { elRemoveClass } from './_utils';
 function createShowLocationLink(itemLocation) {
   const locationData = getLocationData(itemLocation.code);
   const locationText = locationData.name ? locationData.name : itemLocation.name;
-  const linkText = locationData.linkText? locationData.linkText : itemLocation.name;
+  const linkText = locationData.linkText ? locationData.linkText : itemLocation.name;
   if (locationData && locationData.url) {
     return `<a href="${locationData.url}" title="${linkText}" target="_blank">${locationText}</a>`;
   }
@@ -164,5 +164,6 @@ function checkAvailability() {
 }
 
 export {
+  // eslint-disable-next-line import/prefer-default-export
   checkAvailability,
 };

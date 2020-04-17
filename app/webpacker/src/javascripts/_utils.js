@@ -24,6 +24,7 @@ export function elAddClass(el, ...classNames) {
     if (el.classList) {
       el.classList.add(className);
     } else {
+      // eslint-disable-next-line no-param-reassign
       el.className += ` ${className}`;
     }
   });
@@ -39,7 +40,8 @@ export function elRemoveClass(el, ...classNames) {
     if (el.classList) {
       el.classList.remove(className);
     } else {
-      el.className = el.className.replace(new RegExp(`(^|\\b)${className.split(' ').join('|')  }(\\b|$)`, 'gi'), ' ');
+      // eslint-disable-next-line no-param-reassign
+      el.className = el.className.replace(new RegExp(`(^|\\b)${className.split(' ').join('|')}(\\b|$)`, 'gi'), ' ');
     }
   });
 }
