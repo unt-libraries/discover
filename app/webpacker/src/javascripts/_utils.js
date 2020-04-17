@@ -4,7 +4,6 @@
  * @param {string} className
  * @returns {boolean}
  */
-// IE8+ compatible test for class on element
 export function elHasClass(el, className) {
   let hasClass;
   if (el.classList) {
@@ -20,7 +19,6 @@ export function elHasClass(el, className) {
  * @param {HTMLElement|Element} el
  * @param {...string} classNames
  */
-// IE8+ compatible add class to element
 export function elAddClass(el, ...classNames) {
   classNames.forEach((className) => {
     if (el.classList) {
@@ -36,7 +34,6 @@ export function elAddClass(el, ...classNames) {
  * @param {HTMLElement|Element} el
  * @param {...string} classNames
  */
-// IE8+ compatible add class to element
 export function elRemoveClass(el, ...classNames) {
   classNames.forEach((className) => {
     if (el.classList) {
@@ -45,4 +42,14 @@ export function elRemoveClass(el, ...classNames) {
       el.className = el.className.replace(new RegExp(`(^|\\b)${className.split(' ').join('|')  }(\\b|$)`, 'gi'), ' ');
     }
   });
+}
+
+/**
+ * Removes all child elements of the given node
+ * @param {HTMLElement|Element} node
+ */
+export function removeAllChildren(node) {
+  while (node.firstChild) {
+    node.removeChild(node.firstChild);
+  }
 }

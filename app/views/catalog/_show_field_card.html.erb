@@ -9,10 +9,10 @@
   <span class="card-body">
 
     <dl class="dl-invert document-metadata">
-      <% fields.each do |field_name, field| -%>
+      <% fields.each do |field_name, field, field_presenter| -%>
         <div class="row result__field">
-          <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label"><%= render_document_show_field_label document, field: field_name %></dt>
-          <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= doc_presenter.field_value field %></dd>
+          <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label"><%= render_document_show_field_label document, label: field_presenter.label, field: field_name %></dt>
+          <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= field_presenter.render %></dd>
         </div>
       <% end -%>
     </dl>

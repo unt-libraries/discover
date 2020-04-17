@@ -12,16 +12,22 @@ module ThumbnailHelper
     }) do
       if thumbnail_url.blank?
         svg_icon = "#{asset_pack_path('media/images/icons/regular.svg')}##{document.resource_type_icon}"
-        content_tag(:svg, { class: "img-fluid #{current_view}-icon icon" }) do
+        content_tag(:svg, {
+          class: "img-fluid #{current_view}-icon icon",
+          "aria-hidden": true,
+          tabindex: -1,
+        }) do
           concat("<use xlink:href=\"#{svg_icon}\"></use>".html_safe)
           concat("<span class=\"sr-only item-title\">#{document[:full_title]}</span>".html_safe)
         end
       else
         image_tag('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
                   {
-                    class: 'image-fluid lazyload',
+                    class: 'img-fluid lazyload',
                     data: { src: thumbnail_url },
                     alt: document[:full_title],
+                    "aria-hidden": true,
+                    tabindex: -1,
                   })
       end
     end

@@ -6,6 +6,12 @@
   <p class="browser-upgrade">Your browser is <strong>outdated</strong>. This site will not function in it. Please <a href="https://browsehappy.com/">upgrade</a> to improve your experience and security.</p>
   <![endif]-->
 
+  <nav id="skip-link" role="navigation" aria-label="<%= t('blacklight.skip_links.label') %>">
+    <%= link_to t('blacklight.skip_links.search_field'), '#q', class: 'sr-only sr-only-focusable skip-link rounded-bottom py-2 px-3', data: { turbolinks: 'false' } %>
+    <%= link_to t('blacklight.skip_links.main_content'), '#main-container', class: 'sr-only sr-only-focusable skip-link rounded-bottom py-2 px-3', data: { turbolinks: 'false' } %>
+    <%= content_for(:skip_links) %>
+  </nav>
+
   <%= render partial: 'shared/header/header' %>
 
   <%# Temporary banner to display on the site %>

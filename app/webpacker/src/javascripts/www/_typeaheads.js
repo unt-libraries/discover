@@ -1,5 +1,5 @@
 // Modified for Discover from unt-jekyll-theme/_assets/_scripts/typeahead.js
-import 'corejs-typeahead';
+import 'corejs-typeahead/dist/typeahead.jquery';
 import Bloodhound from 'corejs-typeahead/dist/bloodhound';
 
 $(function () {

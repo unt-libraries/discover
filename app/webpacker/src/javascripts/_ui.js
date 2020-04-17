@@ -1,4 +1,9 @@
-import { elAddClass, elHasClass, elRemoveClass } from './_utils';
+import {
+  elAddClass,
+  elHasClass,
+  elRemoveClass,
+  removeAllChildren,
+} from './_utils';
 import 'bootstrap/js/dist/tooltip';
 import 'bootstrap/js/dist/popover';
 
@@ -44,7 +49,16 @@ function replaceThumbnailElement(thumbContainer, bookData) {
   const itemTitle = titleEl.textContent;
   const imgSrcZoom = bookData.thumbnail_url.replace(/zoom=./, 'zoom=1');
   const imgSrc = imgSrcZoom.replace('&edge=curl', '');
-  thumbContainer.innerHTML = `<img class="img-fluid lazyload" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="${imgSrc}" alt="${itemTitle}">`;
+  const newEl = document.createElement('img');
+
+  newEl.className = 'img-fluid lazyload';
+  newEl.alt = itemTitle;
+  newEl.tabIndex = -1;
+  newEl.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+  newEl.dataset.src = imgSrc;
+  newEl.setAttribute('aria-hidden', 'true');
+  removeAllChildren(thumbContainer);
+  thumbContainer.appendChild(newEl);
   elAddClass(thumbContainer, 'thumbnail-loaded');
 }
 
@@ -108,10 +122,9 @@ function replaceBookCovers() {
   const booksCallback = 'replaceThumbs';
 
   const scriptElement = document.createElement('script');
-  scriptElement.setAttribute('id', 'jsonScript');
-  scriptElement.setAttribute('src',
-    `https://books.google.com/books?bibkeys=${bibkeyQueryString}&jscmd=viewapi&callback=${booksCallback}`);
-  scriptElement.setAttribute('type', 'text/javascript');
+  scriptElement.id = 'jsonScript';
+  scriptElement.src = `https://books.google.com/books?bibkeys=${bibkeyQueryString}&jscmd=viewapi&callback=${booksCallback}`;
+  scriptElement.type = 'text/javascript';
   document.head.appendChild(scriptElement);
 }
 

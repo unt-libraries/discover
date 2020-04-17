@@ -8,45 +8,45 @@
   </div>
 
   <%# Priority fields %>
-  <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field| -%>
+  <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field, field_presenter| -%>
     <div class="result__field">
       <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> sr-only<% end %>">
-        <%= render_index_field_label document, field: field_name %>
+        <%= render_index_field_label document, label: field_presenter.label, field: field_name %>
       </dt>
-      <dd class="blacklight-<%= field_name.parameterize %> result__value muted"><%= doc_presenter.field_value field %></dd>
+      <dd class="blacklight-<%= field_name.parameterize %> result__value muted"><%= field_presenter.render %></dd>
     </div>
   <% end -%>
 
   <%# Resource type field %>
-  <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :resource_type }.each do |field_name, field| -%>
+  <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :resource_type }.each do |field_name, field, field_presenter| -%>
     <div class="result__field">
       <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> sr-only<% end %>">
-        <%= render_index_field_label document, field: field_name %>
+        <%= render_index_field_label document, label: field_presenter.label, field: field_name %>
       </dt>
       <dd class="blacklight-<%= field_name.parameterize %> result__value muted">
         <i class="fa fa-<%= document.resource_type_icon %>"></i>
-        <%= doc_presenter.field_value field %></dd>
+        <%= field_presenter.render %></dd>
     </div>
   <% end -%>
 
   <%# First publication statement field %>
   <% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :pub_statements && should_render_show_field?(document, f) } -%>
-    <% first_pub_name, first_pub_value = doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.first %>
+    <% pub_field_name, pub_field, pub_field_presenter = doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.first %>
     <div class="result__field">
-      <dt class="blacklight-<%= first_pub_name.parameterize %> result__label muted<% if first_pub_value[:no_label] %> sr-only<% end %>">
-        <%= render_index_field_label document, field: first_pub_value %>
+      <dt class="blacklight-<%= pub_field_name.parameterize %> result__label muted<% if pub_field[:no_label] %> sr-only<% end %>">
+        <%= render_index_field_label document, label: pub_field_presenter.label, field: pub_field %>
       </dt>
-      <dd class="blacklight-<%= first_pub_name.parameterize %> result__value muted"><%= doc_presenter.field_value first_pub_value %></dd>
+      <dd class="blacklight-<%= pub_field_name.parameterize %> result__value muted"><%= pub_field_presenter.render %></dd>
     </div>
   <% end -%>
 
   <%# Fields with no display value, but set to render in catalog_controller.rb %>
-  <% doc_presenter.fields_to_render.select { |name, f| f[:display].blank? }.each do |field_name, field| -%>
+  <% doc_presenter.fields_to_render.select { |name, f| f[:display].blank? }.each do |field_name, field, field_presenter| -%>
     <div class="result__field">
       <dt class="blacklight-<%= field_name.parameterize %> result__label muted <% if field[:no_label] %>sr-only<% end %>">
-        <%= render_index_field_label document, field: field_name %>
+        <%= render_index_field_label document, label: field_presenter.label, field: field_name %>
       </dt>
-      <dd class="blacklight-<%= field_name.parameterize %> result__value muted"><%= doc_presenter.field_value field %></dd>
+      <dd class="blacklight-<%= field_name.parameterize %> result__value muted"><%= field_presenter.render %></dd>
     </div>
   <% end -%>
 

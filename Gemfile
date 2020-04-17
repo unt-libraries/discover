@@ -12,19 +12,18 @@ gem 'jbuilder', '~> 2.5'
 # Use PostgreSQL as the database for Active Record
 gem 'pg', '~> 0.18.4'
 gem 'puma', '~> 4.2.1'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 5.2.4.2'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'rubocop-airbnb'
-gem 'sass-rails', '~> 6.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
-gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
+# gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 2.7.2'
-gem 'webpacker', '~> 4.x'
+gem 'webpacker', '~> 5.x'
 
-gem 'blacklight', '>= 7.5.1'
+gem 'blacklight', '>= 7.7.0'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
 gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
 
