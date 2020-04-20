@@ -163,8 +163,10 @@ $border-width:                1px !default;
 //
 // Font, line-height, and color for body text, headings, and more.
 
+//noinspection Stylelint
 $font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Verdana, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-$headings-font-family:        "Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+//noinspection Stylelint
+$headings-font-family:        "Oswald","Helvetica Neue", Helvetica, Arial,sans-serif;
 
 $font-size-base:              1rem;
 
@@ -180,6 +182,7 @@ $headings-color:              theme-color("gray-dark");
 //
 // Site Title
 //
+//noinspection Stylelint
 $font-family-site-title: "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Verdana, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 // Buttons + Forms

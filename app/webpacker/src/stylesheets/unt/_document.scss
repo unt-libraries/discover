@@ -1,3 +1,20 @@
+// Applies to all documents, whether on search results or single item view
+.document,
+.show-document {
+  .result__label {
+    color: theme-color("gray-darker");
+    font-weight: $font-weight-bold;
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    display: inline;
+    text-align: left;
+  }
+
+  .result__value {
+    display: inline;
+  }
+}
+
 // document list on search results page
 .documents-list {
   .document {
@@ -106,23 +123,6 @@
   .document-metadata {
     border-left: #d5d5d5 solid 4px;
     margin-bottom: 0;
-  }
-}
-
-// Applies to all documents, whether on search results or single item view
-.document,
-.show-document {
-  .result__label {
-    color: theme-color("gray-darker");
-    font-weight: $font-weight-bold;
-    font-size: $font-size-sm;
-    text-transform: uppercase;
-    display: inline;
-    text-align: left;
-  }
-
-  .result__value {
-    display: inline;
   }
 }
 

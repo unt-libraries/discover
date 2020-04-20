@@ -69,13 +69,13 @@
   }
 
   &__sub-heading {
-    font-size: $h4-font-size;
+    font-size: 1.5rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   &__text {
-    font-size: $h6-font-size;
+    font-size: 1rem;
   }
 
   // overrides for standard bs styles
@@ -126,13 +126,16 @@
   width: 100%; // Ensure `.modal-content` extends the full width of the parent `.modal-dialog`
   height: auto;
   pointer-events: auto;
-  background-color: $modal-content-bg;
   background-clip: padding-box;
   border: none;
   // Remove focus outline from opened drawer
   outline: 0;
   background-color: $lime;
   color: white;
+
+  h2 {
+    color: white;
+  }
 }
 
 // drawer header
@@ -143,6 +146,7 @@
   justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends
   padding: $modal-header-padding;
   background-color: $green;
+  font-size: 2rem;
 
   .close {
     padding: 10px;
@@ -155,6 +159,7 @@
 .drawer-title {
   margin-bottom: 0;
   line-height: $modal-title-line-height;
+  font-size: 2rem;
 }
 
 // Modal body
