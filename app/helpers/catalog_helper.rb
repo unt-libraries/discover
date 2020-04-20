@@ -51,4 +51,19 @@ module CatalogHelper
   def get_date_facet_display(value)
     value.split('|')[1]
   end
+
+  def link_to_subject_search(data)
+    field_data = data[:value]
+    contents = field_data.map do |item|
+      link_text = item
+      content_tag :div do
+        link_to "#{link_text}",
+                search_catalog_url(
+                  q: "#{link_text}",
+                  search_field: 'subject'
+                ), class: "link-media-item #{}", data: { "link-type": '' }
+      end
+    end
+    content_tag 'span', contents.join(''), nil, false
+  end
 end

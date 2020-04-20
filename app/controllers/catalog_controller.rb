@@ -217,7 +217,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'related_titles', label: 'Related Titles', link_to_facet: 'public_title_facet'
 
     # Subject Search Fields
-    config.add_show_field 'full_subjects', label: 'Subjects'
+    config.add_show_field 'full_subjects', label: 'Subjects', helper_method: "link_to_subject_search"
 
     # Call Number Fields
     config.add_show_field 'loc_call_numbers', label: 'LC Call Numbers'
