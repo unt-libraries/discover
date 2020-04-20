@@ -39,7 +39,8 @@ module FacetsHelper
     options[:locals][:field_name] ||= display_facet.name
     options[:locals][:facet_field] ||= field_config
     options[:locals][:display_facet] ||= display_facet
-    options[:locals][:facet_field][:collapse] = field_config[:home_collapse].nil? ? true : field_config[:home_collapse]
+    options[:locals][:facet_field][:collapse] =
+      field_config[:home_collapse].nil? ? true : field_config[:home_collapse]
 
     render(options)
   end
@@ -55,7 +56,8 @@ module FacetsHelper
     end.compact.map do |item|
       link_to(item[:rendered_element],
               item[:path],
-              class: "#{item[:selected] ? 'selected ' : ''}list-group-item list-group-item-action facet-values-item")
+              class: "#{item[:selected] ? 'selected ' : ''}list-group-item "\
+                "list-group-item-action facet-values-item")
     end)
   end
 
@@ -79,7 +81,9 @@ module FacetsHelper
     end
 
     {
-      :rendered_element => content_tag(:span, display_value, class: "facet-select facet-label") + render_facet_count(item.hits),
+      :rendered_element => content_tag(:span, display_value,
+                                       class: "facet-select facet-label") +
+        render_facet_count(item.hits),
       :path => path_for_facet(facet_field, item),
       :selected => false,
     }
@@ -127,7 +131,8 @@ module FacetsHelper
   # @return [String]
   def render_facet_count(num, options = {})
     classes = (options[:classes] || []) << %w(facet-count badge)
-    content_tag("span", t('blacklight.search.facets.count', number: number_with_delimiter(num)), class: classes)
+    content_tag("span", t('blacklight.search.facets.count',
+                          number: number_with_delimiter(num)), class: classes)
   end
 
   ##
@@ -151,22 +156,22 @@ module FacetsHelper
   # Shares some overlap with /app/models/solr_document.rb#resource_type_map
   def resource_type_map
     {
-        :archives_manuscripts => {:label => 'Archives/Manuscripts', :icon => 'book'},
-        :audio => {:label => 'Audio', :icon => 'headphones'},
-        :books => {:label => 'Books', :icon => 'book'},
-        :educational_kits => {:label => 'Educational Kits', :icon => 'book'},
-        :equipment => {:label => 'Equipment', :icon => 'cube'},
-        :games => {:label => 'Games', :icon => 'gamepad'},
-        :images => {:label => 'Images', :icon => 'image'},
-        :journals_periodicals => {:label => 'Journals/Periodicals', :icon => 'book-alt'},
-        :online_databases => {:label => 'Online Databases', :icon => 'database'},
-        :music_recordings => {:label => 'Music Recordings', :icon => 'music'},
-        :music_scores => {:label => 'Music Scores', :icon => 'music'},
-        :maps => {:label => 'Maps', :icon => 'map'},
-        :objects_artifacts => {:label => 'Objects/Artifacts', :icon => 'cube'},
-        :software => {:label => 'Software', :icon => 'file'},
-        :theses_dissertations => {:label => 'Theses/Dissertations', :icon => 'book'},
-        :video_film => {:label => 'Video/Film', :icon => 'film'},
+      :archives_manuscripts => { :label => 'Archives/Manuscripts', :icon => 'book' },
+      :audio => { :label => 'Audio', :icon => 'headphones' },
+      :books => { :label => 'Books', :icon => 'book' },
+      :educational_kits => { :label => 'Educational Kits', :icon => 'book' },
+      :equipment => { :label => 'Equipment', :icon => 'cube' },
+      :games => { :label => 'Games', :icon => 'gamepad' },
+      :images => { :label => 'Images', :icon => 'image' },
+      :journals_periodicals => { :label => 'Journals/Periodicals', :icon => 'book-alt' },
+      :online_databases => { :label => 'Online Databases', :icon => 'database' },
+      :music_recordings => { :label => 'Music Recordings', :icon => 'music' },
+      :music_scores => { :label => 'Music Scores', :icon => 'music' },
+      :maps => { :label => 'Maps', :icon => 'map' },
+      :objects_artifacts => { :label => 'Objects/Artifacts', :icon => 'cube' },
+      :software => { :label => 'Software', :icon => 'file' },
+      :theses_dissertations => { :label => 'Theses/Dissertations', :icon => 'book' },
+      :video_film => { :label => 'Video/Film', :icon => 'film' },
     }
   end
 end

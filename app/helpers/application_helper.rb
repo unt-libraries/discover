@@ -23,7 +23,8 @@ module ApplicationHelper
       end
 
       if include_blank
-        option_tags = content_tag("a".freeze, include_blank, options_for_blank_options_tag).safe_concat(option_tags)
+        option_tags = content_tag("a".freeze, include_blank, options_for_blank_options_tag).
+          safe_concat(option_tags)
       end
     end
 
@@ -31,7 +32,8 @@ module ApplicationHelper
       option_tags = content_tag("a".freeze, prompt, value: "").safe_concat(option_tags)
     end
 
-    content_tag "div".freeze, option_tags, { "name" => html_name, "id" => sanitize_to_id(name) }.update(options.stringify_keys)
+    content_tag "div".freeze, option_tags, { "name" => html_name, "id" => sanitize_to_id(name) }.
+      update(options.stringify_keys)
   end
 
   def bootstrap_options_for_select(container, selected = nil) # rubocop:disable Airbnb/OptArgParameters
@@ -96,7 +98,7 @@ module ApplicationHelper
 
   def items_have_notes?(items)
     unless items.nil?
-      items.any? {|h| h['n'] != nil}
+      items.any? { |h| !h['n'].nil? }
     end
   end
 
@@ -117,9 +119,11 @@ module ApplicationHelper
     document ||= @document # rubocop:disable Rails/HelperInstanceVariable
 
     content_tag(:div, class: 'show-heading-title') do
-      concat(content_tag(tag, presenter(document).heading, { class: 'show-heading-title__main', itemprop: "name" }))
+      concat(content_tag(tag, presenter(document).heading,
+                         { class: 'show-heading-title__main', itemprop: "name" }))
       if document[:statement_of_responsibility]
-        concat(content_tag(:div, document[:statement_of_responsibility], { class: 'show-heading-title__sub'}))
+        concat(content_tag(:div, document[:statement_of_responsibility],
+                           { class: 'show-heading-title__sub' }))
       end
     end
   end

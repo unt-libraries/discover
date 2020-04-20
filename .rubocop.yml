@@ -11,3 +11,7 @@ Layout/AlignArguments:
 Layout/EmptyLineAfterMagicComment:
   Exclude:
     - 'db/migrate/*'
+
+Metrics/LineLength:
+  Exclude:
+    - 'db/migrate/*'

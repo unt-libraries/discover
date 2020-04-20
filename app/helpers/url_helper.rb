@@ -6,8 +6,11 @@ module UrlHelper
   ##
   # Link to the previous document in the current search context
   def link_to_previous_document(previous_document, opts = {})
-    link_opts = session_tracking_params(previous_document, search_session['counter'].to_i - 1).merge(class: "previous", rel: 'prev')
-    link_to_unless previous_document.nil?, raw(t('blacklight.search.entry_pagination_info.previous')), url_for_document(previous_document), link_opts do
+    link_opts = session_tracking_params(previous_document, search_session['counter'].to_i - 1).
+      merge(class: "previous", rel: 'prev')
+    link_to_unless previous_document.nil?,
+                   raw(t('blacklight.search.entry_pagination_info.previous')),
+                   url_for_document(previous_document), link_opts do
       content_tag :span, raw(t('blacklight.search.entry_pagination_info.previous')), class: 'previous'
     end
   end
@@ -15,7 +18,8 @@ module UrlHelper
   ##
   # Link to the next document in the current search context
   def link_to_next_document(next_document)
-    link_opts = session_tracking_params(next_document, search_session['counter'].to_i + 1).merge(class: "next", rel: 'next')
+    link_opts = session_tracking_params(next_document, search_session['counter'].to_i + 1).
+      merge(class: "next", rel: 'next')
     link_to_unless next_document.nil?, raw(t('blacklight.search.entry_pagination_info.next')), url_for_document(next_document), link_opts do
       content_tag :span, raw(t('blacklight.search.entry_pagination_info.next')), class: 'next'
     end
@@ -24,14 +28,16 @@ module UrlHelper
   def link_to_request_refworks(document)
     url = "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document[:id]}"
     content_tag(:span, document[:full_title], class: 'sr-only')
-    text = "Add #{content_tag(:span, document[:full_title], class: 'sr-only')} to Refworks".html_safe
+    text = "Add #{content_tag(:span,
+                              document[:full_title], class: 'sr-only')} to Refworks".html_safe
     link_to text, url, class: "", target: "_blank", rel: 'noopener'
   end
 
   def link_to_request_illiad(document)
     url = construct_illiad_url(document)
     content_tag(:span, document[:full_title], class: 'sr-only')
-    text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')} through ILLiad".html_safe
+    text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')}" \
+      "through ILLiad".html_safe
     link_to text, url, class: "", target: "_blank", rel: 'noopener'
   end
 
@@ -43,7 +49,7 @@ module UrlHelper
     when 'catalog'
       url = "https://iii.library.unt.edu/search~S12?/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}"
       text = "Request through Catalog"
-      link_to text, url, class:"request-catalog", target: "_blank", rel: 'noopener'
+      link_to text, url, class: "request-catalog", target: "_blank", rel: 'noopener'
     when 'jlf'
       url = construct_illiad_url(document, item: item)
       text = "Request through ILLiad"
@@ -127,8 +133,8 @@ module UrlHelper
     endpoint = "#{path}#{gitlab['new_endpoint']}"
 
     query_hash = {
-        'issue[title]': 'Site feedback',
-        'issue[description]': "[your request here, attach file if needed.]\n\n\n\n
+      'issue[title]': 'Site feedback',
+      'issue[description]': "[your request here, attach file if needed.]\n\n\n\n
 <!-- due date, assignee, and label will automatically be filled below -->
 <!-- NO EDITS BELOW THIS LINE -->\n
 - [PUBLIC URL](#{request.original_url})\n

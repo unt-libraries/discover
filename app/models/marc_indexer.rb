@@ -21,18 +21,18 @@ class MarcIndexer < Blacklight::Marc::Indexer
 
     to_field "language_ssim", marc_languages("008[35-37]:041a:041d:")
     to_field "format", get_format
-    to_field "isbn_tsim",  extract_marc('020a', separator: nil) do |rec, acc|
-         orig = acc.dup
-         acc.map!{|x| StdNum::ISBN.allNormalizedValues(x)}
-         acc << orig
-         acc.flatten!
-         acc.uniq!
+    to_field "isbn_tsim", extract_marc('020a', separator: nil) do |rec, acc|
+      orig = acc.dup
+      acc.map! { |x| StdNum::ISBN.allNormalizedValues(x) }
+      acc << orig
+      acc.flatten!
+      acc.uniq!
     end
 
     to_field 'material_type_ssm', extract_marc('300a'), trim_punctuation
 
     # Title fields
-    #    primary title 
+    #    primary title
     to_field 'title_tsim', extract_marc('245a')
     to_field 'title_ssm', extract_marc('245a', alternate_script: false), trim_punctuation
     to_field 'title_vern_ssm', extract_marc('245a', alternate_script: :only), trim_punctuation
@@ -45,7 +45,7 @@ class MarcIndexer < Blacklight::Marc::Indexer
 
     #    additional title fields
     to_field 'title_addl_tsim',
-             extract_marc(%W{
+             extract_marc(%W(
                245abnps
                130#{ATOZ}
                240abcdefgklmnopqrs
@@ -55,15 +55,15 @@ class MarcIndexer < Blacklight::Marc::Indexer
                243abcdefgklmnopqrs
                246abcdefgnp
                247abcdefgnp
-             }.join(':'))
+             ).join(':'))
 
-    to_field 'title_added_entry_tsim', extract_marc(%W{
+    to_field 'title_added_entry_tsim', extract_marc(%W(
       700gklmnoprst
       710fgklmnopqrst
       711fgklnpst
       730abcdefgklmnopqrst
       740anp
-    }.join(':'))
+    ).join(':'))
 
     to_field 'title_series_tsim', extract_marc("440anpv:490av")
 
@@ -103,7 +103,7 @@ class MarcIndexer < Blacklight::Marc::Indexer
     # Call Number fields
     to_field 'lc_callnum_ssm', extract_marc('050ab'), first_only
 
-    first_letter = lambda {|rec, acc| acc.map!{|x| x[0]} }
+    first_letter = lambda { |rec, acc| acc.map! { |x| x[0] } }
     to_field 'lc_1letter_ssim', extract_marc('050ab'), first_only, first_letter, translation_map('callnumber_map')
 
     alpha_pat = /\A([A-Z]{1,3})\d.*\Z/
@@ -113,7 +113,7 @@ class MarcIndexer < Blacklight::Marc::Indexer
       end
       acc.compact! # eliminate nils
     end
-    to_field 'lc_alpha_ssim', extract_marc('050a'), alpha_only, first_only 
+    to_field 'lc_alpha_ssim', extract_marc('050a'), alpha_only, first_only
 
     to_field 'lc_b4cutter_ssim', extract_marc('050a'), first_only
 
@@ -125,7 +125,7 @@ class MarcIndexer < Blacklight::Marc::Indexer
       rec.fields('856').each do |f|
         case f.indicator2
         when '0'
-          f.find_all{|sf| sf.code == 'u'}.each do |url|
+          f.find_all { |sf| sf.code == 'u' }.each do |url|
             acc << url.value
           end
         when '2'
@@ -144,7 +144,7 @@ class MarcIndexer < Blacklight::Marc::Indexer
       rec.fields('856').each do |f|
         case f.indicator2
         when '2'
-          f.find_all{|sf| sf.code == 'u'}.each do |url|
+          f.find_all { |sf| sf.code == 'u' }.each do |url|
             acc << url.value
           end
         when '0'

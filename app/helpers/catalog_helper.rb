@@ -15,7 +15,8 @@ module CatalogHelper
         end
       else
         content_tag :div do
-          link_to "#{link_text}", json['u'], class: "link-media-item #{link_type}", data: { "link-type": link_type }
+          link_to "#{link_text}", json['u'], class: "link-media-item #{link_type}",
+                                             data: { "link-type": link_type }
         end
       end
     end
@@ -39,10 +40,10 @@ module CatalogHelper
     find_it_img_el = content_tag :span, ' ', class: 'find-it-image'
     text_el = content_tag :span, link_text
     html_options = {
-        class: "link-media-item #{link_type}",
-        data: { "link-type": link_type },
+      class: "link-media-item #{link_type}",
+      data: { "link-type": link_type },
     }
-    link_to(item['u'], html_options = html_options) do
+    link_to(item['u'], html_options) do
       concat(find_it_img_el)
       concat(text_el)
     end
@@ -61,7 +62,7 @@ module CatalogHelper
                 search_catalog_url(
                   q: "#{link_text}",
                   search_field: 'subject'
-                ), class: "link-media-item #{}", data: { "link-type": '' }
+                ), data: { "link-type": '' }
       end
     end
     content_tag 'span', contents.join(''), nil, false

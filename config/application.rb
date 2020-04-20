@@ -11,7 +11,7 @@ module Discover
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    # Loads site variables from config/config.yml. Used in templates like Rails.configuration.x.site['var']
+    # Load site variables from config/config.yml in templates like Rails.configuration.x.site['var']
     config.x.site = config_for(:config)
 
     # Force SSL on all environments, can be overridden in environment config files.

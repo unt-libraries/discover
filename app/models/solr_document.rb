@@ -5,17 +5,17 @@ class SolrDocument
   # The following shows how to setup this blacklight document to display marc documents
   extension_parameters[:marc_source_field] = :marc_display
   extension_parameters[:marc_format_type] = :marcxml
-  use_extension( Blacklight::Solr::Document::Marc) do |document|
-    document.key?( :mark_display )
+  use_extension(Blacklight::Solr::Document::Marc) do |document|
+    document.key?(:mark_display)
   end
-  
-  field_semantics.merge!(    
-                         :title => "title_display",
-                         :author => "author_display",
-                         :language => "language_facet",
-                         :resource_type => "resource_type",
-                         :identifier => "isbn_s"
-                       )
+
+  field_semantics.merge!(
+    :title => "title_display",
+    :author => "author_display",
+    :language => "language_facet",
+    :resource_type => "resource_type",
+    :identifier => "isbn_s"
+  )
 
   # self.unique_key = 'id'
 
@@ -53,29 +53,29 @@ class SolrDocument
   # Shares overlap with /app/helpers/facets_helper.rb#resource_type_map
   def resource_type_map
     {
-      :unknown => {:label => 'Unknown', :icon => 'question-square'},
-      :book => {:label => 'Book', :icon => 'book'},
-      :online_database => {:label => 'Online Database', :icon => 'database'},
-      :music_score => {:label => 'Music Score', :icon => 'music'},
-      :map => {:label => 'Map', :icon => 'map'},
-      :video_film => {:label => 'Video/Film', :icon => 'film'},
-      :audiobook => {:label => 'Audiobook', :icon => 'headphones'},
-      :music_recording => {:label => 'Music Recording', :icon => 'music'},
-      :print_graphic => {:label => 'Print Graphic', :icon => 'images'},
-      :software => {:label => 'Software', :icon => 'file'},
-      :video_game => {:label => 'Video Game', :icon => 'gamepad'},
-      :eresource => {:label => 'E-Resource', :icon => ''},
-      :ebook => {:label => 'E-Book', :icon => 'tablet-android-alt'},
-      :educational_kit => {:label => 'Educational Kit', :icon => 'book'},
-      :archival_collection => {:label => 'Archival Collection', :icon => 'book'},
-      :print_journal => {:label => 'Print Journal/Periodical', :icon => 'book-alt'},
-      :object_artifact => {:label => 'Object/Artifact', :icon => 'cube'},
-      :tabletop_game => {:label => 'Tabletop Game', :icon => 'game-board'},
-      :equipment => {:label => 'Equipment', :icon => 'cube'},
-      :score_thesis => {:label => 'Music Score (Thesis/Dissertation)', :icon => 'volume'},
-      :manuscript => {:label => 'Manuscript', :icon => 'scroll'},
-      :ejournal => {:label => 'E-Journal', :icon => 'book-alt'},
-      :thesis_dissertation => {:label => 'Theses/Dissertation', :icon => 'book'},
+      :unknown => { :label => 'Unknown', :icon => 'question-square' },
+      :book => { :label => 'Book', :icon => 'book' },
+      :online_database => { :label => 'Online Database', :icon => 'database' },
+      :music_score => { :label => 'Music Score', :icon => 'music' },
+      :map => { :label => 'Map', :icon => 'map' },
+      :video_film => { :label => 'Video/Film', :icon => 'film' },
+      :audiobook => { :label => 'Audiobook', :icon => 'headphones' },
+      :music_recording => { :label => 'Music Recording', :icon => 'music' },
+      :print_graphic => { :label => 'Print Graphic', :icon => 'images' },
+      :software => { :label => 'Software', :icon => 'file' },
+      :video_game => { :label => 'Video Game', :icon => 'gamepad' },
+      :eresource => { :label => 'E-Resource', :icon => '' },
+      :ebook => { :label => 'E-Book', :icon => 'tablet-android-alt' },
+      :educational_kit => { :label => 'Educational Kit', :icon => 'book' },
+      :archival_collection => { :label => 'Archival Collection', :icon => 'book' },
+      :print_journal => { :label => 'Print Journal/Periodical', :icon => 'book-alt' },
+      :object_artifact => { :label => 'Object/Artifact', :icon => 'cube' },
+      :tabletop_game => { :label => 'Tabletop Game', :icon => 'game-board' },
+      :equipment => { :label => 'Equipment', :icon => 'cube' },
+      :score_thesis => { :label => 'Music Score (Thesis/Dissertation)', :icon => 'volume' },
+      :manuscript => { :label => 'Manuscript', :icon => 'scroll' },
+      :ejournal => { :label => 'E-Journal', :icon => 'book-alt' },
+      :thesis_dissertation => { :label => 'Theses/Dissertation', :icon => 'book' },
     }
   end
 
@@ -91,8 +91,8 @@ class SolrDocument
 
   def identifier_keys
     %w(
-        isbn_numbers
-        oclc_numbers
-      )
+      isbn_numbers
+      oclc_numbers
+    )
   end
 end

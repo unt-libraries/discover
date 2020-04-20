@@ -6,8 +6,8 @@ class CatalogController < ApplicationController
   include Blacklight::Catalog
   include Blacklight::Marc::Catalog
 
-  def search_action_url options = {}
-    options[:protocol] = request.headers['X-Forwarded-Proto'] or request.protocol
+  def search_action_url(options = {})
+    options[:protocol] = request.headers['X-Forwarded-Proto'] || request.protocol
     super options
   end
 
@@ -22,7 +22,7 @@ class CatalogController < ApplicationController
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
     #
-    ## Class for converting Blacklight's url parameters to into request parameters for the search index
+    ## Class for converting Blacklight url parameters to request parameters for the search index
     # config.search_builder_class = ::SearchBuilder
     #
     ## Model that maps search index responses to the blacklight response model
@@ -31,18 +31,19 @@ class CatalogController < ApplicationController
     ## Should the raw solr document endpoint (e.g. /catalog/:id/raw) be enabled
     # config.raw_endpoint.enabled = false
 
-    ## Default parameters to send to solr for all search-like requests. See also SearchBuilder#processed_parameters
+    ## Default parameters to send to solr for all search-like requests.
+    ## See also SearchBuilder#processed_parameters
     config.default_solr_params = {
       qt: 'catalog-search',
       rows: 10,
     }
 
     # solr path which will be added to solr base url before the other solr params.
-    #config.solr_path = 'select'
-    #config.document_solr_path = 'get'
+    # config.solr_path = 'select'
+    # config.document_solr_path = 'get'
 
     # items to show per page, each number in the array represent another option to choose from.
-    config.per_page = [10,20,50,100]
+    config.per_page = [10, 20, 50, 100]
     config.default_per_page = 50
     config.max_per_page = 100
 
@@ -53,22 +54,27 @@ class CatalogController < ApplicationController
     # solr field configuration
     config.index.title_field = 'full_title'
     config.index.display_type_field = 'material_type'
-    #config.index.thumbnail_field = 'thumbnail_path_ss'
+    # config.index.thumbnail_field = 'thumbnail_path_ss'
 
-    config.add_results_document_tool(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
+    config.add_results_document_tool(:bookmark, partial: 'bookmark_control',
+                                                if: :render_bookmarks_control?)
 
     config.add_results_collection_tool(:sort_widget)
     # config.add_results_collection_tool(:per_page_widget)
     config.add_results_collection_tool(:view_type_group)
 
-    config.add_show_tools_partial(:bookmark, partial: 'bookmark_control', if: :render_bookmarks_control?)
-    config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
-    config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
+    config.add_show_tools_partial(:bookmark, partial: 'bookmark_control',
+                                             if: :render_bookmarks_control?)
+    config.add_show_tools_partial(:email, callback: :email_action,
+                                          validator: :validate_email_params)
+    config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action,
+                                        validator: :validate_sms_params)
     config.add_show_tools_partial(:citation)
     config.show.document_actions.delete(:sms)
     config.show.document_actions.delete(:email)
 
-    config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
+    config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark',
+                                     if: :render_bookmarks_control?)
     config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
 
     #######################################
@@ -78,7 +84,7 @@ class CatalogController < ApplicationController
     # solr field configuration for document/show views
     config.show.title_field = 'full_title'
     config.show.display_type_field = 'resource_type'
-    #config.show.thumbnail_field = 'thumbnail_path_ss'
+    # config.show.thumbnail_field = 'thumbnail_path_ss'
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
@@ -100,33 +106,44 @@ class CatalogController < ApplicationController
     # :show may be set to false if you don't want the facet to be drawn in the
     # facet bar
     #
-    # set :index_range to true if you want the facet pagination view to have facet prefix-based navigation
-    #  (useful when user clicks "more" on a large facet and wants to navigate alphabetically across a large set of results)
-    # :index_range can be an array or range of prefixes that will be used to create the navigation (note: It is case sensitive when searching values)
+    # set :index_range to true if you want the facet pagination view to have facet prefix-based
+    # navigation (useful when user clicks "more" on a large facet and wants to navigate
+    # alphabetically across a large set of results) :index_range can be an array or range of
+    # prefixes that will be used to create the navigation (note: It is case sensitive
+    # when searching values)
     #
     # set `home` to true for it to appear on the home screen facets list. Default is false.
-    # set `home_collapse` to true for it to collapse on the home page, false to expand it. Default is true.
+    # set `home_collapse` true to collapse on the home page, false to expand it. Default is true
 
-    config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false, sort: 'index'
+    config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false,
+                                           sort: 'index'
     config.add_facet_field 'resource_type_facet', label: 'Resource Type', home: true, sort: 'index'
-    config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false, sort: 'index'
+    config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false,
+                                               sort: 'index'
     config.add_facet_field 'building_facet', label: 'Building Location', limit: false, sort: 'index'
     config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10, sort: 'index'
 
-    config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, sort: 'index', helper_method: :get_date_facet_display
-    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index', helper_method: :get_date_facet_display
+    config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, sort: 'index',
+                                                     helper_method: :get_date_facet_display
+    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index',
+                                                       helper_method: :get_date_facet_display
 
     config.add_facet_field 'languages', label: 'Language', limit: 10
 
     # config.add_facet_field 'publication_dates_facet', label: 'Year of Publication'
-    config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10,
+                                                  index_range: 'A'..'Z'
     config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z'
     config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'meetings_facet', label: 'Meeting or Event', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'meetings_facet', label: 'Meeting or Event', limit: 10,
+                                             index_range: 'A'..'Z'
     config.add_facet_field 'public_genre_facet', label: 'Genre', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'public_subject_facet', label: 'Subject - Topic', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'geographic_terms_facet', label: 'Subject - Region', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'era_terms_facet', label: 'Subject - Era', limit: 10, index_range: 'A'..'Z'
+    config.add_facet_field 'public_subject_facet', label: 'Subject - Topic', limit: 10,
+                                                   index_range: 'A'..'Z'
+    config.add_facet_field 'geographic_terms_facet', label: 'Subject - Region', limit: 10,
+                                                     index_range: 'A'..'Z'
+    config.add_facet_field 'era_terms_facet', label: 'Subject - Era', limit: 10,
+                                              index_range: 'A'..'Z'
 
     config.add_facet_field 'game_duration_facet_field', label: 'Games - Duration', :query => {
       :duration_1 => { label: 'less than 30 minutes', fq: "game_facet:d1t29" },
@@ -134,12 +151,14 @@ class CatalogController < ApplicationController
       :duration_60 => { label: '1 to 2 hours', fq: "game_facet:d60t120" },
       :duration_120 => { label: 'more than 2 hours', fq: "game_facet:d120t500" },
     }
-    config.add_facet_field 'game_players_facet_field', label: 'Games - Number of Players', :query => {
-      :players_1 => { label: '1 player', fq: "game_facet:p1" },
-      :players_2 => { label: '2 to 4 players', fq: "game_facet:p2t4" },
-      :players_4 => { label: '5 to 8 players', fq: "game_facet:p4t8" },
-      :players_8 => { label: 'more than 8 players', fq: "game_facet:p9t99" },
-    }
+    config.add_facet_field 'game_players_facet_field',
+                           label: 'Games - Number of Players',
+                           :query => {
+                             :players_1 => { label: '1 player', fq: "game_facet:p1" },
+                             :players_2 => { label: '2 to 4 players', fq: "game_facet:p2t4" },
+                             :players_4 => { label: '5 to 8 players', fq: "game_facet:p4t8" },
+                             :players_8 => { label: 'more than 8 players', fq: "game_facet:p9t99" },
+                           }
     config.add_facet_field 'game_age_facet_field', label: 'Games - Recommended Age', :query => {
       :age_1 => { label: '1 to 4 years', fq: "game_facet:a1t4" },
       :age_5 => { label: '5 to 9 years', fq: "game_facet:a5t9" },
@@ -159,21 +178,38 @@ class CatalogController < ApplicationController
     config.add_index_field 'creator', label: 'Author/Creator', if: false
     config.add_index_field 'contributors', label: 'Contributors', if: false
 
-    # config.add_index_field 'material_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
-    config.add_index_field 'resource_type', label: 'Resource Type', no_label: true, display: :resource_type, accessor: 'resource_type_name'
+    config.add_index_field 'resource_type', label: 'Resource Type', no_label: true,
+                                            display: :resource_type, accessor: 'resource_type_name'
 
     # Publication-related statements
-    config.add_index_field 'publication_display', label: 'Publication', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
-    config.add_index_field 'distribution_display', label: 'Distribution', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the distribution of the resource.'
-    config.add_index_field 'manufacture_display', label: 'Printing', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
-    config.add_index_field 'creation_display', label: 'Creation', no_label: true, display: :pub_statements, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
+    config.add_index_field 'publication_display',
+                           label: 'Publication', no_label: true, display: :pub_statements,
+                           tooltip: 'Statement(s) about the publication, release, or '\
+                             'issuing of the resource.'
+    config.add_index_field 'distribution_display',
+                           label: 'Distribution', no_label: true, display: :pub_statements,
+                           tooltip: 'Statement(s) about the distribution of the resource.'
+    config.add_index_field 'manufacture_display',
+                           label: 'Printing', no_label: true, display: :pub_statements,
+                           tooltip: 'Statement(s) about the printing, casting, or '\
+                             'manufacture of the published resource.'
+    config.add_index_field 'creation_display',
+                           label: 'Creation', no_label: true, display: :pub_statements,
+                           tooltip: 'Statement(s) about the creation or making of the original, '\
+                             'unpublished version of the resource.'
 
     config.add_index_field 'physical_characteristics', no_label: true
 
     # config.add_index_field 'languages', label: 'Languages'
-    config.add_index_field 'publishers', label: 'Publisher', separator_options: { words_connector: '; ' }, no_label: true
-    config.add_index_field 'publication_places', label: 'Publication Place', separator_options: { words_connector: '; ' }, no_label: true
-    config.add_index_field 'publication_dates', label: 'Publication Date', separator_options: { words_connector: '; ' }, no_label: true
+    config.add_index_field 'publishers', label: 'Publisher',
+                                         separator_options: { words_connector: '; ' },
+                                         no_label: true
+    config.add_index_field 'publication_places', label: 'Publication Place',
+                                                 separator_options: { words_connector: '; ' },
+                                                 no_label: true
+    config.add_index_field 'publication_dates', label: 'Publication Date',
+                                                separator_options: { words_connector: '; ' },
+                                                no_label: true
     config.add_index_field 'main_call_number', label: 'Call number', if: false
     config.add_index_field 'items_json', label: 'Items', display: :availability
     config.add_index_field 'has_more_items', if: false
@@ -182,21 +218,37 @@ class CatalogController < ApplicationController
     # The ordering of the field names is the order of the display
     # The :display property controls where in the template the field appears
 
-    config.add_show_field 'resource_type', label: 'Resource Type', no_label: true, display: :priority, accessor: 'resource_type_name'
+    config.add_show_field 'resource_type', label: 'Resource Type', no_label: true,
+                                           display: :priority, accessor: 'resource_type_name'
 
     # Publication-related statements
-    config.add_show_field 'creation_display', label: 'Creation', display: :priority, tooltip: 'Statement(s) about the creation or making of the original, unpublished version of the resource.'
-    config.add_show_field 'publication_display', label: 'Publication', display: :priority, tooltip: 'Statement(s) about the publication, release, or issuing of the resource.'
-    config.add_show_field 'distribution_display', label: 'Distribution', display: :priority, tooltip: 'Statement(s) about the distribution of the resource.'
-    config.add_show_field 'manufacture_display', label: 'Printing', display: :priority, tooltip: 'Statement(s) about the printing, casting, or manufacture of the published resource.'
-    config.add_show_field 'copyright_display', label: 'Copyright', display: :priority, tooltip: 'Date that the resource was copyrighted.'
+    config.add_show_field 'creation_display',
+                          label: 'Creation', display: :priority,
+                          tooltip: 'Statement(s) about the creation or making of the original, '\
+                            'unpublished version of the resource.'
+    config.add_show_field 'publication_display',
+                          label: 'Publication', display: :priority,
+                          tooltip: 'Statement(s) about the publication, release, or issuing of '\
+                            'the resource.'
+    config.add_show_field 'distribution_display',
+                          label: 'Distribution', display: :priority,
+                          tooltip: 'Statement(s) about the distribution of the resource.'
+    config.add_show_field 'manufacture_display',
+                          label: 'Printing', display: :priority,
+                          tooltip: 'Statement(s) about the printing, casting, or manufacture of '\
+                            'the published resource.'
+    config.add_show_field 'copyright_display',
+                          label: 'Copyright', display: :priority,
+                          tooltip: 'Date that the resource was copyrighted.'
     # Language Field
-    config.add_show_field 'languages', label: 'Languages', display: :priority, link_to_facet: 'languages'
+    config.add_show_field 'languages', label: 'Languages', display: :priority,
+                                       link_to_facet: 'languages'
     # Physical Fields
     config.add_show_field 'physical_characteristics', label: 'Physical Description'
 
     # Links and media
-    config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls, display: :links_media
+    config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls,
+                                       display: :links_media
 
     # Availability
     config.add_show_field 'items_json', label: 'Items', display: :availability
@@ -207,17 +259,22 @@ class CatalogController < ApplicationController
     config.add_show_field 'summary_notes', label: 'Summary'
 
     config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet'
-    config.add_show_field 'contributors', label: 'Contributors', link_to_facet: 'public_author_facet'
-    config.add_show_field 'series_creators', label: 'Series Creators', link_to_facet: 'public_author_facet'
+    config.add_show_field 'contributors', label: 'Contributors',
+                                          link_to_facet: 'public_author_facet'
+    config.add_show_field 'series_creators', label: 'Series Creators',
+                                             link_to_facet: 'public_author_facet'
 
     # Title Fields
-    config.add_show_field 'uniform_title', label: 'Uniform Title', link_to_facet: 'public_title_facet'
+    config.add_show_field 'uniform_title', label: 'Uniform Title',
+                                           link_to_facet: 'public_title_facet'
     config.add_show_field 'alternate_titles', label: 'Alternate Titles'
     config.add_show_field 'series', label: 'Series', link_to_facet: 'public_series_facet'
-    config.add_show_field 'related_titles', label: 'Related Titles', link_to_facet: 'public_title_facet'
+    config.add_show_field 'related_titles', label: 'Related Titles',
+                                            link_to_facet: 'public_title_facet'
 
     # Subject Search Fields
-    config.add_show_field 'full_subjects', label: 'Subjects', helper_method: "link_to_subject_search"
+    config.add_show_field 'full_subjects', label: 'Subjects',
+                                           helper_method: "link_to_subject_search"
 
     # Call Number Fields
     config.add_show_field 'loc_call_numbers', label: 'LC Call Numbers'
