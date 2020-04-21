@@ -50,10 +50,9 @@ describe 'Home page' do
 
     it 'contains correct facets' do
       within('#facets') do
-        expect(page).to have_css('.blacklight-access', :text => 'Online Access')
-        expect(page).to have_css('.blacklight-bib_location_codes', :text => 'Library Location')
-        expect(page).to have_css('.blacklight-material_type', :text => 'Format')
-        expect(page).to have_css('.blacklight-languages', :text => 'Language')
+        expect(page).to have_css('.blacklight-access_facet', :text => 'Access')
+        expect(page).to have_css('.blacklight-resource_type_facet', :text => 'Resource Type')
+        expect(page).to have_css('.blacklight-collection_facet', :text => 'Collection')
       end
     end
 
@@ -73,7 +72,7 @@ describe 'Home page' do
 
     it 'have labels' do
       within('#facets') do
-        expect(page).to have_css('.facet-label', :text => 'Online Copy Available')
+        expect(page).to have_css('.facet-label', :text => 'Online')
       end
     end
 
