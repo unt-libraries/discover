@@ -58,6 +58,7 @@ describe 'Home page' do
 
     it 'does not contain all facets' do
       within('#facets') do
+        expect(page).to have_css('.facet-limit', :minimum => 1)
         expect(page).to have_css('.facet-limit', :maximum => 5)
       end
     end

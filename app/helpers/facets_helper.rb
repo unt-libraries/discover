@@ -10,8 +10,9 @@ module FacetsHelper
   # @param [Array<String>] fields
   # @param [Hash] options
   # @return String
-  def render_home_facet_partials(fields = facet_field_names, options = {}) # rubocop:disable Airbnb/OptArgParameters
-    safe_join(facets_from_request(fields).map do |display_facet|
+  def render_home_facet_partials(fields = nil, options = {}) # rubocop:disable Airbnb/OptArgParameters
+    response = options.delete(:response)
+    safe_join(facets_from_request(fields, response).map do |display_facet|
       render_home_facet_limit(display_facet, options)
     end.compact, "\n")
   end

@@ -2,7 +2,7 @@
 <%# default partial to display solr document fields in catalog show view -%>
 
 <%# render fields with :priority display property %>
-<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :priority && should_render_show_field?(document, f) } -%>
+<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :priority } -%>
   <dl class="dl-invert document-metadata">
     <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field, field_presenter| -%>
       <div class="row result__field">
@@ -18,10 +18,8 @@
 <% end %>
 
 <%# render fields with :links_media display property %>
-<%# TODO: should_render_field? is soon to be deprecated, but the recommended method is private as of 7.0.2 %>
-<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :links_media && should_render_show_field?(document, f) } -%>
+<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :links_media } -%>
   <h3>Links & Media</h3>
-  <%# TODO: should_render_field? is soon to be deprecated, but the recommended method is private as of 7.0.2 %>
   <div class="document-metadata mb-3">
     <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :links_media }.each do |field_name, field, field_presenter| -%>
       <div class="row result__field">
