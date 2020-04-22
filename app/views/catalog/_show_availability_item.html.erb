@@ -1,25 +1,26 @@
-<div class="row item-row"
+<% hidden ||= false %>
+<tr class="item-row <%= "more-max d-none" if hidden == true %>"
      <%= item['i'].blank? ? "data-no-api-request" : "data-item-id=#{item['i']}" %>
      data-item-call-number="<%= item['c'] %>"
      data-item-location="<%= item['l'] %>"
      data-item-barcode="<%= item['b'] %>"
      data-item-notes="<%= item['n'] %>"
      data-item-requestability="<%= item['r'] %>">
-  <div class="col blacklight-location result__value" data-item-location="<%= item['l'] %>"></div>
-  <div class="col blacklight-call-number result__value"data-item-call-number="<%= item['c'] %>"><%= item['c'] %></div>
-  <div class="col blacklight-availability result__value"><%= item['i'] ? "Checking availability" : "Unavailable" %></div>
-  <div class="col blacklight-request result__value d-none" data-item-requestability="<%= item['r'] %>">
+  <td class="blacklight-location result__value" data-item-location="<%= item['l'] %>"></td>
+  <td class="blacklight-call-number result__value"data-item-call-number="<%= item['c'] %>"><%= item['c'] %></td>
+  <td class="blacklight-availability result__value"><%= item['i'] ? "Checking availability" : "Unavailable" %></td>
+  <td class="blacklight-request result__value d-none" data-item-requestability="<%= item['r'] %>">
     <% unless item['r'].blank? %>
       <%= link_to_request_item document, item: item %>
     <% end %>
-  </div>
+  </td>
   <% if items_have_notes?(items) %>
-    <div class="col blacklight-notes result__value">
+    <td class="blacklight-notes result__value">
       <% unless item['n'].blank? %>
         <% item['n'].each do |note| %>
           <%= note %><br>
         <% end %>
       <% end %>
-    </div>
+    </td>
   <% end %>
-</div>
+</tr>

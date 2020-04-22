@@ -54,6 +54,12 @@ module AvailabilityHelper
                 { class: 'blacklight-notes result__value text-center' })
   end
 
+  def all_items(items:, more_items: nil)
+    # json_str_to_array(more_items).to_s
+    more_items ||= []
+    items + more_items
+  end
+
   def render_more_available(document, counter)
     if document[:has_more_items]
       avail_context_href = document_availability_context_href(document, counter)

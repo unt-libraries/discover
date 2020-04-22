@@ -155,12 +155,14 @@ function bindRevealMoreFields() {
 
   moreLinks.forEach((el) => {
     el.addEventListener('click', () => {
-      const elParent = el.parentNode;
-      const moreMin = elParent.querySelector('.more-min');
-      const moreMax = elParent.querySelector('.more-max');
+      const moreScope = el.closest('[data-more-scope]');
+      const moreMin = moreScope.querySelector('.more-min');
+      const moreMax = moreScope.querySelectorAll('.more-max');
       elAddClass(el, 'd-none');
       elAddClass(moreMin, 'd-none');
-      elRemoveClass(moreMax, 'd-none');
+      moreMax.forEach((thisEl) => {
+        elRemoveClass(thisEl, 'd-none');
+      });
     });
   });
 }

@@ -6,27 +6,32 @@
 %>
 <div id="show-availability" class="card item-availability">
   <div class="card-header">Availability</div>
-  <span class="card-body">
-    <div class="row">
-      <div class="col blacklight-location result__label">Location</div>
-      <div class="col blacklight-call-number result__label">Call Number</div>
-      <div class="col blacklight-availability result__label">Availability</div>
-      <div class="col blacklight-request result__label d-none">Request</div>
-      <% if items_have_notes?(items) %>
-        <div class="col blacklight-notes result__label">Notes</div>
+  <div class="card-body">
+    <table class="table table-borderless">
+      <thead>
+      <tr>
+        <th scope="col" class="blacklight-location result__label">Location</th>
+        <th scope="col" class="blacklight-call-number result__label">Call Number</th>
+        <th scope="col" class="blacklight-availability result__label">Availability</th>
+        <th scope="col" class="blacklight-request result__label d-none">Request</th>
+        <% if items_have_notes?(items) %>
+          <th scope="col" class="blacklight-notes result__label">Notes</th>
+        <% end %>
+      </tr>
+      </thead>
+      <tbody data-more-scope>
+      <% items.each do |item| %>
+        <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item} %>
       <% end %>
-    </div>
-    <% items.each do |item| %>
-      <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item} %>
-    <% end %>
-    <% if more_items %>
-      <span class="more-min"></span>
-      <a href="#" onclick="return false" class="reveal-more">more...</a>
-      <span class="more-max d-none">
-      <% more_items.each do |item| %>
-        <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item} %>
+      <% if more_items %>
+        <tr class="more-min">
+          <td><a href="#" onclick="return false" class="reveal-more">more...</a></td>
+        </tr>
+        <% more_items.each do |item| %>
+          <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item, hidden: true} %>
+        <% end %>
       <% end %>
-      </span>
-    <% end %>
-  </span>
+      </tbody>
+    </table>
+  </div>
 </div>

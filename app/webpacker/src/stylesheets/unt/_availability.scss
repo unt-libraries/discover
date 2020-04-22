@@ -105,3 +105,14 @@
     }
   }
 }
+
+// Availability on show template
+#show-availability {
+  .result__label {
+    display: table-cell;
+  }
+
+  .result__value {
+    display: table-cell;
+  }
+}
