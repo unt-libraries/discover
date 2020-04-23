@@ -108,11 +108,22 @@
 
 // Availability on show template
 #show-availability {
-  .result__label {
-    display: table-cell;
-  }
+  table {
+    margin-top: 0;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
 
-  .result__value {
-    display: table-cell;
+    th {
+      display: table-cell;
+      padding-top: 0;
+      padding-bottom: 0.5rem;
+    }
+
+    td {
+      display: table-cell;
+      padding-top: 0;
+      padding-bottom: 0.5rem;
+      padding-right: 0;
+    }
   }
 }
