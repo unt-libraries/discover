@@ -48,10 +48,17 @@ module AvailabilityHelper
                 })
   end
 
-  def render_notes(item)
-    return if item['n'].blank?
-    content_tag(:span, "See full record for additional info.",
-                { class: 'blacklight-notes result__value text-center' })
+  def render_notes(items)
+    notes = nil
+    items.each do |item|
+      if item['n'].present?
+        notes = true
+      end
+    end
+    if notes.present?
+      content_tag(:span, "See full record for additional info.",
+                  { class: 'blacklight-notes result__value text-center' })
+    end
   end
 
   def all_items(items:, more_items: nil)
