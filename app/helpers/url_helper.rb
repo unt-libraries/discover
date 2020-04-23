@@ -30,7 +30,7 @@ module UrlHelper
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Add #{content_tag(:span,
                               document[:full_title], class: 'sr-only')} to Refworks".html_safe
-    link_to text, url, class: "", target: "_blank", rel: 'noopener'
+    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener'
   end
 
   def link_to_request_illiad(document)
@@ -38,7 +38,7 @@ module UrlHelper
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')}" \
       "through ILLiad".html_safe
-    link_to text, url, class: "", target: "_blank", rel: 'noopener'
+    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener'
   end
 
   def link_to_request_item(document, item: nil)

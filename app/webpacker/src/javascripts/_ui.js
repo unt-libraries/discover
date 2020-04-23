@@ -150,20 +150,30 @@ function initPopovers() {
  * Finds buttons with class `.reveal-more` and binds click event to hide
  * sibling `.more-min` and reveal `.more-max`
  */
-function bindRevealMoreFields() {
-  const moreLinks = document.querySelectorAll('.reveal-more');
+function bindShowAvailMoreField() {
+  const moreScope = document.querySelector('[data-more-scope]');
+  const moreLink = moreScope.querySelector('.reveal-more');
+  const lessLink = moreScope.querySelector('.reveal-less');
+  const moreMax = moreScope.querySelectorAll('.more-max');
 
-  moreLinks.forEach((el) => {
-    el.addEventListener('click', () => {
-      const moreScope = el.closest('[data-more-scope]');
-      const moreMin = moreScope.querySelector('.more-min');
-      const moreMax = moreScope.querySelectorAll('.more-max');
-      elAddClass(el, 'd-none');
-      elAddClass(moreMin, 'd-none');
-      moreMax.forEach((thisEl) => {
-        elRemoveClass(thisEl, 'd-none');
-      });
+  moreLink.addEventListener('click', () => {
+    moreMax.forEach((thisEl) => {
+      elRemoveClass(thisEl, 'd-none');
     });
+    elAddClass(moreLink, 'd-none');
+    elRemoveClass(lessLink, 'd-none');
+    moreScope.removeAttribute('data-showing-less');
+    moreScope.setAttribute('data-showing-more', 'true');
+  });
+
+  lessLink.addEventListener('click', () => {
+    moreMax.forEach((thisEl) => {
+      elAddClass(thisEl, 'd-none');
+    });
+    elAddClass(lessLink, 'd-none');
+    elRemoveClass(moreLink, 'd-none');
+    moreScope.removeAttribute('data-showing-more');
+    moreScope.setAttribute('data-showing-less', 'true');
   });
 }
 
@@ -171,5 +181,5 @@ export {
   replaceBookCovers,
   initTooltips,
   initPopovers,
-  bindRevealMoreFields,
+  bindShowAvailMoreField,
 };

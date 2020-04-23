@@ -16,5 +16,4 @@ Blacklight.onLoad(() => {
   ui.replaceBookCovers();
   ui.initTooltips();
   ui.initPopovers();
-  ui.bindRevealMoreFields();
 });

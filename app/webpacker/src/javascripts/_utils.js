@@ -47,6 +47,17 @@ export function elRemoveClass(el, ...classNames) {
 }
 
 /**
+ * Toggle classes on a given element
+ * @param {HTMLElement|Element} el
+ * @param {...string} classNames
+ */
+export function elToggleClass(el, ...classNames) {
+  classNames.forEach((className) => {
+    el.classList.toggle(className);
+  });
+}
+
+/**
  * Removes all child elements of the given node
  * @param {HTMLElement|Element} node
  */

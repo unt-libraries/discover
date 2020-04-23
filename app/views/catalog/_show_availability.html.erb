@@ -19,17 +19,26 @@
         <% end %>
       </tr>
       </thead>
-      <tbody data-more-scope>
+      <tbody data-more-scope data-showing-less>
       <% items.each do |item| %>
         <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item} %>
       <% end %>
       <% if more_items %>
-        <tr class="more-min">
-          <td><a href="#" onclick="return false" class="reveal-more">more...</a></td>
-        </tr>
         <% more_items.each do |item| %>
           <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item, hidden: true} %>
         <% end %>
+        <tr>
+          <td colspan="5" class="more-less text-center pb-0">
+            <a href="#" onclick="return false" class="reveal-more">
+              <span class="more-text">View more</span><br>
+              <i class="far fa-chevron-down more-icon"></i>
+            </a>
+            <a href="#" onclick="return false" class="reveal-less d-none">
+              <i class="far fa-chevron-up more-icon"></i><br>
+              <span class="less-text">View less</span>
+            </a>
+          </td>
+        </tr>
       <% end %>
       </tbody>
     </table>
