@@ -1,5 +1,4 @@
-<% hidden ||= false %>
-<tr class="item-row <%= "more-max d-none" if hidden == true %>"
+<tr class="item-row"
      <%= item['i'].blank? ? "data-no-api-request" : "data-item-id=#{item['i']}" %>
      data-item-call-number="<%= item['c'] %>"
      data-item-location="<%= item['l'] %>"
