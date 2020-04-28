@@ -10,6 +10,46 @@ module AvailabilityHelper
                             { :counter => counter })[:data][:"context-href"]}#show-availability"
   end
 
+  def document_online_urls(document)
+    if document[:urls_json].present?
+      json = document[:urls_json].map { |item| JSON.parse(item) }
+      urls = json.select { |item| item['t'] === 'fulltext' }
+      return urls unless urls.empty?
+    end
+    false
+  end
+
+  def render_online_button(document, counter)
+    online_items = document_online_urls(document)
+    online_count = online_items.length
+    if online_count > 1
+      context_href = document_availability_context_href(document, counter)
+      url = document_availability_href(document)
+      link_text = "#{online_count} Available Online"
+    else
+      context_href = online_items[0]['u']
+      url = online_items[0]['u']
+      window_target = '_blank'
+      link_text = 'FIND IT Online'
+    end
+
+    link_to url, class: "availability-btn online", target: window_target,
+                 data: { "context-href": context_href } do
+      link_text
+    end
+  end
+
+  def render_online_text(document)
+    online_items = document_online_urls(document)
+    online_count = online_items.length
+    return unless online_count === 1
+    online_item = online_items[0]
+    if online_item['n'].present?
+      element_text = online_item['n']
+      content_tag(:div, element_text)
+    end
+  end
+
   def render_item_button(document, counter, item)
     avail_context_href = document_availability_context_href(document, counter)
     avail_url = document_availability_href(document)

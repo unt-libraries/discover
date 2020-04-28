@@ -41,8 +41,10 @@ function updateIndexStatusElement(itemEl, item = null) {
     const statusDisplay = statusData.label;
 
     if (isOnlineItem) {
-      const callNumberEl = itemEl.querySelector('.blacklight-call-number.result__value');
-      elRemoveClass(callNumberEl, 'd-none');
+      elAddClass(availabilityEl, 'd-none');
+      return;
+      // const callNumberEl = itemEl.querySelector('.blacklight-call-number.result__value');
+      // elRemoveClass(callNumberEl, 'd-none');
     }
 
     if (statusBtnClass) {

@@ -3,8 +3,19 @@
    counter = document_counter_with_offset(document_counter)%>
 
 <div class="item-availability d-flex flex-column">
+  <% if document_online_urls document %>
+    <div class="result__field d-flex flex-column"
+         data-item-id=""
+         data-item-location>
+      <span class="blacklight-availability result__value flex-column text-center">
+        <%= render_online_button(document, counter) %>
+        <%= render_online_text(document) %>
+      </span>
+    </div>
+  <% end %>
+
   <% items.each do |item| %>
-    <div class="result__field new d-flex flex-column"
+    <div class="result__field d-flex flex-column"
          <%= item['i'].blank? ? "data-no-api-request" : "data-item-id=#{item['i']}" %>
          data-item-call-number="<%= item['c'] %>"
          data-item-location="<%= item['l'] %>"
