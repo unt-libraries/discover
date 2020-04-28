@@ -155,6 +155,7 @@ function bindShowAvailMoreField() {
   const moreLink = moreScope.querySelector('.reveal-more');
   const lessLink = moreScope.querySelector('.reveal-less');
   const moreMax = moreScope.querySelectorAll('.more-max');
+  if (moreLink === null) return;
 
   moreLink.addEventListener('click', () => {
     moreMax.forEach((thisEl) => {
