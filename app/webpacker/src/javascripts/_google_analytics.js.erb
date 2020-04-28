@@ -17,7 +17,7 @@ export default function () {
   ga('require', 'outboundLinkTracker', {
     fieldsObj: {
       "eventCategory": "link - content - external",
-      "eventAction": "{{ include.page_type | default: include.page_url }}"
+      "eventAction": `${window.location.pathname}${window.location.search}`,
     }
   });
   ga('set', 'anonymizeIp', true);
