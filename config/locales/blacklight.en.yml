@@ -3,6 +3,16 @@ en:
     featured:
       title: 'Other Library Resources'
       items:
+      - title: 'Course Reserves'
+        summary: "Materials held for faculty members as required or recommended reading for their courses."
+        link_url: 'https://library.unt.edu/services/course-reserves/'
+        img_src: 'media/images/home/featured-course-reserves.jpg'
+        img_alt: 'Employee sorting boxes of archived materials'
+      - title: 'Databases'
+        summary: "Find the best library databases for your research."
+        link_url: 'https://guides.library.unt.edu/az.php'
+        img_src: 'media/images/home/featured-databases.jpg'
+        img_alt: 'Student working at a computer'
       - title: 'UNT Digital Library'
         summary: "Home to materials from UNT's research, creative, and scholarly activities."
         link_url: 'https://digital.library.unt.edu/'
@@ -18,16 +28,6 @@ en:
         link_url: 'https://digital.library.unt.edu/explore/collections/UNTETD/'
         img_src: 'media/images/home/featured-theses-dissertations.jpg'
         img_alt: 'Woman on stage at UNT graduation ceremony'
-      - title: 'Course Reserves'
-        summary: "Materials held for faculty members as required or recommended reading for their courses."
-        link_url: 'https://library.unt.edu/services/course-reserves/'
-        img_src: 'media/images/home/featured-course-reserves.jpg'
-        img_alt: 'Employee sorting boxes of archived materials'
-      - title: 'Databases'
-        summary: "Find the best library databases for your research."
-        link_url: 'https://guides.library.unt.edu/az.php'
-        img_src: 'media/images/home/featured-databases.jpg'
-        img_alt: 'Student working at a computer'
       - title: 'Archival Collections'
         summary: "Search finding aids for archival holdings within the UNT Libraries."
         link_url: 'https://findingaids.library.unt.edu/'
