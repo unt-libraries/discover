@@ -85,14 +85,14 @@
         <div class="drawer__divider"></div>
 
         <nav class="nav justify-content-center py-4">
-          <% Rails.configuration.x.site['social'].each do |item| %>
+          <% t('social').select { |item| item[:name] != 'rss' }.each do |item| %>
           <a class="nav-item nav-link nav-link--social"
              data-event-category="link - drawer"
              data-event-action="social"
-             data-event-label="<%= item['url'] %><%= item['id'] %>"
-             aria-label="<%= item['url'] %><%= item['id'] %>"
-             href="<%= item['url'] %><%= item['id'] %>/">
-            <i class="fab fa-<%= item['icon'] %> fa-lg"></i>
+             data-event-label="<%= item[:url] %><%= item[:id] %>"
+             aria-label="<%= item[:label] %>"
+             href="<%= item[:url] %><%= item[:id] %>">
+            <i class="<%= item[:icon] %> fa-lg"></i>
           </a>
           <% end %>
         </nav>

@@ -127,10 +127,10 @@ module UrlHelper
   end
 
   def feedback_issue_url
-    gitlab = Rails.configuration.x.site['gitlab']
-    host = gitlab['url']
-    path = "#{gitlab['project_path']}#{gitlab['issues_path']}"
-    endpoint = "#{path}#{gitlab['new_endpoint']}"
+    gitlab = t('gitlab')
+    host = gitlab[:url]
+    path = "#{gitlab[:project_path]}#{gitlab[:issues_path]}"
+    endpoint = "#{path}#{gitlab[:new_endpoint]}"
 
     query_hash = {
       'issue[title]': 'Site feedback',

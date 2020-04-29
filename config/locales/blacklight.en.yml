@@ -1,4 +1,38 @@
 en:
+  home:
+    featured:
+      title: 'Other Library Resources'
+      items:
+      - title: 'UNT Digital Library'
+        summary: "Home to materials from UNT's research, creative, and scholarly activities."
+        link_url: 'https://digital.library.unt.edu/'
+        img_src: 'media/images/home/featured-digital-library.jpg'
+        img_alt: 'Silhouettes of people holding hands in the air'
+      - title: 'Portal to Texas History'
+        summary: "A gateway to rare, historical, and primary source materials from or about Texas."
+        link_url: 'https://texashistory.unt.edu/'
+        img_src: 'media/images/home/featured-pth.jpg'
+        img_alt: 'Person riding a bucking horse'
+      - title: 'Theses and Dissertations'
+        summary: "A wealth of scholarly and artistic content created by masters and doctoral students in the degree-seeking process."
+        link_url: 'https://digital.library.unt.edu/explore/collections/UNTETD/'
+        img_src: 'media/images/home/featured-theses-dissertations.jpg'
+        img_alt: 'Woman on stage at UNT graduation ceremony'
+      - title: 'Course Reserves'
+        summary: "Materials held for faculty members as required or recommended reading for their courses."
+        link_url: 'https://library.unt.edu/services/course-reserves/'
+        img_src: 'media/images/home/featured-course-reserves.jpg'
+        img_alt: 'Employee sorting boxes of archived materials'
+      - title: 'Databases'
+        summary: "Find the best library databases for your research."
+        link_url: 'https://guides.library.unt.edu/az.php'
+        img_src: 'media/images/home/featured-databases.jpg'
+        img_alt: 'Student working at a computer'
+      - title: 'Archival Collections'
+        summary: "Search finding aids for archival holdings within the UNT Libraries."
+        link_url: 'https://findingaids.library.unt.edu/'
+        img_src: 'media/images/home/featured-archival-collections.jpg'
+        img_alt: 'Spines of books on a shelf'
   views:
     pagination:
       first: '&laquo; First'
@@ -54,3 +88,42 @@ en:
         search_everything: "try searching everything"
         search_bento_box: "Or search more "
         bento_box_link: "UNT online resources"
+  urls:
+    home: "https://library.unt.edu"
+    gitlab_repo: "https://content.library.unt.edu/discover/discover"
+  gitlab:
+    url: "content.library.unt.edu"
+    project_path: "/discover/discover"
+    issues_path: "/issues"
+    new_endpoint: "/new"
+  social:
+    - name: facebook
+      url: "https://www.facebook.com/"
+      id: "unt.libraries"
+      label: "The UNT Libraries are on Facebook"
+      icon: "fab fa-facebook-f"
+    - name: twitter
+      url: "https://twitter.com/"
+      id: "unt_libraries"
+      label: "Follow the UNT Libraries on Twitter"
+      icon: "fab fa-twitter"
+    - name: instagram
+      url: "https://www.instagram.com/"
+      id: "unt_libraries"
+      label: "UNT Libraries on Instagram"
+      icon: "fab fa-instagram"
+    - name: github
+      url: "https://github.com/"
+      id: "unt-libraries"
+      label: "UNT Libraries on Github"
+      icon: "fab fa-github-alt"
+    - name: youtube
+      url: "https://www.youtube.com/channel/"
+      id: "UCcbS9fXWKE1SpUTpl1sNB6Q"
+      label: "UNT Libraries Youtube Channel"
+      icon: "fab fa-youtube"
+    - name: rss
+      url: "https://library.unt.edu/news/rss/"
+      id: ""
+      label: "UNT Libraries News RSS feed"
+      icon: "fas fa-rss fw"
