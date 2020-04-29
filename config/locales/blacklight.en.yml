@@ -5,7 +5,7 @@ en:
       items:
       - title: 'Course Reserves'
         summary: "Materials held for faculty members as required or recommended reading for their courses."
-        link_url: 'https://library.unt.edu/services/course-reserves/'
+        link_url: 'https://iii.library.unt.edu/search/r'
         img_src: 'media/images/home/featured-course-reserves.jpg'
         img_alt: 'Employee sorting boxes of archived materials'
       - title: 'Databases'
