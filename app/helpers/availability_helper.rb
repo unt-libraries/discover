@@ -13,7 +13,7 @@ module AvailabilityHelper
   def document_online_urls(document)
     if document[:urls_json].present?
       json = document[:urls_json].map { |item| JSON.parse(item) }
-      urls = json.select { |item| item['t'] === 'fulltext' }
+      urls = json.select { |item| item['t'] == 'fulltext' }
       return urls unless urls.empty?
     end
     false
@@ -42,7 +42,7 @@ module AvailabilityHelper
   def render_online_text(document)
     online_items = document_online_urls(document)
     online_count = online_items.length
-    return unless online_count === 1
+    return unless online_count == 1
     online_item = online_items[0]
     if online_item['n'].present?
       element_text = online_item['n']

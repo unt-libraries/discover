@@ -23,7 +23,7 @@
                                  'data-event-action': 'breadcrumb',
                                  'data-event-label': '3' %>
       </li>
-      <% if params[:action] == 'show' %>
+      <% if controller.action_name == 'show' %>
         <% if @search_context %>
           <li class="breadcrumb-item">
             <%= link_to_document @document, item_page_entry_info,
@@ -45,7 +45,7 @@
         <% end %>
       <% end %>
     <% else %>
-     <% if params[:action] == 'show' %>
+     <% if controller.action_name == 'show' %>
         <li class="breadcrumb-item">
           <%= link_to_document @document, "This #{@document.resource_type_name}",
                                class: 'btn btn-link btn-sm p-0',
