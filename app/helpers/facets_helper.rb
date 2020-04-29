@@ -75,7 +75,7 @@ module FacetsHelper
   # @return [Hash]
   def render_facet_value(facet_field, item, options = {})
     if facet_field == 'resource_type_facet'
-      display_value = facet_display_value(facet_field, resource_type_label(item.value))
+      display_value = facet_display_value(facet_field, item)
       display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
     else
       display_value = facet_display_value(facet_field, item)
@@ -100,7 +100,7 @@ module FacetsHelper
     remove_href = search_action_path(search_state.remove_facet_params(facet_field, item))
 
     if facet_field == 'resource_type_facet'
-      display_value = facet_display_value(facet_field, resource_type_label(item.value))
+      display_value = facet_display_value(facet_field, item)
       display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
     else
       display_value = facet_display_value(facet_field, item)

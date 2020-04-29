@@ -117,7 +117,8 @@ class CatalogController < ApplicationController
 
     config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false,
                                            sort: 'index'
-    config.add_facet_field 'resource_type_facet', label: 'Resource Type', home: true, sort: 'index'
+    config.add_facet_field 'resource_type_facet', label: 'Resource Type', home: true, sort: 'index',
+                                                  helper_method: :resource_type_label
     config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false,
                                                sort: 'index'
     config.add_facet_field 'building_facet', label: 'Building Location', limit: false, sort: 'index'
