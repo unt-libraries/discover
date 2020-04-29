@@ -167,6 +167,16 @@ class CatalogController < ApplicationController
       :age_17 => { label: '17 years and up', fq: "game_facet:a17t100" },
     }
 
+    config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
+      :weeks_1 => { label: 'Within the last week', fq: "date_added:[NOW-7DAYS/DAY TO NOW/DAY]" },
+      :weeks_2 => { label: 'Within the last 2 weeks', fq: "date_added:[NOW-14DAYS/DAY TO NOW/DAY]" },
+      :weeks_3 => { label: 'Within the last 3 weeks', fq: "date_added:[NOW-21DAYS/DAY TO NOW/DAY]" },
+      :months_1 => { label: 'Within the last month', fq: "date_added:[NOW-1MONTH/DAY TO NOW/DAY]" },
+      :months_2 => { label: 'Within the last 2 months', fq: "date_added:[NOW-2MONTHS/DAY TO NOW/DAY]" },
+      :months_3 => { label: 'Within the last 3 months', fq: "date_added:[NOW-3MONTHS/DAY TO NOW/DAY]" },
+      :months_6 => { label: 'Within the last 6 months', fq: "date_added:[NOW-6MONTHS/DAY TO NOW/DAY]" },
+    }
+
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
@@ -348,6 +358,7 @@ class CatalogController < ApplicationController
     config.add_sort_field 'publication_sort desc, title_sort asc', label: 'Publication Date'
     config.add_sort_field 'creator_sort asc, title_sort asc', label: 'Creator'
     config.add_sort_field 'title_sort asc', label: 'Title'
+    config.add_sort_field 'date_added desc, title_sort asc', label: 'Newest to the Libraries'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
@@ -359,5 +370,10 @@ class CatalogController < ApplicationController
     # if the name of the solr.SuggestComponent provided in your solrcongig.xml is not the
     # default 'mySuggester', uncomment and provide it below
     # config.autocomplete_suggester = 'mySuggester'
+
+    # Use different facet partial
+    # config.advanced_search = {
+    #   :form_facet_partial => "advanced_search_facets_as_select"
+    # }
   end
 end
