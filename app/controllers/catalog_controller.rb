@@ -69,7 +69,8 @@ class CatalogController < ApplicationController
                                           validator: :validate_email_params)
     config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action,
                                         validator: :validate_sms_params)
-    config.add_show_tools_partial(:citation)
+    # TODO: add citation functionality
+    # config.add_show_tools_partial(:citation)
     config.show.document_actions.delete(:sms)
     config.show.document_actions.delete(:email)
 
