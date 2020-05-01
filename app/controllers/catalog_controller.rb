@@ -252,9 +252,7 @@ class CatalogController < ApplicationController
     config.add_show_field 'copyright_display',
                           label: 'Copyright', display: :priority,
                           tooltip: 'Date that the resource was copyrighted.'
-    # Language Field
-    config.add_show_field 'languages', label: 'Languages', display: :priority,
-                                       link_to_facet: 'languages'
+
     # Physical Fields
     config.add_show_field 'physical_characteristics', label: 'Physical Description'
 
@@ -275,6 +273,9 @@ class CatalogController < ApplicationController
                                           link_to_facet: 'public_author_facet'
     config.add_show_field 'series_creators', label: 'Series Creators',
                                              link_to_facet: 'public_author_facet'
+
+    # Language Field
+    config.add_show_field 'languages', label: 'Languages', link_to_facet: 'languages'
 
     # Title Fields
     config.add_show_field 'uniform_title', label: 'Uniform Title',
