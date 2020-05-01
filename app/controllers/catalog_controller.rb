@@ -116,43 +116,60 @@ class CatalogController < ApplicationController
     # set `home` to true for it to appear on the home screen facets list. Default is false.
     # set `home_collapse` true to collapse on the home page, false to expand it. Default is true
 
+    # Group priority
     config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false,
-                                           sort: 'index'
+                                           sort: 'index', group: 'priority'
     config.add_facet_field 'resource_type_facet', label: 'Resource Type', home: true, sort: 'index',
-                                                  helper_method: :resource_type_label
+                                                  helper_method: :resource_type_label, group: 'priority'
+
+    # Group location
     config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false,
-                                               sort: 'index'
-    config.add_facet_field 'building_facet', label: 'Building Location', limit: false, sort: 'index'
-    config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10, sort: 'index'
+                                               sort: 'index', group: 'location'
+    config.add_facet_field 'building_facet', label: 'Building Location', limit: false,
+                                             sort: 'index', group: 'location'
+    config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10,
+                                          sort: 'index', group: 'location'
 
+    # Group date
     config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, sort: 'index',
-                                                     helper_method: :get_date_facet_display
+                                                     helper_method: :get_date_facet_display,
+                                                     group: 'date'
     config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index',
-                                                       helper_method: :get_date_facet_display
+                                                       helper_method: :get_date_facet_display,
+                                                       group: 'date'
 
-    config.add_facet_field 'languages', label: 'Language', limit: 10
+    # Group language
+    config.add_facet_field 'languages', label: 'Language', limit: 10, group: 'language'
 
-    # config.add_facet_field 'publication_dates_facet', label: 'Year of Publication'
+    # Group publication
     config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10,
-                                                  index_range: 'A'..'Z'
-    config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'meetings_facet', label: 'Meeting or Event', limit: 10,
-                                             index_range: 'A'..'Z'
-    config.add_facet_field 'public_genre_facet', label: 'Genre', limit: 10, index_range: 'A'..'Z'
-    config.add_facet_field 'public_subject_facet', label: 'Subject - Topic', limit: 10,
-                                                   index_range: 'A'..'Z'
-    config.add_facet_field 'geographic_terms_facet', label: 'Subject - Region', limit: 10,
-                                                     index_range: 'A'..'Z'
-    config.add_facet_field 'era_terms_facet', label: 'Subject - Era', limit: 10,
-                                              index_range: 'A'..'Z'
+                                                  index_range: 'A'..'Z', group: 'publication'
+    config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z',
+                                                 group: 'publication'
+    config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z',
+                                                  group: 'publication'
 
+    # Group event
+    config.add_facet_field 'meetings_facet', label: 'Meeting or Event', limit: 10,
+                                             index_range: 'A'..'Z', group: 'event'
+
+    # Group subjects
+    config.add_facet_field 'public_genre_facet', label: 'Genre', limit: 10, index_range: 'A'..'Z',
+                                                 group: 'subjects'
+    config.add_facet_field 'public_subject_facet', label: 'Subject - Topic', limit: 10,
+                                                   index_range: 'A'..'Z', group: 'subjects'
+    config.add_facet_field 'geographic_terms_facet', label: 'Subject - Region', limit: 10,
+                                                     index_range: 'A'..'Z', group: 'subjects'
+    config.add_facet_field 'era_terms_facet', label: 'Subject - Era', limit: 10,
+                                              index_range: 'A'..'Z', group: 'subjects'
+
+    # Group game
     config.add_facet_field 'game_duration_facet_field', label: 'Games - Duration', :query => {
       :duration_1 => { label: 'less than 30 minutes', fq: "game_facet:d1t29" },
       :duration_30 => { label: '30 minutes to 1 hour', fq: "game_facet:d30t59" },
       :duration_60 => { label: '1 to 2 hours', fq: "game_facet:d60t120" },
       :duration_120 => { label: 'more than 2 hours', fq: "game_facet:d120t500" },
-    }
+    }, group: 'game'
     config.add_facet_field 'game_players_facet_field',
                            label: 'Games - Number of Players',
                            :query => {
@@ -160,15 +177,16 @@ class CatalogController < ApplicationController
                              :players_2 => { label: '2 to 4 players', fq: "game_facet:p2t4" },
                              :players_4 => { label: '5 to 8 players', fq: "game_facet:p4t8" },
                              :players_8 => { label: 'more than 8 players', fq: "game_facet:p9t99" },
-                           }
+                           }, group: 'game'
     config.add_facet_field 'game_age_facet_field', label: 'Games - Recommended Age', :query => {
       :age_1 => { label: '1 to 4 years', fq: "game_facet:a1t4" },
       :age_5 => { label: '5 to 9 years', fq: "game_facet:a5t9" },
       :age_10 => { label: '10 to 13 years', fq: "game_facet:a10t13" },
       :age_14 => { label: '14 to 16 years', fq: "game_facet:a14t16" },
       :age_17 => { label: '17 years and up', fq: "game_facet:a17t100" },
-    }
+    }, group: 'game'
 
+    # Group recent
     config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
       :weeks_1 => { label: 'Within the last week', fq: "date_added:[NOW-7DAYS/DAY TO NOW/DAY]" },
       :weeks_2 => { label: 'Within the last 2 weeks', fq: "date_added:[NOW-14DAYS/DAY TO NOW/DAY]" },
@@ -177,7 +195,7 @@ class CatalogController < ApplicationController
       :months_2 => { label: 'Within the last 2 months', fq: "date_added:[NOW-2MONTHS/DAY TO NOW/DAY]" },
       :months_3 => { label: 'Within the last 3 months', fq: "date_added:[NOW-3MONTHS/DAY TO NOW/DAY]" },
       :months_6 => { label: 'Within the last 6 months', fq: "date_added:[NOW-6MONTHS/DAY TO NOW/DAY]" },
-    }
+    }, group: 'recent'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
