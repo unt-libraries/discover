@@ -25,7 +25,17 @@ module UrlHelper
     end
   end
 
+  def link_to_old_catalog(document)
+    record_id = document[:id]
+    text = 'View in Old Catalog'
+    catalog_url = 'https://iii.library.unt.edu/record='
+    url = "#{catalog_url}#{record_id}"
+
+    link_to text, url, class: 'nav-link', id: 'catalogLink', target: '_blank', rel: 'noopener'
+  end
+
   def link_to_request_refworks(document)
+    document ||= @document
     url = "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document[:id]}"
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Add #{content_tag(:span,

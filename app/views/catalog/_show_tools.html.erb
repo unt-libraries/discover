@@ -13,10 +13,6 @@
     <h3 class="card-header show-tools-heading"><%= t('blacklight.tools.title') %></h3>
 
     <div class="card-body show-tools-values list-group list-group-flush">
-      <div class="list-group-item show-tools-item catalog-tool">
-        <a id="catalogLink" class="nav-link" target="_blank" href="https://iii.library.unt.edu/record=<%= @document.id.to_s.parameterize %>">View in Catalog</a>
-      </div>
-
       <%= render_show_doc_actions @document do |config, inner| %>
         <div class="list-group-item show-tools-item <%= config.key %>">
           <%= inner %>
@@ -33,6 +29,9 @@
         </div>
       <% end -%>
 
+      <div class="list-group-item show-tools-item catalog-tool">
+        <%= link_to_old_catalog(@document) %>
+      </div>
     </div>
   </div>
 <%# end %>
