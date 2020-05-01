@@ -53,7 +53,7 @@ class CatalogController < ApplicationController
 
     # solr field configuration
     config.index.title_field = 'full_title'
-    config.index.display_type_field = 'material_type'
+    config.index.display_type_field = 'resource_type'
     # config.index.thumbnail_field = 'thumbnail_path_ss'
 
     config.add_results_document_tool(:bookmark, partial: 'bookmark_control',

@@ -33,7 +33,12 @@
     padding-bottom: 1.5rem;
 
     &__main {
+      font-size: 2.5rem;
       padding-bottom: 0;
+
+      @include media-breakpoint-down(sm) {
+        padding-top: 1.8rem;
+      }
     }
 
     &__sub {

@@ -53,9 +53,10 @@ function findMissing(foundItems = [], allItems) {
  * @return {(Object|boolean)}
  */
 function getLocationData(locationCode) {
-  // Return an exact match if one exists
+  let exactMatch = {};
+  // Set an exact match if one exists
   if (Object.hasOwnProperty.call(locationData, locationCode)) {
-    return locationData[locationCode];
+    exactMatch = locationData[locationCode];
   }
 
   // Create new array of wildcard keys that start with the same letter as locationCode then sort
@@ -63,7 +64,7 @@ function getLocationData(locationCode) {
   wildcardMatches.sort((a, b) => b.length - a.length);
 
   // Try to match a wildcard starting with the longest value
-  let wildcardMatch = false;
+  let wildcardMatch = {};
   for (let i = 0; i < wildcardMatches.length; i += 1) {
     const wildcard = wildcardMatches[i];
     if (locationCode.startsWith(wildcard.slice(0, -1))) {
@@ -72,7 +73,8 @@ function getLocationData(locationCode) {
     }
   }
 
-  return wildcardMatch;
+  // Fill in missing properties from wildcard if necessary
+  return { ...wildcardMatch, ...exactMatch };
 }
 
 function getStatusData(statusCode) {
