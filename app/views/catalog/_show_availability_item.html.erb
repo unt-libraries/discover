@@ -1,12 +1,14 @@
 <tr class="item-row"
      <%= item['i'].blank? ? "data-no-api-request" : "data-item-id=#{item['i']}" %>
-     data-item-call-number="<%= item['c'] %>"
+     data-item-call-number="<%= item['c'] %><%= " #{item['v']}" if item['v'].present? %>"
      data-item-location="<%= item['l'] %>"
      data-item-barcode="<%= item['b'] %>"
      data-item-notes="<%= item['n'] %>"
      data-item-requestability="<%= item['r'] %>">
   <td class="blacklight-location result__value" data-item-location="<%= item['l'] %>"></td>
-  <td class="blacklight-call-number result__value"data-item-call-number="<%= item['c'] %>"><%= item['c'] %></td>
+  <td class="blacklight-call-number result__value" data-item-call-number="<%= item['c'] %><%= " #{item['v']}" if item['v'].present? %>">
+    <%= item['c'] %><%= " #{item['v']}" if item['v'].present? %>
+  </td>
   <td class="blacklight-availability result__value"><%= item['i'] ? "Checking availability" : "Unavailable" %></td>
   <td class="blacklight-request result__value d-none" data-item-requestability="<%= item['r'] %>">
     <% unless item['r'].blank? %>
