@@ -19,4 +19,11 @@
     padding-left: $btn-padding-x-sm / 2;
     padding-right: $btn-padding-x-sm / 2;
   }
+
+  .page-entries {
+    @extend .btn;
+    @extend .btn-sm;
+
+    cursor: auto;
+  }
 }

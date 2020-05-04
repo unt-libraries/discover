@@ -8,7 +8,12 @@
     <div class="row">
       <% t('home.featured.items').each do |item| %>
         <div class="col-12 col-sm-6 col-xl-4">
-          <a href="<%= item[:link_url] %>">
+          <a href="<%= item[:link_url] %>"
+            ga-on="click"
+            ga-event-category="link - home"
+            ga-event-action="<%= item[:title] %>"
+            ga-event-label="<%= item[:link_url] %>"
+            ga-event-value="1">
             <img class="img-fluid"
                  src="<%= asset_pack_path item[:img_src] %>"
                  alt="<%= item[:img_alt] %>">

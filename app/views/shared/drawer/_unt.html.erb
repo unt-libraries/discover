@@ -23,8 +23,11 @@
               method="GET"
               role="search"
               autocomplete="off"
-              data-event-category="form - search - unt"
-              data-event-label="<%= request.original_url %>">
+              ga-on="click"
+              ga-event-category="form - search - unt"
+              ga-event-action="search"
+              ga-event-label="<%= request.original_url %>"
+              ga-event-value="1">
           <div class="row">
             <div class="col">
               <div class="input-group">
@@ -48,45 +51,59 @@
         <nav class="nav flex-column">
           <a href="<%= url_unt %>"
              class="link--external nav-item nav-link px-3"
-             data-event-category="link - drawer"
-             data-event-action="university"
-             data-event-label="<%= url_unt %>">UNT Homepage</a>
+             ga-on="click"
+             ga-event-category="link - drawer"
+             ga-event-action="university"
+             ga-event-label="<%= url_unt %>"
+             ga-event-value="1">UNT Homepage</a>
 
           <a href="<%= url_my_unt %>"
              class="link--external nav-item nav-link px-3"
-             data-event-category="link - drawer"
-             data-event-action="university"
-             data-event-label="<%= url_my_unt %>">MyUNT</a>
+             ga-on="click"
+             ga-event-category="link - drawer"
+             ga-event-action="university"
+             ga-event-label="<%= url_my_unt %>"
+             ga-event-value="1">MyUNT</a>
 
           <a href="<%= url_learn_unt %>"
              class="link--external nav-item nav-link px-3"
-             data-event-category="link - drawer"
-             data-event-action="university"
-             data-event-label="<%= url_learn_unt %>">Canvas</a>
+             ga-on="click"
+             ga-event-category="link - drawer"
+             ga-event-action="university"
+             ga-event-label="<%= url_learn_unt %>"
+             ga-event-value="1">Canvas</a>
 
           <a href="<%= url_eagle_connect %>"
              class="link--external nav-item nav-link px-3"
-             data-event-category="link - drawer"
-             data-event-action="university"
-             data-event-label="<%= url_eagle_connect %>">EagleConnect</a>
+             ga-on="click"
+             ga-event-category="link - drawer"
+             ga-event-action="university"
+             ga-event-label="<%= url_eagle_connect %>"
+             ga-event-value="1">EagleConnect</a>
 
           <a href="<%= url_unt_directory %>"
              class="link--external nav-item nav-link px-3"
-             data-event-category="link - drawer"
-             data-event-action="university"
-             data-event-label="<%= url_unt_directory %>">UNT Directory</a>
+             ga-on="click"
+             ga-event-category="link - drawer"
+             ga-event-action="university"
+             ga-event-label="<%= url_unt_directory %>"
+             ga-event-value="1">UNT Directory</a>
 
           <a href="<%= url_unt_map %>"
              class="link--external nav-item nav-link px-3"
-             data-event-category="link - drawer"
-             data-event-action="university"
-             data-event-label="<%= url_unt_map %>">UNT Map</a>
+             ga-on="click"
+             ga-event-category="link - drawer"
+             ga-event-action="university"
+             ga-event-label="<%= url_unt_map %>"
+             ga-event-value="1">UNT Map</a>
 
           <a href="<%= url_unt_jobs %>"
              class="link--external nav-item nav-link px-3"
-             data-event-category="link - drawer"
-             data-event-action="university"
-             data-event-label="<%= url_unt_jobs %>">Jobs at UNT</a>
+             ga-on="click"
+             ga-event-category="link - drawer"
+             ga-event-action="university"
+             ga-event-label="<%= url_unt_jobs %>"
+             ga-event-value="1">Jobs at UNT</a>
         </nav>
       </div>
     </div>

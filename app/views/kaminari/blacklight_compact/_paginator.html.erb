@@ -19,19 +19,13 @@
   in here .. -%>
   <%= paginator.render do -%>
     <div class="page-links">
-      <% unless current_page.first? %>
-        <span class="btn btn-sm btn-link">
-          <%= prev_page_tag %>
-        </span>
-      <% end %>
-      <span class="page-entries btn btn-sm">
+      <%= prev_page_tag %>
+
+      <span class="page-entries">
         <%= page_entries_info %>
       </span>
-      <% unless current_page.last? %>
-        <span class="btn btn-sm btn-link">
-          <%= next_page_tag %>
-        </span>
-      <% end %>
+
+      <%= next_page_tag %>
     </div>
   <% end -%>
 <% else -%>

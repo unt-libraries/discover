@@ -23,21 +23,27 @@
 
         <a href="<%= url_patroninfo %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_patroninfo %>">Your Account / Renew Materials</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_patroninfo %>"
+           ga-event-value="1">Your Account / Renew Materials</a>
 
         <a href="<%= url_borrowing %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_borrowing %>">Info on Borrowing, Fines, etc.</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_borrowing %>"
+           ga-event-value="1">Info on Borrowing, Fines, etc.</a>
 
         <a href="<%= url_online_holds %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_online_holds %>">Online Holds / Material Delivery</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_online_holds %>"
+           ga-event-value="1">Online Holds / Material Delivery</a>
 
 
         <div class="drawer__divider" role="separator"></div>
@@ -45,45 +51,62 @@
 
         <a href="<%= url_tech_computing %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_tech_computing %>">24 Commons, Computer Workstations</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_tech_computing %>"
+           ga-event-value="1">24 Commons, Computer Workstations</a>
 
         <a href="<%= url_laptops %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_laptops %>">Laptop Checkout</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_laptops %>"
+           ga-event-value="1">Laptop Checkout</a>
 
         <a href="<%= url_printing %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_printing %>">Printing, Scanning, Photocopies</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_printing %>"
+           ga-event-value="1">Printing, Scanning, Photocopies</a>
 
         <a href="<%= url_factory %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_factory %>">The Factory (Makerspace, Tech. Lending)</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_factory %>"
+           ga-event-value="1">The Factory (Makerspace, Tech. Lending)</a>
 
         <a href="<%= url_campus_access %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_campus_access %>">On/Off Campus Access</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_campus_access %>"
+           ga-event-value="1">On/Off Campus Access</a>
 
         <div class="drawer__divider" role="separator"></div>
         <h2 class="drawer__sub-heading px-3">Help</h2>
 
         <a href="<%= url_citations %>"
            class="nav-item nav-link"
-           data-event-category="link - drawer"
-           data-event-action="libraries"
-           data-event-label="<%= url_citations %>">Citations/Style Guides</a>
+           ga-on="click"
+           ga-event-category="link - drawer"
+           ga-event-action="libraries"
+           ga-event-label="<%= url_citations %>"
+           ga-event-value="1">Citations/Style Guides</a>
 
         <div class="drawer__text px-3">Subjects</div>
-        <div class="nav-item py-1 px-3 select-widget" data-event-category="form - select-widget - subject guides">
+        <div class="nav-item py-1 px-3 select-widget"
+             ga-on="click"
+             ga-event-category="form - select-widget - subject guides"
+             ga-event-action="libraries"
+             ga-event-label="subjects"
+             ga-event-value="1">
           <form action="https://guides.library.unt.edu/srch.php" method="get" accept-charset="utf-8">
             <label for="drawer-course-helper" class="sr-only">Search for a Subject or Subject Guide</label>
             <div class="input-group mb-4">
@@ -102,7 +125,12 @@
         </div>
 
         <div class="drawer__text px-3">Courses</div>
-        <div class="nav-item py-1 px-3 select-widget" data-event-category="form - select-widget - course guides">
+        <div class="nav-item py-1 px-3 select-widget"
+             ga-on="click"
+             ga-event-category="form - select-widget - course guides"
+             ga-event-action="libraries"
+             ga-event-label="courses"
+             ga-event-value="1">
           <form action="https://guides.library.unt.edu/srch.php" method="get" accept-charset="utf-8">
             <label for="drawer-course-helper" class="sr-only">Search for a Course Guide</label>
             <div class="input-group mb-4">

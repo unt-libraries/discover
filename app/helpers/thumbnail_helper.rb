@@ -3,7 +3,7 @@
 module ThumbnailHelper
   def render_thumbnail(document, opts = { counter: nil }) # rubocop:disable Airbnb/OptArgParameters
     thumbnail_url = document[:thumbnail_url]
-    current_view = controller.action_name
+    current_view = action_name
 
     thumbnail_tag = content_tag(:div, {
       class: "document-thumbnail text-center #{current_view}-thumbnail "\

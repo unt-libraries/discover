@@ -16,9 +16,11 @@
       <div class="footer__lettermark d-none d-md-block col-md-3">
         <a href="<%= url_unt %>"
            aria-label="U N T Home Site"
-           data-event-category="link - footer - brand"
-           data-event-action="university"
-           data-event-label="<%= url_unt %>">
+           ga-on="click"
+           ga-event-category="link - footer - brand"
+           ga-event-action="university"
+           ga-event-label="<%= url_unt %>"
+           ga-event-value="1">
           <img src="<%= url_home %>/assets/images/branding/unt.stacked.green.svg"
                alt="U N T Established 1890">
         </a>
@@ -31,29 +33,37 @@
             <a id="footer-fdl"
                class="mr-3"
                href="<%= url_gov %>"
-               data-event-category="link - footer - logo"
-               data-event-action="libraries"
-               data-event-label="<%= url_gov %>">
+               ga-on="click"
+               ga-event-category="link - footer - logo"
+               ga-event-action="libraries"
+               ga-event-label="<%= url_gov %>"
+               ga-event-value="1">
               <img class="" src="<%= url_home %>/assets/images/branding/fdl-library-blue.png" alt="Federal Depository"></a>
             <div class="media-body">The University Libraries are a designated
               <a href="<%= url_gov %>"
-                 data-event-category="link - footer - text"
-                 data-event-action="libraries"
-                 data-event-label="<%= url_gov %>">Federal Depository Library</a>.</div>
+                 ga-on="click"
+                 ga-event-category="link - footer - text"
+                 ga-event-action="libraries"
+                 ga-event-label="<%= url_gov %>"
+                 ga-event-value="1">Federal Depository Library</a>.</div>
           </li>
           <li class="media my-4">
             <a id="footer-finl"
                class="mr-3"
                href="<%= url_fin %>"
-               data-event-category="link - footer - logo"
-               data-event-action="libraries"
-               data-event-label="<%= url_fin %>">
+               ga-on="click"
+               ga-event-category="link - footer - logo"
+               ga-event-action="libraries"
+               ga-event-label="<%= url_fin %>"
+               ga-event-value="1">
               <img src="<%= url_home %>/assets/images/branding/foundation-center.png" alt="Funding Information Network Logo"></a>
             <div class="media-body">The University Libraries are a
               <a href="<%= url_fin %>"
-                 data-event-category="link - footer - text"
-                 data-event-action="libraries"
-                 data-event-label="<%= url_fin %>">Funding Information Network partner</a> of the Foundation Center.</div>
+                 ga-on="click"
+                 ga-event-category="link - footer - text"
+                 ga-event-action="libraries"
+                 ga-event-label="<%= url_fin %>"
+                 ga-event-value="1">Funding Information Network partner</a> of the Foundation Center.</div>
           </li>
         </ul>
       </div>
@@ -68,33 +78,43 @@
         <h2 class="sr-only">Contact</h2>
         <div><i class="fas fa-phone fw"></i> &nbsp;
           <a id="footer-phone"
-             data-event-category="link - footer - text"
-             data-event-action="libraries"
-             data-event-label="<%= url_telephone %>"
+             ga-on="click"
+             ga-event-category="link - footer - text"
+             ga-event-action="libraries"
+             ga-event-label="<%= url_telephone %>"
+             ga-event-value="1"
              href="<%= url_telephone %>" >940.565.2411</a></div>
         <div><i class="fas fa-envelope fw"></i> &nbsp;
           <a id="asks-us"
-             data-event-category="link - footer - text"
-             data-event-action="libraries"
-             data-event-label="<%= url_ask_us %>"
+             ga-on="click"
+             ga-event-category="link - footer - text"
+             ga-event-action="libraries"
+             ga-event-label="<%= url_ask_us %>"
+             ga-event-value="1"
              href="<%= url_ask_us %>"> Research Questions</a></div>
         <div><i class="fas fa-users fw"></i> &nbsp;
           <a id="footer-staff-directory"
-             data-event-category="link - footer - text"
-             data-event-action="libraries"
-             data-event-label="<%= url_staff_directory %>"
+             ga-on="click"
+             ga-event-category="link - footer - text"
+             ga-event-action="libraries"
+             ga-event-label="<%= url_staff_directory %>"
+             ga-event-value="1"
              href="<%= url_staff_directory %>">Staff Directory</a></div>
         <div><i class="fas fa-laptop fw"></i> &nbsp;
           <a id="footer-ask-tech"
-             data-event-category="link - footer - text"
-             data-event-action="libraries"
-             data-event-label="<%= url_ask_us_support %>"
+             ga-on="click"
+             ga-event-category="link - footer - text"
+             ga-event-action="libraries"
+             ga-event-label="<%= url_ask_us_support %>"
+             ga-event-value="1"
              href="<%= url_ask_us_support %>">Computer &amp; Technology Problems</a></div>
         <div><i class="fas fa-exclamation-triangle fw"></i> &nbsp;
           <a id="ask-building"
-             data-event-category="link - footer - text"
-             data-event-action="libraries"
-             data-event-label="<%= url_ask_us_facilities %>"
+             ga-on="click"
+             ga-event-category="link - footer - text"
+             ga-event-action="libraries"
+             ga-event-label="<%= url_ask_us_facilities %>"
+             ga-event-value="1"
              href="<%= url_ask_us_facilities %>">Facilities Problems</a></div>
       </div>
     </div>
