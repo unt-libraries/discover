@@ -6,11 +6,13 @@
     per_page:      number of items to fetch per page
     remote:        data-remote
 -%>
-<span class="btn btn-sm btn-link">
-  <%= link_to_unless current_page.first?, raw(t 'views.pagination_compact.previous'), url,
+<% unless current_page.first? %>
+  <span class="btn btn-sm btn-link">
+    <%= link_to raw(t 'views.pagination_compact.previous'), url,
                      :rel => 'prev', :remote => remote,'ga-on': 'click',
                      'ga-event-category': 'pagination',
                      'ga-event-action': 'results top pagination',
                      'ga-event-label': 'previous',
                      'ga-event-value': '1'  %>
-</span>
+  </span>
+<% end %>
