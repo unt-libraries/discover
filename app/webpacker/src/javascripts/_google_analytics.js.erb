@@ -4,7 +4,7 @@ import 'autotrack/lib/plugins/page-visibility-tracker';
 import 'autotrack/lib/plugins/outbound-link-tracker';
 
 
-export default function () {
+function init() {
   // Additional google analytics code
   window.ga = window.ga || ((...args) => (ga.q = ga.q || []).push(args));
 
@@ -23,29 +23,32 @@ export default function () {
   ga('set', 'anonymizeIp', true);
   ga('set', 'transport', 'beacon');
   console.log('analytics loaded');
+}
 
-  // Report javascript errors
-  (function() {
-    if (window.addEventListener) {
-      window.addEventListener('error', (e) => {
-        console.log('error triggered');
-        console.log(e);
-        if (e.lineno !== 0) {
-          const ie = window.event || {};
-          const errMsg = e.message || ie.errorMessage;
-          const errSrc = e.filename || ie.errorUrl;
-          const errLine = e.lineno || ie.errorLine;
-          const gaCat = 'JavaScript Error';
-          const gaAction = `${errMsg} in: ${errSrc} on line ${errLine}`;
-          const bodyEl = document.querySelector('body');
-          const gaLabel = bodyEl.dataset.blacklightContext;
-          const url = document.location.href;
+// Report javascript errors
+function trackErrors() {
+  if (window.addEventListener) {
+    window.addEventListener('error', (e) => {
+      if (e.lineno !== 0) {
+        const ie = window.event || {};
+        const errMsg = e.message || ie.errorMessage;
+        const errSrc = e.filename || ie.errorUrl;
+        const errLine = e.lineno || ie.errorLine;
+        const gaCat = 'JavaScript Error';
+        const gaAction = `${errMsg} in: ${errSrc} on line ${errLine}`;
+        const bodyEl = document.querySelector('body');
+        const gaLabel = bodyEl.dataset.blacklightContext;
+        const url = document.location.href;
 
-          ga('send', 'event', gaCat, gaAction, `${gaLabel} - ${url}`, {
-            nonInteraction: true,
-          });
-        }
-      });
-    }
-  })();
+        ga('send', 'event', gaCat, gaAction, `${gaLabel} - ${url}`, {
+          nonInteraction: true,
+        });
+      }
+    });
+  }
+}
+
+export {
+  init,
+  trackErrors,
 }

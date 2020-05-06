@@ -72,7 +72,11 @@ module ApplicationHelper
       link = link_to(value, "/?f[public_author_facet][]=#{CGI.escape(value)}",
                      class: "",
                      "data-toggle" => "tooltip",
-                     title: "Search for #{value}")
+                     title: "Search for #{value}",
+                     'ga-on': 'click',
+                     'ga-event-category': 'List Item Link',
+                     'ga-event-action': 'Author facet',
+                     'ga-event-label': value)
       links.push(link)
     end
     links.join('; ').html_safe

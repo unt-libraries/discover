@@ -17,7 +17,11 @@
         <%= t('blacklight.search.documents.counter', counter: counter) %>
       </span>
       <% end %>
-      <%= link_to_document document, counter: counter %>
+      <%= link_to_document document, counter: counter,
+                           'ga-on': 'click',
+                           'ga-event-category': 'List Item Link',
+                           'ga-event-action': 'Header title',
+                           'ga-event-label': index_presenter(document).heading %>
       <% unless document[:publication_year_display].nil? %>
         <span class="document-title-date">[<%= document[:publication_year_display] %>]</span>
       <% end %>

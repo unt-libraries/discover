@@ -1,3 +1,4 @@
-import googleAnalytics from '../src/javascripts/_google_analytics.js.erb';
+import * as googleAnalytics from '../src/javascripts/_google_analytics.js.erb';
 
-googleAnalytics();
+googleAnalytics.init();
+googleAnalytics.trackErrors();
