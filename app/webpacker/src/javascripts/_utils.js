@@ -66,3 +66,16 @@ export function removeAllChildren(node) {
     node.removeChild(node.firstChild);
   }
 }
+
+// utility function to create function with timeout, used in ga events
+export function actWithTimeOut(callback, optTimeout) {
+  let called = false;
+  function fn() {
+    if (!called) {
+      called = true;
+      callback();
+    }
+  }
+  setTimeout(fn, optTimeout || 1000);
+  return fn;
+}

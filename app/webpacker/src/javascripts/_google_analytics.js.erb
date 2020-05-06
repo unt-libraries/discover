@@ -2,6 +2,7 @@ import 'autotrack/lib/plugins/event-tracker';
 import 'autotrack/lib/plugins/max-scroll-tracker';
 import 'autotrack/lib/plugins/page-visibility-tracker';
 import 'autotrack/lib/plugins/outbound-link-tracker';
+import { actWithTimeOut } from "./_utils";
 
 
 function init() {
@@ -48,7 +49,33 @@ function trackErrors() {
   }
 }
 
+// Track submittes searches
+function trackSearchForm() {
+  const bodyEl = document.querySelector('body');
+  const searchForms = bodyEl.querySelectorAll('.search-query-form');
+
+  searchForms.forEach((node) => {
+    node.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const category = `Search - ${location.search == '' ? 'home' : 'results'}`;
+      const action = node.querySelector('#search_field').value;
+      const label = node.querySelector('#q').value;
+      const value = label.split(' ').length || 0;
+
+      function submitForm() {
+        node.submit();
+      }
+      ga("send", "event", category, action, label, value, {hitCallback: actWithTimeOut(function(){
+          submitForm();
+        })
+      });
+    });
+  })
+}
+
 export {
   init,
   trackErrors,
+  trackSearchForm,
 }
