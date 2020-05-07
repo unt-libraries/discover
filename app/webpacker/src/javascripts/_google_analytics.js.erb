@@ -74,8 +74,32 @@ function trackSearchForm() {
   })
 }
 
+// Track Bib Record clicks
+function trackShowRecordFacets() {
+  const bodyEl = document.querySelector('body');
+  const viewContext = bodyEl.dataset.blacklightContext;
+  if (viewContext !== 'show') return;
+  const mainContainer = bodyEl.querySelector('#main-container');
+  const links = mainContainer.querySelectorAll('.result__value a');
+
+  links.forEach((node) => {
+    if (node.hasAttribute('ga-on')) return;
+    const valueContainer = node.closest('.result__value');
+    if (valueContainer === null) return;
+    const category = 'Bib Record';
+    const action = valueContainer.dataset.cardTitle;
+    const label = valueContainer.dataset.fieldName;
+
+    node.setAttribute('ga-on', 'click');
+    node.setAttribute('ga-event-category', category);
+    node.setAttribute('ga-event-action', action);
+    node.setAttribute('ga-event-label', label);
+  })
+}
+
 export {
   init,
   trackErrors,
   trackSearchForm,
+  trackShowRecordFacets,
 }

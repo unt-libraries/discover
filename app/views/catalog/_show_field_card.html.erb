@@ -11,7 +11,8 @@
       <% fields.each do |field_name, field, field_presenter| -%>
         <div class="row result__field">
           <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label"><%= render_document_show_field_label document, label: field_presenter.label, field: field_name %></dt>
-          <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= field_presenter.render %></dd>
+          <dd class="col blacklight-<%= field_name.parameterize %> result__value"
+          data-field-name="<%= field_presenter.label %>" data-card-title="<%= display_name.titlecase %>"><%= field_presenter.render %></dd>
         </div>
       <% end -%>
     </dl>

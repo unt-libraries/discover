@@ -5,18 +5,28 @@ module CatalogHelper
 
   def links_media_urls(urls_json)
     field_data = urls_json[:value]
+    field_config = urls_json[:config]
     contents = field_data.map do |item|
       json = JSON.parse item
       link_text = json['n'] || json['l'] || json['u']
       link_type = json['t']
       if link_type == 'fulltext'
         content_tag :div do
-          fulltext_link(json)
+          fulltext_link(json, {
+            'ga-on': 'click',
+            'ga-event-category': 'Bib Record',
+            'ga-event-action': field_config[:label],
+            'ga-event-label': link_type
+          })
         end
       else
         content_tag :div do
           link_to "#{link_text}", json['u'], class: "link-media-item #{link_type}",
-                                             data: { "link-type": link_type }
+                                             data: { "link-type": link_type },
+                                             'ga-on': 'click',
+                                             'ga-event-category': 'Bib Record',
+                                             'ga-event-action': field_config[:label],
+                                             'ga-event-label': link_type
         end
       end
     end
@@ -34,7 +44,7 @@ module CatalogHelper
 
   private
 
-  def fulltext_link(item)
+  def fulltext_link(item, opts = {})
     link_text = item['n'] || item['l'] || item['u']
     link_type = item['t']
     find_it_img_el = content_tag :span, ' ', class: 'find-it-image'
@@ -42,7 +52,7 @@ module CatalogHelper
     html_options = {
       class: "link-media-item #{link_type}",
       data: { "link-type": link_type },
-    }
+    }.merge(opts)
     link_to(item['u'], html_options) do
       concat(find_it_img_el)
       concat(text_el)
@@ -55,6 +65,7 @@ module CatalogHelper
 
   def link_to_subject_search(data)
     field_data = data[:value]
+    field_config = data[:config]
     contents = field_data.map do |item|
       link_text = item
       content_tag :div do
@@ -62,7 +73,11 @@ module CatalogHelper
                 search_catalog_url(
                   q: "#{link_text}",
                   search_field: 'subject'
-                ), data: { "link-type": '' }
+                ), data: { "link-type": '' },
+                   'ga-on': 'click',
+                   'ga-event-category': 'Bib Record',
+                   'ga-event-action': field_config[:label],
+                   'ga-event-label': 'Search by subject'
       end
     end
     content_tag 'span', contents.join(''), nil, false
