@@ -14,22 +14,22 @@
 
     <div class="card-body show-tools-values list-group list-group-flush">
       <%= render_show_doc_actions @document do |config, inner| %>
-        <div class="list-group-item show-tools-item <%= config.key %>">
+        <div class="list-group-item show-tools-item <%= config.key %>" data-tool-item="<%= config.key %>">
           <%= inner %>
         </div>
       <% end %>
 
       <% unless @document[:id].nil? -%>
-        <div class="list-group-item show-tools-item refworks-tool">
+        <div class="list-group-item show-tools-item refworks-tool" data-tool-item="refworks">
           <%= link_to_request_refworks(@document) %>
         </div>
 
-        <div class="list-group-item show-tools-item illiad-tool">
+        <div class="list-group-item show-tools-item illiad-tool" data-tool-item="illiad">
           <%= link_to_request_illiad(@document) %>
         </div>
       <% end -%>
 
-      <div class="list-group-item show-tools-item catalog-tool">
+      <div class="list-group-item show-tools-item catalog-tool" data-tool-item="catalog">
         <%= link_to_old_catalog(@document) %>
       </div>
     </div>

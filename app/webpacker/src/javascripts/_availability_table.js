@@ -3,7 +3,7 @@ import {
   callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
   getStatusData, updateAeonRequestUrl,
 } from './_availability_util';
-import { elRemoveClass } from './_utils';
+import { elRemoveClass, removeAllChildren } from './_utils';
 
 /**
  * FUNCTIONS FOR `SHOW` VIEWS
@@ -12,22 +12,33 @@ import { elRemoveClass } from './_utils';
 /**
  * Accesses the mapped location data to determine the URL to use for linkage
  * @param {Object} itemLocation
- * @return {(string|boolean)}
+ * @return {(HTMLElement)}
  */
 function createShowLocationLink(itemLocation) {
   const locationData = getLocationData(itemLocation.code);
   const locationText = locationData.name ? locationData.name : itemLocation.name;
   const linkText = locationData.linkText ? locationData.linkText : itemLocation.name;
   if (locationData && locationData.url) {
-    return `<a href="${locationData.url}" title="${linkText}" target="_blank">${locationText}</a>`;
+    const newEl = document.createElement('a');
+    newEl.textContent = locationText;
+    newEl.href = locationData.url;
+    newEl.title = linkText;
+    newEl.target = '_blank';
+    newEl.setAttribute('ga-on', 'click');
+    newEl.setAttribute('ga-event-category', 'Bib Record');
+    newEl.setAttribute('ga-event-action', 'Availability location link click');
+    newEl.setAttribute('ga-event-label', locationText);
+    return newEl;
   }
-  return locationText;
+  const newEl = document.createElement('span');
+  newEl.textContent = locationText;
+  return newEl;
 }
 
 /**
  * Accesses the mapped item status to add a tooltip and create an element
  * @param {Object} itemStatus
- * @return {(string|boolean)}
+ * @return {(HTMLElement)}
  */
 function createShowStatusElement(itemStatus) {
   const statusCode = itemStatus.code;
@@ -35,17 +46,24 @@ function createShowStatusElement(itemStatus) {
   const statusData = getStatusData(statusCode);
   const statusDisplay = statusData.label ? statusData.label : itemStatus.display;
   const statusDesc = statusData.desc;
+  const newEl = document.createElement('span');
 
   // If the item is checked out
   if (statusDueDate) {
     const dueDate = moment(itemStatus.duedate).format('MMM DD, YYYY');
-    return `Checked out</br>Due ${dueDate}`;
+    newEl.innerHTML = `Checked out</br>Due ${dueDate}`;
+    return newEl;
   }
 
+  newEl.textContent = statusDisplay;
+
   if (statusDesc) {
-    return `<span class="tooltip-nolink" data-toggle="tooltip" data-title="${statusDesc}">${statusDisplay}</span>`;
+    newEl.classList.add('tooltip-nolink');
+    newEl.dataset.title = statusDesc;
+    newEl.dataset.toggle = 'tooltip';
   }
-  return statusDisplay;
+
+  return newEl;
 }
 
 /**
@@ -62,7 +80,8 @@ function updateShowStatusElement(itemEl, itemStatus = null) {
   }
 
   availabilityEl.dataset.statusCode = itemStatus.code;
-  availabilityEl.innerHTML = createShowStatusElement(itemStatus);
+  removeAllChildren(availabilityEl);
+  availabilityEl.appendChild(createShowStatusElement(itemStatus));
 
   // Show the Request column if this isn't an online only record
   if (itemStatus.code !== 'w') {
@@ -101,7 +120,7 @@ function updateShowLocationElement(itemEl, itemLocation) {
   // Aeon request URLs must be updated to include data from the Sierra API call
   if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
 
-  locationEl.innerHTML = createShowLocationLink(itemLocation);
+  locationEl.appendChild(createShowLocationLink(itemLocation));
 }
 
 function updateShowUIError(items) {
@@ -140,7 +159,7 @@ function updateShowNoApiItems() {
     const locationEl = item.querySelector('.blacklight-location.result__value');
     const locationCode = locationEl.dataset.itemLocation;
     const locationData = getLocationData(locationCode);
-    locationEl.innerText = `Ask at the ${locationData.title} service desk`;
+    locationEl.innerText = `Ask at the ${locationData.name} service desk`;
   });
 }
 

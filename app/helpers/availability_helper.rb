@@ -34,7 +34,12 @@ module AvailabilityHelper
     end
 
     link_to url, class: "availability-btn online", target: window_target,
-                 data: { "context-href": context_href } do
+                 data: { "context-href": context_href },
+                 'ga-on': 'click',
+                 'ga-event-category': 'List Item Link',
+                 'ga-event-action': 'Availability button click',
+                 'ga-event-label': link_text,
+                 'ga-event-value': '1' do
       link_text
     end
   end
@@ -61,7 +66,12 @@ module AvailabilityHelper
     end
 
     link_to avail_url, class: "availability-btn loading disabled",
-                       data: { "context-href": avail_context_href } do
+                       data: { "context-href": avail_context_href },
+                       'ga-on': 'click',
+                       'ga-event-category': 'List Item Link',
+                       'ga-event-action': 'Availability button click',
+                       'ga-event-label': link_text,
+                       'ga-event-value': '1' do
       link_text
     end
   end
@@ -113,7 +123,12 @@ module AvailabilityHelper
       avail_url = document_availability_href(document)
       content_tag(:div, "See full record for additional info.",
                   { class: 'more-items-available mx-auto' }) do
-        link_to avail_url, class: "more-available", data: { "context-href": avail_context_href } do
+        link_to avail_url, class: "more-available", data: { "context-href": avail_context_href },
+                           'ga-on': 'click',
+                           'ga-event-category': 'List Item Link',
+                           'ga-event-action': 'Availability button click',
+                           'ga-event-label': 'More available',
+                           'ga-event-value': '1' do
           "More available"
         end
       end

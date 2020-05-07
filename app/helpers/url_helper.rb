@@ -33,7 +33,12 @@ module UrlHelper
     catalog_url = 'https://iii.library.unt.edu/record='
     url = "#{catalog_url}#{record_id}"
 
-    link_to text, url, class: 'nav-link', id: 'catalogLink', target: '_blank', rel: 'noopener'
+    link_to text, url, class: 'nav-link', id: 'catalogLink', target: '_blank', rel: 'noopener',
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Tools link click',
+                       'ga-event-label': 'Old Catalog',
+                       'ga-event-value': '1'
   end
 
   def link_to_request_refworks(document)
@@ -42,7 +47,12 @@ module UrlHelper
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Add #{content_tag(:span,
                               document[:full_title], class: 'sr-only')} to Refworks".html_safe
-    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener'
+    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Tools link click',
+                       'ga-event-label': 'Refworks',
+                       'ga-event-value': '1'
   end
 
   def link_to_request_illiad(document)
@@ -50,7 +60,12 @@ module UrlHelper
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')}" \
       "through ILLiad".html_safe
-    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener'
+    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Tools link click',
+                       'ga-event-label': 'Illiad',
+                       'ga-event-value': '1'
   end
 
   def link_to_request_item(document, item: nil)
@@ -61,18 +76,24 @@ module UrlHelper
     when 'catalog'
       url = "https://iii.library.unt.edu/search~S12?/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}"
       text = "Request through Catalog"
-      link_to text, url, class: "request-catalog", target: "_blank", rel: 'noopener'
+      el_class = "request-catalog"
     when 'jlf'
       url = construct_illiad_url(document, item: item)
       text = "Request through ILLiad"
-      link_to text, url, class: "request-illiad", target: "_blank", rel: 'noopener'
+      el_class = "request-illiad"
     when 'aeon'
       url = construct_aeon_url(document, item)
       text = "Request through Aeon"
-      link_to text, url, class: "request-aeon", target: "_blank", rel: 'noopener'
+      el_class = "request-aeon"
     else
-      'Cannot request this item'
+      return 'Cannot request this item'
     end
+    link_to text, url, class: el_class, target: "_blank", rel: 'noopener',
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Availability request click',
+                       'ga-event-label': text,
+                       'ga-event-value': '1'
   end
 
   def construct_illiad_url(document, item: nil)

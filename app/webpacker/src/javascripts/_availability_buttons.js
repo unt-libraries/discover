@@ -24,6 +24,7 @@ function updateIndexStatusElement(itemEl, item = null) {
   if (!itemStatus) {
     availabilityBtn.innerText = 'Not Available';
     availabilityText.innerText = 'ASK AT SERVICE DESK';
+    availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
     elRemoveClass(availabilityText, 'd-none');
     return;
   }
@@ -43,8 +44,6 @@ function updateIndexStatusElement(itemEl, item = null) {
     if (isOnlineItem) {
       elAddClass(availabilityEl, 'd-none');
       return;
-      // const callNumberEl = itemEl.querySelector('.blacklight-call-number.result__value');
-      // elRemoveClass(callNumberEl, 'd-none');
     }
 
     if (statusBtnClass) {
@@ -57,6 +56,7 @@ function updateIndexStatusElement(itemEl, item = null) {
       const dueDate = moment(itemStatus.duedate).format('MMM DD, YYYY');
       availabilityBtn.innerText = 'Checked Out';
       availabilityText.innerText = `Due ${dueDate}`;
+      availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
       elRemoveClass(availabilityText, 'd-none');
       return;
     }
@@ -65,9 +65,11 @@ function updateIndexStatusElement(itemEl, item = null) {
       availabilityBtn.innerText = statusDisplay;
       availabilityBtn.dataset.toggle = 'tooltip';
       availabilityBtn.dataset.title = statusDesc;
+      availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
     }
   } else {
     availabilityBtn.innerText = itemStatus.display;
+    availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
   }
 
   if (itemLocation) {
@@ -81,6 +83,7 @@ function updateIndexStatusElement(itemEl, item = null) {
 
     if (locationText && !isOnlineItem) {
       availabilityBtn.append(` - ${locationText}`);
+      availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
     }
   }
 }
