@@ -4,6 +4,29 @@ import 'autotrack/lib/plugins/page-visibility-tracker';
 import 'autotrack/lib/plugins/outbound-link-tracker';
 import { actWithTimeOut } from "./_utils";
 
+// Google analytics custom dimensions
+const gaDimensions = {
+  'dimension1': 'access_facet',
+  'dimension2': 'resource_type_facet',
+  'dimension3': 'collection_facet',
+  'dimension4': 'building_facet',
+  'dimension5': 'shelf_facet',
+  'dimension6': 'publication_year_facet',
+  'dimension7': 'publication_decade_facet',
+  'dimension8': 'languages',
+  'dimension9': 'public_author_facet',
+  'dimension10': 'public_title_facet',
+  'dimension11': 'public_series_facet',
+  'dimension12': 'meetings_facet',
+  'dimension13': 'public_genre_facet',
+  'dimension14': 'public_subject_facet',
+  'dimension15': 'geographic_terms_facet',
+  'dimension16': 'era_terms_facet',
+  'dimension17': 'game_duration_facet_field',
+  'dimension18': 'game_players_facet_field',
+  'dimension19': 'game_age_facet_field',
+  'dimension20': 'newly_added_facet',
+}
 
 function init() {
   // Additional google analytics code
@@ -63,12 +86,23 @@ function trackSearchForm() {
       const label = node.querySelector('#q').value;
       const value = label.split(' ').length || 0;
 
+      const dimensionValues = {};
+
+      for (let [key, value] of Object.entries(gaDimensions)) {
+        const facetNodes = node.querySelectorAll(`input[name="f[${value}][]"`);
+        const facetValues = [...facetNodes].map(facetNode => facetNode.value).join(', ');
+        dimensionValues[key] = facetValues;
+      }
+
       function submitForm() {
         node.submit();
       }
-      ga("send", "event", category, action, label, value, {hitCallback: actWithTimeOut(function(){
+
+      ga("send", "event", category, action, label, value, {
+        ...dimensionValues,
+        hitCallback: actWithTimeOut(function(){
           submitForm();
-        })
+        }),
       });
     });
   })
