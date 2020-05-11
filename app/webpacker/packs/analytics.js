@@ -5,3 +5,4 @@ googleAnalytics.trackErrors();
 googleAnalytics.trackSearchForm();
 googleAnalytics.trackShowRecordFacets();
 googleAnalytics.trackNoContextDocPosition();
+googleAnalytics.trackWebVitals();

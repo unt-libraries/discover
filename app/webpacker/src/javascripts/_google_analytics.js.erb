@@ -2,6 +2,7 @@ import 'autotrack/lib/plugins/event-tracker';
 import 'autotrack/lib/plugins/max-scroll-tracker';
 import 'autotrack/lib/plugins/page-visibility-tracker';
 import 'autotrack/lib/plugins/outbound-link-tracker';
+import { getCLS, getFCP, getFID, getLCP, getTTFB } from 'web-vitals';
 import { actWithTimeOut } from "./_utils";
 
 // Google analytics custom dimensions
@@ -165,6 +166,34 @@ function trackNoContextDocPosition() {
   })
 }
 
+function trackWebVitals() {
+  getCLS(sendWebVitalsToGoogleAnalytics);
+  getFID(sendWebVitalsToGoogleAnalytics);
+  getLCP(sendWebVitalsToGoogleAnalytics);
+  getFCP(sendWebVitalsToGoogleAnalytics);
+  getTTFB(sendWebVitalsToGoogleAnalytics);
+}
+
+function sendWebVitalsToGoogleAnalytics({name, delta, id}) {
+  // Assumes the global `ga()` function exists, see:
+  // https://developers.google.com/analytics/devguides/collection/analyticsjs
+  ga('send', 'event', {
+    eventCategory: 'Web Vitals',
+    eventAction: name,
+    // Google Analytics metrics must be integers, so the value is rounded.
+    // For CLS the value is first multiplied by 1000 for greater precision
+    // (note: increase the multiplier for greater precision if needed).
+    eventValue: Math.round(name === 'CLS' ? delta * 1000 : delta),
+    // The `id` value will be unique to the current page load. When sending
+    // multiple values from the same page (e.g. for CLS), Google Analytics can
+    // compute a total by grouping on this ID (note: requires `eventLabel` to
+    // be a dimension in your report).
+    eventLabel: id,
+    // Use a non-interaction event to avoid affecting bounce rate.
+    nonInteraction: true,
+  });
+}
+
 export {
   init,
   trackErrors,
@@ -172,4 +201,5 @@ export {
   trackShowRecordFacets,
   trackDocPosition,
   trackNoContextDocPosition,
+  trackWebVitals,
 }
