@@ -4,3 +4,4 @@ googleAnalytics.init();
 googleAnalytics.trackErrors();
 googleAnalytics.trackSearchForm();
 googleAnalytics.trackShowRecordFacets();
+googleAnalytics.trackNoContextDocPosition();

@@ -53,12 +53,12 @@ module FacetsHelper
   # to filter undesireable facet items so they don't appear in the UI
   def render_facet_limit_list(paginator, facet_field, options = nil) # rubocop:disable Airbnb/OptArgParameters
     safe_join(paginator.items.map do |item|
-      render_facet_item(facet_field, item).merge({:label => item.value})
+      render_facet_item(facet_field, item).merge({ :label => item.value })
     end.compact.map do |item|
       if item[:selected]
         ga_category = "facet removed - sidebar"
       else
-        ga_category = "facet selected - #{action_name == 'home' ? 'home' : 'results'}"
+        ga_category = "facet selected - #{has_search_parameters? ? 'results' : 'home'}"
       end
       link_to(item[:rendered_element],
               item[:path],

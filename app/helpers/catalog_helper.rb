@@ -16,7 +16,7 @@ module CatalogHelper
             'ga-on': 'click',
             'ga-event-category': 'Bib Record',
             'ga-event-action': field_config[:label],
-            'ga-event-label': link_type
+            'ga-event-label': link_type,
           })
         end
       else

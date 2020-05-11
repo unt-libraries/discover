@@ -10,4 +10,6 @@ import 'blacklight-frontend/app/javascript/blacklight/button_focus';
 // Disabled import of facet_load to avoid doResizeFacetLabelsAndCounts function,
 // but leaving reference because we may import again in the future.
 // import 'blacklight-frontend/app/javascript/blacklight/facet_load';
-import 'blacklight-frontend/app/javascript/blacklight/search_context';
+
+// Import overridden search_context for google analytics
+import '../src/javascripts/override/search_context';

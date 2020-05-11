@@ -131,9 +131,45 @@ function trackShowRecordFacets() {
   })
 }
 
+// Track the position in search results of a document when clicked
+// Called from the Blacklight search context handler
+function trackDocPosition(link) {
+  const bodyEl = document.querySelector('body');
+  const viewContext = bodyEl.dataset.blacklightContext;
+  if (viewContext !== 'index') return;
+
+  const valueContainer = link.closest('article.document');
+  if (valueContainer === null) return;
+  const category = 'List Item Link';
+  const docPosition = parseInt(valueContainer.dataset.documentCounter) + 1;
+  const action = 'Result Item Placement';
+  const label = `Results # ${docPosition}`;
+  const value = '1';
+
+  ga("send", "event", category, action, label, value);
+}
+
+// Track document position for links not bound in Blacklight search context
+function trackNoContextDocPosition() {
+  const bodyEl = document.querySelector('body');
+  const viewContext = bodyEl.dataset.blacklightContext;
+  if (viewContext !== 'index') return;
+  const docContainer = bodyEl.querySelector('#documents');
+  if (docContainer === null) return;
+  const links = docContainer.querySelectorAll('a:not([data-context-href])');
+
+  links.forEach(node => {
+    node.addEventListener('click', () => {
+      trackDocPosition(node);
+    })
+  })
+}
+
 export {
   init,
   trackErrors,
   trackSearchForm,
   trackShowRecordFacets,
+  trackDocPosition,
+  trackNoContextDocPosition,
 }
