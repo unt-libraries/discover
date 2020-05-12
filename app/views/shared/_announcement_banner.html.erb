@@ -1,9 +1,23 @@
+<% unless t('announcement.content').blank? %>
+  <div class="col px-0">
+    <div id="site-messages">
+      <div class="site_messages">
+        <div class="alert alert-info text-center" role="alert">
+          <%= t('announcement.content').html_safe %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%# TODO: Remove this static banner for wide release, use the i18n translation and block above %>
 <div class="col px-0">
   <div id="site-messages">
     <div class="site_messages">
       <div class="alert alert-info text-center" role="alert">
-        This site is currently in beta, so you may notice some rough edges. Please send your
-        <%= link_to 'feedback', feedback_issue_url, target:'_blank', data: { toggle: 'tooltip', title: 'Provide site feedback, library staff only' } %> to help us improve.
+        This site is currently in beta, so you may notice some rough edges. Please send your feedback
+        via our <%= link_to 'ticketing system', feedback_issue_url, target:'_blank', data: { toggle: 'tooltip', title: 'Library staff only. Must be on campus or connected to UNT VPN' } %>
+        or <a href="<%= feedback_issue_email %>">email</a> to help us improve.
       </div>
     </div>
   </div>

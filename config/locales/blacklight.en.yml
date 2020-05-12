@@ -1,4 +1,6 @@
 en:
+  announcement:
+    content: ""
   home:
     about:
       title: 'About Discover'
@@ -104,6 +106,7 @@ en:
   urls:
     home: "https://library.unt.edu"
     gitlab_repo: "https://content.library.unt.edu/discover/discover"
+    feedback_email: 'ui.library@unt.edu'
   gitlab:
     url: "content.library.unt.edu"
     project_path: "/discover/discover"

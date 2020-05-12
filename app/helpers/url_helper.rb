@@ -179,6 +179,22 @@ module UrlHelper
     URI::HTTPS.build(host: host, path: endpoint, query: query_hash.to_query).to_s
   end
 
+  def feedback_issue_email
+    email_add = t('urls.feedback_email')
+
+    headers = [
+      ['subject', CGI.escape('Discover site feedback')],
+      [
+        'body',
+        CGI.escape("[your request here, attach file if needed.]\n\n\n\n
+<!-- NO EDITS BELOW THIS LINE -->\n
+- [PUBLIC URL](#{request.original_url})"),
+      ],
+    ]
+
+    URI::MailTo.build({ :to => email_add, :headers => headers })
+  end
+
   def link_to_bento_box_search(text, query)
     url = URI::HTTPS.build(host: 'library.unt.edu', path: '/search/', query: "q=#{query}").to_s
     link_to text, url, target: "_blank", rel: 'noopener'
