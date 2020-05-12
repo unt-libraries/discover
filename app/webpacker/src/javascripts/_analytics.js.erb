@@ -209,7 +209,7 @@ function addBrowserInfoToFeedback() {
   const feedbackLinks = document.querySelectorAll('a.feedback-email, a.feedback-url');
 
   feedbackLinks.forEach((node) => {
-    node.href = node.href.replace('%7B%7BuserAgent%7D%7D%', agentString);
+    node.href = node.href.replace('%7B%7BuserAgent%7D%7D', agentString);
   })
 }
 
