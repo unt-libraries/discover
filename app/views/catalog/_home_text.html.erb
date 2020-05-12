@@ -2,6 +2,17 @@
   <h1>Start searching now:</h1>
 <% end %>
 
+<% unless t('home.about.title').blank? %>
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title"><%= t('home.about.title') %></h1>
+      <div class="text-muted border-left pl-3">
+        <%= t('home.about.content').html_safe %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
 <div class="card">
   <div class="card-body">
     <h1 class="card-title"><%= t('home.featured.title') %></h1>
