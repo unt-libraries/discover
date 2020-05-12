@@ -1,6 +1,6 @@
 /* eslint-disable */
 // Override Blacklight implementation in 7.7.0 to add google analytics
-import { trackDocPosition } from '../_google_analytics.js.erb';
+import { trackDocPosition } from '../_analytics.js.erb';
 
 Blacklight.doSearchContextBehavior = function() {
   if (typeof Blacklight.do_search_context_behavior == 'function') {

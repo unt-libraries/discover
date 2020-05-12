@@ -1,8 +1,9 @@
-import * as googleAnalytics from '../src/javascripts/_google_analytics.js.erb';
+import * as analytics from '../src/javascripts/_analytics.js.erb';
 
-googleAnalytics.init();
-googleAnalytics.trackErrors();
-googleAnalytics.trackSearchForm();
-googleAnalytics.trackShowRecordFacets();
-googleAnalytics.trackNoContextDocPosition();
-googleAnalytics.trackWebVitals();
+analytics.init();
+analytics.trackErrors();
+analytics.trackSearchForm();
+analytics.trackShowRecordFacets();
+analytics.trackNoContextDocPosition();
+analytics.trackWebVitals();
+analytics.addBrowserInfoToFeedback();

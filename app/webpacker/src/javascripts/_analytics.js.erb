@@ -194,6 +194,25 @@ function sendWebVitalsToGoogleAnalytics({name, delta, id}) {
   });
 }
 
+function addBrowserInfoToFeedback() {
+  const header = [
+    navigator.platform,
+    navigator.userAgent,
+    navigator.appVersion,
+    navigator.vendor,
+    window.opera
+  ];
+
+  const agent = header.join(' ');
+  const agentString = encodeURIComponent(agent);
+
+  const feedbackLinks = document.querySelectorAll('a.feedback-email, a.feedback-url');
+
+  feedbackLinks.forEach((node) => {
+    node.href = node.href.replace('%7B%7BuserAgent%7D%7D%', agentString);
+  })
+}
+
 export {
   init,
   trackErrors,
@@ -202,4 +221,5 @@ export {
   trackDocPosition,
   trackNoContextDocPosition,
   trackWebVitals,
+  addBrowserInfoToFeedback,
 }

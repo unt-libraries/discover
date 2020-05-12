@@ -171,6 +171,7 @@ module UrlHelper
 <!-- due date, assignee, and label will automatically be filled below -->
 <!-- NO EDITS BELOW THIS LINE -->\n
 - [PUBLIC URL](#{request.original_url})\n
+- User Agent: {{userAgent}}\n\n
 /assign @UI
 /due <in 2 days
 /label ~feedback",
@@ -183,12 +184,13 @@ module UrlHelper
     email_add = t('urls.feedback_email')
 
     headers = [
-      ['subject', CGI.escape('Discover site feedback')],
+      ['subject', CGI.escape('Discover site feedback').gsub("+", "%20")],
       [
         'body',
         CGI.escape("[your request here, attach file if needed.]\n\n\n\n
 <!-- NO EDITS BELOW THIS LINE -->\n
-- [PUBLIC URL](#{request.original_url})"),
+- [PUBLIC URL](#{request.original_url})
+- User Agent: {{userAgent}}").gsub("+", "%20"),
       ],
     ]
 
