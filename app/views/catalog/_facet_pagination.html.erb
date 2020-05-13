@@ -17,7 +17,7 @@
                         'ga-event-category': 'pagination',
                         'ga-event-action': 'facet modal pagination',
                         'ga-event-label': 'next',
-                        'ga-event-value': '1'do %>
+                        'ga-event-value': '1' do %>
     <%= content_tag :span, raw(t('views.pagination.next')), class: 'disabled btn btn-disabled' %>
   <% end %>
 </div>
@@ -26,7 +26,7 @@
   <% if @pagination.sort == 'index' -%>
     <span class="active az btn btn-outline-secondary"><%= t('blacklight.search.facets.sort.index') %></span>
     <%= link_to(t('blacklight.search.facets.sort.count'),
-                pagination.params_for_resort_url('count', search_state.to_h),
+                @pagination.params_for_resort_url('count', search_state.to_h),
                 class: "sort_change numeric btn btn-outline-secondary",
                 data: { blacklight_modal: "preserve" },
                 'ga-on': 'click',
