@@ -85,11 +85,13 @@ module AvailabilityHelper
                 })
   end
 
-  def render_call_number(item)
+  def render_call_number(item, document: nil)
+    resource_type = document[:resource_type]
+    is_media = %w(video_film audiobook music_recording software video_game object_artifact equipment tabletop_game).include?(resource_type)
     content_tag(:span, item['c'],
                 {
-                  class: 'blacklight-call-number result__value flex-column '\
-                         'text-center d-none tooltip-nolink',
+                  class: "blacklight-call-number result__value flex-column "\
+                         "text-center #{'d-none' unless is_media} tooltip-nolink",
                   data: {
                     "item-call-number": item['c'],
                     toggle: "tooltip",
