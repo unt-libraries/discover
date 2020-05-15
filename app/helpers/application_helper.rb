@@ -94,6 +94,10 @@ module ApplicationHelper
     "#{linked} #{more if list_size > limit}".html_safe
   end
 
+  ##
+  # Converts Array of JSON strings from solr to Ruby hashes
+  # @param value [Array] Array of JSON strings
+  # @return [Array] Array of Ruby hashes
   def json_str_to_array(value)
     value.map! do |item|
       JSON.parse(item)

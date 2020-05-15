@@ -1,0 +1,73 @@
+#  <%= debug @response.first[1][:docs].first.to_yaml %>
+SolrDocument:
+  related_titles:
+    - 'Escape room (Motion picture : 2019)'
+    - 'Escape room (Motion picture : 2019). French'
+    - Test Placeholder Title
+  toc_notes:
+    - Formatted contents note. Test test test
+  statement_of_responsibility: by Led Zeppelin = Parallel title / by Parallel Responsibility
+  has_more_items: true
+  topic_terms:
+    - Science Fiction
+  author_title_search:
+    - New Headings Report Test Author Testing remote
+  loc_call_numbers:
+    - P1234
+  creator_sort: New Headings Report Test Author Testing remote Testing remote storage
+    holds
+  full_subjects:
+    - Science Fiction
+  id: b4371446
+  main_call_number: P1234
+  distribution_display:
+    - 'Distr. Place : Distributor, 1978'
+  resource_type: book
+  items_json:
+    - '{"c":"P1234","b":"1000000016","i":"6026069","n":null,"r":null,"v":null}'
+    - '{"c":"P1234","b":"1000000007","i":"4264281","n":null,"r":null,"v":null}'
+    - '{"c":"P1234","b":"1000000008","i":"4264283","n":null,"r":"jlf","v":null}'
+  corporations:
+    - New Headings Report Test Author
+  date_added: '2016-02-02T06:00:00Z'
+  urls_json:
+    - '{"t":"link","u":"https:\/\/www.example.com","l":null,"n":"View image of this item
+    (front view)."}'
+    - '{"t":"link","u":"https:\/\/www.library.unt.edu\/media\/covers\/ADB\/adb36.jpg","l":null,"n":"View
+    image of this item (side view)."}'
+  more_items_json:
+    - '{"c":"P1234 c.2","b":"1000000014","i":"4278315","n":null,"r":"aeon","v":null}'
+    - '{"c":"P1234 c.4","b":"1000000013","i":"4278313","n":null,"r":null,"v":null}'
+    - '{"c":"P1234 c.5","b":"1000000015","i":"4278316","n":null,"r":"catalog","v":null}'
+  copyright_display:
+    - '1977'
+  series_exact:
+    - Wonders of man.
+  manufacture_display:
+    - 'Printing Place : Printer, 1979'
+  suppressed: false
+  publication_year_display: 1970s
+  publication_display:
+    - 'Paris : Impr. Vincent, 1798'
+    - "[i.e. Bruxelles : Moens, 1883]"
+    - the 1970s
+  main_call_number_sort: P!0000001234
+  creator: New Headings Report Test Author
+  genre_terms:
+    - Science Fiction
+  languages:
+    - English
+  creation_display:
+    - 'Prod. Place : Creator, 1622'
+  title_sort: Testing remote storage holds
+  oclc_numbers:
+    - '7777777777'
+    - '5555555555'
+    - '9999999999'
+  full_title: Testing remote storage holds
+  series:
+    - Wonders of man
+  uniform_title: Testing remote
+  main_title: Testing remote storage holds
+  _version_: 1665770733495648256
+  timestamp_of_last_solr_update: '2020-05-04T14:32:45.526Z'
