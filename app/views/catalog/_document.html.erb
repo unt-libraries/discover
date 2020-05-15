@@ -8,6 +8,11 @@
                 }.merge(document.identifier_data),
                 "itemscope": true,
                 "itemtype": document.itemtype do -%>
+
+  <span class="hover-counter text-muted">
+    <%= document_counter_with_offset(document_counter) %>
+  </span>
+
   <%# image or icon for item %>
   <div class="thumbnail-wrapper d-none d-lg-block col-auto" aria-hidden="true">
     <%= render_document_partial document, 'thumbnail', document_counter: document_counter %>

@@ -26,6 +26,20 @@
       border-bottom: #d5d5d5 solid 1px;
     }
 
+    .hover-counter {
+      display: none;
+    }
+
+    &:hover {
+      .hover-counter {
+        display: inline-block;
+        font-size: 0.875rem;
+        margin-right: 10px;
+        position: absolute;
+        right: 100%;
+      }
+    }
+
     .document-title-heading {
       font-size: $h4-font-size;
       text-transform: none;
