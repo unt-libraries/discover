@@ -16,15 +16,3 @@
     <% end -%>
   </dl>
 <% end %>
-
-<%# render fields with :links_media display property %>
-<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :links_media } -%>
-  <h3>Links & Media</h3>
-  <div class="document-metadata mb-3">
-    <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :links_media }.each do |field_name, field, field_presenter| -%>
-      <div class="row result__field">
-        <span class="col blacklight-<%= field_name.parameterize %> result__value"><%= field_presenter.render %></span>
-      </div>
-    <% end -%>
-  </div>
-<% end %>

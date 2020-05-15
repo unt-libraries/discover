@@ -31,10 +31,6 @@ html a {
             content: "";
           }
     */
-    &:target {
-      color: $light-green;
-      padding-top: 50px;
-    }
   }
 
   &-section {

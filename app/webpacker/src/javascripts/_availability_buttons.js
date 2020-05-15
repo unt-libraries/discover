@@ -41,8 +41,10 @@ function updateIndexStatusElement(itemEl, item = null) {
     const statusBtnClass = statusData.btnClass;
     const statusDisplay = statusData.label;
 
+    // Hide the button if it's online, we already have buttons for that
     if (isOnlineItem) {
       elAddClass(availabilityEl, 'd-none');
+      elAddClass(itemEl, 'm-0', 'p-0');
       return;
     }
 

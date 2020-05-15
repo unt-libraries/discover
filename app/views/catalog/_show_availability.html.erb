@@ -4,9 +4,9 @@
    items = json_str_to_array(document[:items_json])
    more_items = document[:more_items_json].nil? ? nil : json_str_to_array(document[:more_items_json])
 %>
-<div id="show-availability" class="card item-availability">
+<div class="card item-availability">
   <div class="card-body">
-    <h3 class="card-title">Availability</h3>
+    <h3 id="show-availability" class="card-title anchor">Availability</h3>
     <div class="table-responsive">
       <table class="table table-borderless" data-more-scope data-showing-less>
         <thead>

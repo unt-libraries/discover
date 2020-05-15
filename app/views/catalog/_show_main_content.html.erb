@@ -23,6 +23,8 @@
   </div>
 </div>
 
+<%= render partial: 'show_links_media', locals: { document: @document } %>
+
 <%= render partial: 'show_availability', locals: { document: @document } %>
 
 <% if doc_presenter.fields_to_render.any? { |name, f| f[:display].blank? && should_render_show_field?(document, f) } -%>

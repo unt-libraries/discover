@@ -1,0 +1,21 @@
+.item-links-media {
+  .blacklight-urls_json {
+    a:nth-of-type(2n+1) {
+      @extend .alert;
+      @extend .alert-success;
+      @extend .w-100;
+      @extend .d-block;
+
+      color: #00853e;
+    }
+
+    a:nth-of-type(2n+2) {
+      @extend .alert;
+      @extend .alert-info;
+      @extend .w-100;
+      @extend .d-block;
+
+      color: #00853e;
+    }
+  }
+}

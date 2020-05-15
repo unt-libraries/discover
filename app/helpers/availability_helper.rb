@@ -7,7 +7,16 @@ module AvailabilityHelper
 
   def document_availability_context_href(document, counter)
     "#{document_link_params(document,
-                            { :counter => counter })[:data][:"context-href"]}#show-availability"
+                            { :counter => counter })[:data][:"context-href"]}#show-links_media"
+  end
+
+  def document_links_media_href(document)
+    "#{solr_document_path document}#show-links_media"
+  end
+
+  def document_links_media_context_href(document, counter)
+    "#{document_link_params(document,
+                            { :counter => counter })[:data][:"context-href"]}#show-links_media"
   end
 
   def document_online_urls(document)
@@ -23,8 +32,8 @@ module AvailabilityHelper
     online_items = document_online_urls(document)
     online_count = online_items.length
     if online_count > 1
-      context_href = document_availability_context_href(document, counter)
-      url = document_availability_href(document)
+      context_href = document_links_media_context_href(document, counter)
+      url = document_links_media_href(document)
       link_text = "#{online_count} Available Online"
     else
       context_href = online_items[0]['u']

@@ -1,0 +1,20 @@
+<%# render fields with :links_media display property in a card %>
+<% document ||= @document
+   id = document[:id]
+   doc_presenter = show_presenter(document)
+%>
+
+<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :links_media } -%>
+<div class="card item-links-media">
+  <div class="card-body">
+    <h3 id="show-links_media" class="card-title links_media-heading anchor">Links & Media</h3>
+    <div class="document-metadata mb-3">
+      <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :links_media }.each do |field_name, field, field_presenter| -%>
+        <div class="row result__field">
+          <span class="col blacklight-<%= field_name.parameterize %> result__value"><%= field_presenter.render %></span>
+        </div>
+      <% end -%>
+    </div>
+  </div>
+</div>
+<% end %>

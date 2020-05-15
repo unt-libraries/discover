@@ -11,26 +11,22 @@ module CatalogHelper
       link_text = json['n'] || json['l'] || json['u']
       link_type = json['t']
       if link_type == 'fulltext'
-        content_tag :div do
-          fulltext_link(json, {
-            'ga-on': 'click',
-            'ga-event-category': 'Bib Record',
-            'ga-event-action': field_config[:label],
-            'ga-event-label': link_type,
-          })
-        end
+        fulltext_link(json, {
+          'ga-on': 'click',
+          'ga-event-category': 'Bib Record',
+          'ga-event-action': field_config[:label],
+          'ga-event-label': link_type,
+        })
       else
-        content_tag :div do
-          link_to "#{link_text}", json['u'], class: "link-media-item #{link_type}",
-                                             data: { "link-type": link_type },
-                                             'ga-on': 'click',
-                                             'ga-event-category': 'Bib Record',
-                                             'ga-event-action': field_config[:label],
-                                             'ga-event-label': link_type
-        end
+        link_to "#{link_text}", json['u'], class: "link-media-item #{link_type}",
+                                           data: { "link-type": link_type },
+                                           'ga-on': 'click',
+                                           'ga-event-category': 'Bib Record',
+                                           'ga-event-action': field_config[:label],
+                                           'ga-event-label': link_type
       end
     end
-    content_tag 'span', contents.join(''), nil, false
+    contents.join('').html_safe
   end
 
   def index_format_items(items_json)
