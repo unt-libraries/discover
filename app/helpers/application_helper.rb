@@ -162,7 +162,7 @@ module ApplicationHelper
       else
         part = item[:p].first
       end
-      json_value_to_facet_link(part, 'author_contributor_facet', context: 'index')
+      json_value_to_facet_link(part, 'author_contributor_facet', context: 'index').strip
     end.join('; ').html_safe
 
     more = "<span class='more'>+#{list_size - limit} more</span>"
