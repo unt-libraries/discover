@@ -87,6 +87,29 @@ class SolrDocument
     resource_type_map.dig(self[:resource_type].to_sym, :icon)
   end
 
+  ##
+  # Converts a single JSON string from solr to Ruby hash
+  # Used for single value fields
+  # @param value [String] JSON string
+  # @return [Hash] Ruby hash
+  def json_str_to_hash(value)
+    return if first(value).blank?
+    JSON.parse(first(value)).with_indifferent_access
+  end
+
+  ##
+  # Converts Array of JSON strings from solr to Ruby hashes
+  # Used for multi-value fields
+  # @param value [Array] Array of JSON strings
+  # @return [Array] Array of Ruby hashes
+  def json_str_to_array(value)
+    return if self[value].blank?
+
+    self[value].map do |item|
+      JSON.parse(item).with_indifferent_access
+    end
+  end
+
   private
 
   def identifier_keys

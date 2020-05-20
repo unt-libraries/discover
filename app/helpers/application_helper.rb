@@ -82,26 +82,92 @@ module ApplicationHelper
     links.join('; ').html_safe
   end
 
-  def index_creator_contrib_field(document, limit: 2)
-    creator = document[:creator].nil? ? [] : [document[:creator]]
-    contributors = document[:contributors] || []
-    combined = creator + contributors
-    list_size = combined.length
-    limited = combined.slice(0, limit)
-    linked = author_facet_links(list: limited)
-    more = "<span class='more'>+#{list_size - limit} more</span>"
-
-    "#{linked} #{more if list_size > limit}".html_safe
+  ##
+  # Converts a single JSON string from solr to Ruby hash
+  # Used for single value fields
+  # @param value [String] JSON string
+  # @return [Hash] Ruby hash
+  def json_str_to_hash(value)
+    return if value.blank?
+    JSON.parse(value).with_indifferent_access
   end
 
   ##
-  # Converts Array of JSON strings from solr to Ruby hashes
+  # Converts Array of JSON strings from solr to array of Ruby hashes
   # @param value [Array] Array of JSON strings
   # @return [Array] Array of Ruby hashes
   def json_str_to_array(value)
-    value.map! do |item|
-      JSON.parse(item)
+    return if value.blank?
+    value.map do |item|
+      json_str_to_hash(item)
     end
+  end
+
+  ##
+  # This is a helper method for catalog_controller, so it takes the field options parameter
+  # @param [Hash] options
+  # @return [String] HTML links joined together
+  def json_field_to_links(options = {})
+    values = options[:value]
+    facet = options[:config][:link_to_facet]
+
+    values.map do |item|
+      relator = item['r'].blank? ? '' : ", #{item['r'].join(', ')}"
+      item['p'].map do |i|
+        json_value_to_facet_link(i, facet, context: 'show')
+      end.join.strip.concat(relator)
+    end.join('<br>').html_safe
+  end
+
+  ##
+  # Takes a single json value and returns a link to search the facet
+  # @param [Hash] data
+  # @return [String] HTML link
+  def json_value_to_facet_link(data, facet, context: nil)
+    display = data['d']
+    value = data['v'] || display
+    separator = data['s'] || ' '
+    ga_category = context == 'show' ? 'Bib Record' : 'List Item Link'
+    link_to(display, "/?f[#{facet}][]=#{CGI.escape(value)}",
+            class: "",
+            "data-toggle" => "tooltip",
+            title: "Search for #{value}",
+            'ga-on': 'click',
+            'ga-event-category': ga_category,
+            'ga-event-action': "#{facet}",
+            'ga-event-label': value).concat(separator)
+  end
+
+  ##
+  # Combines the author and contributor fields, cuts down to the first 2, returns HTML
+  # @param [SolrDocument] document
+  # @param [Integer] limit
+  # @return [String] HTML of combined links
+  def index_creator_contrib_field(document, limit: 2)
+    creator = document[:author_json].blank? ? [] : [json_str_to_hash(document[:author_json])]
+    contributors = document[:contributors_json].blank? ? [] : json_str_to_array(document[:contributors_json])
+    combined = creator + contributors
+    list_size = combined.length
+    limited = combined.slice(0, limit)
+    linked = limited.map do |item|
+      # If it is a multi-part item, we use the value for both display and value
+      if item[:p].length > 1
+        last_part = item['p'].last
+        display = last_part[:v]
+        value = last_part[:v]
+        part = {
+          :d => display,
+          :v => value,
+        }.with_indifferent_access
+      else
+        part = item[:p].first
+      end
+      json_value_to_facet_link(part, 'author_contributor_facet', context: 'index')
+    end.join('; ').html_safe
+
+    more = "<span class='more'>+#{list_size - limit} more</span>"
+
+    "#{linked} #{more if list_size > limit}".html_safe
   end
 
   def items_have_notes?(items)

@@ -3,6 +3,39 @@
 require "rails_helper"
 
 describe ApplicationHelper do
+  describe '#json_str_to_hash' do
+    let(:items_json) do
+      "{\"p\":[{\"s\":\" > \",\"d\":\"United States Congress\"},{\"s\":\" > \",\"d\":\"House\",\"v\":\"United States Congress > House\"},{\"s\":\" > \",\"d\":\"Committee on Natural Resources\",\"v\":\"United States Congress > House > Committee on Natural Resources\"},{\"d\":\"Subcommittee on Oversight and Investigations\",\"v\":\"United States Congress > House > Committee on Natural Resources > Subcommittee on Oversight and Investigations\"}],\"r\":[\"author\"]}"
+    end
+
+    it 'returns a HashWithIndifferentAccess' do
+      items_hash = json_str_to_hash(items_json)
+
+      expect(items_hash.class).to eql ActiveSupport::HashWithIndifferentAccess
+    end
+
+    it 'properly maps values' do
+      items_hash = {
+        "p" => [
+          {"s" => " > ", "d" => "United States Congress"},
+          {"s" => " > ", "d" => "House", "v" => "United States Congress > House"},
+          {"s" => " > ", "d" => "Committee on Natural Resources", "v" => "United States Congress > House > Committee on Natural Resources"},
+          {"d" => "Subcommittee on Oversight and Investigations", "v" => "United States Congress > House > Committee on Natural Resources > Subcommittee on Oversight and Investigations"}
+        ], "r" => ["author"],
+      }
+
+      expect(json_str_to_hash(items_json)).to eql items_hash
+    end
+
+    it 'elements accessible by string key' do
+      expect(json_str_to_hash(items_json)["p"].first["s"]).to eql " > "
+    end
+
+    it 'elements accessible by hash key' do
+      expect(json_str_to_hash(items_json)[:p].first[:s]).to eql " > "
+    end
+  end
+
   describe "#json_str_to_array" do
     let(:items_json) do
       [

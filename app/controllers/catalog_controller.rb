@@ -151,8 +151,8 @@ class CatalogController < ApplicationController
     config.add_facet_field 'languages', label: 'Language', limit: 10, group: 'language'
 
     # Group publication
-    config.add_facet_field 'public_author_facet', label: 'Author or Contributor', limit: 10,
-                                                  index_range: 'A'..'Z', group: 'publication'
+    config.add_facet_field 'author_contributor_facet', label: 'Author or Contributor', limit: 10,
+                                                       index_range: 'A'..'Z', group: 'publication'
     config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z',
                                                  group: 'publication'
     config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z',
@@ -202,9 +202,10 @@ class CatalogController < ApplicationController
 
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
-    # config.add_index_field 'full_title', label: 'Title'
-    config.add_index_field 'creator', label: 'Author/Creator', if: false
-    config.add_index_field 'contributors', label: 'Contributors', if: false
+    config.add_index_field 'author_json', label: 'Author/Creator', if: false,
+                                          link_to_facet: 'author_contributor_facet'
+    config.add_index_field 'contributors_json', label: 'Contributors', if: false,
+                                                link_to_facet: 'author_contributor_facet'
 
     config.add_index_field 'resource_type', label: 'Resource Type', no_label: true,
                                             display: :resource_type, accessor: 'resource_type_name'
@@ -284,9 +285,12 @@ class CatalogController < ApplicationController
     config.add_show_field 'toc_notes', label: 'Table of Contents'
     config.add_show_field 'summary_notes', label: 'Summary'
 
-    config.add_show_field 'creator', label: 'Author/Creator', link_to_facet: 'public_author_facet'
-    config.add_show_field 'contributors', label: 'Contributors',
-                                          link_to_facet: 'public_author_facet'
+    config.add_show_field 'author_json', label: 'Author/Creator', accessor: 'json_str_to_hash',
+                                         helper_method: :json_field_to_links,
+                                         link_to_facet: 'author_contributor_facet'
+    config.add_show_field 'contributors_json', label: 'Contributors', accessor: 'json_str_to_array',
+                                               helper_method: :json_field_to_links,
+                                               link_to_facet: 'author_contributor_facet'
     config.add_show_field 'series_creators', label: 'Series Creators',
                                              link_to_facet: 'public_author_facet'
 
@@ -317,6 +321,9 @@ class CatalogController < ApplicationController
     config.add_show_field 'oclc_numbers', label: 'OCLC Number'
     # Notes fields -- eventually we will have a lot more of these
     # Context
+    config.add_show_field 'meetings_json', label: 'Meetings', accessor: 'json_str_to_array',
+                                           helper_method: :json_field_to_links,
+                                           link_to_facet: 'meeting_facet'
     config.add_show_field 'context_notes', label: 'Event Notes'
 
     # "fielded" search configuration. Used by pulldown among other places.
