@@ -137,6 +137,15 @@ class CatalogController < ApplicationController
     config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index',
                                                        helper_method: :get_date_facet_display,
                                                        group: 'date'
+    config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
+      :weeks_1 => { label: 'Within the last week', fq: "date_added:[NOW-7DAYS/DAY TO NOW/DAY]" },
+      :weeks_2 => { label: 'Within the last 2 weeks', fq: "date_added:[NOW-14DAYS/DAY TO NOW/DAY]" },
+      :weeks_3 => { label: 'Within the last 3 weeks', fq: "date_added:[NOW-21DAYS/DAY TO NOW/DAY]" },
+      :months_1 => { label: 'Within the last month', fq: "date_added:[NOW-1MONTH/DAY TO NOW/DAY]" },
+      :months_2 => { label: 'Within the last 2 months', fq: "date_added:[NOW-2MONTHS/DAY TO NOW/DAY]" },
+      :months_3 => { label: 'Within the last 3 months', fq: "date_added:[NOW-3MONTHS/DAY TO NOW/DAY]" },
+      :months_6 => { label: 'Within the last 6 months', fq: "date_added:[NOW-6MONTHS/DAY TO NOW/DAY]" },
+    }, group: 'date'
 
     # Group language
     config.add_facet_field 'languages', label: 'Language', limit: 10, group: 'language'
@@ -185,17 +194,6 @@ class CatalogController < ApplicationController
       :age_14 => { label: '14 to 16 years', fq: "game_facet:a14t16" },
       :age_17 => { label: '17 years and up', fq: "game_facet:a17t100" },
     }, group: 'game'
-
-    # Group recent
-    config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
-      :weeks_1 => { label: 'Within the last week', fq: "date_added:[NOW-7DAYS/DAY TO NOW/DAY]" },
-      :weeks_2 => { label: 'Within the last 2 weeks', fq: "date_added:[NOW-14DAYS/DAY TO NOW/DAY]" },
-      :weeks_3 => { label: 'Within the last 3 weeks', fq: "date_added:[NOW-21DAYS/DAY TO NOW/DAY]" },
-      :months_1 => { label: 'Within the last month', fq: "date_added:[NOW-1MONTH/DAY TO NOW/DAY]" },
-      :months_2 => { label: 'Within the last 2 months', fq: "date_added:[NOW-2MONTHS/DAY TO NOW/DAY]" },
-      :months_3 => { label: 'Within the last 3 months', fq: "date_added:[NOW-3MONTHS/DAY TO NOW/DAY]" },
-      :months_6 => { label: 'Within the last 6 months', fq: "date_added:[NOW-6MONTHS/DAY TO NOW/DAY]" },
-    }, group: 'recent'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
