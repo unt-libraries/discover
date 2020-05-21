@@ -103,6 +103,8 @@ en:
         search_everything: "try searching everything"
         search_bento_box: "Or search more "
         bento_box_link: "UNT online resources"
+    tools:
+      title: 'Actions'
   urls:
     home: "https://library.unt.edu"
     gitlab_repo: "https://content.library.unt.edu/discover/discover"
