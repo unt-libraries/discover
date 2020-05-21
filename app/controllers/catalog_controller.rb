@@ -118,9 +118,10 @@ class CatalogController < ApplicationController
 
     # Group priority
     config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false,
-                                           sort: 'index', group: 'priority'
+                                           collapse: false, sort: 'index', group: 'priority'
     config.add_facet_field 'resource_type_facet', label: 'Resource Type', home: true,
-                                                  home_collapse: false, sort: 'index',
+                                                  home_collapse: false, collapse: false,
+                                                  sort: 'index',
                                                   helper_method: :resource_type_label,
                                                   group: 'priority'
 

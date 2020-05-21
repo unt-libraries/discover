@@ -167,20 +167,20 @@ module FacetsHelper
   # Shares some overlap with /app/models/solr_document.rb#resource_type_map
   def resource_type_map
     {
-      :archives_manuscripts => { :label => 'Archives/Manuscripts', :icon => 'book' },
+      :archives_manuscripts => { :label => 'Archives/Manuscripts', :icon => 'archive' },
       :audio => { :label => 'Audio', :icon => 'headphones' },
       :books => { :label => 'Books', :icon => 'book' },
-      :educational_kits => { :label => 'Educational Kits', :icon => 'book' },
+      :educational_kits => { :label => 'Educational Kits', :icon => 'child' },
       :equipment => { :label => 'Equipment', :icon => 'cube' },
       :games => { :label => 'Games', :icon => 'gamepad' },
       :images => { :label => 'Images', :icon => 'image' },
       :journals_periodicals => { :label => 'Journals/Periodicals', :icon => 'book-alt' },
       :online_databases => { :label => 'Online Databases', :icon => 'database' },
       :music_recordings => { :label => 'Music Recordings', :icon => 'music' },
-      :music_scores => { :label => 'Music Scores', :icon => 'music' },
+      :music_scores => { :label => 'Music Scores', :icon => 'list-music' },
       :maps => { :label => 'Maps', :icon => 'map' },
       :objects_artifacts => { :label => 'Objects/Artifacts', :icon => 'cube' },
-      :software => { :label => 'Software', :icon => 'file' },
+      :software => { :label => 'Software', :icon => 'code' },
       :theses_dissertations => { :label => 'Theses/Dissertations', :icon => 'book' },
       :video_film => { :label => 'Video/Film', :icon => 'film' },
     }
