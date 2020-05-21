@@ -163,9 +163,9 @@ const locationData = {
     name: 'Discovery Park Library Featured Books',
   },
   rmak: {
-    name: 'The Factory @ Discovery Park',
-    abbr: 'The Factory @ DP',
-    linkText: 'The Factory @ Discovery Park Guide',
+    name: 'The Spark @ Discovery Park',
+    abbr: 'The Spark @ DP',
+    linkText: 'The Spark @ Discovery Park Guide',
     url: 'https://guides.library.unt.edu/c.php?g=421156&p=7182130',
   },
   rst: {
@@ -361,10 +361,10 @@ const locationData = {
     name: 'Willis 1FL Information Desk',
   },
   w1mak: {
-    name: 'The Factory @ Willis Library',
-    abbr: 'The Factory',
-    linkText: 'The Factory Guide',
-    url: 'https://guides.library.unt.edu/factory/overview',
+    name: 'The Spark @ Willis Library',
+    abbr: 'The Spark',
+    linkText: 'The Spark Guide',
+    url: 'https://guides.library.unt.edu/spark/overview',
   },
   w1mdc: {
     name: 'Willis 1FL Monthly Display',
