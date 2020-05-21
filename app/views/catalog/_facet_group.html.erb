@@ -1,6 +1,6 @@
 <% # main container for facets/limits menu -%>
 <% if has_facet_values? facet_field_names(groupname), @response %>
-  <div id="facet-panel<%= "-#{groupname}" unless groupname.nil? %>-collapse" class="facets-collapse collapse<%= " facet-group" unless groupname.nil? %>">
+  <div id="facet-panel<%= "-#{groupname}" unless groupname.nil? %>-collapse" class="facets-collapse collapse<%= " facet-group facet-group-#{groupname}" unless groupname.nil? %>">
     <% if has_search_parameters? %>
       <%= render_facet_partials facet_field_names(groupname), response: @response %>
     <% else %>

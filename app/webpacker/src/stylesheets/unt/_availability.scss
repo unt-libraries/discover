@@ -40,17 +40,87 @@
           border-color: theme-color('gray-light');
         }
 
-        &.available {
-          color: white;
-          background-color: theme-color('primary');
-          border-color: theme-color('primary');
+        &.location-eagle-commons {
+          &.available:not(.checked-out) {
+            @extend .btn-light-teal;
+          }
 
-          &:active,
-          &:hover,
-          &:focus {
-            background-color: darken(theme-color('primary'), 5%);
+          &.checked-out {
+            @extend .btn-outline-light-teal;
           }
         }
+
+        &.location-willis {
+          &.available:not(.checked-out) {
+            @extend .btn-dark-teal;
+          }
+
+          &.checked-out {
+            @extend .btn-outline-dark-teal;
+          }
+        }
+
+        &.location-media {
+          &.available:not(.checked-out) {
+            @extend .btn-light-green;
+
+            color: white;
+          }
+
+          &.checked-out {
+            @extend .btn-outline-light-green;
+          }
+        }
+
+        &.location-discovery-park {
+          &.available:not(.checked-out) {
+            @extend .btn-lime-green;
+          }
+
+          &.checked-out {
+            @extend .btn-outline-lime-green;
+          }
+        }
+
+        &.location-remote-storage {
+          &.available:not(.checked-out) {
+            @extend .btn-aqua;
+
+            color: white;
+          }
+
+          &.checked-out {
+            @extend .btn-outline-aqua;
+          }
+        }
+
+        //&.available {
+        //  @extend .btn-primary;
+        //
+        //  &.location-eagle-commons {
+        //    @extend .btn-light-teal;
+        //  }
+        //
+        //  &.location-willis {
+        //    @extend .btn-dark-teal;
+        //  }
+        //
+        //  &.location-media {
+        //    @extend .btn-light-green;
+        //
+        //    color: white;
+        //  }
+        //
+        //  &.location-discovery-park {
+        //    @extend .btn-lime-green;
+        //  }
+        //
+        //  &.location-remote-storage {
+        //    @extend .btn-aqua;
+        //
+        //    color: white;
+        //  }
+        //}
 
         &.online {
           color: white;

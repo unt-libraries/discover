@@ -24,6 +24,7 @@ const locationData = {
     abbr: 'Media',
     linkText: 'Media Library Directory',
     url: 'https://library.unt.edu/media/#directory',
+    btnClass: 'media',
   },
   czmrf: {
     name: 'Chilton Media Reference',
@@ -91,6 +92,7 @@ const locationData = {
   jlf: {
     name: 'Joint Library Facility Remote Storage',
     abbr: 'JLF',
+    btnClass: 'remote-storage',
   },
   'k*': {
     name: '', abbr: '', linkText: '', url: '',
@@ -186,6 +188,7 @@ const locationData = {
     abbr: 'ECL',
     linkText: 'Eagle Commons Library Directory',
     url: 'https://library.unt.edu/eagle-commons/#directory"',
+    btnClass: 'eagle-commons',
   },
   s1fdc: {
     name: 'Eagle Commons Library 1FL Display',
@@ -335,12 +338,14 @@ const locationData = {
   w: {
     name: 'Willis Library',
     abbr: 'Willis',
+    btnClass: 'willis',
   },
   'w1*': {
     name: 'Willis 1st Floor',
     abbr: 'Willis 1st',
     linkText: 'Willis Library 1st Floor Directory',
     url: 'https://library.unt.edu/willis/first-floor/#directory',
+    btnClass: 'willis',
   },
   w1fdc: {
     name: 'Willis 1FL Featured Books',
@@ -384,6 +389,7 @@ const locationData = {
     abbr: 'Willis 2nd',
     linkText: 'Willis Library 2nd Floor Directory',
     url: 'https://library.unt.edu/willis/second-floor/#directory',
+    btnClass: 'willis',
   },
   w2awt: {
     name: 'Willis 2nd Admin Office Work tool',
@@ -397,6 +403,7 @@ const locationData = {
     abbr: 'Willis 3rd',
     linkText: 'Willis Library 3rd Floor Directory',
     url: 'https://library.unt.edu/willis/third-floor/#directory',
+    btnClass: 'willis',
   },
   w3big: {
     name: 'Willis 3FL Oversize',
@@ -421,6 +428,7 @@ const locationData = {
     abbr: 'Willis 4th',
     linkText: 'Willis Library 4th Floor Directory',
     url: 'https://library.unt.edu/willis/fourth-floor/',
+    btnClass: 'willis',
   },
   w433a: {
     name: 'Willis 4FL Music Room 433A',
@@ -505,18 +513,21 @@ const locationData = {
     abbr: 'Willis Exhibition',
     linkText: 'Willis Library 1st Floor Directory',
     url: 'https://library.unt.edu/willis/first-floor/#directory',
+    btnClass: 'willis',
   },
   wgrc: {
     name: 'Willis Graduate Reserve',
     abbr: 'Willis Grad Reserve',
     linkText: '',
     url: '',
+    btnClass: 'willis',
   },
   'wl*': {
     name: 'Willis Lower Level',
     abbr: 'Willis LL',
     linkText: 'Willis Library Lower Level Floor Directory',
     url: 'https://library.unt.edu/willis/lower-level/#directory',
+    btnClass: 'willis',
   },
   wlbig: {
     name: 'Willis LL Oversize',
@@ -532,6 +543,7 @@ const locationData = {
     abbr: 'Remote',
     linkText: '',
     url: '',
+    btnClass: 'remote-storage',
   },
   xcmc: {
     name: 'Curriculum Materials Collection Remote Storage',

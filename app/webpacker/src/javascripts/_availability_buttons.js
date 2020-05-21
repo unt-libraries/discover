@@ -60,10 +60,11 @@ function updateIndexStatusElement(itemEl, item = null) {
       availabilityText.innerText = `Due ${dueDate}`;
       availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
       elRemoveClass(availabilityText, 'd-none');
-      return;
+      elRemoveClass(availabilityBtn, 'available');
+      elAddClass(availabilityBtn, 'checked-out');
     }
 
-    if (statusDesc) {
+    if (statusDesc && !statusDueDate) {
       availabilityBtn.innerText = statusDisplay;
       availabilityBtn.dataset.toggle = 'tooltip';
       availabilityBtn.dataset.title = statusDesc;
@@ -86,6 +87,7 @@ function updateIndexStatusElement(itemEl, item = null) {
     if (locationText && !isOnlineItem) {
       availabilityBtn.append(` - ${locationText}`);
       availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
+      if (locationData.btnClass) elAddClass(availabilityBtn, `location-${locationData.btnClass}`);
     }
   }
 }

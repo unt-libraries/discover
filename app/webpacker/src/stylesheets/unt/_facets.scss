@@ -13,6 +13,35 @@
 
   .facet-group {
     margin-bottom: 0.5rem;
+    border-top: 2px solid;
+
+    &-priority {
+      border-top-color: theme-color("unt-green");
+    }
+
+    &-location {
+      border-top-color: theme-color("light-green");
+    }
+
+    &-date {
+      border-top-color: theme-color("lime-green");
+    }
+
+    &-language {
+      border-top-color: theme-color("light-blue");
+    }
+
+    &-publication {
+      border-top-color: theme-color("dark-teal");
+    }
+
+    &-subjects {
+      border-top-color: theme-color("light-teal");
+    }
+
+    &-game {
+      border-top-color: theme-color("aqua");
+    }
   }
 
   .navbar-toggler {
