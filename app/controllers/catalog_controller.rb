@@ -153,10 +153,10 @@ class CatalogController < ApplicationController
     # Group publication
     config.add_facet_field 'author_contributor_facet', label: 'Author or Contributor', limit: 10,
                                                        index_range: 'A'..'Z', group: 'publication'
-    config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z',
-                                                 group: 'publication'
     config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
                            index_range: 'A'..'Z', group: 'publication'
+    config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z',
+                                                 group: 'publication'
     config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z',
                                                   group: 'publication'
 

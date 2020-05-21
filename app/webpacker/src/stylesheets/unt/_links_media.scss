@@ -17,5 +17,9 @@
 
       color: #00853e;
     }
+
+    & > :last-child {
+      margin-bottom: 0 !important;
+    }
   }
 }
