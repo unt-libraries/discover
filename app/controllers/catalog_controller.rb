@@ -155,12 +155,10 @@ class CatalogController < ApplicationController
                                                        index_range: 'A'..'Z', group: 'publication'
     config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z',
                                                  group: 'publication'
+    config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
+                           index_range: 'A'..'Z', group: 'publication'
     config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z',
                                                   group: 'publication'
-
-    # Group event
-    config.add_facet_field 'meetings_facet', label: 'Meeting or Event', limit: 10,
-                                             index_range: 'A'..'Z', group: 'event'
 
     # Group subjects
     config.add_facet_field 'public_genre_facet', label: 'Genre', limit: 10, index_range: 'A'..'Z',
@@ -291,6 +289,9 @@ class CatalogController < ApplicationController
     config.add_show_field 'contributors_json', label: 'Contributors', accessor: 'json_str_to_array',
                                                helper_method: :json_field_to_links,
                                                link_to_facet: 'author_contributor_facet'
+    config.add_show_field 'meetings_json', label: 'Meetings', accessor: 'json_str_to_array',
+                          helper_method: :json_field_to_links,
+                          link_to_facet: 'meeting_facet'
     config.add_show_field 'series_creators', label: 'Series Creators',
                                              link_to_facet: 'public_author_facet'
 
@@ -321,9 +322,6 @@ class CatalogController < ApplicationController
     config.add_show_field 'oclc_numbers', label: 'OCLC Number'
     # Notes fields -- eventually we will have a lot more of these
     # Context
-    config.add_show_field 'meetings_json', label: 'Meetings', accessor: 'json_str_to_array',
-                                           helper_method: :json_field_to_links,
-                                           link_to_facet: 'meeting_facet'
     config.add_show_field 'context_notes', label: 'Event Notes'
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -382,7 +380,7 @@ class CatalogController < ApplicationController
     # except in the relevancy case).
     config.add_sort_field 'score desc, title_sort asc', label: 'Relevance'
     config.add_sort_field 'publication_sort desc, title_sort asc', label: 'Publication Date'
-    config.add_sort_field 'creator_sort asc, title_sort asc', label: 'Creator'
+    config.add_sort_field 'author_sort asc, title_sort asc', label: 'Author/Creator'
     config.add_sort_field 'title_sort asc', label: 'Title'
     config.add_sort_field 'date_added desc, title_sort asc', label: 'Newest to the Libraries'
 
