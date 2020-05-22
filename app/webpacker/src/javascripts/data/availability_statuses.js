@@ -84,7 +84,7 @@ const statusDescData = {
     btnClass: 'available',
   },
   w: {
-    label: 'See Links & Media section',
+    label: 'Linked above',
     desc: 'This item or copy is available online--look for the FIND IT button. You may need to be on campus or '
         + 'authenticate using your EUID to access it.',
     btnClass: 'online',

@@ -75,7 +75,7 @@ module UrlHelper
     case requestability
     when 'catalog'
       url = "https://iii.library.unt.edu/search~S12?/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}"
-      text = "Request through Catalog"
+      text = "Delivery Options"
       el_class = "request-catalog"
     when 'jlf'
       url = construct_illiad_url(document, item: item)
@@ -88,6 +88,7 @@ module UrlHelper
     else
       return 'Cannot request this item'
     end
+
     link_to text, url, class: el_class, target: "_blank", rel: 'noopener',
                        'ga-on': 'click',
                        'ga-event-category': 'Bib Record',
