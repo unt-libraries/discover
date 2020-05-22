@@ -8,7 +8,9 @@
   .navbar {
     z-index: 1;
     background-color: theme-color("gray-darker");
+    border-radius: $card-border-radius;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 0.5rem;
   }
 
   .facet-group {
