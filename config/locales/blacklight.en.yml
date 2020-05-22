@@ -74,6 +74,7 @@ en:
     application_name: 'Discover'
 
     search:
+      header: 'What are you looking for?'
       page_title:
         title: 'Search Results -- %{total_num} Matching Results - %{application_name}'
       form:
