@@ -229,6 +229,18 @@ $dropdown-link-hover-bg:    #e9ecef; // $gray-200
 
 // Cards
 
+$card-spacer-y:                     .75rem !default;
+$card-spacer-x:                     1.25rem !default;
+$card-border-width:                 $border-width !default;
+$card-border-radius:                0.25rem;
+$card-border-color:                 rgba($black, .125) !default;
+$card-inner-border-radius:          subtract($card-border-radius, $card-border-width) !default;
+$card-cap-bg:                       rgba($black, .03) !default;
+$card-cap-color:                    null !default;
+$card-height:                       null !default;
+$card-color:                        null !default;
+$card-bg:                           $white !default;
+
 // Breakpoints and settings for custom card-decks.
 $card-breakpoints: (
   xs: 0,

@@ -1,5 +1,12 @@
 .item-links-media {
   .blacklight-urls_json {
+    a.link-media-item {
+      border-radius: $card-border-radius;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      margin-bottom: 1.5rem;
+      padding: 0.75rem 2.5rem;
+    }
+
     a:nth-of-type(2n+1) {
       @extend .alert;
       @extend .alert-success;
@@ -16,10 +23,6 @@
       @extend .d-block;
 
       color: #00853e;
-    }
-
-    & > :last-child {
-      margin-bottom: 0 !important;
     }
   }
 }
