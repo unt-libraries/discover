@@ -351,7 +351,7 @@ const locationData = {
     name: 'Willis 1FL Featured Books',
   },
   w1grs: {
-    name: 'Willis 1FL Library Services Desk',
+    name: 'Willis 2FL Library Services Desk',
   },
   w1gwt: {
     name: 'Willis 1st Floor',
@@ -366,7 +366,7 @@ const locationData = {
     name: 'Willis 1FL Information Desk',
   },
   w1mak: {
-    name: 'The Spark @ Willis Library',
+    name: 'Willis 2FL The Spark',
     abbr: 'The Spark',
     linkText: 'The Spark Guide',
     url: 'https://guides.library.unt.edu/spark/overview',
@@ -375,7 +375,7 @@ const locationData = {
     name: 'Willis 1FL Monthly Display',
   },
   w1mls: {
-    name: 'Willis 1FL Best Sellers',
+    name: 'Willis 2FL Best Sellers',
   },
   w1ndc: {
     name: 'Willis 1FL New Books',
