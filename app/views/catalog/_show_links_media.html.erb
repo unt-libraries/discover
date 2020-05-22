@@ -5,8 +5,8 @@
 %>
 
 <% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :links_media } -%>
-<span class="item-links-media">
-    <span id="show-links_media" class="links_media-heading anchor sr-only">Links & Media</span>
+<span id="show-links_media" class="item-links-media anchor">
+    <span class="links_media-heading anchor sr-only">Links & Media</span>
     <span class="document-metadata mb-3">
       <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :links_media }.each do |field_name, field, field_presenter| -%>
         <div class="result__field">
