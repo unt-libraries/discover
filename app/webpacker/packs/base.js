@@ -6,6 +6,7 @@ import '../src/javascripts/www/_typeaheads';
 import * as facets from '../src/javascripts/_facets';
 import * as history from '../src/javascripts/_history';
 import * as search from '../src/javascripts/_search';
+import * as tour from '../src/javascripts/_tour';
 import * as ui from '../src/javascripts/_ui';
 
 Blacklight.onLoad(() => {
@@ -16,4 +17,5 @@ Blacklight.onLoad(() => {
   ui.replaceBookCovers();
   ui.initTooltips();
   ui.initPopovers();
+  tour.initTour();
 });

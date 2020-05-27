@@ -28,6 +28,9 @@
 // Blacklight Marc
 @import '~blacklight-marc/app/assets/stylesheets/blacklight_marc';
 
+// Bootstrap tourist
+@import '~bootstrap-tourist/bootstrap-tourist';
+
 // Discover
 @import '../src/stylesheets/utilities/responsive-positions';
 @import '../src/stylesheets/utilities/responsive-widths';
@@ -53,5 +56,6 @@
 @import '../src/stylesheets/unt/sidebar';
 @import '../src/stylesheets/unt/thumbnail';
 @import '../src/stylesheets/unt/tooltips';
+@import '../src/stylesheets/unt/tour';
 @import '../src/stylesheets/unt/typeahead';
 @import '../src/stylesheets/unt/wrappers';
