@@ -327,12 +327,13 @@ class CatalogController < ApplicationController
     config.add_show_field 'physical_medium', label: 'Physical Characteristics',
                                              separator_options: { words_connector: '; ' }
     config.add_show_field 'audio_characteristics', separator_options: { words_connector: '; ' }
-    config.add_show_field 'projection_characteristics', label: 'Projected Film Characteristics',
+    config.add_show_field 'projection_characteristics', label: 'Film Characteristics',
                                                         separator_options: { words_connector: '; ' }
     config.add_show_field 'video_characteristics', separator_options: { words_connector: '; ' }
-    config.add_show_field 'digital_file_characteristics', separator_options: { words_connector: '; ' }
+    config.add_show_field 'digital_file_characteristics', label: 'Digital Characteristics',
+                                                          separator_options: { words_connector: '; ' }
     config.add_show_field 'graphic_representation'
-    config.add_show_field 'geospatial_data', label: 'Geospatial Reference Data'
+    config.add_show_field 'geospatial_data'
 
     # Call Number Fields
     config.add_show_field 'loc_call_numbers', label: 'LC Call Numbers'

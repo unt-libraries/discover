@@ -3,7 +3,11 @@ class CustomJoin < Blacklight::Rendering::AbstractStep
   include ActionView::Helpers::TextHelper
 
   def render
-    options = config.separator_options || { :words_connector => '<br>' }
+    options = config.separator_options || {
+      :words_connector => '<br>',
+      :two_words_connector => '<br>',
+      :last_word_connector => '<br>',
+    }
     next_step(values.map { |x| html_escape(x) }.to_sentence(options).html_safe)
   end
 
