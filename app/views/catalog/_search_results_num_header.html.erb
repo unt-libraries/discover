@@ -1,5 +1,1 @@
-<% if get_number_search_results(@response).delete(',').to_i == 1 %>
-  <h1>1 Matching Result<span id="searchResultsHeader"></span></h1>
-<% else %>
-  <h1><%= get_number_search_results(@response) %> Matching Results<span id="searchResultsHeader"></span></h1>
-<% end %>
+<h1><%= pluralize(get_number_search_results(@response), 'Matching Result') %><span id="searchResultsHeader"></span></h1>
