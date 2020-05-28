@@ -41,6 +41,8 @@
 .tour-backdrop {
   display: none;
   opacity: 0.5;
+  // Set tall height so that we don't reveal bottom of backdrop on auto scroll
+  height: 2000px;
 }
 
 .tour-highlight {
