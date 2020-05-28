@@ -9,8 +9,8 @@ en:
           items, including books, media, music (and more). Search for what is important to you,
           and then refine your results using the filters that appear to the left-hand side of the
           screen.</p>
-        <p>Not sure where to begin? Start with a popular filter on the left,
-        <a href=\"/?utf8=✓&q=&search_field=text\">browse the rest of the options here</a>.</p>
+        <p>Not sure where to begin? Start with a popular filter on the left, or
+        <a href=\"/?utf8=✓&q=&search_field=text&tour=true\">browse the rest of the options here</a>.</p>
         <p><strong>Note: </strong> We are still actively developing Discover. Some functions from
           the old catalog haven't quite made it over yet. You can still use the
           <a href=\"https://iii.library.unt.edu\">old catalog</a> if needed, but you can also expect

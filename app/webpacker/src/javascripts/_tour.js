@@ -5,8 +5,18 @@ const tourPromptTemplate = `<div class="popover" role="tooltip">
   <div class="arrow"></div>
   <div class="popover-body"></div>
   <div class="popover-navigation">
-    <button class="btn btn-sm btn-primary" data-role="next">SURE!</button>
-    <button class="btn btn-sm btn-primary" data-role="end">NO THANKS</button>
+    <button class="btn btn-sm btn-primary" 
+      data-role="next"
+      ga-on="click"
+      ga-event-category="Tour"
+      ga-event-action="Start tour"
+      ga-event-label="Tour Prompt">SURE!</button>
+    <button class="btn btn-sm btn-primary" 
+      data-role="end"
+      ga-on="click"
+      ga-event-category="Tour"
+      ga-event-action="End tour"
+      ga-event-label="Tour Prompt">NO THANKS</button>
   </div>
 </div>`;
 
@@ -15,16 +25,31 @@ const searchResultsTourTemplate = `<div class="popover" role="tooltip">
   <h3 class="popover-header"></h3>
   <div class="popover-body"></div>
   <div class="popover-navigation">
-    <button class="btn btn-sm btn-primary" data-role="prev">&laquo; PREV</button>
-    <button class="btn btn-sm btn-primary" data-role="next">NEXT &raquo;</button>
-    <button class="btn btn-sm btn-primary" data-role="end">ALL DONE</button>
+    <button class="btn btn-sm btn-primary"
+      data-role="prev"
+      ga-on="click"
+      ga-event-category="Tour"
+      ga-event-action="Previous step"
+      ga-event-label="Search Results Tour">&laquo; PREV</button>
+    <button class="btn btn-sm btn-primary"
+      data-role="next"
+      ga-on="click"
+      ga-event-category="Tour"
+      ga-event-action="Next step"
+      ga-event-label="Search Results Tour">NEXT &raquo;</button>
+    <button class="btn btn-sm btn-primary"
+      data-role="end"
+      ga-on="click"
+      ga-event-category="Tour"
+      ga-event-action="End tour"
+      ga-event-label="Search Results Tour">ALL DONE</button>
   </div>
 </div>`;
 
 const searchResultsTourSteps = [
   {
     element: '#searchResultsHeader',
-    content: 'Would you like to take a quick tour of the search results screen?',
+    content: 'Would you like to take a quick tour?',
     showProgressBar: false,
     showProgressText: false,
     template: tourPromptTemplate,
@@ -43,7 +68,7 @@ const searchResultsTourSteps = [
   {
     element: '#tourSearchConstraints',
     title: 'Filters',
-    content: 'See a list of your search terms and applied filters  here and easily dismiss them or start over.',
+    content: 'Filters that you apply will be listed here where you can easily dismiss them or start over.',
   },
   {
     element: '#sort-dropdown',
@@ -56,13 +81,18 @@ function needsTour(tourName) {
   let tourEligible = true;
   let context = document.querySelector('body').dataset.blacklightContext;
   const skips = parseInt(localStorage.getItem(`${tourName}_skips`) || '0');
-  const searchParams = window.location.search;
-  if (context === 'index' && searchParams === '') {
+  const searchParams = new URLSearchParams(window.location.search);
+  if (context === 'index' && searchParams.toString() === '') {
     context = 'home';
   }
 
   if ((context !== 'index') || (skips >= 2)) {
     tourEligible = false;
+  }
+
+  if (searchParams.get('tour') === 'true') {
+    tourEligible = true;
+    localStorage.removeItem(`${tourName}_end`);
   }
   return tourEligible;
 }
@@ -71,6 +101,8 @@ function skipTour(tourName) {
   const skips = localStorage.getItem(`${tourName}_skips`) || '0';
   const newSkips = parseInt(skips) + 1;
   localStorage.setItem(`${tourName}_skips`, newSkips.toString());
+
+  ga('send', 'event', 'Tour', 'Tour Skipped', tourName);
 }
 
 function initTour() {
@@ -84,10 +116,17 @@ function initTour() {
           template: searchResultsTourTemplate,
           showProgressBar: false,
           backdrop: true,
+          sanitizeWhitelist: {
+            button: ['ga-on', 'ga-event-category', 'ga-event-action', 'ga-event-label'],
+          },
         },
       );
 
       searchResultsTour.start();
+
+      ga('send', 'event', 'Tour', 'Tour Presented', 'searchResultsTour', {
+        nonInteraction: true,
+      });
 
       // Dismiss the tour and increment "skips" if they click somewhere other than tour intro
       $('body').on('click.tour', (e) => {
