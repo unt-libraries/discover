@@ -325,13 +325,33 @@ class CatalogController < ApplicationController
     # Physical Description Fields
     config.add_show_field 'physical_description'
     config.add_show_field 'physical_medium', label: 'Physical Characteristics',
-                                             separator_options: { words_connector: '; ' }
-    config.add_show_field 'audio_characteristics', separator_options: { words_connector: '; ' }
+                                             separator_options: {
+                                               :words_connector => '; ',
+                                               :two_words_connector => '; ',
+                                               :last_word_connector => '; ',
+                                             }
+    config.add_show_field 'audio_characteristics', separator_options: {
+      :words_connector => '; ',
+      :two_words_connector => '; ',
+      :last_word_connector => '; ',
+    }
     config.add_show_field 'projection_characteristics', label: 'Film Characteristics',
-                                                        separator_options: { words_connector: '; ' }
-    config.add_show_field 'video_characteristics', separator_options: { words_connector: '; ' }
+                                                        separator_options: {
+                                                          :words_connector => '; ',
+                                                          :two_words_connector => '; ',
+                                                          :last_word_connector => '; ',
+                                                        }
+    config.add_show_field 'video_characteristics', separator_options: {
+      :words_connector => '; ',
+      :two_words_connector => '; ',
+      :last_word_connector => '; ',
+    }
     config.add_show_field 'digital_file_characteristics', label: 'Digital Characteristics',
-                                                          separator_options: { words_connector: '; ' }
+                                                          separator_options: {
+                                                            :words_connector => '; ',
+                                                            :two_words_connector => '; ',
+                                                            :last_word_connector => '; ',
+                                                          }
     config.add_show_field 'graphic_representation'
     config.add_show_field 'geospatial_data'
 

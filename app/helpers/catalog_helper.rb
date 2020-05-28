@@ -19,6 +19,8 @@ module CatalogHelper
         })
       else
         link_to "#{link_text}", json['u'], class: "link-media-item #{link_type}",
+                                           target: "_blank",
+                                           rel: "noopener",
                                            data: { "link-type": link_type },
                                            'ga-on': 'click',
                                            'ga-event-category': 'Bib Record',
