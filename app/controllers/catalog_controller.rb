@@ -228,9 +228,6 @@ class CatalogController < ApplicationController
                            tooltip: 'Statement(s) about the creation or making of the original, '\
                              'unpublished version of the resource.'
 
-    config.add_index_field 'physical_characteristics', no_label: true
-
-    # config.add_index_field 'languages', label: 'Languages'
     config.add_index_field 'publishers', label: 'Publisher',
                                          separator_options: { words_connector: '; ' },
                                          no_label: true
@@ -271,9 +268,6 @@ class CatalogController < ApplicationController
                           label: 'Copyright', display: :priority,
                           tooltip: 'Date that the resource was copyrighted.'
 
-    # Physical Fields
-    config.add_show_field 'physical_characteristics', label: 'Physical Description'
-
     # Links and media
     config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls,
                                        display: :links_media
@@ -300,6 +294,7 @@ class CatalogController < ApplicationController
 
     # Language Field
     config.add_show_field 'languages', label: 'Languages', link_to_facet: 'languages'
+    config.add_show_field 'language_notes'
 
     # Title Fields
     config.add_show_field 'uniform_title', label: 'Uniform Title',
@@ -309,9 +304,35 @@ class CatalogController < ApplicationController
     config.add_show_field 'related_titles', label: 'Related Titles',
                                             link_to_facet: 'public_title_facet'
 
+    # Publication Notes Fields
+    config.add_show_field 'current_publication_frequency', label: 'Publication Frequency'
+    config.add_show_field 'former_publication_frequency'
+    config.add_show_field 'publication_date_notes'
+
     # Subject Search Fields
     config.add_show_field 'full_subjects', label: 'Subjects',
                                            helper_method: "link_to_subject_search"
+
+    # Performance Fields
+    config.add_show_field 'performers'
+    config.add_show_field 'production_credits'
+    config.add_show_field 'performance_medium'
+
+    # Notes Fields
+    config.add_show_field 'dissertation_notes'
+    config.add_show_field 'notes', label: 'General Notes'
+
+    # Physical Description Fields
+    config.add_show_field 'physical_description'
+    config.add_show_field 'physical_medium', label: 'Physical Characteristics',
+                                             separator_options: { words_connector: '; ' }
+    config.add_show_field 'audio_characteristics', separator_options: { words_connector: '; ' }
+    config.add_show_field 'projection_characteristics', label: 'Projected Film Characteristics',
+                                                        separator_options: { words_connector: '; ' }
+    config.add_show_field 'video_characteristics', separator_options: { words_connector: '; ' }
+    config.add_show_field 'digital_file_characteristics', separator_options: { words_connector: '; ' }
+    config.add_show_field 'graphic_representation'
+    config.add_show_field 'geospatial_data', label: 'Geospatial Reference Data'
 
     # Call Number Fields
     config.add_show_field 'loc_call_numbers', label: 'LC Call Numbers'
@@ -324,8 +345,6 @@ class CatalogController < ApplicationController
     config.add_show_field 'lccn_numbers', label: 'LCCN'
     config.add_show_field 'oclc_numbers', label: 'OCLC Number'
     # Notes fields -- eventually we will have a lot more of these
-    # Context
-    config.add_show_field 'context_notes', label: 'Event Notes'
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
