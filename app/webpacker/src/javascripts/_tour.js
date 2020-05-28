@@ -3,7 +3,6 @@ import Tour from 'bootstrap-tourist';
 
 const tourPromptTemplate = `<div class="popover" role="tooltip">
   <div class="arrow"></div>
-  <h3 class="popover-header"></h3>
   <div class="popover-body"></div>
   <div class="popover-navigation">
     <button class="btn btn-sm btn-primary" data-role="next">SURE!</button>
@@ -25,21 +24,26 @@ const searchResultsTourTemplate = `<div class="popover" role="tooltip">
 const searchResultsTourSteps = [
   {
     element: '#searchResultsHeader',
-    title: 'Need help?',
-    content: 'Take a quick tour of the search results screen',
+    content: 'Would you like to take a quick tour of the search results screen?',
     showProgressBar: false,
     showProgressText: false,
     template: tourPromptTemplate,
+    backdrop: false,
   },
   {
-    element: '#facet-access_facet',
+    element: '#facet-panel-priority-collapse',
     title: 'Facets',
     content: 'These filters refine your current search. Categories can be expanded/collapsed. Selecting a filter will make your results more precise.',
   },
   {
-    element: '#q',
+    element: '#tourSearchField',
     title: 'Search',
-    content: 'You can change your query at any time, remove existing filters, or change between keyword, title, and other search types.',
+    content: 'You can change your query at any time or switch between keyword, title, and other search types.',
+  },
+  {
+    element: '#tourSearchConstraints',
+    title: 'Filters',
+    content: 'See a list of your search terms and applied filters  here and easily dismiss them or start over.',
   },
   {
     element: '#sort-dropdown',
@@ -48,40 +52,56 @@ const searchResultsTourSteps = [
   },
 ];
 
-function needsTour() {
+function needsTour(tourName) {
   let tourEligible = true;
   let context = document.querySelector('body').dataset.blacklightContext;
-  const searchParams = location.search;
+  const skips = parseInt(localStorage.getItem(`${tourName}_skips`) || '0');
+  const searchParams = window.location.search;
   if (context === 'index' && searchParams === '') {
     context = 'home';
   }
 
-  if (context !== 'index') {
+  if ((context !== 'index') || (skips >= 2)) {
     tourEligible = false;
   }
-  console.log(`tour eligible = ${tourEligible}`)
   return tourEligible;
+}
+
+function skipTour(tourName) {
+  const skips = localStorage.getItem(`${tourName}_skips`) || '0';
+  const newSkips = parseInt(skips) + 1;
+  localStorage.setItem(`${tourName}_skips`, newSkips.toString());
 }
 
 function initTour() {
   $(() => {
-    if (needsTour() === true) {
+    if (needsTour('searchResultsTour') === true) {
       const searchResultsTour = new Tour(
         {
           name: 'searchResultsTour',
           steps: searchResultsTourSteps,
           framework: 'bootstrap4',
-          backdropOptions: {
-            highlightOpacity: 0,
-          },
           template: searchResultsTourTemplate,
           showProgressBar: false,
+          backdrop: true,
         },
       );
 
-      // Start the tour - note, no call to .init() is required
       searchResultsTour.start();
-      console.log('tour started');
+
+      // Dismiss the tour and increment "skips" if they click somewhere other than tour intro
+      $('body').on('click.tour', (e) => {
+        // did not click a popover toggle or popover
+        if ($(e.target).hasClass('popover') !== true
+          && $(e.target).parents('.popover').length === 0) {
+          if (searchResultsTour.getCurrentStepIndex() === 0) {
+            $('.popover.tour-searchResultsTour').popover('hide');
+            skipTour('searchResultsTour');
+            searchResultsTour.hideStep();
+            $('body').off('click.tour');
+          }
+        }
+      });
     }
   });
 }

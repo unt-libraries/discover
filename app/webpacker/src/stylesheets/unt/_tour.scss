@@ -36,3 +36,14 @@
     background-color: theme-color("gray-darker");
   }
 }
+
+// Override bootstrap-tourist CSS to prevent backdrop flashing before first step
+.tour-backdrop {
+  display: none;
+  opacity: 0.5;
+}
+
+.tour-highlight {
+  display: none;
+  border-radius: 0.25rem;
+}
