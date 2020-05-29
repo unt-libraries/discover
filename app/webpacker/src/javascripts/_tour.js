@@ -58,7 +58,7 @@ const searchResultsTourSteps = [
   {
     element: '#facet-panel-priority-collapse',
     title: 'Facets',
-    content: 'These filters refine your current search. Categories can be expanded/collapsed. Selecting a filter will make your results more precise.',
+    content: 'Use Facets to refine your current search. Categories can be expanded/collapsed. Selecting a facet will make your results more precise.',
   },
   {
     element: '#tourSearchField',
@@ -67,13 +67,18 @@ const searchResultsTourSteps = [
   },
   {
     element: '#tourSearchConstraints',
-    title: 'Filters',
-    content: 'Filters that you apply will be listed here where you can easily dismiss them or start over.',
+    title: 'Applied Facets',
+    content: 'Facets that you apply will be listed here where you can easily dismiss them or start over.',
   },
   {
     element: '#sort-dropdown',
     title: 'Sort Results',
-    content: 'Order results as you need them and for each result below, we\'ll show you only the basics. Check for availability and connect to online items from this screen or click through to the full record for more information, additional copies, holdings, and delivery options.',
+    content: 'Order results as you need them and for each result below, we\'ll show you only the basics.',
+  },
+  {
+    element: '.document.document-position-0',
+    title: 'View Results',
+    content: 'Check for availability and connect to online items from this screen or click through to the full record for more information, additional copies, holdings, and delivery options.',
   },
 ];
 
