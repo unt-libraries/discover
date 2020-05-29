@@ -134,6 +134,7 @@ function replaceBookCovers() {
 function initTooltips() {
   $(document).tooltip({
     selector: '[data-toggle="tooltip"]',
+    boundary: 'window',
   });
 }
 
