@@ -20,7 +20,7 @@
          ga-event-value="1"
          href="/">Discover</a></li>
 
-    <% if current_search_session %>
+    <% if @search_context && current_search_session %>
       <li class="breadcrumb-item">
         <%= link_back_to_catalog label: 'Results',
                                  class: 'btn btn-link btn-sm p-0',

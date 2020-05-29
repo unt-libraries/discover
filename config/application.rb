@@ -11,6 +11,9 @@ module Discover
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
+    # This tells Rails to use our routes for error handling instead of static error pages
+    config.exceptions_app = self.routes
+
     # Force SSL on all environments, can be overridden in environment config files.
 
     # Settings in config/environments/* take precedence over those specified here.
