@@ -15,9 +15,15 @@
 
   .facet-group {
     margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
 
     .facet-limit:first-child {
       border-top: 2px solid;
+    }
+
+    .facet-limit:last-child .collapsed {
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
     }
 
     &-priority {
@@ -108,6 +114,11 @@
   .facet-limit {
     margin-bottom: 0;
     border-top: 0;
+
+    &:not(:last-child) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
 
     .card-header {
       background-color: $white;
