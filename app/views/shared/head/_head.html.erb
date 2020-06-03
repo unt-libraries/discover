@@ -18,24 +18,17 @@
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://lgapi-us.libapps.com" rel="preconnect" crossorigin>
 
-  <%= preload_link_tag "https://library.unt.edu/assets/vendor/webfontloader/webfontloader.js?v=1.6.28", as: "script" %>
-  <script>
-    WebFontConfig = {
-      google: {
-        families: [
-          'Open+Sans:400,400i,800',
-          'Oswald:300,400&subset=latin-ext',
-        ],
-      },
-    };
+  <%= preload_link_tag "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,400&family=Oswald:wght@300;400&subset=latin-ext&display=swap", as: "style" %>
 
-    (function(d) {
-      var wf = d.createElement('script'), s = d.scripts[0];
-      wf.src = 'https://library.unt.edu/assets/vendor/webfontloader/webfontloader.js?v=1.6.28';
-      wf.async = true;
-      s.parentNode.insertBefore(wf, s);
-    })(document);
-  </script>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,400&family=Oswald:wght@300;400&subset=latin-ext&display=swap"
+        media="print"
+        onload="this.media='all'">
+
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,400&family=Oswald:wght@300;400&subset=latin-ext&display=swap" />
+  </noscript>
 
   <link rel="preload" href="https://library.unt.edu/assets/vendor/animate.css/animate.min.css?v=3.7.0" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
