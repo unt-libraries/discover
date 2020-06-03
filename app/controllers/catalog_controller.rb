@@ -124,6 +124,8 @@ class CatalogController < ApplicationController
                                                   sort: 'index',
                                                   helper_method: :resource_type_label,
                                                   group: 'priority'
+    config.add_facet_field 'media_type_facet', label: 'Format or Media Type', group: 'priority',
+                                               limit: 10
 
     # Group location
     config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false,
