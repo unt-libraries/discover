@@ -10,7 +10,9 @@ module CatalogHelper
       json = JSON.parse item
       link_text = json['n'] || json['l'] || json['u']
       link_type = json['t']
-      if link_type == 'fulltext'
+      if link_type == 'booking' && Rails.application.credentials[Rails.env.to_sym][:COVID_RESTRICTED]
+        nil
+      elsif link_type == 'fulltext'
         fulltext_link(json, {
           'ga-on': 'click',
           'ga-event-category': 'Bib Record',
