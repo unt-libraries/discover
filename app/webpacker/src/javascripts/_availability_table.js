@@ -117,6 +117,12 @@ function updateShowLocationElement(itemEl, itemLocation) {
 
   locationEl.dataset.locationCode = itemLocation.code;
 
+  // Check for location tooltip that would override status tooltip
+  if (getLocationData(itemLocation.code).statusText) {
+    const statusSpan = itemEl.querySelector('.blacklight-availability .tooltip-nolink');
+    statusSpan.dataset.title = getLocationData(itemLocation.code).statusText;
+  }
+
   // Aeon request URLs must be updated to include data from the Sierra API call
   if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
 

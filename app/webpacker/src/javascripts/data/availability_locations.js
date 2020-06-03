@@ -93,6 +93,7 @@ const locationData = {
     name: 'Joint Library Facility Remote Storage',
     abbr: 'JLF Storage',
     btnClass: 'remote-storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   'k*': {
     name: '', abbr: '', linkText: '', url: '',
@@ -544,38 +545,47 @@ const locationData = {
     linkText: '',
     url: '',
     btnClass: 'remote-storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xcmc: {
     name: 'Curriculum Materials Collection Remote Storage',
     abbr: 'Curriculum Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xdmic: {
     name: 'Government Documents Remote Storage Microforms',
     abbr: 'Gov Docs Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xdmp: {
     name: 'Government Documents Remote Storage Maps',
     abbr: 'Gov Docs Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xdoc: {
     name: 'Government Documents Remote Storage',
     abbr: 'Gov Docs Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xjuv: {
     name: 'Juvenile Collection Remote Storage',
     abbr: 'Juvenile Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xmed: {
     name: 'Media Remote Storage',
     abbr: 'Media Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xmic: {
     name: 'Remote Storage Microforms',
     abbr: 'Storage Microforms',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xmus: {
     name: 'Music Remote Storage',
     abbr: 'Music Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xprsv: {
     name: 'Preservation Lab',
@@ -584,6 +594,7 @@ const locationData = {
   xspe: {
     name: 'Special Collections Remote Storage',
     abbr: 'Special Collections Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xts: {
     name: 'Collection Management Work Room',

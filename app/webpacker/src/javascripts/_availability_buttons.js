@@ -87,6 +87,11 @@ function updateIndexStatusElement(itemEl, item = null) {
     if (locationText && !isOnlineItem) {
       availabilityBtn.append(` - ${locationText}`);
       availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
+
+      // Check for location tooltip that would override status tooltip
+      if (locationData.statusText) {
+        availabilityBtn.dataset.title = locationData.statusText;
+      }
       if (locationData.btnClass) elAddClass(availabilityBtn, `location-${locationData.btnClass}`);
     }
   }
