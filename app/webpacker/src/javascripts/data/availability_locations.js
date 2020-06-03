@@ -91,7 +91,7 @@ const locationData = {
   },
   jlf: {
     name: 'Joint Library Facility Remote Storage',
-    abbr: 'JLF',
+    abbr: 'JLF Storage',
     btnClass: 'remote-storage',
   },
   'k*': {
@@ -540,42 +540,42 @@ const locationData = {
   },
   'x*': {
     name: 'Remote Storage',
-    abbr: 'Remote',
+    abbr: 'Remote Storage',
     linkText: '',
     url: '',
     btnClass: 'remote-storage',
   },
   xcmc: {
     name: 'Curriculum Materials Collection Remote Storage',
-    abbr: 'Curriculum Remote',
+    abbr: 'Curriculum Storage',
   },
   xdmic: {
     name: 'Government Documents Remote Storage Microforms',
-    abbr: 'Gov Docs Remote',
+    abbr: 'Gov Docs Storage',
   },
   xdmp: {
     name: 'Government Documents Remote Storage Maps',
-    abbr: 'Gov Docs Remote',
+    abbr: 'Gov Docs Storage',
   },
   xdoc: {
     name: 'Government Documents Remote Storage',
-    abbr: 'Gov Docs Remote',
+    abbr: 'Gov Docs Storage',
   },
   xjuv: {
     name: 'Juvenile Collection Remote Storage',
-    abbr: 'Juvenile Remote',
+    abbr: 'Juvenile Storage',
   },
   xmed: {
     name: 'Media Remote Storage',
-    abbr: 'Media Remote',
+    abbr: 'Media Storage',
   },
   xmic: {
     name: 'Remote Storage Microforms',
-    abbr: 'Remote Microforms',
+    abbr: 'Storage Microforms',
   },
   xmus: {
     name: 'Music Remote Storage',
-    abbr: 'Music Remote',
+    abbr: 'Music Storage',
   },
   xprsv: {
     name: 'Preservation Lab',
@@ -583,7 +583,7 @@ const locationData = {
   },
   xspe: {
     name: 'Special Collections Remote Storage',
-    abbr: 'Special Collections Remote',
+    abbr: 'Special Collections Storage',
   },
   xts: {
     name: 'Collection Management Work Room',
