@@ -136,10 +136,10 @@ class CatalogController < ApplicationController
                                           sort: 'index', group: 'location'
 
     # Group date
-    config.add_facet_field 'publication_year_facet', label: 'Year', limit: true, sort: 'index',
+    config.add_facet_field 'publication_year_facet', label: 'Publication Year', limit: true, sort: 'index',
                                                      helper_method: :get_date_facet_display,
                                                      group: 'date'
-    config.add_facet_field 'publication_decade_facet', label: 'Decade', limit: true, sort: 'index',
+    config.add_facet_field 'publication_decade_facet', label: 'Publication Decade', limit: true, sort: 'index',
                                                        helper_method: :get_date_facet_display,
                                                        group: 'date'
     config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
