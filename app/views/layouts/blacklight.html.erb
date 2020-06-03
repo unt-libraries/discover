@@ -3,6 +3,12 @@
 <% end %>
 
 <% content_for(:content) do %>
+  <% if content_for? :sidebar %>
+    <section id="sidebar" class="<%= sidebar_classes %>">
+      <%= content_for(:sidebar) %>
+    </section>
+  <% end %>
+
   <section id="content" class="<%= content_for?(:sidebar) ? main_content_classes : main_content_full_width_classes %>">
     <div class="row">
       <div class="col">
@@ -33,11 +39,11 @@
     </div>
   </section>
 
-  <% if content_for? :sidebar %>
-    <section id="sidebar" class="<%= sidebar_classes %>">
-      <%= content_for(:sidebar) %>
-    </section>
-  <% end %>
+  <%# if content_for? :sidebar %>
+<!--    <section id="sidebar" class="<%#= sidebar_classes %>">-->
+      <%#= content_for(:sidebar) %>
+<!--    </section>-->
+  <%# end %>
 <% end %>
 
 <%= render template: "layouts/blacklight/base" %>
