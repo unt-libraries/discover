@@ -67,7 +67,7 @@
 
   <!-- Head scripts -->
   <%= render '/shared/head/analytics' %>
-  <%= javascript_pack_tag 'priority', 'data-turbo-links-track': 'reload' %>
+  <%= javascript_pack_tag 'async-scripts', 'data-turbo-links-track': 'reload', async: true %>
   <!-- Window variables for external javascript -->
   <script>
     window.untLibVars = {};
