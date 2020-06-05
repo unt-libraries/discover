@@ -75,7 +75,7 @@
 
   <link href="https://books.google.com" rel="preconnect" crossorigin>
 
-  <%= javascript_packs_with_chunks_tag 'vendor', 'base', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_packs_with_chunks_tag 'vendor', 'base', 'data-turbolinks-track': 'reload', defer: true %>
 
   <%= content_for(:head_scripts) %>
 

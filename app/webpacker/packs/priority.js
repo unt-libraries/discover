@@ -3,4 +3,3 @@ import lazySizes from 'lazysizes';
 
 
 lazySizes.init();
-require.context('../images', true);
