@@ -25,10 +25,12 @@
             ga-event-action="<%= item[:title] %>"
             ga-event-label="<%= item[:link_url] %>"
             ga-event-value="1">
-            <img class="img-fluid lazyload blur-up w-100"
-                 src="<%= asset_pack_path item[:tiny_img_src] if item[:tiny_img_src].present? %>"
-                 data-src="<%= asset_pack_path item[:img_src] %>"
-                 alt="<%= item[:img_alt] %>">
+            <div class="featured-img-container">
+              <img class="img-fluid lazyload blur-up w-100 featured-img"
+                   src="<%= asset_pack_path item[:tiny_img_src] if item[:tiny_img_src].present? %>"
+                   data-src="<%= asset_pack_path item[:img_src] %>"
+                   alt="<%= item[:img_alt] %>">
+            </div>
           </a>
           <h5 class="mt-2"><a href="<%= item[:link_url] %>" target="_blank"><%= item[:title] %></a></h5>
           <p><%= item[:summary] %></p>
