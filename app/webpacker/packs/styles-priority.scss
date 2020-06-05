@@ -1,0 +1,6 @@
+// Prevent big FOUC before CSS parsing
+.no-js .sort-pagination {
+  .dropdown-menu {
+    display: none !important;
+  }
+}
