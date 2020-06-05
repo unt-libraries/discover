@@ -167,23 +167,23 @@ module FacetsHelper
   # Shares some overlap with /app/models/solr_document.rb#resource_type_map
   def resource_type_map
     {
-      :archives_manuscripts => { :label => 'Archives/Manuscripts', :icon => 'archive' },
+      :archives_manuscripts => { :label => 'Archives/<wbr>Manuscripts'.html_safe, :icon => 'archive' },
       :audio => { :label => 'Audio', :icon => 'headphones' },
       :books => { :label => 'Books', :icon => 'book' },
       :educational_kits => { :label => 'Educational Kits', :icon => 'child' },
       :equipment => { :label => 'Equipment', :icon => 'cube' },
       :games => { :label => 'Games', :icon => 'gamepad' },
       :images => { :label => 'Images', :icon => 'image' },
-      :journals_periodicals => { :label => 'Journals/Periodicals', :icon => 'book-alt' },
+      :journals_periodicals => { :label => 'Journals/<wbr>Periodicals'.html_safe, :icon => 'book-alt' },
       :maps => { :label => 'Maps', :icon => 'map' },
       :music_recordings => { :label => 'Music Recordings', :icon => 'music' },
       :music_scores => { :label => 'Music Scores', :icon => 'list-music' },
-      :objects_artifacts => { :label => 'Objects/Artifacts', :icon => 'cube' },
+      :objects_artifacts => { :label => 'Objects/<wbr>Artifacts'.html_safe, :icon => 'cube' },
       :online_databases => { :label => 'Online Databases', :icon => 'database' },
       :software => { :label => 'Software', :icon => 'code' },
       :spoken_recordings => { :label => 'Spoken Recordings', :icon => 'microphone' },
-      :theses_dissertations => { :label => 'Theses/Dissertations', :icon => 'book' },
-      :video_film => { :label => 'Video/Film', :icon => 'film' },
+      :theses_dissertations => { :label => 'Theses/<wbr>Dissertations'.html_safe, :icon => 'book' },
+      :video_film => { :label => 'Video/<wbr>Film'.html_safe, :icon => 'film' },
     }
   end
 end
