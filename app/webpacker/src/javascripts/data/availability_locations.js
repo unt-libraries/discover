@@ -9,6 +9,9 @@
  * and urls, but means that a property must be present with an empty string value to effectively
  * omit it.
  *
+ * *** Wildcard lookup only goes 1 deep ***
+ * This means that if you have wildcards `s*` and `szz*`, location `szzm` will only inherit `szz*`
+ *
  * Object values (name and abbr are required, the rest are optional, but will inherit if possible)
  * {
  *   name: 'Chilton Media Library', // Specific name for availability table
@@ -292,6 +295,7 @@ const locationData = {
     abbr: 'ECL',
     linkText: 'Eagle Commons Library Directory',
     url: 'https://library.unt.edu/eagle-commons/#directory',
+    btnClass: 'eagle-commons',
   },
   szzov: {
     name: 'Eagle Commons Library Oversize Books',
