@@ -26,10 +26,16 @@
             ga-event-label="<%= item[:link_url] %>"
             ga-event-value="1">
             <div class="featured-img-container">
-              <img class="img-fluid lazyload blur-up w-100 featured-img"
-                   src="<%= asset_pack_path item[:tiny_img_src] if item[:tiny_img_src].present? %>"
-                   data-src="<%= asset_pack_path item[:img_src] %>"
-                   alt="<%= item[:img_alt] %>">
+              <picture>
+                <source type="image/webp"
+                        srcset="<%= asset_pack_path item[:lq_webp_img_src] if item[:lq_webp_img_src].present? %>"
+                        data-srcset="<%= asset_pack_path item[:webp_img_src] if item[:webp_img_src].present? %>">
+                <source type="image/jpeg" data-scrset="<%= asset_pack_path item[:img_src] %>">
+                <img class="img-fluid lazyload blur-up w-100 featured-img"
+                     src="<%= asset_pack_path item[:lq_img_src] if item[:lq_img_src].present? %>"
+                     data-src="<%= asset_pack_path item[:img_src] %>"
+                     alt="<%= item[:img_alt] %>">
+              </picture>
             </div>
           </a>
           <h5 class="mt-2"><a href="<%= item[:link_url] %>" target="_blank"><%= item[:title] %></a></h5>
