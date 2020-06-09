@@ -1,20 +1,6 @@
 // ==========================================================================
-// Variable overrides
+// Variable overrides from UNT Library theme overrides.scss and variables.scss
 // ==========================================================================
-
-// Color system
-
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
 
 //
 // Secondary Colors
@@ -28,10 +14,8 @@ $light-brown:       #887a68;           // Light Brown. RGB: 136,122,104
 $dark-brown:        #52301b;           // Dark Brown. RGB: 82,48,27
 $blue:              #84b1cd;           // Light Blue. RGB: 132,177,205
 $aqua:              #008265;           // Aqua. RGB: 0,130,101
-$yellow:            #ffc107;
 $mellow-yellow:     #c1d22d;           // Mellow Yellow. RGB: 193,210,45
 $mellow-limey:      #c0db37;           // Limey Yellow. RGB: 192,219,55
-$indigo:            #1a237e;
 
 //
 // Library Colors
@@ -48,27 +32,13 @@ $mint-green:        #cfffe5;
 $unt-green:         #007b3b;
 $forest-green:      #254a33;
 
-$brand-greyscale:           #2d2c2c;  // official (dark) grey of UNT
-
-// set bootstrap color variables to defined colors
-
-$gray-base:              shade($brand-greyscale, 20%);
-$gray-darker:            $brand-greyscale;
-$gray-dark:              tint($brand-greyscale, 20%);
-$gray:                   tint($brand-greyscale, 40%);
-$gray-light:             tint($brand-greyscale, 60%);
-$gray-lighter:           tint($brand-greyscale, 80%);
-
 $clearcoat:             #fff;
 
 // Breadcrumbs
 $breadcrumb-bg:             #fff;
-$breadcrumb-margin-bottom:  1rem;
 
 // Extends theme colors with custom ones for use in alerts, buttons, backgrounds, etc.
 $theme-colors: (
-  "primary":        $unt-green,
-  "warning":        $yellow,
   "lime":           $lime,
   "dark-green":     $dark-green,
   "beige":          $beige,
@@ -84,30 +54,17 @@ $theme-colors: (
   "light-teal":     $light-teal,
   "dark-teal":      $dark-teal,
   "light-blue":     $light-blue,
-  "green":          $green,
   "lime-green":     $lime-green,
   "light-green":    $light-green,
-  "mint-green":     $mint-green,
   "unt-green":      $unt-green,
   "forest-green":   $forest-green,
-  "gray-base":      mix(black, $brand-greyscale, 20),
-  "gray-darker":    $brand-greyscale,
-  "gray-dark":      mix(white, $brand-greyscale, 20),
-  "gray":           mix(white, $brand-greyscale, 40),
-  "gray-light":     mix(white, $brand-greyscale, 60),
-  "gray-lighter":   mix(white, $brand-greyscale, 80),
-  "indigo":         $indigo,
 );
-
-// Set a specific jump point for requesting color jumps
-$theme-color-interval:      8%;
 
 // Options
 //
 // Quickly modify global styling by enabling or disabling optional features.
 
 $enable-responsive-font-sizes: true;
-$enable-rounded: false;
 
 // Spacing
 //
@@ -139,25 +96,11 @@ $spacers: (
   7: (1rem * 12)
 );
 
-// Body
-//
-// Settings for the `<body>` element.
-
-$body-bg:                   #f9f9f9;
-$body-color:                theme-color("gray-dark");
-
 // Links
 //
 // Style anchor elements.
 
 $link-color:                $green;
-$link-hover-color:          darken($link-color, 15%) !default;
-
-// Components
-//
-// Define common padding and border radius sizes and more.
-
-$border-width:                1px !default;
 
 // Typography
 //
@@ -168,28 +111,11 @@ $font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Open Sans", "S
 //noinspection Stylelint
 $headings-font-family:        "Oswald","Helvetica Neue", Helvetica, Arial,sans-serif;
 
-$font-size-base:              1rem;
-
-$h1-font-size:                $font-size-base * 1.8;
-$h2-font-size:                $font-size-base * 1.728;
-$h3-font-size:                $font-size-base * 1.44;
-$h4-font-size:                $font-size-base * 1.2;
-$h5-font-size:                $font-size-base;
-$h6-font-size:                $font-size-base * 0.85;
-
-$headings-color:              theme-color("gray-dark");
-
 //
 // Site Title
 //
 //noinspection Stylelint
 $font-family-site-title: "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Verdana, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-
-// Buttons + Forms
-//
-// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
-
-$input-btn-border-width:      $border-width !default;
 
 // Buttons
 //
@@ -206,40 +132,12 @@ $drawer-directions: (
   left: left
 );
 
-// Forms
-
-//$input-color:                           theme-color-level(gray-darker, -98);
-$input-bg:                              theme-color-level(gray-darker, -12.25);
-$input-border-color:                    theme-color-level(gray-darker, -11);
-$input-border-width:                    $input-btn-border-width !default;
-$input-box-shadow:                      inset 0 1px 1px rgba($black, 0.075) !default;
-
-$input-focus-bg:                        theme-color-level(dark-teal, -12);
-$input-focus-border-color:              theme-color-level(dark-teal, -6);
-//$input-focus-color:                     $input-color !default;
-//$input-focus-width:                     $input-btn-focus-width !default;
-$input-focus-box-shadow:                inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-
 // Dropdowns
 //
 // Dropdown menu container and contents.
 
 $dropdown-bg:               #f8f9fa;  // $gray-100
 $dropdown-link-hover-bg:    #e9ecef; // $gray-200
-
-// Cards
-
-$card-spacer-y:                     .75rem !default;
-$card-spacer-x:                     1.25rem !default;
-$card-border-width:                 $border-width !default;
-$card-border-radius:                0.25rem;
-$card-border-color:                 rgba($black, .125) !default;
-$card-inner-border-radius:          subtract($card-border-radius, $card-border-width) !default;
-$card-cap-bg:                       rgba($black, .03) !default;
-$card-cap-color:                    null !default;
-$card-height:                       null !default;
-$card-color:                        null !default;
-$card-bg:                           $white !default;
 
 // Breakpoints and settings for custom card-decks.
 $card-breakpoints: (

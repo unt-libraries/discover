@@ -1,6 +1,7 @@
 // Discover overrides
 @import '~bootstrap/scss/functions';
 @import '../src/stylesheets/unt/variables';
+@import '../src/stylesheets/discover/variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -31,32 +32,37 @@
 // Bootstrap tourist
 @import '~bootstrap-tourist/bootstrap-tourist';
 
-// Discover
+// Utilities
 @import '../src/stylesheets/utilities/responsive-positions';
 @import '../src/stylesheets/utilities/responsive-widths';
-@import '../src/stylesheets/unt/advanced_search';
-@import '../src/stylesheets/unt/availability';
-@import '../src/stylesheets/unt/alerts';
+
+// UNT library
 @import '../src/stylesheets/unt/buttons';
-@import '../src/stylesheets/unt/cards';
-@import '../src/stylesheets/unt/constraints';
-@import '../src/stylesheets/unt/containers';
 @import '../src/stylesheets/unt/content';
-@import '../src/stylesheets/unt/document';
 @import '../src/stylesheets/unt/drawer';
-@import '../src/stylesheets/unt/facets';
 @import '../src/stylesheets/unt/footer';
 @import '../src/stylesheets/unt/header';
-@import '../src/stylesheets/unt/images';
-@import '../src/stylesheets/unt/links_media';
-@import '../src/stylesheets/unt/modal';
 @import '../src/stylesheets/unt/nav';
-@import '../src/stylesheets/unt/results';
-@import '../src/stylesheets/unt/search';
-@import '../src/stylesheets/unt/show';
-@import '../src/stylesheets/unt/sidebar';
-@import '../src/stylesheets/unt/thumbnail';
-@import '../src/stylesheets/unt/tooltips';
-@import '../src/stylesheets/unt/tour';
 @import '../src/stylesheets/unt/typeahead';
 @import '../src/stylesheets/unt/wrappers';
+
+// Discover
+@import '../src/stylesheets/discover/advanced_search';
+@import '../src/stylesheets/discover/availability';
+@import '../src/stylesheets/discover/alerts';
+@import '../src/stylesheets/discover/buttons';
+@import '../src/stylesheets/discover/cards';
+@import '../src/stylesheets/discover/constraints';
+@import '../src/stylesheets/discover/containers';
+@import '../src/stylesheets/discover/document';
+@import '../src/stylesheets/discover/facets';
+@import '../src/stylesheets/discover/images';
+@import '../src/stylesheets/discover/links_media';
+@import '../src/stylesheets/discover/modal';
+@import '../src/stylesheets/discover/results';
+@import '../src/stylesheets/discover/search';
+@import '../src/stylesheets/discover/show';
+@import '../src/stylesheets/discover/sidebar';
+@import '../src/stylesheets/discover/thumbnail';
+@import '../src/stylesheets/discover/tooltips';
+@import '../src/stylesheets/discover/tour';

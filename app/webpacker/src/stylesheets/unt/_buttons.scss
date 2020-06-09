@@ -1,34 +1,4 @@
 .btn {
-  &-primary {
-    color: #fff;
-    background-color: $green;
-    border-color: $green;
-
-    &:active,
-    &:hover,
-    &:focus {
-      background-color: darken($green, 5%);
-    }
-  }
-
-  &-outline {
-    &-secondary {
-      color: $green;
-      border-color: $green;
-
-      &:active,
-      &:hover,
-      &:focus {
-        background-color: $green;
-        color: $white;
-      }
-
-      &:focus {
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 59, 0.25);
-      }
-    }
-  }
-
   &-link--inline {
     padding: 0;
     font-size: inherit;
@@ -40,6 +10,12 @@
 
   &-info {
     color: #000;
+
+    &:focus,
+    &.focus,
+    &:hover {
+      color: #000;
+    }
   }
 }
 

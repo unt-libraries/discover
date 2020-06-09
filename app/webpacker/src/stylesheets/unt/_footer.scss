@@ -3,10 +3,10 @@
 
   a {
     color: $light-green;
+    text-decoration: $link-hover-decoration;
 
     @include hover {
       color: #fff;
-      text-decoration: $link-hover-decoration;
     }
   }
 }

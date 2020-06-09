@@ -61,6 +61,9 @@
   &__divider {
     @include nav-divider($dark-green);
 
+    height: 0;
+    overflow: hidden;
+    border-top: 1px solid $dark-green;
     margin: 0.5rem 1rem;
   }
   // vertical seperators
