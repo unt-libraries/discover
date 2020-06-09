@@ -14,6 +14,8 @@ module CatalogHelper
         nil
       elsif link_type == 'fulltext'
         fulltext_link(json, {
+          target: "_blank",
+          rel: "noopener",
           'ga-on': 'click',
           'ga-event-category': 'Bib Record',
           'ga-event-action': field_config[:label],

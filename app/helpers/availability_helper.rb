@@ -43,7 +43,6 @@ module AvailabilityHelper
     end
 
     link_to url, class: "availability-btn online", target: window_target,
-                 data: { "context-href": context_href },
                  'ga-on': 'click',
                  'ga-event-category': 'List Item Link',
                  'ga-event-action': 'Availability button click',
