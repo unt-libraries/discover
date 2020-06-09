@@ -31,15 +31,20 @@
   }
 
   .icon {
-    fill: theme-color("gray-lighter");
+    color: theme-color("gray-lighter");
+    margin: auto;
     width: 150px;
+    height: 150px;
 
     &.index-icon {
       transition: all 0.2s ease-in-out;
 
       &:hover {
         transform: scale(1.05);
-        fill: theme-color-level("gray-light");
+
+        & svg {
+          color: theme-color-level("gray-light");
+        }
       }
     }
   }

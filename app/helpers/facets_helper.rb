@@ -153,7 +153,7 @@ module FacetsHelper
   # @return [String]
   def resource_type_facet_display_value(item)
     icon = resource_type_icon(item)
-    content_tag(:i, '', class: "#{icon}-icon icon fal fa-#{icon}")
+    content_tag(:i, '', class: "#{icon}-icon icon fa-fw fal fa-#{icon}")
   end
 
   def resource_type_icon(item)

@@ -11,15 +11,14 @@ module ThumbnailHelper
       data: { 'bib-id': document.id.to_s.parameterize },
     }) do
       if thumbnail_url.blank?
-        svg_icon = "#{asset_pack_path('media/images/icons/regular.svg')}#"\
-          "#{document.resource_type_icon}"
-        content_tag(:svg, {
+        icon = document.resource_type_icon
+        content_tag(:div, {
           class: "img-fluid #{current_view}-icon icon",
           "aria-hidden": true,
           tabindex: -1,
         }) do
-          concat("<use xlink:href=\"#{svg_icon}\"></use>".html_safe)
-          concat("<span class=\"sr-only item-title\">#{document[:full_title]}</span>".html_safe)
+          concat(content_tag(:i, '', class: "#{icon}-icon icon fal fa-#{icon} img-fluid"))
+          concat(content_tag(:span, document[:full_title], class: 'sr-only item-title'))
         end
       else
         image_tag('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',

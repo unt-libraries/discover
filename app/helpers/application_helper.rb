@@ -201,4 +201,12 @@ module ApplicationHelper
       end
     end
   end
+
+  def accessible_remove_label(label, value)
+    if label.blank?
+      t('blacklight.search.filters.remove.value', value: value)
+    else
+      t('blacklight.search.filters.remove.label_value', label: label, value: value)
+    end
+  end
 end
