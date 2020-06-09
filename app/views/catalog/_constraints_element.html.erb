@@ -25,16 +25,7 @@
     <% end %>
   </span>
   <% unless options[:remove].blank? %>
-    <% accessible_remove_label = content_tag :span, class: 'sr-only' do
-        if label.blank?
-          t('blacklight.search.filters.remove.value', value: value)
-        else
-          t('blacklight.search.filters.remove.label_value', label: label, value: value)
-        end
-      end
-    %>
-    <%= content_tag :i, '✖', class: 'fa fa-times-circle remove-icon' do %>
-      <%= accessible_remove_label %>
-    <% end %>
+    <%= content_tag :i, '', class: 'fa fa-times-circle remove-icon',
+                    'aria-hidden': true, title: accessible_remove_label(label, value) %>
   <%- end -%>
 </a>
