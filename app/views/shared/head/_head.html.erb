@@ -34,15 +34,6 @@
         onload="this.media='all'">
   <noscript><link rel="stylesheet" href="https://library.unt.edu/assets/vendor/animate.css/animate.min.css?v=3.7.0"></noscript>
 
-  <%= preload_link_tag "https://library.unt.edu/assets/vendor/@fortawesome/fontawesome-pro/css/all.min.css?v=5.7.2", as: "style" %>
-  <link rel="stylesheet"
-        href="https://library.unt.edu/assets/vendor/@fortawesome/fontawesome-pro/css/all.min.css?v=5.7.2"
-        media="print"
-        onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="https://library.unt.edu/assets/vendor/@fortawesome/fontawesome-pro/css/all.min.css?v=5.7.2"></noscript>
-
-<!--  <link rel="stylesheet" href="https://library.unt.edu/assets/styles/unt.min.css">-->
-
   <%= stylesheet_pack_tag "styles-priority", media: "all", 'data-turbo-links-track': 'reload' %>
   <%= stylesheet_pack_tag "styles", media: "all", 'data-turbo-links-track': 'reload' %>
 
@@ -69,6 +60,7 @@
   <!-- Head scripts -->
   <%= render '/shared/head/analytics' %>
   <%= javascript_pack_tag 'async-scripts', 'data-turbo-links-track': 'reload', async: true %>
+
   <!-- Window variables for external javascript -->
   <script>
     window.untLibVars = {};
@@ -76,7 +68,7 @@
 
   <link href="https://books.google.com" rel="preconnect" crossorigin>
 
-  <%= javascript_packs_with_chunks_tag 'vendor', 'base', 'data-turbolinks-track': 'reload', defer: true %>
+  <%= javascript_packs_with_chunks_tag 'vendor/font-awesome', 'vendor', 'base', 'data-turbolinks-track': 'reload', defer: true %>
 
   <%= content_for(:head_scripts) %>
 
