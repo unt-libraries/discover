@@ -1,0 +1,4 @@
+<% content_for(:head_scripts, flush: true) do %>
+  <%= javascript_packs_with_chunks_tag 'base', 'home', 'data-turbolinks-track': 'reload', defer: true %>
+<% end %>
+<%= render :partial=>'home_text' %>

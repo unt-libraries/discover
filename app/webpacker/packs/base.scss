@@ -1,0 +1,101 @@
+// Discover overrides
+@import '~bootstrap/scss/functions';
+@import '../src/stylesheets/unt/variables';
+@import '../src/stylesheets/discover/variables';
+
+// Bootstrap
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/tables";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/input-group";
+@import "~bootstrap/scss/custom-forms";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/navbar";
+@import "~bootstrap/scss/card";
+@import "~bootstrap/scss/breadcrumb";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/progress";
+@import "~bootstrap/scss/media";
+@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/toasts";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/carousel";
+@import "~bootstrap/scss/spinners";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/print";
+
+// Blacklight
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/mixins";
+//@import '~blacklight-frontend/app/assets/stylesheets/blacklight/blacklight_defaults';
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/bootstrap_overrides";
+////@import "~blacklight-frontend/app/assets/stylesheets/blacklight/header";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/constraints";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/controls";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/search_form";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/search_results";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/pagination";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/group";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/bookmark";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/balanced_list";
+@import "~blacklight-frontend/app/assets/stylesheets/blacklight/facets";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/search_history";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/modal";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/twitter_typeahead";
+//@import "~blacklight-frontend/app/assets/stylesheets/blacklight/icons";
+
+// Blacklight Marc
+@import '~blacklight-marc/app/assets/stylesheets/blacklight_marc';
+
+// Bootstrap tourist
+@import '~bootstrap-tourist/bootstrap-tourist';
+
+// Utilities
+@import '../src/stylesheets/utilities/responsive-positions';
+@import '../src/stylesheets/utilities/responsive-widths';
+
+// UNT library
+@import '../src/stylesheets/unt/buttons';
+@import '../src/stylesheets/unt/content';
+@import '../src/stylesheets/unt/drawer';
+@import '../src/stylesheets/unt/footer';
+@import '../src/stylesheets/unt/header';
+@import '../src/stylesheets/unt/nav';
+@import '../src/stylesheets/unt/typeahead';
+@import '../src/stylesheets/unt/wrappers';
+
+// Discover
+@import '../src/stylesheets/discover/advanced_search';
+@import '../src/stylesheets/discover/availability';
+@import '../src/stylesheets/discover/alerts';
+@import '../src/stylesheets/discover/buttons';
+@import '../src/stylesheets/discover/cards';
+@import '../src/stylesheets/discover/constraints';
+@import '../src/stylesheets/discover/containers';
+@import '../src/stylesheets/discover/document';
+@import '../src/stylesheets/discover/facets';
+@import '../src/stylesheets/discover/images';
+@import '../src/stylesheets/discover/links_media';
+@import '../src/stylesheets/discover/modal';
+@import '../src/stylesheets/discover/results';
+@import '../src/stylesheets/discover/search';
+@import '../src/stylesheets/discover/show';
+@import '../src/stylesheets/discover/sidebar';
+@import '../src/stylesheets/discover/thumbnail';
+@import '../src/stylesheets/discover/tooltips';
+@import '../src/stylesheets/discover/tour';

@@ -5,6 +5,7 @@
     "build": "docker-compose build",
     "web:run": "docker-compose run --rm web",
     "web:assetServer": "docker-compose run -e \"RAILS_ENV=development\" --rm web ./bin/webpack --watch --colors --progress",
+    "web:webpack": "docker-compose run -e \"RAILS_ENV=development\" --rm web ./bin/webpack",
     "rubyStyle": "docker-compose run --rm web rubocop --require rubocop-airbnb",
     "javascriptStyle": "docker-compose run --rm web node_modules/eslint/bin/eslint.js .",
     "test": "docker-compose run -e \"RAILS_ENV=test\" --rm web bundle exec rspec",

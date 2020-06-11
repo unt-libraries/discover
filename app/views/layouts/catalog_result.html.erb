@@ -1,6 +1,5 @@
 <% content_for(:head_scripts) do %>
-  <%# Must include `defer: true` if it depends on any head scripts %>
-  <%= javascript_pack_tag 'show', 'data-turbolinks-track': 'reload', defer: true %>
+  <%= javascript_packs_with_chunks_tag 'base', 'show', 'data-turbolinks-track': 'reload', defer: true %>
 <% end %>
 
 <% content_for(:content) do %>

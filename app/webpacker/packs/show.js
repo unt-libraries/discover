@@ -1,7 +1,12 @@
-import * as availability from '../src/javascripts/_availability_table';
-import * as ui from '../src/javascripts/_ui';
+import { checkAvailability } from '../src/javascripts/_availability_table';
+import {
+  bindShowAvailMoreField, initPopovers, initTooltips, replaceBookCovers,
+} from '../src/javascripts/_ui';
 
 Blacklight.onLoad(() => {
-  availability.checkAvailability();
-  ui.bindShowAvailMoreField();
+  checkAvailability();
+  bindShowAvailMoreField();
+  initPopovers();
+  initTooltips();
+  replaceBookCovers();
 });

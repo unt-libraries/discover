@@ -34,6 +34,21 @@ $gray:                   tint($brand-greyscale, 40%);
 $gray-light:             tint($brand-greyscale, 60%);
 $gray-lighter:           tint($brand-greyscale, 80%);
 
+//
+// Library Colors
+//
+$dark-charcoal:     #3e3935;
+$light-charcoal:    #53544a;
+$warm-gray:         #7b6e66;
+$light-teal:        #00b5cc;
+$dark-teal:         #00788a;
+$light-blue:        #7fb3ce;
+$lime-green:        #c1d82f;
+$light-green:       #7ac143;
+$mint-green:        #cfffe5;
+$unt-green:         #007b3b;
+$forest-green:      #254a33;
+
 $clearcoat:             #fff;
 
 // Breadcrumbs
@@ -58,6 +73,7 @@ $theme-colors: (
         "gray-light":     mix(white, $brand-greyscale, 60),
         "gray-lighter":   mix(white, $brand-greyscale, 80),
         "indigo":         $indigo,
+        "unt-green":      $unt-green,
 );
 
 // Set a specific jump point for requesting color jumps
