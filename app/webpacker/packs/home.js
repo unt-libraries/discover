@@ -1,10 +1,8 @@
-import * as facets from '../src/javascripts/_facets';
-import * as search from '../src/javascripts/_search';
-import * as ui from '../src/javascripts/_ui';
+import { searchSelector } from '../src/javascripts/_search';
+import { initPopovers, initTooltips } from '../src/javascripts/_ui';
 
 Blacklight.onLoad(() => {
-  facets.bindAccordians();
-  search.searchSelector();
-  ui.initTooltips();
-  ui.initPopovers();
+  searchSelector();
+  initTooltips();
+  initPopovers();
 });
