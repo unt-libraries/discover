@@ -8,7 +8,7 @@
 <% url_required = "https://www.unt.edu/required-links" %>
 <% url_unt = "https://www.unt.edu" %>
 
-<div class="wrapper--colophon">
+<div class="wrapper--colophon" role="contentinfo">
   <section class="colophon  container-fluid">
     <h2 class="sr-only">Additional Links</h2>
     <div class="d-none d-sm-flex justify-content-center py-3  px-md-5">
@@ -19,21 +19,21 @@
            ga-event-category="link - colophon"
            ga-event-action="university"
            ga-event-label="<%= url_admissions %>"
-           ga-event-value="1">Apply now <i class="fas fa-angle-right"></i></a>
+           ga-event-value="1"><span class="sr-only">UNT: </span>Apply now <i aria-hidden="true" class="fas fa-angle-right"></i></a>
         <a class="btn btn-success"
            href="<%= url_tours %>"
            ga-on="click"
            ga-event-category="link - colophon"
            ga-event-action="university"
            ga-event-label="<%= url_tours %>"
-           ga-event-value="1">Schedule a tour <i class="fas fa-angle-right"></i></a>
+           ga-event-value="1"><span class="sr-only">UNT: </span>Schedule a tour <i aria-hidden="true" class="fas fa-angle-right"></i></a>
         <a class="btn btn-success"
            href="<%= url_more_info %>"
            ga-on="click"
            ga-event-category="link - colophon"
            ga-event-action="university"
            ga-event-label="<%= url_more_info %>"
-           ga-event-value="1">Get more info <i class="fas fa-angle-right"></i></a>
+           ga-event-value="1"><span class="sr-only">UNT: </span>Get more info <i aria-hidden="true" class="fas fa-angle-right"></i></a>
       </p>
     </div>
     <div class="text-center">
@@ -42,31 +42,31 @@
             ga-event-category="link - colophon"
             ga-event-action="university"
             ga-event-label="<%= url_disclaimer %>"
-            ga-event-value="1">Disclaimer</a>
+            ga-event-value="1"><span class="sr-only">UNT: </span>Disclaimer</a>
         | <a href="<%= url_ada %>"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_ada %>"
-             ga-event-value="1">AA/EOE/ADA</a>
+             ga-event-value="1"><span class="sr-only">UNT: </span>AA/EOE/ADA</a>
         | <a href="<%= url_privacy %>"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_privacy %>"
-             ga-event-value="1">Privacy</a>
+             ga-event-value="1"><span class="sr-only">UNT: </span>Privacy</a>
         | <a href="<%= url_policy %>"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_policy %>"
-             ga-event-value="1">Electronic Accessibility</a>
+             ga-event-value="1"><span class="sr-only">UNT: </span>Electronic Accessibility</a>
         | <a href="<%= url_required %>"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_required %>"
-             ga-event-value="1">Required Links</a>
+             ga-event-value="1"><span class="sr-only">UNT: </span>Required Links</a>
         | <a href="<%= url_unt %>"
              ga-on="click"
              ga-event-category="link - colophon"
@@ -88,6 +88,6 @@
    ga-event-label="<%= request.original_url %>"
    ga-event-value="1"
    role="button">
-  <i class="fas fa-angle-up" data-fa-transform="grow-8 up-4"></i>
+  <i aria-hidden="true" class="fas fa-angle-up" data-fa-transform="grow-8 up-4"></i>
   <span style="display:block; margin-top:3px">top</span>
 </a>

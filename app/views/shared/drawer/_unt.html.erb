@@ -12,7 +12,7 @@
       <div class="drawer-header">
         <h2 class="drawer-title px-3" id="unt-drawer-title">UNT Quicklinks</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="fas fa-times fa-lg"></i>
+          <i aria-hidden="true" class="fas fa-times fa-lg"></i>
         </button>
       </div>
       <div class="drawer-body">
@@ -22,6 +22,7 @@
               action="https://unt.edu/search-results"
               method="GET"
               role="search"
+              aria-label="Search U N T Websites"
               autocomplete="off"
               ga-on="click"
               ga-event-category="form - search - unt"
@@ -32,7 +33,7 @@
             <div class="col">
               <div class="input-group">
                 <input class="form-control primary-search query"
-                       id="bento-q"
+                       id="unt-q"
                        name="search"
                        aria-label="Search across the entire U N T domain."
                        type="text"
@@ -40,15 +41,17 @@
                        value="">
                 <span class="input-group-btn">
                 <button type="submit" class="btn btn-success">
-                  <i class="fas fa-search"></i></button>
+                  <i aria-hidden="true" class="fas fa-search"></i>
+                  <span class="sr-only">Search</span>
+                </button>
                 </span>
               </div>
             </div>
           </div>
         </form>
-        <div class="drawer__divider"></div>
+        <hr class="drawer__divider" />
 
-        <nav class="nav flex-column">
+        <nav class="nav flex-column" aria-label="U N T Campus Links">
           <a href="<%= url_unt %>"
              class="link--external nav-item nav-link px-3"
              ga-on="click"
@@ -110,6 +113,7 @@
     <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
          data-src="<%= asset_pack_path 'media/images/backgrounds/drawer.png' %>"
          class="lazyload cute d-none"
+         aria-hidden="true"
          alt="illustration of Willis Library and Hurley Administration building" />
   </div>
 </div>

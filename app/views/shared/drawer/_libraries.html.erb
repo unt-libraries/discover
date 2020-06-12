@@ -23,13 +23,13 @@
       <div class="drawer-header">
         <h2 class="drawer-title px-3" id="libraries-drawer-title">People &amp; Places</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="fas fa-times fa-lg"></i>
+          <i aria-hidden="true" class="fas fa-times fa-lg"></i>
         </button>
       </div>
       <div class="drawer-body">
 
 
-        <h2 class="drawer__sub-heading px-3">Information For...</h2>
+        <h2 class="drawer__sub-heading px-3">Information For<span aria-hidden="true">...</span><span class="sr-only"> Specific Audiences</span></h2>
 
         <a href="<%= url_graduate %>"
            class="nav-item nav-link"
@@ -37,7 +37,7 @@
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_graduate %>"
-           ga-event-value="1">Graduate Students</a>
+           ga-event-value="1"><span class="sr-only">Info for </span>Graduate Students</a>
 
         <a href="<%= url_faculty %>"
            class="nav-item nav-link"
@@ -45,7 +45,7 @@
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_faculty %>"
-           ga-event-value="1">Faculty/Staff</a>
+           ga-event-value="1"><span class="sr-only">Info for </span>Faculty/Staff</a>
 
         <a href="<%= url_community %>"
            class="nav-item nav-link"
@@ -53,7 +53,7 @@
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_community %>"
-           ga-event-value="1">Community &amp; Visitors</a>
+           ga-event-value="1"><span class="sr-only">Info for </span>Community &amp; Visitors</a>
 
         <a href="<%= url_accessibility %>"
            class="nav-item nav-link"
@@ -61,9 +61,9 @@
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_accessibility %>"
-           ga-event-value="1">Persons with Disabilities</a>
+           ga-event-value="1"><span class="sr-only">Info for </span>Persons with Disabilities</a>
 
-        <div class="drawer__divider" role="separator"></div>
+        <hr class="drawer__divider" />
 
         <h2 class="drawer__sub-heading px-3">Locations &amp; Hours</h2>
 
@@ -83,7 +83,9 @@
               ga-event-category="link - drawer"
               ga-event-action="libraries"
               ga-event-label="<%= url_willis %>#hours"
-              ga-event-value="1"><i title="Willis Library Hours" class="far fa-calendar-alt fa-lg"></i></a> &nbsp;
+              ga-event-value="1"><i aria-hidden="true" class="fa fa-calendar-alt fa-lg"></i>
+             <span class="sr-only">Willis Library Hours</span>
+           </a> &nbsp;
 
            <a href="<%= url_willis %>#maps"
               class="nav-link d-inline icon-link small"
@@ -91,7 +93,9 @@
               ga-event-category="link - drawer"
               ga-event-action="libraries"
               ga-event-label="<%= url_willis %>#maps"
-              ga-event-value="1"><i title="Willis Library Location and Floor Maps" class="fas fa-map-marker-alt fa-lg"></i></a>
+              ga-event-value="1"><i aria-hidden="true" class="fas fa-map-marker-alt fa-lg"></i>
+              <span class="sr-only">Willis Library Location and Floor Maps</span>
+           </a>
           </span>
         </div>
 
@@ -111,7 +115,9 @@
               ga-event-category="link - drawer"
               ga-event-action="libraries"
               ga-event-label="<%= url_discovery_park %>#hours"
-              ga-event-value="1"><i title="Discovery Park Library Hours" class="far fa-calendar-alt fa-lg"></i></a> &nbsp;
+              ga-event-value="1"><i aria-hidden="true" class="fas fa-calendar-alt fa-lg"></i>
+              <span class="sr-only">Discovery Park Library Hours</span>
+           </a> &nbsp;
 
            <a href="<%= url_discovery_park %>#maps"
               class="nav-link d-inline icon-link small"
@@ -119,7 +125,9 @@
               ga-event-category="link - drawer"
               ga-event-action="libraries"
               ga-event-label="<%= url_discovery_park %>#maps"
-              ga-event-value="1"><i title="Discovery Park Library Location and Floor Maps" class="fas fa-map-marker-alt fa-lg"></i></a>
+              ga-event-value="1"><i aria-hidden="true" class="fas fa-map-marker-alt fa-lg"></i>
+              <span class="sr-only">Discovery Park Library Location and Floor Maps</span>
+           </a>
           </span>
         </div>
 
@@ -139,7 +147,9 @@
               ga-event-category="link - drawer"
               ga-event-action="libraries"
               ga-event-label="<%= url_eagle_commons %>#hours"
-              ga-event-value="1"><i title="Eagle Commons Library Hours" class="far fa-calendar-alt fa-lg"></i></a> &nbsp;
+              ga-event-value="1"><i aria-hidden="true" class="fas fa-calendar-alt fa-lg"></i>
+              <span class="sr-only">Eagle Commons Library Hours</span>
+           </a> &nbsp;
 
            <a href="<%= url_eagle_commons %>#maps"
               class="nav-link d-inline icon-link small"
@@ -147,7 +157,9 @@
               ga-event-category="link - drawer"
               ga-event-action="libraries"
               ga-event-label="<%= url_eagle_commons %>#maps"
-              ga-event-value="1"><i title="Eagle Commons Library Location and Floor Maps" class="fas fa-map-marker-alt fa-lg"></i></a>
+              ga-event-value="1"><i title="" class="fas fa-map-marker-alt fa-lg"></i>
+              <span class="sr-only">Eagle Commons Library Location and Floor Maps</span>
+           </a>
           </span>
         </div>
 
@@ -167,7 +179,9 @@
               ga-event-category="link - drawer"
               ga-event-action="libraries"
               ga-event-label="<%= url_media %>#hours"
-              ga-event-value="1"><i title="Media Library Hours" class="far fa-calendar-alt fa-lg"></i></a> &nbsp;
+              ga-event-value="1"><i aria-hidden="true" class="fas fa-calendar-alt fa-lg"></i>
+              <span class="sr-only">Media Library Hours</span>
+           </a> &nbsp;
 
            <a href="<%= url_media %>#maps"
               class="nav-link d-inline icon-link small"
@@ -175,12 +189,16 @@
               ga-event-category="link - drawer"
               ga-event-action="libraries"
               ga-event-label="<%= url_media %>#maps"
-              ga-event-value="1"><i title="Media Library Location and Floor Maps" class="fas fa-map-marker-alt fa-lg"></i></a>
+              ga-event-value="1"><i aria-hidden="true" class="fas fa-map-marker-alt fa-lg"></i>
+              <span class="sr-only">Media Library Location and Floor Maps</span>
+           </a>
           </span>
         </div>
 
-        <div class="drawer__divider" role="separator"></div>
+        <hr class="drawer__divider" />
+
         <h2 class="drawer__sub-heading px-3">Spaces</h2>
+
         <a href="<%= url_spaces %>"
            class="nav-item nav-link"
            ga-on="click"
@@ -221,8 +239,10 @@
            ga-event-label="<%= url_service_desks %>"
            ga-event-value="1">Service Desks</a>
 
-        <div class="drawer__divider" role="separator"></div>
+        <hr class="drawer__divider" />
+
         <h2 class="drawer__sub-heading px-3">Librarians and Staff</h2>
+
         <a href="<%= url_ask_us %>"
            class="nav-item nav-link"
            ga-on="click"
@@ -259,6 +279,7 @@
     <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
          data-src="<%= asset_pack_path 'media/images/backgrounds/drawer.png' %>"
          class="lazyload cute d-none"
+         aria-hidden="true"
          alt="illustration of Willis Library and Hurley Administration building" />
   </div>
 </div>

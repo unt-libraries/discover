@@ -60,9 +60,9 @@ $(() => {
       limit: 200,
       templates: {
         suggestion(data) {
-          return `<div class='list-group-item d-flex justify-content-between align-items-center'>
+          return `<div class='list-group-item d-flex justify-content-between align-items-center' role='link'>
                   <div>${data.name}</div>
-                  <i class='fas fa-external-link-alt'></i>
+                  <i class='fas fa-external-link-alt' aria-hidden='true'></i>
                 </div>`;
         },
       },
@@ -85,9 +85,9 @@ $(() => {
       limit: 200,
       templates: {
         suggestion(data) {
-          return `<div class='list-group-item d-flex justify-content-between align-items-center'>
+          return `<div class='list-group-item d-flex justify-content-between align-items-center' role='link'>
                   <div>${data.name}</div>
-                  <i class='fas fa-external-link-alt'></i>
+                  <i class='fas fa-external-link-alt' aria-hidden='true'></i>
                 </div>`;
         },
       },
@@ -196,10 +196,10 @@ $(() => {
           const isNew = (data.new) ? '<span class="badge badge-info small align-self-center">new</span>' : '';
           const isTrial = (data.trial) ? '<span class="badge badge-info small align-self-center">trial</span>' : '';
 
-          return `<div class="list-group-item d-flex">
+          return `<div class="list-group-item d-flex" role='link'>
               <div class="flex-grow-1">${data.name}</div>
               ${isNew}${isTrial}
-              <i class="fas fa-info pl-3 d-none d-md-inline-block align-self-center" data-database="description" data-content="${data.description} ${data.subjects} " title="${data.name}" id="lg-id-${data.id}"></i>
+              <i class="fas fa-info pl-3 d-none d-md-inline-block align-self-center" data-database="description" data-content="${data.description} ${data.subjects} " title="${data.name}" id="lg-id-${data.id}" aria-hidden="true"></i>
             </div>`;
         },
         notFound() {
@@ -305,9 +305,9 @@ $(() => {
       limit: 250,
       templates: {
         suggestion(data) {
-          return `<div class="list-group-item d-flex justify-content-between align-items-center">
+          return `<div class="list-group-item d-flex justify-content-between align-items-center" role="link">
                     <div>${data.name}</div>
-                    <i class="fas fa-external-link-alt"></i>
+                    <i class="fas fa-external-link-alt" aria-hidden="true"></i>
                   </div>`;
         },
       },

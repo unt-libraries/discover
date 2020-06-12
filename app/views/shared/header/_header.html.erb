@@ -1,5 +1,13 @@
 <div id="head" class="wrapper--header fixed-top">
-  <header id="top" class="header h-100 container-fluid header-container">
+  <header id="top" class="header h-100 container-fluid header-container" aria-label="Site Header">
+    <a id="skip"
+       class="skip  sr-only sr-only-focusable"
+       href="#content"
+       data-event-category="link - accesibility"
+       data-event-action="skip"
+       data-event-label="#content">
+      Skip to main content
+    </a>
     <section class="header__content h-100  row align-items-center  px-md-4">
       <%# Branding %>
       <div class="col-auto mr-auto">
@@ -47,76 +55,76 @@
         </div>
       </div>
       <%# Menu Buttons %>
-      <div class="col-auto">
+      <div class="col-auto" role="navigation" aria-label="Site-wide dialogs of quick links, grouped by function">
         <button id="hd-unt-toggle"
                 type="button"
                 class="btn btn-link d-none d-md-inline-block"
                 data-target="#unt-drawer"
                 data-toggle="modal"
-                aria-label="Expand Menu of U N T Links"
+                aria-label="Open Dialog: U N T - Quick Links"
                 aria-controls="unt-drawer"
                 ga-on="click"
                 ga-event-category="button - header"
                 ga-event-action="toggle"
                 ga-event-label="unt drawer"
                 ga-event-value="1">
-          <i class="fas fa-bookmark"></i>
+          <i aria-hidden="true" class="fas fa-bookmark"></i>
         </button>
         <button id="hd-libraries-toggle"
                 type="button"
                 class="btn btn-link"
                 data-target="#libraries-drawer"
                 data-toggle="modal"
-                aria-label="People and Places"
+                aria-label="Open Dialog: Libraries - People and Places"
                 aria-controls="libraries-drawer"
                 ga-on="click"
                 ga-event-category="button - header"
                 ga-event-action="toggle"
                 ga-event-label="libraries drawer"
                 ga-event-value="1">
-          <i class="fas fa-university"></i>
+          <i aria-hidden="true" class="fas fa-university"></i>
         </button>
         <button id="hd-tech-toggle"
                 type="button"
                 class="btn btn-link"
                 data-target="#tech-drawer"
                 data-toggle="modal"
-                aria-label="U N T Libraries Technology Quick Links"
+                aria-label="Open Dialog: Libraries - Lending and Technology"
                 aria-controls="tech-drawer"
                 ga-on="click"
                 ga-event-category="button - header"
                 ga-event-action="toggle"
                 ga-event-label="common drawer"
                 ga-event-value="1">
-          <i class="fas fa-desktop"></i>
+          <i aria-hidden="true" class="fas fa-desktop"></i>
         </button>
         <button id="hd-search-toggle"
                 type="button"
                 class="btn btn-link"
                 data-target="#search-drawer"
                 data-toggle="modal"
-                aria-label="U N T Libraries Search Tool"
+                aria-label="Open Dialog: Libraries - Search, Find and Explore"
                 aria-controls="search-drawer"
                 ga-on="click"
                 ga-event-category="button - header"
                 ga-event-action="toggle"
                 ga-event-label="search drawer"
                 ga-event-value="1">
-          <i class="fas fa-search"></i>
+          <i aria-hidden="true" class="fas fa-search"></i>
         </button>
         <button id="hd-main-open"
                 type="button"
                 class="btn btn-link d-md-none toggle--main"
                 data-target="#main-menu-drawer"
                 data-toggle="modal"
-                aria-label="Site Navigation"
+                aria-label="Open Dialog: Libraries - Menu, Mobile Navigation"
                 aria-controls="main-menu-drawer"
                 ga-on="click"
                 ga-event-category="button - header"
                 ga-event-action="toggle"
                 ga-event-label="navigation drawer"
                 ga-event-value="1">
-          <i class="fas fa-bars"></i>
+          <i aria-hidden="true" class="fas fa-bars"></i>
         </button>
       </div>
     </section>

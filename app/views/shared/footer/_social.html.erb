@@ -1,5 +1,5 @@
 <div class="wrapper--social py-2  px-md-5">
-  <nav class="nav justify-content-center nav--social">
+  <nav class="nav justify-content-center nav--social" aria-label="Footer Social Media Links">
     <% t('social').each do |item| %>
     <a aria-label="<%= item[:label] %>"
        href="<%= item[:url] %><%= item[:id] %>"
@@ -10,7 +10,7 @@
        ga-event-action="social"
        ga-event-label="<%= item[:url] %><%= item[:id] %>"
        ga-event-value="1">
-      <i class="<%= item[:icon] %> fw"></i></a>
+      <i aria-hidden="true" class="<%= item[:icon] %> fw"></i></a>
     <% end %>
   </nav>
 </div>

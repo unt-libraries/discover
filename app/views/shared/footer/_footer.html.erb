@@ -9,7 +9,7 @@
 <% url_ask_us_facilities = "#{url_home}/ask-us?forward=Lib.Facilities@unt.edu#email-us" %>
 
 <div class="wrapper--footer">
-  <footer id="main-footer" class="footer  container-fluid footer-container py-5 px-md-5">
+  <div id="main-footer" class="footer  container-fluid footer-container py-5 px-md-5">
 
     <div class="row">
 
@@ -76,47 +76,47 @@
         </div>
 
         <h2 class="sr-only">Contact</h2>
-        <div><i class="fas fa-phone fw"></i> &nbsp;
+        <div><i aria-hidden="true" class="fas fa-phone fw"></i> &nbsp;
           <a id="footer-phone"
              ga-on="click"
              ga-event-category="link - footer - text"
              ga-event-action="libraries"
              ga-event-label="<%= url_telephone %>"
              ga-event-value="1"
-             href="<%= url_telephone %>" >940.565.2411</a></div>
-        <div><i class="fas fa-envelope fw"></i> &nbsp;
+             href="<%= url_telephone %>"><span class="sr-only">Call: </span>940.565.2413</a></div>
+        <div><i aria-hidden="true" class="fas fa-envelope fw"></i> &nbsp;
           <a id="asks-us"
              ga-on="click"
              ga-event-category="link - footer - text"
              ga-event-action="libraries"
              ga-event-label="<%= url_ask_us %>"
              ga-event-value="1"
-             href="<%= url_ask_us %>"> Research Questions</a></div>
-        <div><i class="fas fa-users fw"></i> &nbsp;
+             href="<%= url_ask_us %>"><span class="sr-only">Ask us your </span>Research Questions</a></div>
+        <div><i aria-hidden="true" class="fas fa-users fw"></i> &nbsp;
           <a id="footer-staff-directory"
              ga-on="click"
              ga-event-category="link - footer - text"
              ga-event-action="libraries"
              ga-event-label="<%= url_staff_directory %>"
              ga-event-value="1"
-             href="<%= url_staff_directory %>">Staff Directory</a></div>
-        <div><i class="fas fa-laptop fw"></i> &nbsp;
+             href="<%= url_staff_directory %>"><span class="sr-only">University Libraries </span>Staff Directory</a></div>
+        <div><i aria-hidden="true" class="fas fa-laptop fw"></i> &nbsp;
           <a id="footer-ask-tech"
              ga-on="click"
              ga-event-category="link - footer - text"
              ga-event-action="libraries"
              ga-event-label="<%= url_ask_us_support %>"
              ga-event-value="1"
-             href="<%= url_ask_us_support %>">Computer &amp; Technology Problems</a></div>
-        <div><i class="fas fa-exclamation-triangle fw"></i> &nbsp;
+             href="<%= url_ask_us_support %>"><span class="sr-only">Email to report </span>Computer &amp; Technology Problems</a></div>
+        <div><i aria-hidden="true" class="fas fa-exclamation-triangle fw"></i> &nbsp;
           <a id="ask-building"
              ga-on="click"
              ga-event-category="link - footer - text"
              ga-event-action="libraries"
              ga-event-label="<%= url_ask_us_facilities %>"
              ga-event-value="1"
-             href="<%= url_ask_us_facilities %>">Facilities Problems</a></div>
+             href="<%= url_ask_us_facilities %>"><span class="sr-only">Email to report </span>Facilities Problems</a></div>
       </div>
     </div>
-  </footer>
+  </div>
 </div>

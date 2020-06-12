@@ -14,7 +14,7 @@
       <div class="drawer-header">
         <h2 class="drawer-title px-3" id="main-drawer-title">Menu</h2>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <i class="fas fa-times fa-lg"></i>
+          <i aria-hidden="true" class="fas fa-times fa-lg"></i>
         </button>
       </div>
 
@@ -27,8 +27,11 @@
              ga-event-action="telephone"
              ga-event-label="tel:9405653245"
              ga-event-value="1">
-            <i class="fas fa-phone"></i><br/>
-            <span class="small">CALL</span>
+            <i aria-hidden="true" class="fas fa-phone"></i><br/>
+            <span class="small">
+              CALL
+              <span class="sr-only"> The Libraries</span>
+            </span>
           </a>
           <a href="<%= url_ask_us %>"
              class="btn btn-success btn-lg w-25"
@@ -37,7 +40,7 @@
              ga-event-action="libraries"
              ga-event-label="<%= url_ask_us %>"
              ga-event-value="1">
-            <i class="fas fa-question"></i><br/>
+            <i aria-hidden="true" class="fas fa-question"></i><br/>
             <span class="small">ASK US</span>
           </a>
           <a href="<%= url_login %>"
@@ -47,12 +50,16 @@
              ga-event-action="libraries"
              ga-event-label="<%= url_login %>"
              ga-event-value="1">
-            <i class="fas fa-user"></i><br/>
-            <span class="small">LOGIN</span>
+            <i aria-hidden="true" class="fas fa-user"></i><br/>
+            <span class="small">
+              <span class="sr-only">Account </span>
+              LOGIN
+            </span>
           </a>
         </div>
 
-        <div class="drawer__divider"></div>
+        <hr class="drawer__divider" />
+
         <a href="/"
            class="nav-item nav-link"
            ga-on="click"
@@ -66,46 +73,58 @@
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_about %>"
-           ga-event-value="1">About</a>
+           ga-event-value="1">
+          <span class="sr-only">Libraries: </span>
+          About</a>
         <a href="<%= url_research %>"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_research %>"
-           ga-event-value="1">Research</a>
+           ga-event-value="1">
+          <span class="sr-only">Libraries: </span>
+          Research</a>
         <a href="<%= url_services %>"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_services %>"
-           ga-event-value="1">Services</a>
+           ga-event-value="1">
+          <span class="sr-only">Libraries: </span>
+          Services</a>
         <a href="<%= url_spaces %>"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_spaces %>"
-           ga-event-value="1">Spaces</a>
+           ga-event-value="1">
+          <span class="sr-only">Libraries: </span>
+          Spaces</a>
         <a href="<%= url_news %>"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_news %>"
-           ga-event-value="1">News </a>
+           ga-event-value="1">
+          <span class="sr-only">Libraries: </span>
+          News </a>
         <a href="<%= url_events %>"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_events %>"
-           ga-event-value="1">Events</a>
+           ga-event-value="1">
+          <span class="sr-only">Libraries: </span>
+          Events</a>
 
-        <div class="drawer__divider"></div>
+        <hr class="drawer__divider" />
 
-        <nav class="nav justify-content-center py-4">
+        <nav class="nav justify-content-center py-4" aria-label="Social Media Links">
           <% t('social').select { |item| item[:name] != 'rss' }.each do |item| %>
           <a class="nav-item nav-link nav-link--social"
              ga-on="click"
@@ -114,8 +133,13 @@
              ga-event-label="<%= item[:url] %><%= item[:id] %>"
              ga-event-value="1"
              aria-label="<%= item[:label] %>"
-             href="<%= item[:url] %><%= item[:id] %>">
-            <i class="<%= item[:icon] %> fa-lg"></i>
+             href="<%= item[:url] %><%= item[:id] %>"
+             data-toggle="tooltip"
+             data-placement="bottom"
+             data-container="body"
+             title="<%= item[:name] %>">
+            <i aria-hidden="true" class="<%= item[:icon] %> fa-lg"></i>
+            <span class="sr-only"><%= item[:name] %></span>
           </a>
           <% end %>
         </nav>
@@ -124,6 +148,7 @@
     <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
          data-src="<%= asset_pack_path 'media/images/backgrounds/drawer.png' %>"
          class="lazyload cute d-none"
+         aria-hidden="true"
          alt="illustration of Willis Library and Hurley Administration building" />
   </div>
 </div>
