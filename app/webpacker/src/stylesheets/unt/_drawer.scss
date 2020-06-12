@@ -59,8 +59,6 @@
 
   // Extend the dropdown-divider (<hr>) concept into drawers
   &__divider {
-    @include nav-divider($dark-green);
-
     height: 0;
     overflow: hidden;
     border-top: 1px solid $dark-green;

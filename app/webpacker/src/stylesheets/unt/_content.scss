@@ -123,3 +123,11 @@ html a {
     color: $gray-500;
   }
 }
+
+.alert {
+  a:link,a:visited,a:hover,a:active,a:focus {
+    color: inherit;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
