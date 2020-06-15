@@ -1,6 +1,7 @@
 const { environment } = require('@rails/webpacker');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const BrotliPlugin = require('brotli-webpack-plugin');
 
 const webpack = require('webpack');
 const erb = require('./loaders/erb');
@@ -42,6 +43,8 @@ environment.plugins.append('CleanWebpack', new CleanWebpackPlugin());
 
 // Strip all locales except 'en' from Moment.js
 environment.plugins.append('MomentLocales', new MomentLocalesPlugin());
+
+environment.plugins.append('BrotliPlugin', new BrotliPlugin());
 
 environment.loaders.append('expose', {
   test: require.resolve('jquery'),
