@@ -15,8 +15,6 @@ gem 'puma', '~> 4.2.1'
 gem 'rails', '~> 5.2.4.2'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'rubocop-airbnb'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
 # gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

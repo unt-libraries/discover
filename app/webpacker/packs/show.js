@@ -1,12 +1,10 @@
 import { checkAvailability } from '../src/javascripts/_availability_table';
 import {
-  bindShowAvailMoreField, initPopovers, initTooltips, replaceBookCovers,
+  bindShowAvailMoreField, replaceBookCovers,
 } from '../src/javascripts/_ui';
 
-Blacklight.onLoad(() => {
+document.addEventListener('turbolinks:load', () => {
   checkAvailability();
   bindShowAvailMoreField();
-  initPopovers();
-  initTooltips();
   replaceBookCovers();
 });

@@ -332,7 +332,7 @@ DEPENDENCIES
   rspec-rails (~> 4.0.0)
   rubocop-airbnb
   solr_wrapper (>= 0.3)
-  turbolinks (~> 5)
+  turbolinks (~> 5.2)
   tzinfo-data
   uglifier (>= 2.7.2)
   web-console (>= 3.3.0)

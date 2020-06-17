@@ -1,6 +1,8 @@
 // Script files that should be included in all pages
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import Rails from '@rails/ujs';
+import Turbolinks from 'turbolinks';
 import 'jquery'
 import 'popper.js'
 import 'bootstrap'
@@ -9,7 +11,12 @@ import '../src/javascripts/www/_typeaheads';
 import { initTooltips, initPopovers } from "../src/javascripts/_ui";
 import './base.scss';
 
-Blacklight.onLoad(() => {
+document.addEventListener("DOMContentLoaded", () => {
+  Rails.start();
+  Turbolinks.start();
+});
+
+document.addEventListener('turbolinks:load', () => {
   initTooltips();
   initPopovers();
 });
