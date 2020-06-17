@@ -25,7 +25,7 @@ en:
         lq_img_src: 'media/images/home/featured-course-reserves@0.1x.jpg'
         webp_img_src: 'media/images/home/featured-course-reserves.webp'
         lq_webp_img_src: 'media/images/home/featured-course-reserves@0.1x.webp'
-        img_alt: 'Employee sorting boxes of archived materials'
+        img_alt: 'Spines of books on a shelf'
       - title: 'Databases'
         summary: "Find the best library databases for your research."
         link_url: 'https://guides.library.unt.edu/az.php'
@@ -65,7 +65,7 @@ en:
         lq_img_src: 'media/images/home/featured-archival-collections@0.1x.jpg'
         webp_img_src: 'media/images/home/featured-archival-collections.webp'
         lq_webp_img_src: 'media/images/home/featured-archival-collections@0.1x.webp'
-        img_alt: 'Spines of books on a shelf'
+        img_alt: 'Employee sorting boxes of archived materials'
   views:
     pagination:
       first: '&laquo; First'
