@@ -1,7 +1,6 @@
 import { locationData } from './data/availability_locations';
 import { statusDescData } from './data/availability_statuses';
 
-
 /**
  * Splits an array into chunks of 50 for more manageable API calls
  * @param {Array} arr
