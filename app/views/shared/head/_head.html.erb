@@ -17,6 +17,7 @@
   <!-- Preconnect for assets -->
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://lgapi-us.libapps.com" rel="preconnect" crossorigin>
+  <link href="https://books.google.com" rel="preconnect" crossorigin>
 
   <%= preload_link_tag "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,400&family=Oswald:wght@300;400&subset=latin-ext&display=swap", as: "style" %>
   <link rel="stylesheet"
@@ -44,11 +45,9 @@
   <%= render '/shared/head/opengraph' %>
 
   <!-- Head scripts -->
-  <%= javascript_packs_with_chunks_tag 'priority', 'data-turbo-links-track': 'reload', async: true %>
+  <%= javascript_packs_with_chunks_tag 'priority', 'data-turbolinks-track': 'reload', async: true %>
   <%= javascript_packs_with_chunks_tag 'analytics', 'data-turbolinks-track': 'reload', async: true %>
   <script src="https://kit.fontawesome.com/5f309fc1bc.js" crossorigin="anonymous" async="async" data-mutate-approach="sync"></script>
-
-  <link href="https://books.google.com" rel="preconnect" crossorigin>
 
   <%= content_for :head_scripts %>
   <% content_for(:head_scripts) do %>
