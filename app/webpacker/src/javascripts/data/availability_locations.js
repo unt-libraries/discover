@@ -164,6 +164,7 @@ const locationData = {
     abbr: 'DPL',
     linkText: 'Discovery Park Library Directory',
     url: 'https://library.unt.edu/discovery-park/#directory',
+    btnClass: 'discovery-park',
   },
   rfbks: {
     name: 'Discovery Park Library Featured Books',
