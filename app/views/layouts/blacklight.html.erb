@@ -4,12 +4,12 @@
 
 <% content_for(:content) do %>
   <% if content_for? :sidebar %>
-    <section id="content" class="<%= main_content_classes %>">
-      <%= yield %>
-    </section>
-
     <section id="sidebar" class="<%= sidebar_classes %>">
       <%= content_for(:sidebar) %>
+    </section>
+
+    <section id="content" class="<%= main_content_classes %>">
+      <%= yield %>
     </section>
   <% else %>
     <section id="content" class="<%= main_content_classes %>">
