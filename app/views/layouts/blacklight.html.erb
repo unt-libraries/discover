@@ -4,46 +4,18 @@
 
 <% content_for(:content) do %>
   <% if content_for? :sidebar %>
+    <section id="content" class="<%= main_content_classes %>">
+      <%= yield %>
+    </section>
+
     <section id="sidebar" class="<%= sidebar_classes %>">
       <%= content_for(:sidebar) %>
     </section>
+  <% else %>
+    <section id="content" class="<%= main_content_classes %>">
+      <%= yield %>
+    </section>
   <% end %>
-
-  <section id="content" class="<%= content_for?(:sidebar) ? main_content_classes : main_content_full_width_classes %>">
-    <div class="row">
-      <div class="col">
-        <div class="<%= show_breadcrumb_search_classes %>">
-          <div class="card ">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-12">
-                  <%= render partial: 'shared/content/breadcrumbs' %>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <% if content_for? :search_results %>
-                    <%# Search results inside of the main card instead of another card like the yield below %>
-                    <%= content_for(:search_results) %>
-                  <% else %>
-                    <%= content_for(:search_title) %>
-                    <%= render partial: 'shared/content/search-bar' %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <%= yield %>
-      </div>
-    </div>
-  </section>
-
-  <%# if content_for? :sidebar %>
-<!--    <section id="sidebar" class="<%#= sidebar_classes %>">-->
-      <%#= content_for(:sidebar) %>
-<!--    </section>-->
-  <%# end %>
 <% end %>
 
 <%= render template: "layouts/blacklight/base" %>

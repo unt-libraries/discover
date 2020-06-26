@@ -44,7 +44,7 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
   window.libutils.siteDomain = 'https://library.unt.edu';
 }
 
-$(function () {
+export default function initDOM() {
   // set a number of reusable DOM variables
   const $head = $('#head');
   const $toTop = $('#to-top');
@@ -111,4 +111,4 @@ $(function () {
       });
     });
   }
-});
+}

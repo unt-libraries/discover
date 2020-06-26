@@ -1,10 +1,13 @@
+.thumbnail-wrapper {
+  padding: 0;
+}
+
 .document-thumbnail {
   float: none !important;
 
   // Search results index page thumbnails
   .documents-list .document & {
     padding-left: 0;
-    margin-bottom: 1rem;
   }
 
   &.thumbnail-loaded {

@@ -6,8 +6,8 @@ import Turbolinks from 'turbolinks';
 import 'jquery'
 import 'popper.js'
 import 'bootstrap'
-import '../src/javascripts/www/_main';
-import '../src/javascripts/www/_typeaheads';
+import initDOM, * as www from '../src/javascripts/www/_main';
+import sidebarTypeaheads from '../src/javascripts/www/_typeaheads';
 import { initTooltips, initPopovers } from "../src/javascripts/_ui";
 import './base.scss';
 
@@ -28,4 +28,6 @@ document.addEventListener('turbolinks:load', () => {
   initTooltips();
   initPopovers();
   Blacklight.modal.setupModal();
+  initDOM();
+  sidebarTypeaheads();
 });

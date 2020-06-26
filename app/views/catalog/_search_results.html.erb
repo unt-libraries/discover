@@ -15,21 +15,20 @@
   <%= render 'search_results_num_header' %>
 <% end %>
 
-<%# Instead of being the content yield, this content replaces the header in blacklight.html.erb %>
-<% content_for(:search_results) do %>
-  <%= render 'search_header' %>
+<div class="card">
+  <div class="card-body">
+    <%= render 'search_header' %>
 
-  <h2 class="sr-only"><%= t('blacklight.search.search_results') %></h2>
+    <h2 class="sr-only"><%= t('blacklight.search.search_results') %></h2>
 
-  <%- if @response.empty? %>
-    <%= render "zero_results" %>
-  <%- elsif render_grouped_response? %>
-    <%= render_grouped_document_index %>
-  <%- else %>
-    <%= render_document_index %>
-  <%- end %>
+    <%- if @response.empty? %>
+      <%= render "zero_results" %>
+    <%- elsif render_grouped_response? %>
+      <%= render_grouped_document_index %>
+    <%- else %>
+      <%= render_document_index %>
+    <%- end %>
 
-  <%= render 'results_pagination' %>
-<% end %>
-
-
+    <%= render 'results_pagination' %>
+  </div>
+</div>

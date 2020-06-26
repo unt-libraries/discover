@@ -23,10 +23,11 @@
 .documents-list {
   .document {
     margin-top: 0;
+    margin-left: $card-spacer-x;
+    margin-right: $card-spacer-x;
+    padding: $card-spacer-x 0;
 
-    &.row {
-      padding-top: 20px;
-      padding-bottom: 20px;
+    &.row:not(:last-child) {
       border-bottom: #d5d5d5 solid 1px;
     }
 
@@ -36,11 +37,15 @@
 
     &:hover {
       .hover-counter {
+        background: $white;
+        border: 1px solid theme-color("gray-lighter");
+        border-radius: 3px;
         display: inline-block;
         font-size: 0.875rem;
-        margin-right: 10px;
+        margin-left: 25px;
+        padding: 0 3px;
         position: absolute;
-        right: 100%;
+        left: 100%;
       }
     }
 

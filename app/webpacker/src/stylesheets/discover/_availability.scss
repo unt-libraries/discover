@@ -1,180 +1,154 @@
 // Availability on index template
 .blacklight-catalog-index {
-  .item-availability {
-    font-size: 0.9rem;
-    color: $text-muted;
+  .documents-list {
+    .item-availability {
+      font-size: 0.9rem;
+      color: $text-muted;
 
-    .result__field {
-      margin-bottom: 1rem;
-      padding-bottom: 0;
-    }
-
-    .result__value {
-      margin-top: 0.5rem;
-      margin-bottom: 0;
-    }
-
-    // Buttons used for availability status buttons
-    .blacklight-availability {
-      margin-top: 0;
-
-      .availability-text {
-        margin-bottom: 0.25rem;
-        margin-top: 0.25rem;
+      .result__field {
+        margin-bottom: 1rem;
+        padding: 0;
       }
 
-      .availability-btn {
+      .result__value {
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+      }
+
+      // Buttons used for availability status buttons
+      .blacklight-availability {
+        margin-top: 0;
+
+        .availability-text {
+          margin-bottom: 0.25rem;
+          margin-top: 0.25rem;
+        }
+
+        .availability-btn {
+          @extend .btn;
+          @extend .btn-sm;
+          @extend .btn-block;
+
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          font-weight: 700;
+          padding: 0.15rem 0.5rem;
+
+          &.loading {
+            color: theme-color('gray-light');
+            background-color: white;
+            border-color: theme-color('gray-light');
+          }
+
+          &.location-eagle-commons {
+            &.available:not(.checked-out) {
+              @extend .btn-light-teal;
+            }
+
+            &.checked-out {
+              @extend .btn-outline-light-teal;
+            }
+          }
+
+          &.location-willis {
+            &.available:not(.checked-out) {
+              @extend .btn-dark-teal;
+            }
+
+            &.checked-out {
+              @extend .btn-outline-dark-teal;
+            }
+          }
+
+          &.location-media {
+            &.available:not(.checked-out) {
+              @extend .btn-light-green;
+
+              color: white;
+            }
+
+            &.checked-out {
+              @extend .btn-outline-light-green;
+            }
+          }
+
+          &.location-discovery-park {
+            &.available:not(.checked-out) {
+              @extend .btn-lime-green;
+            }
+
+            &.checked-out {
+              @extend .btn-outline-lime-green;
+            }
+          }
+
+          &.location-remote-storage {
+            &.available:not(.checked-out) {
+              @extend .btn-aqua;
+
+              color: white;
+            }
+
+            &.checked-out {
+              @extend .btn-outline-aqua;
+            }
+          }
+
+          &.online {
+            color: white;
+            background-color: theme-color('primary');
+            border-color: theme-color('primary');
+
+            &:active,
+            &:hover,
+            &:focus {
+              background-color: darken(theme-color('primary'), 5%);
+            }
+          }
+
+          &.unavailable {
+            color: white;
+            background-color: theme-color('gray-light');
+            border-color: theme-color('gray-light');
+
+            &:active,
+            &:hover,
+            &:focus {
+              background-color: darken(theme-color('gray-light'), 5%);
+            }
+          }
+
+          & .loading-spinner {
+            & span {
+              @extend .spinner-grow;
+              @extend .spinner-grow-sm;
+
+              &:nth-child(2) {
+                animation-delay: 0.16s;
+              }
+
+              &:nth-child(3) {
+                animation-delay: 0.32s;
+              }
+            }
+          }
+        }
+      }
+
+      .blacklight-notes {
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+
+      .more-available {
         @extend .btn;
         @extend .btn-sm;
         @extend .btn-block;
+        @extend .btn-outline-primary;
 
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-weight: 700;
         padding: 0.15rem 0.5rem;
-
-        &.loading {
-          color: theme-color('gray-light');
-          background-color: white;
-          border-color: theme-color('gray-light');
-        }
-
-        &.location-eagle-commons {
-          &.available:not(.checked-out) {
-            @extend .btn-light-teal;
-          }
-
-          &.checked-out {
-            @extend .btn-outline-light-teal;
-          }
-        }
-
-        &.location-willis {
-          &.available:not(.checked-out) {
-            @extend .btn-dark-teal;
-          }
-
-          &.checked-out {
-            @extend .btn-outline-dark-teal;
-          }
-        }
-
-        &.location-media {
-          &.available:not(.checked-out) {
-            @extend .btn-light-green;
-
-            color: white;
-          }
-
-          &.checked-out {
-            @extend .btn-outline-light-green;
-          }
-        }
-
-        &.location-discovery-park {
-          &.available:not(.checked-out) {
-            @extend .btn-lime-green;
-          }
-
-          &.checked-out {
-            @extend .btn-outline-lime-green;
-          }
-        }
-
-        &.location-remote-storage {
-          &.available:not(.checked-out) {
-            @extend .btn-aqua;
-
-            color: white;
-          }
-
-          &.checked-out {
-            @extend .btn-outline-aqua;
-          }
-        }
-
-        //&.available {
-        //  @extend .btn-primary;
-        //
-        //  &.location-eagle-commons {
-        //    @extend .btn-light-teal;
-        //  }
-        //
-        //  &.location-willis {
-        //    @extend .btn-dark-teal;
-        //  }
-        //
-        //  &.location-media {
-        //    @extend .btn-light-green;
-        //
-        //    color: white;
-        //  }
-        //
-        //  &.location-discovery-park {
-        //    @extend .btn-lime-green;
-        //  }
-        //
-        //  &.location-remote-storage {
-        //    @extend .btn-aqua;
-        //
-        //    color: white;
-        //  }
-        //}
-
-        &.online {
-          color: white;
-          background-color: theme-color('primary');
-          border-color: theme-color('primary');
-
-          &:active,
-          &:hover,
-          &:focus {
-            background-color: darken(theme-color('primary'), 5%);
-          }
-        }
-
-        &.unavailable {
-          color: white;
-          background-color: theme-color('gray-light');
-          border-color: theme-color('gray-light');
-
-          &:active,
-          &:hover,
-          &:focus {
-            background-color: darken(theme-color('gray-light'), 5%);
-          }
-        }
-
-        & .loading-spinner {
-          & span {
-            @extend .spinner-grow;
-            @extend .spinner-grow-sm;
-
-            &:nth-child(2) {
-              animation-delay: 0.16s;
-            }
-
-            &:nth-child(3) {
-              animation-delay: 0.32s;
-            }
-          }
-        }
       }
-    }
-
-    .blacklight-notes {
-      margin-top: 0;
-      margin-bottom: 1rem;
-    }
-
-    .more-available {
-      @extend .btn;
-      @extend .btn-sm;
-      @extend .btn-block;
-      @extend .btn-outline-primary;
-
-      padding: 0.15rem 0.5rem;
     }
   }
 }

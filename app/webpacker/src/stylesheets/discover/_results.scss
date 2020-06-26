@@ -1,3 +1,28 @@
+.blacklight-catalog-index {
+  section.content {
+    .card-body {
+      padding-bottom: 0;
+
+      & > .row {
+        margin-left: -$card-spacer-x;
+        margin-right: -$card-spacer-x;
+
+        & > .col {
+          padding-left: $card-spacer-x;
+          padding-right: $card-spacer-x;
+        }
+      }
+    }
+
+    .documents-list {
+      @extend .row;
+      @extend .container-fluid;
+
+      padding: 0;
+    }
+  }
+}
+
 .sort-pagination {
   background-color: theme-color-level("lime", -10);
   padding: $pagination-padding-y  $pagination-padding-x;

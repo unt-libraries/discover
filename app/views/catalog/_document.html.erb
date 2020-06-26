@@ -1,7 +1,7 @@
 <%# container for a single doc -%>
 <% doc_presenter = index_presenter(document) %>
 
-<%= tag.article class: "document row #{render_document_class document} document-position-#{document_counter} ",
+<%= tag.article class: "document row col-12 #{render_document_class document} document-position-#{document_counter} ",
                 data: {
                     document_counter: document_counter,
                     doc_id: document.id.to_s.parameterize
@@ -24,7 +24,7 @@
       <%= render_document_partial document, 'index', document_counter: document_counter %>
     </div>
   </div>
-  <div class="col-12 col-xl-4">
+  <div class="col-12 col-xl-4 pr-xl-0 mt-3 mt-xl-0">
     <%= render_document_partial document, 'index_availability', document_counter: document_counter %>
   </div>
 <% end -%>

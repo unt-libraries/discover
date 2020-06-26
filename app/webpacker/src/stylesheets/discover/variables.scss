@@ -56,24 +56,24 @@ $breadcrumb-margin-bottom:  1rem;
 
 // Extends theme colors with custom ones for use in alerts, buttons, backgrounds, etc.
 $theme-colors: (
-        "primary":        $unt-green,
-        "warning":        $yellow,
-        "light-teal":     $light-teal,
-        "dark-teal":      $dark-teal,
-        "lime-green":     $lime-green,
-        "light-green":    $light-green,
-        "green":          $green,
-        "aqua":           $aqua,
-        "lime":           $lime,
-        "mint-green":     $mint-green,
-        "gray-base":      mix(black, $brand-greyscale, 20),
-        "gray-darker":    $brand-greyscale,
-        "gray-dark":      mix(white, $brand-greyscale, 20),
-        "gray":           mix(white, $brand-greyscale, 40),
-        "gray-light":     mix(white, $brand-greyscale, 60),
-        "gray-lighter":   mix(white, $brand-greyscale, 80),
-        "indigo":         $indigo,
-        "unt-green":      $unt-green,
+  "primary":        $unt-green,
+  "warning":        $yellow,
+  "light-teal":     $light-teal,
+  "dark-teal":      $dark-teal,
+  "lime-green":     $lime-green,
+  "light-green":    $light-green,
+  "green":          $green,
+  "aqua":           $aqua,
+  "lime":           $lime,
+  "mint-green":     $mint-green,
+  "gray-base":      mix(black, $brand-greyscale, 20),
+  "gray-darker":    $brand-greyscale,
+  "gray-dark":      mix(white, $brand-greyscale, 20),
+  "gray":           mix(white, $brand-greyscale, 40),
+  "gray-light":     mix(white, $brand-greyscale, 60),
+  "gray-lighter":   mix(white, $brand-greyscale, 80),
+  "indigo":         $indigo,
+  "unt-green":      $unt-green,
 );
 
 // Set a specific jump point for requesting color jumps
@@ -141,13 +141,13 @@ $input-focus-box-shadow:                inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 
 
 // Cards
 
-$card-spacer-y:                     .75rem !default;
+$card-spacer-y:                     0.75rem !default;
 $card-spacer-x:                     1.25rem !default;
 $card-border-width:                 $border-width !default;
 $card-border-radius:                0.25rem;
-$card-border-color:                 rgba($black, .125) !default;
+$card-border-color:                 rgba($black, 0.125) !default;
 $card-inner-border-radius:          subtract($card-border-radius, $card-border-width) !default;
-$card-cap-bg:                       rgba($black, .03) !default;
+$card-cap-bg:                       rgba($black, 0.03) !default;
 $card-cap-color:                    null !default;
 $card-height:                       null !default;
 $card-color:                        null !default;

@@ -4,7 +4,7 @@ import Bloodhound from 'corejs-typeahead/dist/bloodhound';
 
 const has = Object.prototype.hasOwnProperty;
 
-$(() => {
+export default function sidebarTypeaheads() {
   const $studentHelper = $('#student-helper');
   const $courseTypeAhead = $('input.course-typeahead');
   const $azTypeahead = $('input.az-typeahead');
@@ -322,4 +322,4 @@ $(() => {
       });
     // End student helper typeahead (has multiple bloodhound sources)
   }
-});
+}
