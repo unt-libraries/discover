@@ -1,4 +1,27 @@
 <% content_for(:head_scripts, flush: true) do %>
   <%= javascript_packs_with_chunks_tag 'base', 'home', 'data-turbolinks-track': 'reload', defer: true %>
 <% end %>
+
+<div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <%= render partial: 'shared/content/breadcrumbs' %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h1><%= t('blacklight.search.header') %></h1>
+      </div>
+    </div>
+
+    <div id="tourSearchField" class="row mb-2">
+      <div class="col">
+        <%= render 'shared/content/search-bar' %>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%= render :partial=>'home_text' %>
