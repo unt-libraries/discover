@@ -57,8 +57,8 @@ const searchResultsTourSteps = [
   },
   {
     element: '#facet-panel-priority-collapse',
-    title: 'Facets',
-    content: 'Use Facets to refine your current search. Categories can be expanded/collapsed. Selecting a facet will make your results more precise.',
+    title: 'Filters',
+    content: 'Use Filters to refine your current search. Categories can be expanded/collapsed. Selecting a filter will make your results more precise.',
   },
   {
     element: '#tourSearchField',
@@ -67,8 +67,8 @@ const searchResultsTourSteps = [
   },
   {
     element: '#tourSearchConstraints',
-    title: 'Applied Facets',
-    content: 'Facets that you apply will be listed here where you can easily dismiss them or start over.',
+    title: 'Applied Filters',
+    content: 'Filters that you apply will be listed here where you can easily dismiss them or start over.',
   },
   {
     element: '#sort-dropdown',
