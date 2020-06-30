@@ -178,6 +178,7 @@ module FacetsHelper
       :maps => { :label => 'Maps', :icon => 'map' },
       :music_recordings => { :label => 'Music Recordings', :icon => 'music' },
       :music_scores => { :label => 'Music Scores', :icon => 'list-music' },
+      :newspapers => { :label => 'Newspapers', :icon => 'newspaper' },
       :objects_artifacts => { :label => 'Objects/<wbr>Artifacts'.html_safe, :icon => 'cube' },
       :online_databases => { :label => 'Online Databases', :icon => 'database' },
       :software => { :label => 'Software', :icon => 'code' },
