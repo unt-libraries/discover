@@ -29,6 +29,11 @@ const gaDimensions = {
   'dimension20': 'newly_added_facet',
 }
 
+function allowTracking() {
+  const dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack || window.msDoNotTrack);
+  return !(dnt == '1' || dnt === 'yes');
+}
+
 function init() {
   // Additional google analytics code
   window.ga = window.ga || ((...args) => (ga.q = ga.q || []).push(args));
@@ -214,6 +219,7 @@ function addBrowserInfoToFeedback() {
 }
 
 export {
+  allowTracking,
   init,
   trackErrors,
   trackSearchForm,

@@ -1,6 +1,6 @@
 /* eslint-disable */
 // Override Blacklight implementation in 7.7.0 to add google analytics
-import { trackDocPosition } from '../_analytics.js.erb';
+import { allowTracking, trackDocPosition } from '../_analytics.js.erb';
 
 Blacklight.doSearchContextBehavior = function() {
   if (typeof Blacklight.do_search_context_behavior == 'function') {
@@ -38,7 +38,9 @@ Blacklight.handleSearchContextMethod = function(event) {
   form.action = href
 
   // Track the position of a document when clicked on the search results screen
-  trackDocPosition(link);
+  if (allowTracking()) {
+    trackDocPosition(link);
+  }
 
   let formContent = `<input name="_method" value="post" type="hidden" />
     <input name="redirect" value="${link.getAttribute('href')}" type="hidden" />`
@@ -67,7 +69,3 @@ Blacklight.handleSearchContextMethod = function(event) {
   event.stopPropagation()
   event.stopImmediatePropagation()
 };
-
-Blacklight.onLoad(function() {
-  Blacklight.doSearchContextBehavior();
-});

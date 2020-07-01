@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Tour from 'bootstrap-tourist';
+import { allowTracking } from './_analytics.js.erb';
 
 const tourPromptTemplate = `<div class="popover" role="tooltip">
   <div class="arrow"></div>
@@ -107,7 +108,9 @@ function skipTour(tourName) {
   const newSkips = parseInt(skips) + 1;
   localStorage.setItem(`${tourName}_skips`, newSkips.toString());
 
-  ga('send', 'event', 'Tour', 'Tour Skipped', tourName);
+  if (allowTracking()) {
+    ga('send', 'event', 'Tour', 'Tour Skipped', tourName);
+  }
 }
 
 function initTour() {
@@ -129,9 +132,11 @@ function initTour() {
 
       searchResultsTour.start();
 
-      ga('send', 'event', 'Tour', 'Tour Presented', 'searchResultsTour', {
-        nonInteraction: true,
-      });
+      if (allowTracking()) {
+        ga('send', 'event', 'Tour', 'Tour Presented', 'searchResultsTour', {
+          nonInteraction: true,
+        });
+      }
 
       // Dismiss the tour and increment "skips" if they click somewhere other than tour intro
       $('body').on('click.tour', (e) => {

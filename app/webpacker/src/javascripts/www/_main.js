@@ -2,6 +2,7 @@
 import 'bootstrap';
 import size from 'lodash/size';
 import words from 'lodash/words';
+import { allowTracking } from '../_analytics.js.erb';
 
 window.libutils = {};
 
@@ -101,14 +102,18 @@ export default function initDOM() {
       const value = size(words(action)) || 0;
 
       function submitForm() {
-        $this.submit();
+        e.currentTarget.submit();
       }
-      // eslint-disable-next-line no-undef
-      ga('send', 'event', category, action, label, value, {
-        hitCallback: window.libutils.actWithTimeOut(() => {
-          submitForm();
-        }),
-      });
+
+      if (allowTracking()) {
+        ga('send', 'event', category, action, label, value, {
+          hitCallback: window.libutils.actWithTimeOut(() => {
+            submitForm();
+          }),
+        });
+      } else {
+        submitForm();
+      }
     });
   }
 }

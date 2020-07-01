@@ -179,9 +179,22 @@ function bindShowAvailMoreField() {
   });
 }
 
+// animate the search icon on search form submits to indicate 'thinking'
+function animateSearchIcon() {
+  const searchForms = document.querySelectorAll('.search-query-form');
+  searchForms.forEach((thisForm) => {
+    thisForm.addEventListener('submit', (e) => {
+      const buttonIcon = e.currentTarget.querySelector('.fa-search');
+      elRemoveClass(buttonIcon, 'fa-search');
+      elAddClass(buttonIcon, 'fa-circle-notch', 'fa-spin');
+    });
+  });
+}
+
 export {
   replaceBookCovers,
   initTooltips,
   initPopovers,
   bindShowAvailMoreField,
+  animateSearchIcon,
 };

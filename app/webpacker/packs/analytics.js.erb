@@ -1,9 +1,6 @@
 import * as analytics from '../src/javascripts/_analytics.js.erb';
 
-var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack || window.msDoNotTrack);
-var respectDnt = (dnt == '1' || dnt === 'yes');
-
-if (!respectDnt) {
+if (analytics.allowTracking()) {
   // Load Google Analytics
   var gaUrl = 'https://www.google-analytics.com/analytics<%#= '_debug' if Rails.env.development? %>.js';
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
