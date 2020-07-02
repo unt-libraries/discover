@@ -1,3 +1,16 @@
 <div class="advanced_facet_limit">
-  <%= render_facet_limit display_facet, layout: nil, partial: advanced_search_facet_partial_name(display_facet) %>
+  <div class="inclusive_or list-group-item bg-light mb-2">
+    <h5>Any of:</h5>
+    <ul class="list-unstyled facet-values">
+      <% advanced_query.filters[facet_field.key].each do |value| %>
+        <li>
+          <span class="selected"><%= h(value) %></span>
+          <%= link_to(remove_advanced_facet_param(facet_field.key, value, params), :class => "remove") do %>
+            <i class="fa fa-times-circle remove-icon" data-toggle="tooltip" data-title="Remove filter"></i>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <%= render_facet_limit display_facet, :layout => nil, :partial => advanced_search_facet_partial_name(display_facet) %>
 </div>

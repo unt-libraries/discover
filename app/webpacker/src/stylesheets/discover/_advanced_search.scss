@@ -1,14 +1,33 @@
 /* Much of this is from the blacklight_advanced_search module, modified for our use. */
 
-/* constraints */
+/* Sidebar facet values */
+.facet-values {
+  .advanced_facet_limit {
+    .inclusive_or {
+      border: 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
 
-.inclusive_or.appliedFilter {
-  /* kinda lame, but we have to group the 'any' criteria somehow, as they are still
-   'and'd with facet and other criteria. It's got a bootstrap 'well' class
-   on it already. */
-  display: inline-block;
-  padding: 4px 8px;
-  margin: 0;
+      .facet-values {
+        padding: 0;
+      }
+
+      .selected {
+        color: theme-color("dark-teal") !important;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+.constraints-container {
+  .applied-filter {
+    .constraint-connector {
+      color: $gray-500 !important;
+    }
+  }
 }
 
 .inclusive_or .operator {

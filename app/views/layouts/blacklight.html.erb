@@ -11,6 +11,14 @@
     <section id="content" class="<%= main_content_classes %>">
       <%= yield %>
     </section>
+  <% elsif content_for? :right_sidebar %>
+    <section id="right_sidebar" class="<%= right_sidebar_classes %>">
+      <%= content_for(:right_sidebar) %>
+    </section>
+
+    <section id="content" class="<%= main_content_classes %>">
+      <%= yield %>
+    </section>
   <% else %>
     <section id="content" class="<%= main_content_classes %>">
       <%= yield %>

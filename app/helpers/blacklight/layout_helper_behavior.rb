@@ -12,10 +12,10 @@ module Blacklight
     end
 
     ##
-    # Classes added to a document's sidebar div
+    # Classes added to a right sidebar div
     # @return [String]
-    def show_right_sidebar_desktop_classes
-      "d-none d-lg-block col-lg-3 col-xl-3 order-last"
+    def right_sidebar_classes
+      "col-lg-4 order-last"
     end
 
     ##
