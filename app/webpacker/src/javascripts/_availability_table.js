@@ -44,8 +44,6 @@ function createShowStatusElement(itemStatus) {
   const statusCode = itemStatus.code;
   const statusDueDate = itemStatus.duedate;
   const statusData = getStatusData(statusCode);
-  const statusDisplay = statusData.label ? statusData.label : itemStatus.display;
-  const statusDesc = statusData.desc;
   const newEl = document.createElement('span');
 
   // If the item is checked out
@@ -55,11 +53,15 @@ function createShowStatusElement(itemStatus) {
     return newEl;
   }
 
-  newEl.textContent = statusDisplay;
+  if (statusData && statusData.label) {
+    newEl.textContent = statusData.label;
+  } else {
+    newEl.textContent = itemStatus.display;
+  }
 
-  if (statusDesc) {
+  if (statusData && statusData.desc) {
     newEl.classList.add('tooltip-nolink');
-    newEl.dataset.title = statusDesc;
+    newEl.dataset.title = statusData.desc;
     newEl.dataset.toggle = 'tooltip';
   }
 
