@@ -11,6 +11,6 @@
     for a chosen.js-compatible multi-select.
 %>
 
-<div class="advanced-facet-limits panel-group">
-  <%= render_facet_partials facet_field_names_for_advanced_search %>
+<div class="advanced-facet-limits panel-group col-md-9 offset-md-3">
+  <%= render_facet_partials facet_field_names_for_advanced_search, response: @response %>
 </div>

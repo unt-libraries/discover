@@ -41,6 +41,7 @@ module FacetsHelper
   # @option options [Boolean] :suppress_link display the facet, but don't link to it
   # @return [Hash]
   def render_facet_value(facet_field, item, options = {})
+    facet_field = facet_field.field if facet_field.is_a?(Blacklight::Configuration::FacetField)
     if facet_field == 'resource_type_facet'
       display_value = facet_display_value(facet_field, item)
       display_value = resource_type_facet_display_value(item.value) + ' ' + display_value
