@@ -17,7 +17,10 @@ class CatalogController < ApplicationController
     config.advanced_search[:qt] ||= 'catalog-search'
     config.advanced_search[:url_key] ||= 'advanced'
     config.advanced_search[:query_parser] ||= 'dismax'
-    config.advanced_search[:form_solr_parameters] ||= {}
+    config.advanced_search[:form_solr_parameters] ||= {
+      'facet.field' => %w(access_facet resource_type_facet media_type_facet collection_facet languages),
+      'facet.query' => [],
+    }
 
     ## Class for sending and receiving requests from a search index
     # config.repository_class = Blacklight::Solr::Repository
@@ -439,10 +442,5 @@ class CatalogController < ApplicationController
     # if the name of the solr.SuggestComponent provided in your solrcongig.xml is not the
     # default 'mySuggester', uncomment and provide it below
     # config.autocomplete_suggester = 'mySuggester'
-
-    # Use different facet partial
-    # config.advanced_search = {
-    #   :form_facet_partial => "advanced_search_facets_as_select"
-    # }
   end
 end
