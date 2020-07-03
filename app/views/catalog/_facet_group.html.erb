@@ -1,10 +1,6 @@
 <% # main container for facets/limits menu -%>
 <% if has_facet_values? facet_field_names(groupname), @response %>
   <div id="" class="<%= "facet-group facet-group-#{groupname}" unless groupname.nil? %>">
-    <% if has_search_parameters? %>
-      <%= render_facet_partials facet_field_names(groupname), response: @response %>
-    <% else %>
-      <%= render_home_facet_partials facet_field_names(groupname), response: @response %>
-    <% end %>
+    <%= render_facet_partials facet_field_names(groupname), response: @response %>
   </div>
 <% end %>
