@@ -23,7 +23,10 @@ class SearchBuilder < Blacklight::SearchBuilder
 
   def only_home_facets(solr_parameters)
     return if search_parameters?
-    solr_parameters['facet.field'] = ["access_facet", "resource_type_facet", "media_type_facet", "collection_facet"]
+    solr_parameters['facet.field'] = blacklight_config.facet_fields.select { |_, v| v[:home] && v[:query].blank? }.keys
+    # Filter query values that belong on the home page and assign filter.query
+    has_query = blacklight_config.facet_fields.select { |_, v| v[:home] && v[:query].present? }.values
+    solr_parameters['facet.query'] = has_query.map { |val| val.query.values.map { |v| v[:fq] } }.flatten
     solr_parameters['facet.pivot'] = []
   end
 
