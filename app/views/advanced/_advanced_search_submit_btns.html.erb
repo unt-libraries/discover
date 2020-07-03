@@ -1,4 +1,4 @@
-<div class="sort-buttons pull-left">
+<div class="sort-buttons">
   <div class="row form-group mb-4">
     <%= label_tag(:sort, t('blacklight_advanced_search.form.sort_label'), :class => "control-label col-md-3 col-form-label text-md-right") %>
     <div class="col">
@@ -9,8 +9,10 @@
   </div>
 </div>
 
-<div class="submit-buttons pull-right">
-  <%= link_to t('blacklight_advanced_search.form.start_over'), blacklight_advanced_search_engine.advanced_search_path, :class =>"btn btn-secondary advanced-search-start-over" %>
+<div class="submit-buttons row">
+  <div class="col-md-9 offset-md-3">
+    <%= submit_tag t('blacklight_advanced_search.form.search_btn'), :class=>'btn btn-primary advanced-search-submit', :id => "advanced-search-submit" %>
 
-  <%= submit_tag t('blacklight_advanced_search.form.search_btn'), :class=>'btn btn-primary advanced-search-submit', :id => "advanced-search-submit" %>
+    <%= link_to t('blacklight_advanced_search.form.start_over'), blacklight_advanced_search_engine.advanced_search_path, :class =>"btn btn-outline-secondary ml-4 advanced-search-start-over" %>
+  </div>
 </div>

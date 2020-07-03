@@ -92,4 +92,10 @@ form.advanced .adv_facet_selections {
     margin: 0;
     padding: 0;
   }
+
+  .blacklight-resource_type_facet & {
+    .icon {
+      display: none;
+    }
+  }
 }
