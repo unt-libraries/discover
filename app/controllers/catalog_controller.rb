@@ -19,6 +19,13 @@ class CatalogController < ApplicationController
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {
       'facet.field' => %w(access_facet resource_type_facet media_type_facet collection_facet languages),
+      'facet.limit' => -1,
+      'facet.sort' => 'index',
+      'f.access_facet.facet.limit' => -1,
+      'f.resource_type_facet.facet.limit' => -1,
+      'f.media_type_facet.facet.limit' => -1,
+      'f.collection_facet.facet.limit' => -1,
+      "f.languages.facet.limit" => -1,
       'facet.query' => [],
     }
 
