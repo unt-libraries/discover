@@ -1,6 +1,6 @@
 /* Much of this is from the blacklight_advanced_search module, modified for our use. */
 
-/* Sidebar facet values */
+/* Sidebar facet values on search results */
 .facet-values {
   .advanced_facet_limit {
     .inclusive_or {
@@ -22,6 +22,7 @@
   }
 }
 
+/* Search results constraints */
 .constraints-container {
   .applied-filter {
     .constraint-connector {
@@ -38,18 +39,70 @@
   font-weight: 500;
 }
 
-form.advanced .adv_facet_selections {
-  color: green;
-  font-size: 80%;
-  display: block;
-  margin-top: 0.25em;
-}
-
 .advanced-search-form {
   .query-criteria-heading {
     // seems neccesary to get select menu to align okay, not sure why.
     vertical-align: bottom;
     margin-top: 0;
+  }
+
+  .advanced-search-start-over {
+    .icon {
+      display: inline-block;
+      width: 1.25em;
+    }
+  }
+
+  .facet-limit {
+    border-radius: 0.25rem;
+
+    .card-header {
+      background-color: $white;
+
+      &.collapse-toggle {
+        margin-bottom: 0;
+
+        &::after {
+          content: none;
+        }
+
+        .expand-collapse-icon {
+          transform: rotate(0deg);
+          transition: transform 0.1s ease;
+        }
+
+        &.collapsed {
+          border-bottom: 0;
+
+          .expand-collapse-icon {
+            transform: rotate(-90deg);
+            transition: transform 0.1s ease;
+          }
+        }
+      }
+    }
+
+    .facet-values {
+      .facet-count {
+        width: auto;
+      }
+    }
+
+    &-active {
+      border-color: theme-color("dark-teal") !important;
+
+      .card-header {
+        background-color: theme-color("dark-teal") !important;
+      }
+
+      .facet-field-heading {
+        color: $white;
+      }
+    }
+
+    .facet-label {
+      color: theme-color("dark-teal");
+    }
   }
 
   select.form-control.sort-select {
