@@ -15,15 +15,15 @@
 
   .facet-group {
     margin-bottom: 0.5rem;
-    border-radius: 0.25rem;
+    border-radius: $card-border-radius;
 
     .facet-limit:first-child {
       border-top: 2px solid;
     }
 
     .facet-limit:last-child .collapsed {
-      border-bottom-left-radius: 0.25rem;
-      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: $card-border-radius;
+      border-bottom-right-radius: $card-border-radius;
     }
 
     &-priority {
@@ -110,6 +110,7 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
     padding: 1rem 1rem;
     font-size: 0.95rem;
+    cursor: pointer;
   }
 
   .facet-limit {

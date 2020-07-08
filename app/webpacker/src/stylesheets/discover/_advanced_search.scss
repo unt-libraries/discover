@@ -1,5 +1,3 @@
-/* Much of this is from the blacklight_advanced_search module, modified for our use. */
-
 /* Sidebar facet values on search results */
 .facet-values {
   .advanced_facet_limit {
@@ -31,14 +29,6 @@
   }
 }
 
-.inclusive_or .operator {
-  margin-right: 1em;
-}
-
-#appliedParams .inclusive_or .operator {
-  font-weight: 500;
-}
-
 .advanced-search-form {
   .query-criteria-heading {
     // seems neccesary to get select menu to align okay, not sure why.
@@ -53,50 +43,71 @@
     }
   }
 
+  .constraints {
+    box-shadow: none;
+
+    .filter-name {
+      font-weight: 500;
+      padding-right: 0.5rem;
+    }
+  }
+
   .facet-limit {
-    border-radius: 0.25rem;
-
-    .card-header {
-      background-color: $white;
-
-      &.collapse-toggle {
-        margin-bottom: 0;
-
-        &::after {
-          content: none;
-        }
-
-        .expand-collapse-icon {
-          transform: rotate(0deg);
-          transition: transform 0.1s ease;
-        }
-
-        &.collapsed {
-          border-bottom: 0;
-
-          .expand-collapse-icon {
-            transform: rotate(-90deg);
-            transition: transform 0.1s ease;
-          }
-        }
-      }
-    }
-
-    .facet-values {
-      .facet-count {
-        width: auto;
-      }
-    }
+    border-radius: $card-border-radius;
+    box-shadow: none;
+    cursor: pointer;
 
     &-active {
       border-color: theme-color("dark-teal") !important;
 
       .card-header {
+        border-radius: 0 !important;
         background-color: theme-color("dark-teal") !important;
+
+        &.collapsed {
+          border-radius: 0 !important;
+        }
       }
 
       .facet-field-heading {
         color: $white;
+      }
+    }
+
+    .card-header {
+      background-color: $white;
+      border-top-left-radius: $card-border-radius;
+      border-top-right-radius: $card-border-radius;
+      font-size: 0.95rem;
+      margin-bottom: 0;
+
+      &::after {
+        content: none;
+      }
+
+      .expand-collapse-icon {
+        transform: rotate(0deg);
+        transition: transform 0.1s ease;
+      }
+
+      &.collapsed {
+        border-bottom: 0;
+        border-radius: $card-border-radius;
+
+        .expand-collapse-icon {
+          transform: rotate(-90deg);
+          transition: transform 0.1s ease;
+        }
+      }
+    }
+
+    .facet-values {
+      .label-and-count label {
+        cursor: pointer;
+      }
+
+      .facet-count {
+        width: auto;
       }
     }
 
