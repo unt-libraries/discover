@@ -71,6 +71,11 @@ const statusDescData = {
     desc: 'The item is being processed and is not currently available.',
     btnClass: 'unavailable',
   },
+  r: {
+    label: 'Requestable',
+    desc: 'The item can be requested.',
+    btnClass: 'available',
+  },
   t: {
     label: 'In Transit',
     desc: 'The item is currently being delivered to a different location, often as the result of a hold or request.',
@@ -81,6 +86,12 @@ const statusDescData = {
     desc: 'This item or copy is available online--look for the FIND IT button. You may need to be on campus or '
       + 'authenticate using your EUID to access it.',
     btnClass: 'online',
+  },
+  x: {
+    label: 'In Transit Too Long',
+    desc: 'The item has been IN TRANSIT for longer than five days. It may have been lost, or it '
+      + 'may have not been checked in properly when it arrived at its destination.',
+    btnClass: 'unavailable',
   },
   y: {
     label: 'Missing',
