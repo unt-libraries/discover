@@ -16,6 +16,7 @@
       <% t('home.featured.items').each do |item| %>
         <div class="col-12 col-sm-6 col-xl-4">
           <a href="<%= item[:link_url] %>"
+            rel="noopener"
             ga-on="click"
             ga-event-category="link - home"
             ga-event-action="<%= item[:title] %>"
@@ -34,7 +35,7 @@
               </picture>
             </div>
           </a>
-          <h5 class="mt-2"><a href="<%= item[:link_url] %>" target="_blank"><%= item[:title] %></a></h5>
+          <h5 class="mt-2"><a href="<%= item[:link_url] %>" rel="noopener" target="_blank"><%= item[:title] %></a></h5>
           <p><%= item[:summary] %></p>
         </div>
       <% end %>

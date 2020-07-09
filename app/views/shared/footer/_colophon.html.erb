@@ -15,6 +15,7 @@
       <p>
         <a class="btn btn-success"
            href="<%= url_admissions %>"
+           rel="noopener"
            ga-on="click"
            ga-event-category="link - colophon"
            ga-event-action="university"
@@ -22,6 +23,7 @@
            ga-event-value="1"><span class="sr-only">UNT: </span>Apply now <i aria-hidden="true" class="fas fa-angle-right"></i></a>
         <a class="btn btn-success"
            href="<%= url_tours %>"
+           rel="noopener"
            ga-on="click"
            ga-event-category="link - colophon"
            ga-event-action="university"
@@ -29,6 +31,7 @@
            ga-event-value="1"><span class="sr-only">UNT: </span>Schedule a tour <i aria-hidden="true" class="fas fa-angle-right"></i></a>
         <a class="btn btn-success"
            href="<%= url_more_info %>"
+           rel="noopener"
            ga-on="click"
            ga-event-category="link - colophon"
            ga-event-action="university"
@@ -38,42 +41,54 @@
     </div>
     <div class="text-center">
       <p><a href="<%= url_disclaimer %>"
+            rel="noopener"
             ga-on="click"
             ga-event-category="link - colophon"
             ga-event-action="university"
             ga-event-label="<%= url_disclaimer %>"
             ga-event-value="1"><span class="sr-only">UNT: </span>Disclaimer</a>
         | <a href="<%= url_ada %>"
+             rel="noopener"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_ada %>"
              ga-event-value="1"><span class="sr-only">UNT: </span>AA/EOE/ADA</a>
         | <a href="<%= url_privacy %>"
+             rel="noopener"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_privacy %>"
              ga-event-value="1"><span class="sr-only">UNT: </span>Privacy</a>
         | <a href="<%= url_policy %>"
+             rel="noopener"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_policy %>"
              ga-event-value="1"><span class="sr-only">UNT: </span>Electronic Accessibility</a>
         | <a href="<%= url_required %>"
+             rel="noopener"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_required %>"
              ga-event-value="1"><span class="sr-only">UNT: </span>Required Links</a>
         | <a href="<%= url_unt %>"
+             rel="noopener"
              ga-on="click"
              ga-event-category="link - colophon"
              ga-event-action="university"
              ga-event-label="<%= url_unt %>"
              ga-event-value="1">UNT Home</a>
-        | <%= link_to 'Send Feedback', feedback_issue_url, target:'_blank', class: 'feedback feedback-url', data: { toggle: 'tooltip', title: 'Provide site feedback, library staff only' } %>
+        | <%= link_to 'Send Feedback', feedback_issue_url, target:'_blank',
+                      rel: 'noopener',
+                      class: 'feedback feedback-url',
+                      data: {
+                          toggle: 'tooltip',
+                          title: 'Provide site feedback, library staff only'
+                      } %>
       </p>
     </div>
   </section>
