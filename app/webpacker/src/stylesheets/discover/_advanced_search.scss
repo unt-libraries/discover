@@ -34,6 +34,12 @@
     // seems neccesary to get select menu to align okay, not sure why.
     vertical-align: bottom;
     margin-top: 0;
+
+    select {
+      border-color: $input-border-color;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
   }
 
   .advanced-search-start-over {
