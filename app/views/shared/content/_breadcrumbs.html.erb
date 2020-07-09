@@ -20,7 +20,7 @@
          ga-event-value="1"
          href="/">Discover</a></li>
 
-    <% if @search_context && current_search_session %>
+    <% if current_search_session %>
       <li class="breadcrumb-item">
         <%= link_back_to_catalog label: 'Results',
                                  class: 'btn btn-link btn-sm p-0',
@@ -75,6 +75,18 @@
                                'ga-event-value': '1' %>
         </li>
       <% end %>
+    <% end %>
+
+    <% if controller_name == 'advanced' %>
+      <li class="breadcrumb-item">
+        <%= link_to 'Advanced search', blacklight_advanced_search_engine.advanced_search_path,
+                    class: 'advanced_search',
+                    'ga-on': 'click',
+                    'ga-event-category': 'breadcrumb',
+                    'ga-event-action': controller_name,
+                    'ga-event-label': 'Advanced Search',
+                    'ga-event-value': '1'%>
+      </li>
     <% end %>
   </ol>
 </nav>
