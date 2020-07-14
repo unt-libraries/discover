@@ -101,6 +101,12 @@ en:
         search:
           label: 'Your Search Terms:'
           placeholder: ''
+      tips:
+        - 'Use <strong>OR</strong>, <strong>AND</strong>, and
+          <strong>NOT</strong> to create complex searches'
+        - 'Use "<strong>+</strong>" before a term to make it required'
+        - 'Use "<strong>-</strong>" before a word or phrase to exclude'
+        - 'Use quotation marks to search as a phrase'
       pagination_info:
         no_items_found: 'No %{entry_name} Found'
         single_item_found: '<span class="results-count__label hidden-xs hidden-sm">We Found </span><span class="results-count__current">1</span> <span class="results-count__label">%{entry_name}</span>'

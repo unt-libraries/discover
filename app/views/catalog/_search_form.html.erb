@@ -35,8 +35,17 @@
     </div>
   </div>
 
-  <div class="text-right mt-3">
-    <%# TODO: add existing search state to advanced search %>
-    <%= link_to 'Advanced search', blacklight_advanced_search_engine.advanced_search_path, class: 'advanced_search'%>
+  <div class="row">
+    <div id="searchBarTips" class="col order-first mt-3">
+      <% t('blacklight.search.tips').shuffle.each_with_index do | item, index | %>
+        <div class="search-tip text-muted font-italic <%= 'current-tip' if index == 0 %>"><strong>Tip:</strong> <%= item.html_safe %></div>
+      <% end %>
+    </div>
+
+    <div class="col-auto order-last mt-3">
+      <%# TODO: add existing search state to advanced search %>
+      <%= link_to 'Advanced search', blacklight_advanced_search_engine.advanced_search_path, class: 'advanced_search'%>
+    </div>
   </div>
+
 <% end %>

@@ -1,6 +1,6 @@
 // Override link behavior within dropdown menu associated with search form for resource type,
 // appending values to hidden form element.
-import { elHasClass, elRemoveClass } from './_utils';
+import { actWithTimeOut, elAddClass, elHasClass, elRemoveClass, elToggleClass } from './_utils';
 
 function searchSelector() {
   const searchForm = document.querySelector('.search-query-form');
@@ -36,7 +36,24 @@ function searchSelector() {
   });
 }
 
+function rotateSearchTips() {
+  const tipContainer = document.querySelector('#searchBarTips');
+  const tipElements = tipContainer.querySelectorAll('.search-tip');
+  const firstTip = tipElements[0];
+
+  setInterval(() => {
+    const visibleTip = tipContainer.querySelector('.current-tip');
+    const nextTip = visibleTip.nextElementSibling ? visibleTip.nextElementSibling : firstTip;
+    const transitionDur = 500;
+
+    setTimeout(() => {
+      elRemoveClass(visibleTip, 'current-tip');
+      elAddClass(nextTip, 'current-tip');
+    }, transitionDur);
+  }, 5000);
+}
+
 export {
-  // eslint-disable-next-line import/prefer-default-export
+  rotateSearchTips,
   searchSelector,
 };

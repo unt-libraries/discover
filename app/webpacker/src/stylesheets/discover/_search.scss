@@ -1,4 +1,19 @@
 .search {
+  &__form {
+    .search-tip {
+      opacity: 0;
+      visibility: hidden;
+      max-height: 0;
+      transition: opacity 1s;
+    }
+
+    .search-tip.current-tip {
+      opacity: 1;
+      visibility: visible;
+      max-height: 100px;
+    }
+  }
+
   &__label {
     font-weight: normal;
     font-size: $font-size-base * 0.9;
