@@ -80,6 +80,12 @@ const searchResultsTourSteps = [
     element: '.document.document-position-0',
     title: 'View Results',
     content: 'Check for availability and connect to online items from this screen or click through to the full record for more information, additional copies, holdings, and delivery options.',
+    onShown: (tour) => {
+      const $document = $(document);
+      const $popover = $document.find(`.tour-${tour._options.name}`);
+      const $next = $popover.find('[data-role="next"]');
+      $next.remove();
+    },
   },
 ];
 
@@ -148,11 +154,8 @@ function initTour() {
             button: ['ga-on', 'ga-event-category', 'ga-event-action', 'ga-event-label'],
           },
           onEnd: () => {
-            // Replace url in browser
-            removeTourFromLocation();
-
-            // Update links on page to remove tour param
-            removeTourFromLinks();
+            removeTourFromLocation(); // Replace url in browser
+            removeTourFromLinks(); // Update links on page to remove tour param
           },
         },
       );

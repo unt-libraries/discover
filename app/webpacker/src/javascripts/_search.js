@@ -38,10 +38,11 @@ function searchSelector() {
 
 function rotateSearchTips() {
   const tipContainer = document.querySelector('#searchBarTips');
+  if (tipContainer === null) return;
   const tipElements = tipContainer.querySelectorAll('.search-tip');
   const firstTip = tipElements[0];
 
-  setInterval(() => {
+  const rotator = setInterval(() => {
     const visibleTip = tipContainer.querySelector('.current-tip');
     const nextTip = visibleTip.nextElementSibling ? visibleTip.nextElementSibling : firstTip;
     const transitionDur = 500;
@@ -50,7 +51,17 @@ function rotateSearchTips() {
       elRemoveClass(visibleTip, 'current-tip');
       elAddClass(nextTip, 'current-tip');
     }, transitionDur);
-  }, 5000);
+  }, 7000);
+
+  tipContainer.addEventListener('mouseover', function pauseTips() {
+    clearInterval(rotator);
+    tipContainer.removeEventListener('mouseover', pauseTips);
+  });
+
+  tipContainer.addEventListener('mouseout', function resumeTips() {
+    rotateSearchTips();
+    tipContainer.removeEventListener('mouseout', resumeTips);
+  });
 }
 
 export {
