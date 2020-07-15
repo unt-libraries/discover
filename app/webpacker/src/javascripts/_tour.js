@@ -107,10 +107,30 @@ function skipTour(tourName) {
   const skips = localStorage.getItem(`${tourName}_skips`) || '0';
   const newSkips = parseInt(skips) + 1;
   localStorage.setItem(`${tourName}_skips`, newSkips.toString());
+  removeTourFromLinks();
 
   if (allowTracking()) {
     ga('send', 'event', 'Tour', 'Tour Skipped', tourName);
   }
+}
+
+function removeTourFromLinks() {
+  const pageLinks = document.querySelectorAll('a');
+  pageLinks.forEach((el) => {
+    if (el.host === window.location.host) {
+      const linkParams = new URLSearchParams(el.search);
+      if (linkParams.get('tour')) {
+        linkParams.delete('tour');
+        el.search = linkParams.toString();
+      }
+    }
+  });
+}
+
+function removeTourFromLocation() {
+  const searchParams = new URLSearchParams(window.location.search);
+  searchParams.delete('tour');
+  window.history.replaceState({}, '', `${window.location.pathname}?${searchParams}`);
 }
 
 function initTour() {
@@ -127,10 +147,17 @@ function initTour() {
           sanitizeWhitelist: {
             button: ['ga-on', 'ga-event-category', 'ga-event-action', 'ga-event-label'],
           },
+          onEnd: () => {
+            // Replace url in browser
+            removeTourFromLocation();
+
+            // Update links on page to remove tour param
+            removeTourFromLinks();
+          },
         },
       );
 
-      searchResultsTour.start();
+      searchResultsTour.restart();
 
       if (allowTracking()) {
         ga('send', 'event', 'Tour', 'Tour Presented', 'searchResultsTour', {
