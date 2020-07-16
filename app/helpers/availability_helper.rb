@@ -7,7 +7,7 @@ module AvailabilityHelper
 
   def document_availability_context_href(document, counter)
     "#{document_link_params(document,
-                            { :counter => counter })[:data][:"context-href"]}#show-links_media"
+                            { :counter => counter })[:data][:"context-href"]}#show-availability"
   end
 
   def document_links_media_href(document)
