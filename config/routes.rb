@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   end
   concern :exportable, Blacklight::Routes::Exportable.new
 
+  # Redirect if the URL contains a bib ID from the old system
+  get '/catalog/:id', to: redirect { |path_params, req| "/catalog/#{path_params[:id].match(/(b[0-9]{7,})~S[0-9]{1,2}/).captures[0]}" },
+                      constraints: { id: /(b[0-9]{7,})~S[0-9]{1,2}/ }
+
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
     concerns [:exportable, :marc_viewable]
   end
