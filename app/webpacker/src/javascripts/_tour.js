@@ -59,7 +59,7 @@ const searchResultsTourSteps = [
   {
     element: '.facet-group-priority .blacklight-access_facet',
     title: 'Filters',
-    content: 'Use Filters to refine your current search. Categories can be expanded/collapsed. Selecting a filter will make your results more precise.',
+    content: 'Use filters to refine your current search. Categories can be expanded/collapsed. Selecting a filter will make your results more precise.',
   },
   {
     element: '#tourSearchField',
