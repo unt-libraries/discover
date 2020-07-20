@@ -6,6 +6,7 @@ import {
 } from './_utils';
 import 'bootstrap/js/dist/tooltip';
 import 'bootstrap/js/dist/popover';
+import Cookies from 'js-cookie';
 
 const has = Object.prototype.hasOwnProperty;
 const idTypes = {
@@ -191,10 +192,18 @@ function animateSearchIcon() {
   });
 }
 
+// Store a cookie if the banner is dismissed
+function bindDismissBannerCookie(name, selector, expiry = undefined) {
+  $(selector).on('closed.bs.alert', () => {
+    Cookies.set(`banner_dismissed_${name}`, '1', { expires: expiry });
+  });
+}
+
 export {
-  replaceBookCovers,
-  initTooltips,
-  initPopovers,
-  bindShowAvailMoreField,
   animateSearchIcon,
+  bindDismissBannerCookie,
+  bindShowAvailMoreField,
+  initPopovers,
+  initTooltips,
+  replaceBookCovers,
 };

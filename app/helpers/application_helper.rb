@@ -209,4 +209,8 @@ module ApplicationHelper
       t('blacklight.search.filters.remove.label_value', label: label, value: value)
     end
   end
+
+  def banner_dismissed?(banner)
+    cookies["banner_dismissed_#{banner}"]
+  end
 end

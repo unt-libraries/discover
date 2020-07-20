@@ -8,7 +8,7 @@ import 'popper.js'
 import 'bootstrap'
 import initDOM, * as www from '../src/javascripts/www/_main';
 import sidebarTypeaheads from '../src/javascripts/www/_typeaheads';
-import { animateSearchIcon, initTooltips, initPopovers } from "../src/javascripts/_ui";
+import { animateSearchIcon, bindDismissBannerCookie, initTooltips, initPopovers } from "../src/javascripts/_ui";
 import './base.scss';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -29,6 +29,7 @@ document.addEventListener('turbolinks:load', () => {
   initTooltips();
   initPopovers();
   initDOM();
+  bindDismissBannerCookie('beta', '#betaBanner', 15);
   sidebarTypeaheads();
   Blacklight.modal.setupModal();
   Blacklight.doSearchContextBehavior();

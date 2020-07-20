@@ -1,4 +1,4 @@
-<% unless t('announcement.content').blank? %>
+<% if t('announcement.content').present? %>
   <div class="col px-0">
     <div id="site-messages">
       <div class="site_messages">
@@ -11,14 +11,19 @@
 <% end %>
 
 <%# TODO: Remove this static banner for wide release, use the i18n translation and block above %>
-<div class="col px-0">
-  <div id="site-messages">
-    <div class="site_messages">
-      <div class="alert alert-info text-center site-announcement" role="alert">
-        This site is currently in beta, so you may notice some rough edges. Please
-        <a href="<%= feedback_issue_email %>" class="feedback feedback-email">send your feedback</a>
-        to help us improve.
+<% unless banner_dismissed?('beta') %>
+  <div class="col px-0">
+    <div id="site-messages">
+      <div class="site_messages">
+        <div id="betaBanner"  class="alert alert-info text-center site-announcement" role="alert">
+          This site is currently in beta, so you may notice some rough edges. Please
+          <a href="<%= feedback_issue_email %>" class="feedback feedback-email">send your feedback</a>
+          to help us improve.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
