@@ -160,6 +160,17 @@ module UrlHelper
     URI::HTTPS.build(host: 'aeon.library.unt.edu', path: '/logon/', query: query_hash.to_query).to_s
   end
 
+  def link_to_worldcat_citations(document)
+    url = "https://worldcat.org/oclc/#{document[:oclc_numbers].first}?page=citation"
+    text = 'Cite This'
+    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Tools link click',
+                       'ga-event-label': 'Cite',
+                       'ga-event-value': '1'
+  end
+
   def feedback_issue_url
     gitlab = t('gitlab')
     host = gitlab[:url]
