@@ -62,7 +62,7 @@ class CatalogController < ApplicationController
     ##############################################
 
     # solr field configuration
-    config.index.title_field = 'full_title'
+    config.index.title_field = 'title_display'
     config.index.display_type_field = 'resource_type'
     # config.index.thumbnail_field = 'thumbnail_path_ss'
 
@@ -93,7 +93,7 @@ class CatalogController < ApplicationController
     #######################################
 
     # solr field configuration for document/show views
-    config.show.title_field = 'full_title'
+    config.show.title_field = 'title_display'
     config.show.display_type_field = 'resource_type'
     # config.show.thumbnail_field = 'thumbnail_path_ss'
 
@@ -147,10 +147,10 @@ class CatalogController < ApplicationController
 
     # Group date
     config.add_facet_field 'publication_year_facet', label: 'Publication Year', limit: true, sort: 'index',
-                                                     helper_method: :get_date_facet_display,
+                                                     helper_method: :get_split_facet_display,
                                                      group: 'date'
     config.add_facet_field 'publication_decade_facet', label: 'Publication Decade', limit: true, sort: 'index',
-                                                       helper_method: :get_date_facet_display,
+                                                       helper_method: :get_split_facet_display,
                                                        group: 'date'
     config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
       :weeks_1 => { label: 'Within the last week', fq: "date_added:[NOW-7DAYS/DAY TO NOW/DAY]" },
@@ -170,10 +170,9 @@ class CatalogController < ApplicationController
                                                        index_range: 'A'..'Z', group: 'publication'
     config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
                            index_range: 'A'..'Z', group: 'publication'
-    config.add_facet_field 'public_title_facet', label: 'Title', limit: 10, index_range: 'A'..'Z',
+    config.add_facet_field 'title_series_facet', label: 'Title or Series', limit: 10, index_range: 'A'..'Z',
+                                                 helper_method: :get_split_facet_display,
                                                  group: 'publication'
-    config.add_facet_field 'public_series_facet', label: 'Series', limit: 10, index_range: 'A'..'Z',
-                                                  group: 'publication'
 
     # Group subjects
     config.add_facet_field 'public_genre_facet', label: 'Genre', limit: 10, index_range: 'A'..'Z',
@@ -309,12 +308,26 @@ class CatalogController < ApplicationController
     config.add_show_field 'language_notes'
 
     # Title Fields
-    config.add_show_field 'uniform_title', label: 'Uniform Title',
-                                           link_to_facet: 'public_title_facet'
-    config.add_show_field 'alternate_titles', label: 'Alternate Titles'
-    config.add_show_field 'series', label: 'Series', link_to_facet: 'public_series_facet'
-    config.add_show_field 'related_titles', label: 'Related Titles',
-                                            link_to_facet: 'public_title_facet'
+    config.add_show_field 'non_truncated_title_display', label: 'Full Title'
+    config.add_show_field 'included_work_titles_json', label: 'Included Works',
+                                                       accessor: 'json_str_to_array',
+                                                       helper_method: :json_field_to_links,
+                                                       link_to_facet: 'title_series_facet'
+    config.add_show_field 'related_work_titles_json', label: 'Related Works',
+                                                      accessor: 'json_str_to_array',
+                                                      helper_method: :json_field_to_links,
+                                                      link_to_facet: 'title_series_facet'
+    config.add_show_field 'related_series_titles_json', label: 'Related Series',
+                                                        accessor: 'json_str_to_array',
+                                                        helper_method: :json_field_to_links,
+                                                        link_to_facet: 'title_series_facet'
+    config.add_show_field 'variant_titles_notes', label: 'Alternate Titles'
+
+    config.add_show_field 'main_title_search'
+    config.add_show_field 'included_work_titles_search'
+    config.add_show_field 'related_work_titles_search'
+    config.add_show_field 'related_series_titles_search'
+    config.add_show_field 'variant_titles_search'
 
     # Publication Notes Fields
     config.add_show_field 'current_publication_frequency', label: 'Publication Frequency'

@@ -61,7 +61,7 @@ module CatalogHelper
     end
   end
 
-  def get_date_facet_display(value)
+  def get_split_facet_display(value)
     value.split('|')[1]
   end
 

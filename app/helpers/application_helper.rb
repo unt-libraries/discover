@@ -113,9 +113,11 @@ module ApplicationHelper
 
     values.map do |item|
       relator = item['r'].blank? ? '' : ", #{item['r'].join(', ')}"
+      author = item['a'].blank? ? nil : item['a']
+      before_text = item['b'].blank? ? '' : "#{item['b']} "
       item['p'].map do |i|
-        json_value_to_facet_link(i, facet, context: 'show')
-      end.join.strip.concat(relator)
+        json_value_to_facet_link(i, facet, author: author, context: 'show')
+      end.join.strip.concat(relator).prepend(before_text)
     end.join('<br>').html_safe
   end
 
@@ -123,15 +125,16 @@ module ApplicationHelper
   # Takes a single json value and returns a link to search the facet
   # @param [Hash] data
   # @return [String] HTML link
-  def json_value_to_facet_link(data, facet, context: nil)
+  def json_value_to_facet_link(data, facet, author: nil, context: nil)
     display = data['d']
     value = data['v'] || display
+    author_facet = author.nil? ? '' : "f[author_contributor_facet][]=#{CGI.escape(author)}&"
     separator = data['s'] || ' '
     ga_category = context == 'show' ? 'Bib Record' : 'List Item Link'
-    link_to(display, "/?f[#{facet}][]=#{CGI.escape(value)}",
+    link_to(display, "/?#{author_facet}f[#{facet}][]=#{CGI.escape(value)}",
             class: "",
             "data-toggle" => "tooltip",
-            title: "Search for #{value}",
+            title: "Search for #{display}",
             'ga-on': 'click',
             'ga-event-category': ga_category,
             'ga-event-action': "#{facet}",
@@ -195,8 +198,8 @@ module ApplicationHelper
     content_tag(:div, class: 'show-heading-title') do
       concat(content_tag(tag, presenter(document).heading,
                          { class: 'show-heading-title__main', itemprop: "name" }))
-      if document[:statement_of_responsibility]
-        concat(content_tag(:div, document[:statement_of_responsibility],
+      if document[:responsibility_display]
+        concat(content_tag(:div, document[:responsibility_display],
                            { class: 'show-heading-title__sub' }))
       end
     end
