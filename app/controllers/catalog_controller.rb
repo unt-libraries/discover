@@ -169,7 +169,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'author_contributor_facet', label: 'Author or Contributor', limit: 10,
                                                        index_range: 'A'..'Z', group: 'publication'
     config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
-                           index_range: 'A'..'Z', group: 'publication'
+                                            index_range: 'A'..'Z', group: 'publication'
     config.add_facet_field 'title_series_facet', label: 'Title or Series', limit: 10, index_range: 'A'..'Z',
                                                  helper_method: :get_split_facet_display,
                                                  group: 'publication'
@@ -298,8 +298,8 @@ class CatalogController < ApplicationController
                                                helper_method: :json_field_to_links,
                                                link_to_facet: 'author_contributor_facet'
     config.add_show_field 'meetings_json', label: 'Meetings', accessor: 'json_str_to_array',
-                          helper_method: :json_field_to_links,
-                          link_to_facet: 'meeting_facet'
+                                           helper_method: :json_field_to_links,
+                                           link_to_facet: 'meeting_facet'
     config.add_show_field 'series_creators', label: 'Series Creators',
                                              link_to_facet: 'public_author_facet'
 
@@ -322,12 +322,6 @@ class CatalogController < ApplicationController
                                                         helper_method: :json_field_to_links,
                                                         link_to_facet: 'title_series_facet'
     config.add_show_field 'variant_titles_notes', label: 'Alternate Titles'
-
-    config.add_show_field 'main_title_search'
-    config.add_show_field 'included_work_titles_search'
-    config.add_show_field 'related_work_titles_search'
-    config.add_show_field 'related_series_titles_search'
-    config.add_show_field 'variant_titles_search'
 
     # Publication Notes Fields
     config.add_show_field 'current_publication_frequency', label: 'Publication Frequency'

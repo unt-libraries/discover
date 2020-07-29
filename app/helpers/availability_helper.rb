@@ -32,11 +32,9 @@ module AvailabilityHelper
     online_items = document_online_urls(document)
     online_count = online_items.length
     if online_count > 1
-      context_href = document_links_media_context_href(document, counter)
       url = document_links_media_href(document)
       link_text = "#{online_count} Available Online"
     else
-      context_href = online_items[0]['u']
       url = online_items[0]['u']
       window_target = '_blank'
       link_text = 'FIND IT Online'

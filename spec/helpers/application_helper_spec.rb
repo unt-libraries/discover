@@ -17,10 +17,10 @@ describe ApplicationHelper do
     it 'properly maps values' do
       items_hash = {
         "p" => [
-          {"s" => " > ", "d" => "United States Congress"},
-          {"s" => " > ", "d" => "House", "v" => "United States Congress > House"},
-          {"s" => " > ", "d" => "Committee on Natural Resources", "v" => "United States Congress > House > Committee on Natural Resources"},
-          {"d" => "Subcommittee on Oversight and Investigations", "v" => "United States Congress > House > Committee on Natural Resources > Subcommittee on Oversight and Investigations"}
+          { "s" => " > ", "d" => "United States Congress" },
+          { "s" => " > ", "d" => "House", "v" => "United States Congress > House" },
+          { "s" => " > ", "d" => "Committee on Natural Resources", "v" => "United States Congress > House > Committee on Natural Resources" },
+          { "d" => "Subcommittee on Oversight and Investigations", "v" => "United States Congress > House > Committee on Natural Resources > Subcommittee on Oversight and Investigations" },
         ], "r" => ["author"],
       }
 

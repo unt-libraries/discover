@@ -28,7 +28,7 @@ module ApplicationHelper
       end
     end
 
-    if prompt = options.delete(:prompt)
+    if prompt = options.delete(:prompt) # rubocop:disable AssignmentInCondition
       option_tags = content_tag("a".freeze, prompt, value: "").safe_concat(option_tags)
     end
 
