@@ -65,23 +65,6 @@ module ApplicationHelper
     field_config.display_label('search')
   end
 
-  def author_facet_links(list: [])
-    links = []
-
-    list.each do |value|
-      link = link_to(value, "/?f[public_author_facet][]=#{CGI.escape(value)}",
-                     class: "",
-                     "data-toggle" => "tooltip",
-                     title: "Search for #{value}",
-                     'ga-on': 'click',
-                     'ga-event-category': 'List Item Link',
-                     'ga-event-action': 'Author facet',
-                     'ga-event-label': value)
-      links.push(link)
-    end
-    links.join('; ').html_safe
-  end
-
   ##
   # Converts a single JSON string from solr to Ruby hash
   # Used for single value fields
@@ -104,20 +87,40 @@ module ApplicationHelper
   end
 
   ##
-  # This is a helper method for catalog_controller, so it takes the field options parameter
-  # @param [Hash] options
+  # Helper method for catalog_controller specific to json provided by solr for author fields
+  # @param [Hash] options - field options
   # @return [String] HTML links joined together
-  def json_field_to_links(options = {})
+  def author_json_to_links(options = {})
     values = options[:value]
     facet = options[:config][:link_to_facet]
 
     values.map do |item|
       relator = item['r'].blank? ? '' : ", #{item['r'].join(', ')}"
-      author = item['a'].blank? ? nil : item['a']
-      before_text = item['b'].blank? ? '' : "#{item['b']} "
       item['p'].map do |i|
-        json_value_to_facet_link(i, facet, author: author, context: 'show')
-      end.join.strip.concat(relator).prepend(before_text)
+        i['v'] ||= i['d']
+        json_value_to_facet_link(i, facet, context: 'show')
+      end.join.strip.concat(relator)
+    end.join('<br>').html_safe
+  end
+
+  ##
+  # Helper method for catalog_controller specific to json provided by solr for title fields
+  # @param [Hash] options - field options
+  # @return [String] HTML links joined together
+  def title_json_to_links(options = {})
+    values = options[:value]
+    facet = options[:config][:link_to_facet]
+
+    values.map do |item|
+      author = item['a']
+      before_text = "#{item['b']} "
+      item['p'].map do |i|
+        if i['v'].present?
+          json_value_to_facet_link(i, facet, author: author, context: 'show')
+        else
+          "#{i['d']}#{i['s'] || ' '}"
+        end
+      end.join.prepend(before_text).strip
     end.join('<br>').html_safe
   end
 
@@ -127,10 +130,11 @@ module ApplicationHelper
   # @return [String] HTML link
   def json_value_to_facet_link(data, facet, author: nil, context: nil)
     display = data['d']
-    value = data['v'] || display
-    author_facet = author.nil? ? '' : "f[author_contributor_facet][]=#{CGI.escape(author)}&"
+    value = data['v']
     separator = data['s'] || ' '
+    author_facet = author.present? ? "f[author_contributor_facet][]=#{CGI.escape(author)}&" : ''
     ga_category = context == 'show' ? 'Bib Record' : 'List Item Link'
+
     link_to(display, "/?#{author_facet}f[#{facet}][]=#{CGI.escape(value)}",
             class: "",
             "data-toggle" => "tooltip",
@@ -163,6 +167,7 @@ module ApplicationHelper
           :v => value,
         }.with_indifferent_access
       else
+        item[:p].first[:v] ||= item[:p].first[:d]
         part = item[:p].first
       end
       json_value_to_facet_link(part, 'author_contributor_facet', context: 'index').strip
@@ -175,7 +180,7 @@ module ApplicationHelper
 
   def items_have_notes?(items)
     unless items.nil?
-      items.any? { |h| !h['n'].nil? }
+      items.any? { |h| h['n'].present? }
     end
   end
 

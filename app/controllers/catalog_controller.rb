@@ -292,13 +292,13 @@ class CatalogController < ApplicationController
     config.add_show_field 'summary_notes', label: 'Summary'
 
     config.add_show_field 'author_json', label: 'Author/Creator', accessor: 'json_str_to_hash',
-                                         helper_method: :json_field_to_links,
+                                         helper_method: :author_json_to_links,
                                          link_to_facet: 'author_contributor_facet'
     config.add_show_field 'contributors_json', label: 'Contributors', accessor: 'json_str_to_array',
-                                               helper_method: :json_field_to_links,
+                                               helper_method: :author_json_to_links,
                                                link_to_facet: 'author_contributor_facet'
     config.add_show_field 'meetings_json', label: 'Meetings', accessor: 'json_str_to_array',
-                                           helper_method: :json_field_to_links,
+                                           helper_method: :author_json_to_links,
                                            link_to_facet: 'meeting_facet'
     config.add_show_field 'series_creators', label: 'Series Creators',
                                              link_to_facet: 'public_author_facet'
@@ -311,15 +311,15 @@ class CatalogController < ApplicationController
     config.add_show_field 'non_truncated_title_display', label: 'Full Title'
     config.add_show_field 'included_work_titles_json', label: 'Included Works',
                                                        accessor: 'json_str_to_array',
-                                                       helper_method: :json_field_to_links,
+                                                       helper_method: :title_json_to_links,
                                                        link_to_facet: 'title_series_facet'
     config.add_show_field 'related_work_titles_json', label: 'Related Works',
                                                       accessor: 'json_str_to_array',
-                                                      helper_method: :json_field_to_links,
+                                                      helper_method: :title_json_to_links,
                                                       link_to_facet: 'title_series_facet'
     config.add_show_field 'related_series_titles_json', label: 'Related Series',
                                                         accessor: 'json_str_to_array',
-                                                        helper_method: :json_field_to_links,
+                                                        helper_method: :title_json_to_links,
                                                         link_to_facet: 'title_series_facet'
     config.add_show_field 'variant_titles_notes', label: 'Alternate Titles'
 

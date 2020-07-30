@@ -62,7 +62,7 @@ module CatalogHelper
   end
 
   def get_split_facet_display(value)
-    value.split('|')[1]
+    value.split('!', 2).last
   end
 
   def link_to_subject_search(data)

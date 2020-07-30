@@ -104,15 +104,15 @@ class SolrDocument
   end
 
   def resource_type_name
-    resource_type = self[:resource_type].split('|')
-    main_type = resource_type[0]
-    sub_type = resource_type[1]
+    resource_type = self[:resource_type].split('!', 2)
+    main_type = resource_type.first
+    sub_type = resource_type.last
     "#{resource_type_map.dig(main_type.to_sym, :label)}#{" (#{sub_type})" if sub_type.present?}"
   end
 
   def resource_type_icon
-    resource_type = self[:resource_type].split('|')
-    resource_type_map.dig(resource_type[0].to_sym, :icon)
+    resource_type = self[:resource_type].split('!', 2)
+    resource_type_map.dig(resource_type.first.to_sym, :icon)
   end
 
   ##
