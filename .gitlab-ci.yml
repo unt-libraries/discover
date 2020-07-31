@@ -52,9 +52,9 @@ test:
         cd $SITE_DEST_DIR &&
         git fetch --all &&
         git checkout $CI_COMMIT_SHA &&
-        export RAILS_PORT=$RAILS_PORT &&
-        export RAILS_ENV=$RAILS_ENV &&
-        export RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES &&
+        echo RAILS_PORT=$RAILS_PORT >> .env &&
+        echo RAILS_ENV=$RAILS_ENV >> .env &&
+        echo RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES >> .env &&
         docker-compose down &&
         docker-compose build &&
         docker-compose run --rm web rake db:migrate &&
