@@ -138,7 +138,7 @@ module ApplicationHelper
     link_to(display, "/?#{author_facet}f[#{facet}][]=#{CGI.escape(value)}",
             class: "",
             "data-toggle" => "tooltip",
-            title: "Search for #{display}",
+            title: "Search for #{value.split('!', 2).last}",
             'ga-on': 'click',
             'ga-event-category': ga_category,
             'ga-event-action': "#{facet}",
