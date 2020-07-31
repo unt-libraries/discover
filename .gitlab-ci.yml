@@ -52,6 +52,7 @@ test:
         cd $SITE_DEST_DIR &&
         git fetch --all &&
         git checkout $CI_COMMIT_SHA &&
+        rm -f .env &&
         echo RAILS_PORT=$RAILS_PORT >> .env &&
         echo RAILS_ENV=$RAILS_ENV >> .env &&
         echo RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES >> .env &&
