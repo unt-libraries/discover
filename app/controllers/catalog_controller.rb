@@ -170,7 +170,7 @@ class CatalogController < ApplicationController
                                                        index_range: 'A'..'Z', group: 'publication'
     config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
                                             index_range: 'A'..'Z', group: 'publication'
-    config.add_facet_field 'title_series_facet', label: 'Title or Series', limit: 10, index_range: 'A'..'Z',
+    config.add_facet_field 'title_series_facet', label: 'Title or Series', limit: 10, index_range: 'a'..'z',
                                                  helper_method: :get_split_facet_display,
                                                  group: 'publication'
 
