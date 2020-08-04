@@ -77,14 +77,14 @@ module UrlHelper
       url = "https://iii.library.unt.edu/search~S12?/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}"
       text = "Delivery Options"
       el_class = "request-catalog"
-      data['aeon-url'] = construct_aeon_url(document, item)
+      data['aeon-url'] = construct_aeon_url(document)
       data['illiad-url'] = construct_illiad_url(document)
     when 'jlf'
       url = construct_illiad_url(document, item: item)
       text = "Request through ILLiad"
       el_class = "request-illiad"
     when 'aeon'
-      url = construct_aeon_url(document, item)
+      url = construct_aeon_url(document, item: item)
       text = "Request through Aeon"
       el_class = "request-aeon"
     else
@@ -139,7 +139,7 @@ module UrlHelper
     end
   end
 
-  def construct_aeon_url(document, item)
+  def construct_aeon_url(document, item: nil)
     # Construct URL for Aeon
     #
     # 'Location' & 'Site' parameters are updated via javascript after the Sierra API call
@@ -167,9 +167,9 @@ module UrlHelper
     # SubLocation will be added in the future
     query_hash[:SubLocation] = nil
     query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
-    query_hash[:CallNumber] = item['c']
-    query_hash[:Volume] = item['v']
-    query_hash[:ReferenceNumber] = item[:b]
+    query_hash[:CallNumber] = item['c'] if item.present?
+    query_hash[:Volume] = item.present? ? item['v'] || 'none' : 'none'
+    query_hash[:ReferenceNumber] = item[:b] if item.present?
     # Remove nil values
     query_hash.compact!
 
