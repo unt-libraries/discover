@@ -117,7 +117,7 @@ module UrlHelper
     query_hash[:sid] = 'Discover Request'
     # Journals and e-journals are 'article', the rest are 'book'
     query_hash['rft.genre'] = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
-    query_hash['rft.title'] = document[:title_display]
+    query_hash['rft.title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
     query_hash['rft.au'] = author
     query_hash['rft.isbn'] = document[:isbn_numbers][0] if document[:isbn_numbers]
     query_hash['rft.issn'] = document[:issn_numbers][0] if document[:issn_numbers]
@@ -156,7 +156,7 @@ module UrlHelper
 
     # Add query string parameters unless values
     query_hash['rft.genre'] = 'monograph'
-    query_hash[:ItemTitle] = document[:title_display]
+    query_hash[:ItemTitle] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
     query_hash[:ItemAuthor] = author
     query_hash[:ItemNumber] = "#{document[:id]}a"
     # ItemEdition will be added in the future
