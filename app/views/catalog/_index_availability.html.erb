@@ -21,7 +21,7 @@
          data-item-location="<%= item['l'] %>"
          data-item-barcode="<%= item['b'] %>"
          data-item-notes="<%= item['n'] %>"
-         data-bib-requestability="<%= item['r'] unless Rails.application.credentials[Rails.env.to_sym][:COVID_RESTRICTED] %>">
+         data-bib-requestability="<%= item['r'] %>">
       <%# Status and Location Information %>
       <span class="blacklight-availability result__value flex-column text-center">
         <%= render_item_button(document, counter, item) %>
