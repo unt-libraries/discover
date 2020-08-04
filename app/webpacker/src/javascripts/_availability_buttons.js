@@ -82,7 +82,14 @@ function updateIndexStatusElement(itemEl, item = null) {
     availabilityEl.dataset.locationCode = itemLocation.code;
 
     // Aeon request URLs must be updated to include data from the Sierra API call
-    if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
+    // TODO: Are we even allowing requests from the index anymore?
+    if (itemEl.dataset.itemRequestability === 'aeon') {
+      const linkEl = itemEl.querySelector('.request-aeon');
+      linkEl.href = updateAeonRequestUrl(linkEl.href, itemLocation);
+    } else if (itemEl.dataset.itemRequestability === 'catalog') {
+      const linkEl = itemEl.querySelector('.request-catalog');
+      linkEl.dataset.aeonUrl = updateAeonRequestUrl(linkEl.dataset.aeonUrl, itemLocation);
+    }
 
     if (locationText && !isOnlineItem) {
       availabilityBtn.append(` - ${locationText}`);

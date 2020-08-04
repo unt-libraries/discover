@@ -126,7 +126,13 @@ function updateShowLocationElement(itemEl, itemLocation) {
   }
 
   // Aeon request URLs must be updated to include data from the Sierra API call
-  if (itemEl.dataset.itemRequestability === 'aeon') updateAeonRequestUrl(itemEl, itemLocation);
+  if (itemEl.dataset.itemRequestability === 'aeon') {
+    const linkEl = itemEl.querySelector('.request-aeon');
+    linkEl.href = updateAeonRequestUrl(linkEl.href, itemLocation);
+  } else if (itemEl.dataset.itemRequestability === 'catalog') {
+    const linkEl = itemEl.querySelector('.request-catalog');
+    linkEl.dataset.aeonUrl = updateAeonRequestUrl(linkEl.dataset.aeonUrl, itemLocation);
+  }
 
   locationEl.appendChild(createShowLocationLink(itemLocation));
 }

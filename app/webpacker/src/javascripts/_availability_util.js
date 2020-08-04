@@ -82,14 +82,14 @@ function getStatusData(statusCode) {
 
 /**
  * Appends required query string parameters to an Aeon URL that require the Sierra API call.
- * @param {(HTMLElement|Element)} itemEl
+ * @param {string} itemURL
  * @param {Object} itemLocation
+ * @return {string} new URL string
  */
-function updateAeonRequestUrl(itemEl, itemLocation) {
+function updateAeonRequestUrl(itemURL, itemLocation) {
   const locationCode = itemLocation.code.startsWith('w4m') ? 'UNTMUSIC' : 'UNTSPECCOLL';
   const locationName = itemLocation.name;
-  const linkEl = itemEl.querySelector('.request-aeon');
-  const aeonUrl = new URL(linkEl.href);
+  const aeonUrl = new URL(itemURL);
   const queryString = aeonUrl.search;
   const params = new URLSearchParams(queryString);
 
@@ -98,7 +98,7 @@ function updateAeonRequestUrl(itemEl, itemLocation) {
   params.append('Location', locationName);
   params.append('Site', locationCode);
   aeonUrl.search = params.toString();
-  linkEl.href = aeonUrl.toString();
+  return aeonUrl.toString();
 }
 
 /**
