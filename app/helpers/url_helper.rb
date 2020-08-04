@@ -70,12 +70,15 @@ module UrlHelper
   def link_to_request_item(document, item: nil)
     id = document[:id]
     requestability = item['r']
+    data = {}
 
     case requestability
     when 'catalog'
       url = "https://iii.library.unt.edu/search~S12?/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}"
       text = "Delivery Options"
       el_class = "request-catalog"
+      data['aeon-url'] = construct_aeon_url(document, item)
+      data['illiad-url'] = construct_illiad_url(document, item: item)
     when 'jlf'
       url = construct_illiad_url(document, item: item)
       text = "Request through ILLiad"
@@ -89,6 +92,7 @@ module UrlHelper
     end
 
     link_to text, url, class: el_class, target: "_blank", rel: 'noopener',
+                       data: data,
                        'ga-on': 'click',
                        'ga-event-category': 'Bib Record',
                        'ga-event-action': 'Availability request click',
@@ -101,12 +105,20 @@ module UrlHelper
 
     query_hash = {}
 
+    if document[:author_json].present?
+      author_json = json_str_to_hash(document[:author_json])['p'].last
+      author = author_json['v'] || author_json['d']
+    else
+      contrib_json = json_str_to_array(document[:contributors_json]).first['p'].last
+      author = contrib_json['v'] || contrib_json['d']
+    end
+
     # Add query string parameters unless values
     query_hash[:sid] = 'Discover Request'
     # Journals and e-journals are 'article', the rest are 'book'
     query_hash['rft.genre'] = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
-    query_hash['rft.title'] = document[:full_title]
-    query_hash['rft.au'] = document[:creator] || document[:contributors][0] if document[:contributors]
+    query_hash['rft.title'] = document[:title_display]
+    query_hash['rft.au'] = author
     query_hash['rft.isbn'] = document[:isbn_numbers][0] if document[:isbn_numbers]
     query_hash['rft.issn'] = document[:issn_numbers][0] if document[:issn_numbers]
     # Edition will be added in the future
@@ -134,10 +146,18 @@ module UrlHelper
 
     query_hash = {}
 
+    if document[:author_json].present?
+      author_json = json_str_to_hash(document[:author_json])['p'].last
+      author = author_json['v'] || author_json['d']
+    else
+      contrib_json = json_str_to_array(document[:contributors_json]).first['p'].last
+      author = contrib_json['v'] || contrib_json['d']
+    end
+
     # Add query string parameters unless values
     query_hash['rft.genre'] = 'monograph'
-    query_hash[:ItemTitle] = document[:full_title]
-    query_hash[:ItemAuthor] = document[:creator] || document[:contributors][0] if document[:contributors]
+    query_hash[:ItemTitle] = document[:title_display]
+    query_hash[:ItemAuthor] = author
     query_hash[:ItemNumber] = "#{document[:id]}a"
     # ItemEdition will be added in the future
     query_hash[:ItemEdition] = nil
