@@ -78,7 +78,7 @@ module UrlHelper
       text = "Delivery Options"
       el_class = "request-catalog"
       data['aeon-url'] = construct_aeon_url(document, item)
-      data['illiad-url'] = construct_illiad_url(document, item: item)
+      data['illiad-url'] = construct_illiad_url(document)
     when 'jlf'
       url = construct_illiad_url(document, item: item)
       text = "Request through ILLiad"
