@@ -12,7 +12,7 @@
   <td class="blacklight-availability result__value"><%= item['i'] ? "Checking availability" : "Unavailable" %></td>
   <td class="blacklight-request result__value d-none" data-item-requestability="<%= item['r'] %>">
     <% unless item['r'].blank? %>
-      <%= link_to_request_item document, item: item %>
+      <%= link_to_request_item document, item: item, item_index: item_index %>
     <% end %>
   </td>
   <% if items_have_notes?(items) %>

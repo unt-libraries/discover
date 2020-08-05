@@ -67,13 +67,13 @@ module UrlHelper
                        'ga-event-value': '1'
   end
 
-  def link_to_request_item(document, item: nil)
+  def link_to_request_item(document, item: nil, item_index: nil)
     requestability = item['r']
     data = {}
 
     case requestability
     when 'catalog'
-      url = construct_catalog_request_url(document)
+      url = construct_catalog_request_url(document, item_index: item_index)
       text = "Delivery Options"
       el_class = "request-catalog"
       data['bib-title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
@@ -100,7 +100,7 @@ module UrlHelper
                        'ga-event-value': '1'
   end
 
-  def construct_catalog_request_url(document)
+  def construct_catalog_request_url(document, item_index: nil)
     id = document[:id]
     query_hash = {}
 
@@ -113,7 +113,7 @@ module UrlHelper
     end
 
     # Add query string parameters unless values
-    query_hash[:requestItemIndex] = '1 maybe'
+    query_hash[:requestItemIndex] = item_index
     query_hash[:sid] = 'Discover Request'
     query_hash[:bibId] = "#{document[:id]}a"
     # Journals and e-journals are 'article', the rest are 'book'

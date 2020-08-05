@@ -21,15 +21,15 @@
         </tr>
         </thead>
         <tbody>
-        <% items.each do |item| %>
-          <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item} %>
+        <% items.each_with_index do |item, index| %>
+          <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item, item_index: index } %>
         <% end %>
         </tbody>
 
         <% if more_items %>
           <tbody class="more-max d-none">
-          <% more_items.each do |item| %>
-            <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item, hidden: true} %>
+          <% more_items.each_with_index do |item, index| %>
+            <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item, item_index: index + 3, hidden: true } %>
           <% end %>
           </tbody>
 
