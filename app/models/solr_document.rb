@@ -106,7 +106,7 @@ class SolrDocument
   def resource_type_name
     resource_type = self[:resource_type].split('!', 2)
     main_type = resource_type.first
-    sub_type = resource_type.last
+    sub_type = resource_type[1]
     "#{resource_type_map.dig(main_type.to_sym, :label)}#{" (#{sub_type})" if sub_type.present?}"
   end
 
