@@ -68,15 +68,15 @@ module UrlHelper
   end
 
   def link_to_request_item(document, item: nil)
-    id = document[:id]
     requestability = item['r']
     data = {}
 
     case requestability
     when 'catalog'
-      url = "https://iii.library.unt.edu/search~S12?/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}"
+      url = construct_catalog_request_url(document)
       text = "Delivery Options"
       el_class = "request-catalog"
+      data['bib-title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
       data['aeon-url'] = construct_aeon_url(document)
       data['illiad-url'] = construct_illiad_url(document)
     when 'jlf'
@@ -98,6 +98,41 @@ module UrlHelper
                        'ga-event-action': 'Availability request click',
                        'ga-event-label': text,
                        'ga-event-value': '1'
+  end
+
+  def construct_catalog_request_url(document)
+    id = document[:id]
+    query_hash = {}
+
+    if document[:author_json].present?
+      author_json = json_str_to_hash(document[:author_json])['p'].last
+      author = author_json['v'] || author_json['d']
+    else
+      contrib_json = json_str_to_array(document[:contributors_json]).first['p'].last
+      author = contrib_json['v'] || contrib_json['d']
+    end
+
+    # Add query string parameters unless values
+    query_hash[:requestItemIndex] = '1 maybe'
+    query_hash[:sid] = 'Discover Request'
+    query_hash[:bibId] = "#{document[:id]}a"
+    # Journals and e-journals are 'article', the rest are 'book'
+    query_hash['rft.genre'] = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
+    query_hash['rft.title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
+    query_hash['rft.au'] = author
+    query_hash['rft.isbn'] = document[:isbn_numbers][0] if document[:isbn_numbers]
+    query_hash['rft.issn'] = document[:issn_numbers][0] if document[:issn_numbers]
+    # Edition will be added in the future
+    query_hash['rft.edition'] = nil
+    query_hash['rft.date'] = document[:publication_year_display]
+    pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
+    query_hash['rft.pub'] = pub.join('; ') unless pub.nil?
+    query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
+    # Remove nil values
+    query_hash.compact!
+
+    # TODO: Remove port from URL
+    URI::HTTPS.build(host: 'iii.library.unt.edu', port: 444, path: '/search~S12', query: "/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}&#{query_hash.to_query}").to_s
   end
 
   def construct_illiad_url(document, item: nil)
