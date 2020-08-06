@@ -6,7 +6,7 @@
 <% url_services = "#{url_home}/services/" %>
 <% url_spaces = "#{url_home}/spaces/" %>
 <% url_news = "#{url_home}/news/" %>
-<% url_events = "#{url_home}/events/" %>
+<% url_calendar = "https://calendar.library.unt.edu/" %>
 
 <div class="drawer fade" id="main-menu-drawer" tabindex="-1" role="dialog" aria-labelledby="main-drawer-title" aria-hidden="true" data-turbolinks="false">
   <div class="modal-dialog modal-dialog--right" role="document">
@@ -112,15 +112,15 @@
            ga-event-value="1">
           <span class="sr-only">Libraries: </span>
           News </a>
-        <a href="<%= url_events %>"
+        <a href="<%= url_calendar %>"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
-           ga-event-label="<%= url_events %>"
+           ga-event-label="<%= url_calendar %>"
            ga-event-value="1">
           <span class="sr-only">Libraries: </span>
-          Events</a>
+          Calendar</a>
 
         <hr class="drawer__divider" />
 

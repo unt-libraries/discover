@@ -6,7 +6,7 @@
 <% url_spaces = "#{url_home}/spaces/" %>
 <% url_about = "#{url_home}/about/" %>
 <% url_news = "#{url_home}/news/" %>
-<% url_events = "#{url_home}/events/" %>
+<% url_calendar = "https://calendar.library.unt.edu/" %>
 
 <ul class="nav navigation--group pl-sm-3" data-turbolinks="false">
   <li class="nav-item d-none d-lg-inline">
@@ -76,16 +76,16 @@
        aria-label="Library News and Announcements">
       News</a></li>
   <li class="nav-item">
-    <a href="<%= url_events %>"
+    <a href="<%= url_calendar %>"
        rel="noopener"
        class="nav-link"
        ga-on="click"
        ga-event-category="link - navbar"
-       ga-event-action="Events"
-       ga-event-label="<%= url_events %>"
+       ga-event-action="Calendar"
+       ga-event-label="<%= url_calendar %>"
        ga-event-value="1"
-       aria-label="Library Events">
-      Events</a></li>
+       aria-label="Library Calendar">
+      Calendar</a></li>
   <li class="nav-item ml-auto">
     <a href="<%= url_ask_us %>"
        rel="noopener"
