@@ -1,13 +1,11 @@
 <% url_home = "https://library.unt.edu" %>
-<% url_catalog = "https://iii.library.unt.edu/" %>
+<% url_catalog = "https://discover.library.unt.edu/" %>
+<% url_iii = "https://iii.library.unt.edu/" %>
 <% url_summon = "http://untexas.summon.serialssolutions.com/advanced#!/advanced" %>
-<% url_catalog_advanced = "#{url_catalog}search/X" %>
-<% url_catalog_music = "#{url_catalog}search~S7/X" %>
-<% url_catalog_media = "#{url_catalog}search~S6/X" %>
-<% url_catalog_ejournals = "#{url_catalog}search/y#ejournals" %>
-<% url_catalog_reserves = "#{url_catalog}search/r" %>
+<% url_catalog_advanced = "#{url_catalog}advanced" %>
+<% url_iii_ejournals = "#{url_catalog}?f%5Baccess_facet%5D%5B%5D=Online&f%5Bresource_type_facet%5D%5B%5D=journals_periodicals" %>
+<% url_iii_reserves = "#{url_iii}search/r" %>
 <% url_audio_reserves =  "https://audioreserves.library.unt.edu/" %>
-<% url_video_on_demand =  "https://vod.library.unt.edu/" %>
 <% url_digital2_search =  "https://digital2.library.unt.edu/search/" %>
 <% url_digital_library =  "https://digital.library.unt.edu/" %>
 <% url_portal =  "https://texashistory.unt.edu/" %>
@@ -84,7 +82,7 @@
            ga-event-category="link - drawer"
            ga-event-action="libraries"
            ga-event-label="<%= url_catalog %>"
-           ga-event-value="1"><span class="sr-only">Catalog: </span>Search: Keyword, Title, Author, Subject, etc.</a>
+           ga-event-value="1"><span class="sr-only">Catalog: </span>Basic Search</a>
 
         <a href="<%= url_catalog_advanced %>"
            rel="noopener"
@@ -94,24 +92,6 @@
            ga-event-action="libraries"
            ga-event-label="<%= url_catalog_advanced %>"
            ga-event-value="1"><span class="sr-only">Catalog: </span>Advanced Search</a>
-
-        <a href="<%= url_catalog_music %>"
-           rel="noopener"
-           class="nav-item nav-link"
-           ga-on="click"
-           ga-event-category="link - drawer"
-           ga-event-action="libraries"
-           ga-event-label="<%= url_catalog_music %>"
-           ga-event-value="1"><span class="sr-only">Catalog: </span>Music Library</a>
-
-        <a href="<%= url_catalog_media %>"
-           rel="noopener"
-           class="nav-item nav-link"
-           ga-on="click"
-           ga-event-category="link - drawer"
-           ga-event-action="libraries"
-           ga-event-label="<%= url_catalog_media %>"
-           ga-event-value="1"><span class="sr-only">Catalog: </span>Media Library</a>
 
         <hr class="drawer__divider" />
         <h2 class="drawer__sub-heading px-3">Databases &amp; e-Journals</h2>
@@ -148,25 +128,25 @@
 
         </div>
 
-        <a href="<%= url_catalog_ejournals %>"
+        <a href="<%= url_iii_ejournals %>"
            rel="noopener"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
-           ga-event-label="<%= url_catalog_ejournals %>"
+           ga-event-label="<%= url_iii_ejournals %>"
            ga-event-value="1">e-Journals</a>
 
         <hr class="drawer__divider" />
         <h2 class="drawer__sub-heading px-3">Courses &amp; Reserves</h2>
 
-        <a href="<%= url_catalog_reserves %>"
+        <a href="<%= url_iii_reserves %>"
            rel="noopener"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
-           ga-event-label="<%= url_catalog_reserves %>"
+           ga-event-label="<%= url_iii_reserves %>"
            ga-event-value="1"><span class="sr-only">Catalog: </span>Course Reserves</a>
 
         <a href="<%= url_audio_reserves %>"
@@ -177,15 +157,6 @@
            ga-event-action="libraries"
            ga-event-label="<%= url_audio_reserves %>"
            ga-event-value="1">Digital Audio Reserves</a>
-
-        <a href="<%= url_video_on_demand %>"
-           rel="noopener"
-           class="nav-item nav-link"
-           ga-on="click"
-           ga-event-category="link - drawer"
-           ga-event-action="libraries"
-           ga-event-label="<%= url_video_on_demand %>"
-           ga-event-value="1">Video On Demand</a>
 
         <hr class="drawer__divider" />
         <h2 class="drawer__sub-heading px-3">Created and/or Curated @ UNT</h2>
