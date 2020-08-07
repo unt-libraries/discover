@@ -7,6 +7,7 @@ import {
 import 'bootstrap/js/dist/tooltip';
 import 'bootstrap/js/dist/popover';
 import Cookies from 'js-cookie';
+import escapeRegExp from 'lodash/escapeRegExp';
 
 const has = Object.prototype.hasOwnProperty;
 const idTypes = {
@@ -199,11 +200,46 @@ function bindDismissBannerCookie(name, selector, expiry = undefined) {
   });
 }
 
+/**
+ * Similar function to what we use on III to linkify urls and email addresses in fields
+ * that have a specific class.
+ */
+function linkify() {
+  const $linkifyFields = $('.linkify-text');
+  // define skipIt -- function used to compare found URLs to any pre-existing links.
+  // e.g., we may match a URL in the text that's already enclosed in an <a> tag,
+  // in which case we don't want to linkify that URL.
+  function skipIt(obj, test) {
+    let val = false;
+    $(obj).find('a').each(function () {
+      if ($(this).text().match(escapeRegExp(test))) {
+        val = true;
+      }
+    });
+    return val;
+  }
+
+  $linkifyFields.each(function () {
+    const pattern = /(\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)|(https?:\/\/[^\s]+)/gi; // group 1 = email address, group 2 = URL
+    let match;
+    while (match = pattern.exec($(this).text())) {
+      let mText = match[1] ? match[1] : match[2] ? match[2] : '';
+      const mailto = match[1] ? 'mailto:' : '';
+      if (mText && !skipIt($(this), mText)) {
+        // trim trailing punctuation
+        mText = mText.replace(/(\)[:,;.])$|(][:,;.])$|([:,;.)\]])$/, '');
+        $(this).html($(this).html().replace(mText, `<a class="textLink" href="${mailto}${mText}">${mText}</a>`));
+      }
+    }
+  });
+}
+
 export {
   animateSearchIcon,
   bindDismissBannerCookie,
   bindShowAvailMoreField,
   initPopovers,
   initTooltips,
+  linkify,
   replaceBookCovers,
 };
