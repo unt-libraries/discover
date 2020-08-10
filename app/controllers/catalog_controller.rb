@@ -444,6 +444,7 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('sudoc') do |field|
+      field.label = 'SuDocs'
       field.solr_local_parameters = {
         qf: '$sudoc_qf',
         pf: '$sudoc_pf',
