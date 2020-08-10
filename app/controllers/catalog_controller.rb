@@ -436,6 +436,20 @@ class CatalogController < ApplicationController
       }
     end
 
+    config.add_search_field('call_number') do |field|
+      field.solr_local_parameters = {
+        qf: '$cn_qf',
+        pf: '$cn_pf',
+      }
+    end
+
+    config.add_search_field('sudoc') do |field|
+      field.solr_local_parameters = {
+        qf: '$sudoc_qf',
+        pf: '$sudoc_pf',
+      }
+    end
+
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
