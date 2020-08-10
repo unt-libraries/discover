@@ -1,5 +1,6 @@
 {
-  "name": "unt-blacklight",
+  "name": "unt-discover",
+  "version": "1.0.0",
   "scripts": {
     "start": "docker-compose up",
     "build": "docker-compose build",
@@ -54,6 +55,5 @@
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
     "webpack-dev-server": "^3.10.3"
-  },
-  "version": "0.0.0"
+  }
 }
