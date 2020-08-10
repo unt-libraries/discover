@@ -228,7 +228,7 @@ function linkify() {
       if (mText && !skipIt($(this), mText)) {
         // trim trailing punctuation
         mText = mText.replace(/(\)[:,;.])$|(][:,;.])$|([:,;.)\]])$/, '');
-        $(this).html($(this).html().replace(mText, `<a class="textLink" href="${mailto}${mText}">${mText}</a>`));
+        $(this).html($(this).html().replace(mText, `<a class="textLink" target="_blank" href="${mailto}${mText}">${mText}</a>`));
       }
     }
   });
