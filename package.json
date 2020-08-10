@@ -38,20 +38,20 @@
     "jquery": "^3.5.1",
     "js-cookie": "^2.2.1",
     "lazysizes": "^5.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "2.24.0",
     "moment-locales-webpack-plugin": "^1.1.2",
     "popper.js": "^1.16.0",
     "rails-erb-loader": "^5.5.2",
     "turbolinks": "^5.2.0",
-    "web-vitals": "^0.2.1",
-    "webpack": "^4.42.1"
+    "web-vitals": "^0.2.4",
+    "webpack": "^4.44.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "stylelint": "^13.3.2",
+    "eslint-plugin-import": "^2.22.0",
+    "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
     "webpack-dev-server": "^3.10.3"
   },
