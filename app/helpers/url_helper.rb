@@ -131,8 +131,7 @@ module UrlHelper
     # Remove nil values
     query_hash.compact!
 
-    # TODO: Remove port from URL
-    URI::HTTPS.build(host: 'iii.library.unt.edu', port: 444, path: '/search~S12', query: "/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}&#{query_hash.to_query}").to_s
+    URI::HTTPS.build(host: 'iii.library.unt.edu', path: '/search~S12', query: "/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}&#{query_hash.to_query}").to_s
   end
 
   def construct_illiad_url(document, item: nil)
