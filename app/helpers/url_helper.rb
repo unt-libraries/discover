@@ -107,7 +107,7 @@ module UrlHelper
     if document[:author_json].present?
       author_json = json_str_to_hash(document[:author_json])['p'].last
       author = author_json['v'] || author_json['d']
-    else
+    elsif document[:contributors_json].present?
       contrib_json = json_str_to_array(document[:contributors_json]).first['p'].last
       author = contrib_json['v'] || contrib_json['d']
     end
@@ -118,15 +118,15 @@ module UrlHelper
     query_hash[:bibId] = "#{document[:id]}a"
     # Journals and e-journals are 'article', the rest are 'book'
     query_hash['rft.genre'] = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
-    query_hash['rft.title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
-    query_hash['rft.au'] = author
-    query_hash['rft.isbn'] = document[:isbn_numbers][0] if document[:isbn_numbers]
-    query_hash['rft.issn'] = document[:issn_numbers][0] if document[:issn_numbers]
+    query_hash['rft.title'] = document[:title_display].present? ? "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}" : 'none'
+    query_hash['rft.au'] = author || 'none'
+    query_hash['rft.isbn'] = document[:isbn_numbers].first if document[:isbn_numbers]
+    query_hash['rft.issn'] = document[:issn_numbers].first if document[:issn_numbers]
     # Edition will be added in the future
     query_hash['rft.edition'] = nil
-    query_hash['rft.date'] = document[:publication_year_display]
+    query_hash['rft.date'] = document[:publication_year_display] || 'none'
     pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
-    query_hash['rft.pub'] = pub.join('; ') unless pub.nil?
+    query_hash['rft.pub'] = pub.present? ? pub.join('; ') : 'none'
     query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
     # Remove nil values
     query_hash.compact!
@@ -143,7 +143,7 @@ module UrlHelper
     if document[:author_json].present?
       author_json = json_str_to_hash(document[:author_json])['p'].last
       author = author_json['v'] || author_json['d']
-    else
+    elsif document[:contributors_json].present?
       contrib_json = json_str_to_array(document[:contributors_json]).first['p'].last
       author = contrib_json['v'] || contrib_json['d']
     end
@@ -184,27 +184,27 @@ module UrlHelper
     if document[:author_json].present?
       author_json = json_str_to_hash(document[:author_json])['p'].last
       author = author_json['v'] || author_json['d']
-    else
+    elsif document[:contributors_json].present?
       contrib_json = json_str_to_array(document[:contributors_json]).first['p'].last
       author = contrib_json['v'] || contrib_json['d']
     end
 
     # Add query string parameters unless values
     query_hash['rft.genre'] = 'monograph'
-    query_hash[:ItemTitle] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
-    query_hash[:ItemAuthor] = author
+    query_hash[:ItemTitle] = document[:title_display].present? ? "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}" : 'none'
+    query_hash[:ItemAuthor] = author || 'none'
     query_hash[:ItemNumber] = "#{document[:id]}a"
     # ItemEdition will be added in the future
     query_hash[:ItemEdition] = nil
-    query_hash[:ItemDate] = document[:publication_year_display]
+    query_hash[:ItemDate] = document[:publication_year_display] || 'none'
     pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
-    query_hash[:ItemPublisher] = pub.join('; ') unless pub.nil?
+    query_hash[:ItemPublisher] = pub.present? ? pub.join('; ') : 'none'
     # SubLocation will be added in the future
     query_hash[:SubLocation] = nil
     query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
-    query_hash[:CallNumber] = item['c'] if item.present?
+    query_hash[:CallNumber] = item.present? ? item['c'] || 'none' : 'none'
     query_hash[:Volume] = item.present? ? item['v'] || 'none' : 'none'
-    query_hash[:ReferenceNumber] = item[:b] if item.present?
+    query_hash[:ReferenceNumber] = item.present? ? item[:b] : 'none'
     # Remove nil values
     query_hash.compact!
 
