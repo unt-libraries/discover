@@ -248,7 +248,8 @@ class CatalogController < ApplicationController
     config.add_index_field 'publication_dates', label: 'Publication Date',
                                                 separator_options: { words_connector: '; ' },
                                                 no_label: true
-    config.add_index_field 'main_call_number', label: 'Call number', if: false
+    config.add_index_field 'main_call_number', label: 'Call Number', if: false
+    config.add_index_field 'sudocs_display', label: 'SuDocs'
     config.add_index_field 'items_json', label: 'Items', display: :availability
     config.add_index_field 'has_more_items', if: false
 
@@ -377,7 +378,7 @@ class CatalogController < ApplicationController
     # Call Number Fields
     config.add_show_field 'loc_call_numbers', label: 'LC Call Numbers'
     config.add_show_field 'dewey_call_numbers', label: 'Dewey Call Numbers'
-    config.add_show_field 'sudoc_numbers', label: 'SuDoc Numbers'
+    config.add_show_field 'sudocs_display', label: 'SuDocs Numbers'
     config.add_show_field 'other_call_numbers', label: 'Local Call Numbers'
     # Standard Number Fields
     config.add_show_field 'isbn_numbers', label: 'ISBN'
