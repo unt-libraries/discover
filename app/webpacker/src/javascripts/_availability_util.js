@@ -1,5 +1,6 @@
 import { locationData } from './data/availability_locations';
 import { statusDescData } from './data/availability_statuses';
+import { serviceDeskData } from './data/service_desks';
 
 /**
  * Splits an array into chunks of 50 for more manageable API calls
@@ -80,6 +81,20 @@ function getStatusData(statusCode) {
   return statusDescData[statusCode];
 }
 
+function getServiceDeskData(locationCode) {
+  let serviceDesk;
+  Object.entries(serviceDeskData).forEach(([key, value]) => {
+    if (locationCode.startsWith(key)) {
+      serviceDesk = value;
+    }
+  });
+
+  if (serviceDesk === null) {
+    serviceDesk = serviceDeskData.default;
+  }
+  return serviceDesk;
+}
+
 /**
  * Appends required query string parameters to an Aeon URL that require the Sierra API call.
  * @param {string} itemURL
@@ -138,6 +153,7 @@ export {
   findMissing,
   getItemsIDs,
   getLocationData,
+  getServiceDeskData,
   getStatusData,
   getPlaceholderItemsElements,
   updateAeonRequestUrl,

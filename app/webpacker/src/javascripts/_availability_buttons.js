@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {
   callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
-  getStatusData, updateAeonRequestUrl,
+  getServiceDeskData, getStatusData, updateAeonRequestUrl,
 } from './_availability_util';
 import { elAddClass, elRemoveClass } from './_utils';
 
@@ -139,8 +139,8 @@ function updateIndexNoApiItems() {
   noApiElements.forEach((item) => {
     const availabilityTextEl = item.querySelector('.availability-text');
     const locationCode = availabilityTextEl.dataset.itemLocation;
-    const locationData = getLocationData(locationCode);
-    availabilityTextEl.innerText = `Ask at the ${locationData.name} service desk`;
+    const serviceDesk = getServiceDeskData(locationCode);
+    availabilityTextEl.innerHTML = `Ask at the <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
   });
 }
 
