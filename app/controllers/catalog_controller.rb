@@ -248,7 +248,7 @@ class CatalogController < ApplicationController
     config.add_index_field 'publication_dates', label: 'Publication Date',
                                                 separator_options: { words_connector: '; ' },
                                                 no_label: true
-    config.add_index_field 'sudocs_display', label: 'SuDocs'
+    config.add_index_field 'sudocs_display', no_label: true, label: 'SuDocs Numbers'
     config.add_index_field 'items_json', label: 'Items', display: :availability
     config.add_index_field 'has_more_items', if: false
 
@@ -376,7 +376,8 @@ class CatalogController < ApplicationController
 
     # Call Number Fields
     config.add_show_field 'call_numbers_display', label: 'Call Numbers'
-    config.add_show_field 'sudocs_display', label: 'SuDocs (Government Document) Numbers'
+    config.add_show_field 'sudocs_display', label: 'SuDocs Numbers',
+                                            tooltip: 'Government Document Classification Number'
     # Standard Number Fields
     config.add_show_field 'isbn_numbers', label: 'ISBN'
     config.add_show_field 'issn_numbers', label: 'ISSN'
