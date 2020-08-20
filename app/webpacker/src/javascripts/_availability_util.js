@@ -89,7 +89,7 @@ function getServiceDeskData(locationCode) {
     }
   });
 
-  if (serviceDesk === null) {
+  if (serviceDesk === undefined) {
     serviceDesk = serviceDeskData.default;
   }
   return serviceDesk;
