@@ -18,14 +18,16 @@ class CatalogController < ApplicationController
     config.advanced_search[:url_key] ||= 'advanced'
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {
-      'facet.field' => %w(access_facet resource_type_facet media_type_facet collection_facet languages),
+      'facet.field' => %w(access_facet resource_type_facet media_type_facet languages collection_facet building_facet shelf_facet),
       'facet.limit' => -1,
       'facet.sort' => 'index',
       'f.access_facet.facet.limit' => -1,
       'f.resource_type_facet.facet.limit' => -1,
       'f.media_type_facet.facet.limit' => -1,
+      'f.languages.facet.limit' => -1,
       'f.collection_facet.facet.limit' => -1,
-      "f.languages.facet.limit" => -1,
+      'f.building_facet.facet.limit' => -1,
+      'f.shelf_facet.facet.limit' => -1,
       'facet.query' => [],
     }
 
@@ -379,10 +381,13 @@ class CatalogController < ApplicationController
     config.add_show_field 'sudocs_display', label: 'SuDocs Numbers',
                                             tooltip: 'Government Document Classification Number'
     # Standard Number Fields
-    config.add_show_field 'isbn_numbers', label: 'ISBN'
-    config.add_show_field 'issn_numbers', label: 'ISSN'
-    config.add_show_field 'lccn_numbers', label: 'LCCN'
-    config.add_show_field 'oclc_numbers', label: 'OCLC Number'
+    config.add_show_field 'isbns_display', label: 'ISBNs'
+    config.add_show_field 'issns_display', label: 'ISSNs'
+    config.add_show_field 'other_standard_numbers_display', label: 'Other Standard Numbers'
+    config.add_show_field 'lccns_display', label: 'Library of Congress Control Numbers'
+    config.add_show_field 'oclc_numbers_display', label: 'OCLC Numbers'
+    config.add_show_field 'other_control_numbers_display', label: 'Other Control Numbers'
+
     # Notes fields -- eventually we will have a lot more of these
 
     # "fielded" search configuration. Used by pulldown among other places.
