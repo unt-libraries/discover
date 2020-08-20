@@ -441,36 +441,35 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('call_number') do |field|
+      field.qt = 'catalog-numtype-search'
       field.solr_local_parameters = {
-        qf: '$cn_qf',
-        pf: '$cn_pf',
+        df: 'call_numbers_search',
       }
     end
 
     config.add_search_field('sudoc') do |field|
       field.label = 'SuDocs'
+      field.qt = 'catalog-numtype-search'
       field.solr_local_parameters = {
-        qf: '$sudoc_qf',
-        pf: '$sudoc_pf',
+        df: 'sudocs_search',
       }
     end
 
     config.add_search_field('standard_number') do |field|
       field.label = 'Standard Number (ISBN/ISSN)'
+      field.qt = 'catalog-numtype-search'
       field.solr_local_parameters = {
-        qf: '$snum_qf',
-        pf: '$snum_pf',
+        df: 'standard_numbers_search',
       }
     end
 
     config.add_search_field('control_number') do |field|
       field.label = 'Control Number (LCCN/OCLC#)'
+      field.qt = 'catalog-numtype-search'
       field.solr_local_parameters = {
-        qf: '$cnum_qf',
-        pf: '$cnum_pf',
+        df: 'control_numbers_search',
       }
     end
-
 
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
