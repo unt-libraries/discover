@@ -6,6 +6,17 @@
       @extend .alert-link;
     }
   }
+
+  .message {
+    margin: auto;
+    max-width: 1600px;
+
+    @include media-breakpoint-up(md) {
+      padding-left: 76px;
+      padding-right: 76px;
+      max-width: 1600px;
+    }
+  }
 }
 
 .site-announcement {

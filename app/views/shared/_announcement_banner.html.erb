@@ -1,29 +1,42 @@
-<% if t('announcement.content').present? %>
-  <div class="col px-0">
-    <div id="site-messages">
-      <div class="site_messages">
-        <div class="alert alert-info text-center site-announcement" role="alert">
-          <%= t('announcement.content').html_safe %>
-        </div>
+<div class="col px-0">
+  <div id="site-messages">
+    <% if t('announcement.content').present? %>
+      <div class="alert alert-info text-center site-announcement" role="alert">
+        <%= t('announcement.content').html_safe %>
       </div>
-    </div>
-  </div>
-<% end %>
+    <% end %>
 
-<%# TODO: Remove this static banner for wide release, use the i18n translation and block above %>
-<% unless banner_dismissed?('beta') %>
-  <div class="col px-0">
-    <div id="site-messages">
-      <div class="site_messages">
-        <div id="betaBanner"  class="alert alert-info text-center site-announcement" role="alert">
+    <%# Beta banner %>
+    <% unless banner_dismissed?('beta') %>
+      <div id="betaBanner" class="alert alert-info alert-dismissible text-center site-announcement" role="alert"
+      data-alert-name="beta" data-alert-expiry="15">
+        <div class="message">
           This site is currently in beta, so you may notice some rough edges. Please
           <a href="<%= feedback_issue_email %>" class="feedback feedback-email">send your feedback</a>
           to help us improve.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </div>
+    <% end %>
+
+    <%# COVID banner %>
+    <% unless banner_dismissed?('covid082420') %>
+      <div id="covidBanner" class="alert alert-danger alert-dismissible text-center site-announcement" role="alert"
+           data-alert-name="covid082420" data-alert-expiry="15">
+        <div class="message">
+          <strong>COVID-19 Updates</strong> — Please see our
+          <a href="https://guides.library.unt.edu/continuity" target="_blank">Continuity of Library Services guide</a>
+          for up-to-date information about changes to our services for the Fall 2020 semester.
+          Contact <a href="https://library.unt.edu/ask-us">Ask Us</a> or use the
+          <span class="font-italic">Live Chat</span> tab at the right of your screen if you have
+          any questions.
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
