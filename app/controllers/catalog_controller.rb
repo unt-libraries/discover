@@ -455,6 +455,23 @@ class CatalogController < ApplicationController
       }
     end
 
+    config.add_search_field('standard_number') do |field|
+      field.label = 'Standard Number (ISBN/ISSN)'
+      field.solr_local_parameters = {
+        qf: '$snum_qf',
+        pf: '$snum_pf',
+      }
+    end
+
+    config.add_search_field('control_number') do |field|
+      field.label = 'Control Number (LCCN/OCLC#)'
+      field.solr_local_parameters = {
+        qf: '$cnum_qf',
+        pf: '$cnum_pf',
+      }
+    end
+
+
     # "sort results by" select (pulldown)
     # label in pulldown is followed by the name of the SOLR field to sort by and
     # whether the sort is ascending or descending (it must be asc or desc
