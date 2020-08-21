@@ -37,6 +37,14 @@
         </div>
       <% end -%>
 
+      <div class="list-group-item show-tools-item related-articles-tool" data-tool-item="related-articles">
+        <%= link_to_summon_search(@document) %>
+      </div>
+
+      <div class="list-group-item show-tools-item google-scholar-tool" data-tool-item="google-scholar">
+        <%= link_to_google_scholar_search(@document) %>
+      </div>
+
       <div class="list-group-item show-tools-item catalog-tool" data-tool-item="catalog">
         <%= link_to_old_catalog(@document) %>
       </div>

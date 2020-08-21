@@ -27,6 +27,30 @@ module UrlHelper
     end
   end
 
+  def link_to_summon_search(document)
+    text = 'Find Related Articles'
+    url = construct_summon_search_url(document)
+
+    link_to text, url, class: 'nav-link', id: 'relatedArticlesLink', target: '_blank', rel: 'noopener',
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Tools link click',
+                       'ga-event-label': 'Find Related Articles',
+                       'ga-event-value': '1'
+  end
+
+  def link_to_google_scholar_search(document)
+    text = 'Search in Google Scholar'
+    url = construct_google_scholar_search_url(document)
+
+    link_to text, url, class: 'nav-link', id: 'googleScholarLink', target: '_blank', rel: 'noopener',
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Tools link click',
+                       'ga-event-label': 'Search in Google Scholar',
+                       'ga-event-value': '1'
+  end
+
   def link_to_old_catalog(document)
     record_id = document[:id]
     text = 'View in Old Catalog'
@@ -98,6 +122,30 @@ module UrlHelper
                        'ga-event-action': 'Availability request click',
                        'ga-event-label': text,
                        'ga-event-value': '1'
+  end
+
+  def construct_summon_search_url(document)
+    record_title = document[:title_display]
+    record_title.downcase!
+    record_title.gsub!(/[&:;,.'"\/\\\[\]()]/, '')
+    record_title.gsub!(/(^|\s)((a|an|the|of|and|or|in|on|for|from|to|not|be|is|am|are)(\s|$))+/, ' ')
+    record_title.gsub!(/^\s*/, '')
+    record_title.gsub!(/^((.*?\s){5}).*$/, '\1')
+    record_title.gsub!(/\s*$/, '')
+
+    query_hash = {
+      :q => record_title,
+      :fvf => 'ContentType,Journal Article,f|IsScholarly,true,f|IsFullText,true,f',
+    }
+
+    # Can't use URI::HTTPS.build for the URL because Summon uses a #! in the path
+    "https://untexas.summon.serialssolutions.com/#!/search?#{query_hash.to_query}"
+  end
+
+  def construct_google_scholar_search_url(document)
+    query_hash = { :q => document[:title_display] }
+
+    URI::HTTPS.build(host: 'scholar.google.com', path: '/scholar', query: query_hash.to_query).to_s
   end
 
   def construct_catalog_request_url(document, item_index: nil)
