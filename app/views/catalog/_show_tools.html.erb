@@ -10,44 +10,42 @@
 <%# TODO: Move items to separate categories and UI locations %>
 <%# if show_doc_actions? %>
   <div class="card show-tools">
-    <h3 class="card-header show-tools-heading"><%= t('blacklight.tools.title') %></h3>
-
-    <div class="card-body show-tools-values list-group list-group-flush">
+    <ul class="card-body show-tools-values list-group list-group-flush list-group-hover list-group-striped">
       <%= render_show_doc_actions @document do |config, inner| %>
-        <div class="list-group-item show-tools-item <%= config.key %>" data-tool-item="<%= config.key %>">
+        <li class="list-group-item show-tools-item <%= config.key %>" data-tool-item="<%= config.key %>">
           <%= inner %>
-        </div>
+        </li>
       <% end %>
 
       <% unless @document[:id].nil? -%>
-        <div class="list-group-item show-tools-item refworks-tool" data-tool-item="refworks">
-          <%= link_to_request_refworks(@document) %>
-        </div>
+        <li class="list-group-item show-tools-item refworks-tool" data-tool-item="refworks">
+          <i class="fa fa-fw fa-file-alt"></i><%= link_to_request_refworks(@document) %>
+        </li>
 
         <% unless Rails.application.credentials[Rails.env.to_sym][:COVID_RESTRICTED] -%>
-          <div class="list-group-item show-tools-item illiad-tool" data-tool-item="illiad">
-            <%= link_to_request_illiad(@document) %>
-          </div>
+          <li class="list-group-item show-tools-item illiad-tool" data-tool-item="illiad">
+            <i class="fa fa-fw fa-file-import"></i><%= link_to_request_illiad(@document) %>
+          </li>
         <% end -%>
       <% end -%>
 
       <% unless @document[:oclc_numbers].nil? -%>
-        <div class="list-group-item show-tools-item citation-tool" data-tool-item="citation">
-          <%= link_to_worldcat_citations(@document) %>
-        </div>
+        <li class="list-group-item show-tools-item citation-tool" data-tool-item="citation">
+          <i class="fa fa-fw fa-retweet"></i><%= link_to_worldcat_citations(@document) %>
+        </li>
       <% end -%>
 
-      <div class="list-group-item show-tools-item related-articles-tool" data-tool-item="related-articles">
-        <%= link_to_summon_search(@document) %>
-      </div>
+      <li class="list-group-item show-tools-item related-articles-tool" data-tool-item="related-articles">
+        <i class="fad fa-fw fa-search"></i><%= link_to_summon_search(@document) %>
+      </li>
 
-      <div class="list-group-item show-tools-item google-scholar-tool" data-tool-item="google-scholar">
-        <%= link_to_google_scholar_search(@document) %>
-      </div>
+      <li class="list-group-item show-tools-item google-scholar-tool" data-tool-item="google-scholar">
+        <i class="fab fa-fw fa-google"></i><%= link_to_google_scholar_search(@document) %>
+      </li>
 
-      <div class="list-group-item show-tools-item catalog-tool" data-tool-item="catalog">
-        <%= link_to_old_catalog(@document) %>
-      </div>
-    </div>
+      <li class="list-group-item show-tools-item catalog-tool" data-tool-item="catalog">
+        <i class="fa fa-fw fa-scroll-old"></i><%= link_to_old_catalog(@document) %>
+      </li>
+    </ul>
   </div>
 <%# end %>
