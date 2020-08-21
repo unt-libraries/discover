@@ -27,6 +27,24 @@ module UrlHelper
     end
   end
 
+  def construct_summon_search_url(document)
+    record_title = document[:title_display]
+    record_title.downcase!
+    record_title.gsub!(/[&:;,.'"\/\\\[\]()]/, '')
+    record_title.gsub!(/(^|\s)((a|an|the|of|and|or|in|on|for|from|to|not|be|is|am|are)(\s|$))+/, ' ')
+    record_title.gsub!(/^\s*/, '')
+    record_title.gsub!(/^((.*?\s){5}).*$/, '\1')
+    record_title.gsub!(/\s*$/, '')
+
+    query_hash = {
+      :q => record_title,
+      :fvf => 'ContentType,Journal Article,f|IsScholarly,true,f|IsFullText,true,f',
+    }
+
+    # Can't use URI::HTTPS.build for the URL because Summon uses a #! in the path
+    "https://untexas.summon.serialssolutions.com/#!/search?#{query_hash.to_query}"
+  end
+
   def link_to_summon_search(document)
     text = 'Find Related Articles'
     url = construct_summon_search_url(document)
@@ -37,6 +55,12 @@ module UrlHelper
                        'ga-event-action': 'Tools link click',
                        'ga-event-label': 'Find Related Articles',
                        'ga-event-value': '1'
+  end
+
+  def construct_google_scholar_search_url(document)
+    query_hash = { :q => document[:title_display] }
+
+    URI::HTTPS.build(host: 'scholar.google.com', path: '/scholar', query: query_hash.to_query).to_s
   end
 
   def link_to_google_scholar_search(document)
@@ -78,110 +102,6 @@ module UrlHelper
                        'ga-event-value': '1'
   end
 
-  def link_to_request_illiad(document)
-    url = construct_illiad_url(document)
-    content_tag(:span, document[:full_title], class: 'sr-only')
-    text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')}" \
-      "through ILLiad".html_safe
-    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Tools link click',
-                       'ga-event-label': 'Illiad',
-                       'ga-event-value': '1'
-  end
-
-  def link_to_request_item(document, item: nil, item_index: nil)
-    requestability = item['r']
-    data = {}
-
-    case requestability
-    when 'catalog'
-      url = construct_catalog_request_url(document, item_index: item_index)
-      text = "Delivery Options"
-      el_class = "request-catalog"
-      data['bib-title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
-      data['aeon-url'] = construct_aeon_url(document)
-      data['illiad-url'] = construct_illiad_url(document)
-    when 'jlf'
-      url = construct_illiad_url(document, item: item)
-      text = "Request through ILLiad"
-      el_class = "request-illiad"
-    when 'aeon'
-      url = construct_aeon_url(document, item: item)
-      text = "Request through Aeon"
-      el_class = "request-aeon"
-    else
-      return 'Cannot request this item'
-    end
-
-    link_to text, url, class: el_class, target: "_blank", rel: 'noopener',
-                       data: data,
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Availability request click',
-                       'ga-event-label': text,
-                       'ga-event-value': '1'
-  end
-
-  def construct_summon_search_url(document)
-    record_title = document[:title_display]
-    record_title.downcase!
-    record_title.gsub!(/[&:;,.'"\/\\\[\]()]/, '')
-    record_title.gsub!(/(^|\s)((a|an|the|of|and|or|in|on|for|from|to|not|be|is|am|are)(\s|$))+/, ' ')
-    record_title.gsub!(/^\s*/, '')
-    record_title.gsub!(/^((.*?\s){5}).*$/, '\1')
-    record_title.gsub!(/\s*$/, '')
-
-    query_hash = {
-      :q => record_title,
-      :fvf => 'ContentType,Journal Article,f|IsScholarly,true,f|IsFullText,true,f',
-    }
-
-    # Can't use URI::HTTPS.build for the URL because Summon uses a #! in the path
-    "https://untexas.summon.serialssolutions.com/#!/search?#{query_hash.to_query}"
-  end
-
-  def construct_google_scholar_search_url(document)
-    query_hash = { :q => document[:title_display] }
-
-    URI::HTTPS.build(host: 'scholar.google.com', path: '/scholar', query: query_hash.to_query).to_s
-  end
-
-  def construct_catalog_request_url(document, item_index: nil)
-    id = document[:id]
-    query_hash = {}
-
-    if document[:author_json].present?
-      author_json = json_str_to_hash(document[:author_json])['p'].last
-      author = author_json['v'] || author_json['d']
-    elsif document[:contributors_json].present?
-      contrib_json = json_str_to_array(document[:contributors_json]).first['p'].last
-      author = contrib_json['v'] || contrib_json['d']
-    end
-
-    # Add query string parameters unless values
-    query_hash[:requestItemIndex] = item_index
-    query_hash[:sid] = 'Discover Request'
-    query_hash[:bibId] = "#{document[:id]}a"
-    # Journals and e-journals are 'article', the rest are 'book'
-    query_hash['rft.genre'] = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
-    query_hash['rft.title'] = document[:title_display].present? ? "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}" : 'none'
-    query_hash['rft.au'] = author || 'none'
-    query_hash['rft.isbn'] = document[:isbn_numbers].first if document[:isbn_numbers]
-    query_hash['rft.issn'] = document[:issn_numbers].first if document[:issn_numbers]
-    # Edition will be added in the future
-    query_hash['rft.edition'] = nil
-    query_hash['rft.date'] = document[:publication_year_display] || 'none'
-    pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
-    query_hash['rft.pub'] = pub.present? ? pub.join('; ') : 'none'
-    query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
-    # Remove nil values
-    query_hash.compact!
-
-    URI::HTTPS.build(host: 'iii.library.unt.edu', path: '/search~S12', query: "/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}&#{query_hash.to_query}").to_s
-  end
-
   def construct_illiad_url(document, item: nil)
     # Construct URL for ILLiad and use gateway if an item is provided
 
@@ -219,6 +139,53 @@ module UrlHelper
     else
       URI::HTTPS.build(host: 'iii.library.unt.edu', path: '/screens/jlf-illiad-gateway.html', query: query_hash.to_query).to_s
     end
+  end
+
+  def link_to_request_illiad(document)
+    url = construct_illiad_url(document)
+    content_tag(:span, document[:full_title], class: 'sr-only')
+    text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')}" \
+      "through ILLiad".html_safe
+    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Tools link click',
+                       'ga-event-label': 'Illiad',
+                       'ga-event-value': '1'
+  end
+
+  def construct_catalog_request_url(document, item_index: nil)
+    id = document[:id]
+    query_hash = {}
+
+    if document[:author_json].present?
+      author_json = json_str_to_hash(document[:author_json])['p'].last
+      author = author_json['v'] || author_json['d']
+    elsif document[:contributors_json].present?
+      contrib_json = json_str_to_array(document[:contributors_json]).first['p'].last
+      author = contrib_json['v'] || contrib_json['d']
+    end
+
+    # Add query string parameters unless values
+    query_hash[:requestItemIndex] = item_index
+    query_hash[:sid] = 'Discover Request'
+    query_hash[:bibId] = "#{document[:id]}a"
+    # Journals and e-journals are 'article', the rest are 'book'
+    query_hash['rft.genre'] = (document[:material_type] == 'q' || document[:material_type] == 'y') ? 'article' : 'book'
+    query_hash['rft.title'] = document[:title_display].present? ? "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}" : 'none'
+    query_hash['rft.au'] = author || 'none'
+    query_hash['rft.isbn'] = document[:isbn_numbers].first if document[:isbn_numbers]
+    query_hash['rft.issn'] = document[:issn_numbers].first if document[:issn_numbers]
+    # Edition will be added in the future
+    query_hash['rft.edition'] = nil
+    query_hash['rft.date'] = document[:publication_year_display] || 'none'
+    pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
+    query_hash['rft.pub'] = pub.present? ? pub.join('; ') : 'none'
+    query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
+    # Remove nil values
+    query_hash.compact!
+
+    URI::HTTPS.build(host: 'iii.library.unt.edu', path: '/search~S12', query: "/.#{id}/.#{id}/1%2C275%2C275%2CB/request~#{id}&#{query_hash.to_query}").to_s
   end
 
   def construct_aeon_url(document, item: nil)
@@ -259,6 +226,39 @@ module UrlHelper
     query_hash[:Form] = '30'
 
     URI::HTTPS.build(host: 'aeon.library.unt.edu', path: '/logon/', query: query_hash.to_query).to_s
+  end
+
+  def link_to_request_item(document, item: nil, item_index: nil)
+    requestability = item['r']
+    data = {}
+
+    case requestability
+    when 'catalog'
+      url = construct_catalog_request_url(document, item_index: item_index)
+      text = "Delivery Options"
+      el_class = "request-catalog"
+      data['bib-title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
+      data['aeon-url'] = construct_aeon_url(document)
+      data['illiad-url'] = construct_illiad_url(document)
+    when 'jlf'
+      url = construct_illiad_url(document, item: item)
+      text = "Request through ILLiad"
+      el_class = "request-illiad"
+    when 'aeon'
+      url = construct_aeon_url(document, item: item)
+      text = "Request through Aeon"
+      el_class = "request-aeon"
+    else
+      return 'Cannot request this item'
+    end
+
+    link_to text, url, class: el_class, target: "_blank", rel: 'noopener',
+                       data: data,
+                       'ga-on': 'click',
+                       'ga-event-category': 'Bib Record',
+                       'ga-event-action': 'Availability request click',
+                       'ga-event-label': text,
+                       'ga-event-value': '1'
   end
 
   def link_to_worldcat_citations(document)
