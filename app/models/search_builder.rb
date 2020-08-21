@@ -32,12 +32,10 @@ class SearchBuilder < Blacklight::SearchBuilder
 
   # Modify the query to be more suitable for solr when searching number fields
   def modify_numbers_field_query(solr_parameters)
-    return if solr_parameters[:q].blank?
+    return if solr_parameters[:qt] != 'catalog-numtype-search'
     matches = /^(?<query_type>{.*})(?<query>.*)$/.match(solr_parameters[:q])
     if matches.present? && matches[:query_type].present?
-      if ['{!df=call_numbers_search}', '{!df=sudocs_search}', '{!df=standard_numbers_search}', '{!df=control_numbers_search}'].include? matches[:query_type]
-        solr_parameters[:q] = "#{matches[:query_type]}\"#{matches[:query]}\""
-      end
+      solr_parameters[:q] = %Q(#{matches[:query_type]}"#{matches[:query].gsub!(/^["'‘’“”]*(.*?)["'‘’“”]*$/, '\1')}")
     end
   end
 
