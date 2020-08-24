@@ -12,7 +12,15 @@
         <thead>
         <tr>
           <th scope="col" class="blacklight-location result__label">Location</th>
-          <th scope="col" class="blacklight-call-number result__label">Call Number</th>
+          <th scope="col" class="blacklight-call-number result__label">
+            <a href="https://guides.library.unt.edu/discover/call-numbers"
+               target="_blank"
+               ga-on="click"
+               ga-event-category="Bib Record"
+               ga-event-action="Availability help link click"
+               ga-event-label="Call Number"
+               ga-event-value="1">Call Number</a>
+          </th>
           <th scope="col" class="blacklight-availability result__label">Availability</th>
           <th scope="col" class="blacklight-request result__label d-none">Request</th>
           <% if items_have_notes?(items) %>
