@@ -47,7 +47,7 @@
         <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> sr-only<% end %>">
           <%= render_index_field_label document, label: field_presenter.label, field: field_name %>
         </dt>
-        <dd class="blacklight-<%= field_name.parameterize %> result__value muted"><%= field_presenter.render %></dd>
+        <dd class="blacklight-<%= field_name.parameterize %> result__value muted font-weight-bold"><%= field_presenter.render %></dd>
       </div>
     <% end %>
   <% end -%>
