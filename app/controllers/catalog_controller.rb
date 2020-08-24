@@ -442,6 +442,7 @@ class CatalogController < ApplicationController
 
     config.add_search_field('call_number') do |field|
       field.qt = 'catalog-numtype-search'
+      field.include_in_advanced_search = false
       field.solr_local_parameters = {
         df: 'call_numbers_search',
       }
@@ -450,6 +451,7 @@ class CatalogController < ApplicationController
     config.add_search_field('sudoc') do |field|
       field.label = 'SuDocs'
       field.qt = 'catalog-numtype-search'
+      field.include_in_advanced_search = false
       field.solr_local_parameters = {
         df: 'sudocs_search',
       }
@@ -458,6 +460,7 @@ class CatalogController < ApplicationController
     config.add_search_field('standard_number') do |field|
       field.label = 'Standard Number (ISBN/ISSN)'
       field.qt = 'catalog-numtype-search'
+      field.include_in_advanced_search = false
       field.solr_local_parameters = {
         df: 'standard_numbers_search',
       }
@@ -466,6 +469,7 @@ class CatalogController < ApplicationController
     config.add_search_field('control_number') do |field|
       field.label = 'Control Number (LCCN/OCLC#)'
       field.qt = 'catalog-numtype-search'
+      field.include_in_advanced_search = false
       field.solr_local_parameters = {
         df: 'control_numbers_search',
       }
