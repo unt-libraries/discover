@@ -210,6 +210,15 @@ module ApplicationHelper
     end
   end
 
+  ##
+  # Checks the current search parameters to determine whether to show a control number field
+  # @param [Hash] params - Parameters of the current search
+  # @param [String] field_name - The name of the field to check
+  # @return [Boolean]
+  def display_control_number?(params, field_name)
+    params.present? && params[:search_field].present? && field_name.include?(params[:search_field])
+  end
+
   def accessible_remove_label(label, value)
     if label.blank?
       t('blacklight.search.filters.remove.value', value: value)

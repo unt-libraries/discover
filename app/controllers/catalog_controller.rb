@@ -250,7 +250,14 @@ class CatalogController < ApplicationController
     config.add_index_field 'publication_dates', label: 'Publication Date',
                                                 separator_options: { words_connector: '; ' },
                                                 no_label: true
-    config.add_index_field 'sudocs_display', no_label: true, label: 'SuDocs Numbers'
+    config.add_index_field 'sudocs_display', no_label: true, display: :control_numbers,
+                                             label: 'SuDocs Numbers'
+    config.add_index_field 'call_numbers_display', no_label: true, display: :control_numbers,
+                                                   label: 'Call Numbers'
+    config.add_index_field 'all_standard_numbers', no_label: true, display: :control_numbers,
+                                                   label: 'All Standard Numbers'
+    config.add_index_field 'all_control_numbers', no_label: true, display: :control_numbers,
+                                                  label: 'All Control Numbers'
     config.add_index_field 'items_json', label: 'Items', display: :availability
     config.add_index_field 'has_more_items', if: false
 
@@ -458,7 +465,7 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('standard_number') do |field|
-      field.label = 'Standard Number (ISBN/ISSN)'
+      field.label = 'Standard # (ISBN/ISSN)'
       field.qt = 'catalog-numtype-search'
       field.include_in_advanced_search = false
       field.solr_local_parameters = {
@@ -467,7 +474,7 @@ class CatalogController < ApplicationController
     end
 
     config.add_search_field('control_number') do |field|
-      field.label = 'Control Number (LCCN/OCLC#)'
+      field.label = 'Control # (LCCN/OCLC)'
       field.qt = 'catalog-numtype-search'
       field.include_in_advanced_search = false
       field.solr_local_parameters = {
