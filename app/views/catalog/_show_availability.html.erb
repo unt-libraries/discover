@@ -8,7 +8,7 @@
   <div class="card-body">
     <h3 id="show-availability" class="card-title anchor">Availability</h3>
     <div class="table-responsive">
-      <table class="table table-borderless table-striped table-hover" data-more-scope data-showing-less>
+      <table id="availabilityTable" class="table table-borderless table-striped table-hover" data-more-scope data-showing-less>
         <thead>
         <tr>
           <th scope="col" class="blacklight-location result__label">Location</th>
@@ -28,14 +28,14 @@
           <% end %>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="primaryItems">
         <% items.each_with_index do |item, index| %>
           <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item, item_index: index } %>
         <% end %>
         </tbody>
 
         <% if more_items %>
-          <tbody class="more-max d-none">
+          <tbody id="moreItems" class="more-max d-none">
           <% more_items.each_with_index do |item, index| %>
             <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item, item_index: index + 3, hidden: true } %>
           <% end %>

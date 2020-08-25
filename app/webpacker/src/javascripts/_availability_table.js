@@ -3,7 +3,7 @@ import {
   callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
   getServiceDeskData, getStatusData, updateAeonRequestUrl,
 } from './_availability_util';
-import { elRemoveClass, removeAllChildren } from './_utils';
+import {elAddClass, elRemoveClass, removeAllChildren} from './_utils';
 
 /**
  * FUNCTIONS FOR `SHOW` VIEWS
@@ -137,6 +137,62 @@ function updateShowLocationElement(itemEl, itemLocation) {
   locationEl.appendChild(createShowLocationLink(itemLocation));
 }
 
+function removeMissingItemElement(itemEl) {
+  if (itemEl.parentNode) {
+    itemEl.parentNode.removeChild(itemEl);
+  }
+}
+
+function repositionItemElements() {
+  const availTable = document.querySelector('#availabilityTable');
+  const primaryItems = availTable.querySelector('#primaryItems');
+  const moreItems = availTable.querySelector('#moreItems');
+  if (moreItems === null) return;
+
+  const primaryMax = 3;
+  const primaryCount = primaryItems.querySelectorAll('.item-row').length;
+
+  if (primaryCount < primaryMax) {
+    for (let i = 0; i < 3 - primaryCount; i++) {
+      const firstItem = moreItems.querySelector('.item-row');
+      firstItem.parentNode.removeChild(firstItem);
+      primaryItems.appendChild(firstItem);
+    }
+  }
+}
+
+function updateItemIndices() {
+  const availTable = document.querySelector('#availabilityTable');
+  const itemRows = availTable.querySelectorAll('.item-row');
+
+  itemRows.forEach((itemEl, index) => {
+    itemEl.dataset.itemIndex = index;
+  });
+}
+
+function updateCatalogRequestURLs() {
+  const availTable = document.querySelector('#availabilityTable');
+  const itemRows = availTable.querySelectorAll('.item-row');
+
+  itemRows.forEach((row) => {
+    if (row.dataset.itemRequestability !== 'catalog') return;
+
+    const rowIndex = row.dataset.itemIndex;
+    const requestCell = row.querySelector('.blacklight-request.result__value');
+    const requestLink = requestCell.querySelector('a');
+    const requestUrl = requestLink.href;
+    const catalogUrl = new URL(requestUrl);
+    const queryString = catalogUrl.search;
+    const params = new URLSearchParams(queryString);
+
+    catalogUrl.search = params.toString();
+
+    params.set('requestItemIndex', rowIndex);
+    catalogUrl.search = params.toString();
+    requestLink.href = catalogUrl.toString();
+  });
+}
+
 function updateShowUIError(items) {
   items.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
@@ -161,9 +217,15 @@ function updateShowUI(foundItems = [], missingItems = []) {
 
   missingItems.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
-    updateShowStatusElement(itemEl);
+    removeMissingItemElement(itemEl);
     console.log(`Item ${item} not returned by the API`);
   });
+
+  if (missingItems.length > 0) {
+    updateItemIndices();
+    repositionItemElements();
+    updateCatalogRequestURLs();
+  }
 }
 
 function updateShowNoApiItems() {

@@ -69,7 +69,8 @@ class AvailabilityController < ApplicationController
     uri = "https://iii.library.unt.edu/iii/sierra-api/v5/items/?"
     bib_ids = "id=#{@bib_id_string}"
     fields = "fields=location,status"
-    response = HTTParty.get("#{uri}#{bib_ids}&#{fields}", options)
+    suppressed = "suppressed=false"
+    response = HTTParty.get("#{uri}#{bib_ids}&#{fields}&#{suppressed}", options)
 
     # TODO: Need to work on error handling
     api_error_codes = [
