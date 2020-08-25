@@ -235,24 +235,30 @@ module UrlHelper
     case requestability
     when 'catalog'
       url = construct_catalog_request_url(document, item_index: item_index)
-      text = "Delivery Options"
+      text = "<i class='fal fa-fw fa-truck'></i> Request pickup"
       el_class = "request-catalog"
       data['bib-title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
       data['aeon-url'] = construct_aeon_url(document)
       data['illiad-url'] = construct_illiad_url(document)
+      data['toggle'] = 'tooltip'
+      data['title'] = 'Place a request to have this item delivered to a pickup location when it becomes available.'
     when 'jlf'
       url = construct_illiad_url(document, item: item)
-      text = "Request through ILLiad"
+      text = "<i class='fal fa-fw fa-warehouse-alt'></i> Request from JLF Remote"
       el_class = "request-illiad"
+      data['toggle'] = 'tooltip'
+      data['title'] = 'This item is located at the Joint Library Facility Remote Storage location. Request it through ILLiad.'
     when 'aeon'
       url = construct_aeon_url(document, item: item)
-      text = "Request through Aeon"
+      text = "<i class='fal fa-fw fa-archive'></i> Request on-site use"
       el_class = "request-aeon"
+      data['toggle'] = 'tooltip'
+      data['title'] = 'This item is not available for checkout. Place a request to use it in a reading room at the library.'
     else
       return 'Cannot request this item'
     end
 
-    link_to text, url, class: el_class, target: "_blank", rel: 'noopener',
+    link_to text.html_safe, url, class: el_class, target: "_blank", rel: 'noopener',
                        data: data,
                        'ga-on': 'click',
                        'ga-event-category': 'Bib Record',
