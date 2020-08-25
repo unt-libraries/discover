@@ -1,9 +1,15 @@
 import moment from 'moment';
 import {
-  callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
-  getServiceDeskData, getStatusData, updateAeonRequestUrl,
+  callSierraApi,
+  findMissing,
+  getItemsIDs,
+  getLocationData,
+  getPlaceholderItemsElements,
+  getServiceDeskData,
+  getStatusData,
+  updateAeonRequestUrl,
 } from './_availability_util';
-import {elAddClass, elRemoveClass, removeAllChildren} from './_utils';
+import {elAddClass, elHasClass, elRemoveClass, removeAllChildren,} from './_utils';
 
 /**
  * FUNCTIONS FOR `SHOW` VIEWS
@@ -143,6 +149,40 @@ function removeMissingItemElement(itemEl) {
   }
 }
 
+function addNoItemsMessage() {
+  const itemAvailabilityCard = document.querySelector('.item-availability');
+  const cardBody = itemAvailabilityCard.querySelector('.card-body');
+  const newEl = document.createElement('div');
+
+  newEl.innerHTML = 'No items found. Please contact the <a target="_blank" href="https://library.unt.edu/willis/service-desk/">Willis Library Service Desk</a> for assistance';
+  cardBody.appendChild(newEl);
+}
+
+function checkMoreLink() {
+  const availTable = document.querySelector('#availabilityTable');
+  const moreItemsTable = availTable.querySelector('tbody#moreItems');
+  const moreLessButton = availTable.querySelector('tbody#moreLessButton');
+
+  if (moreItemsTable.childElementCount === 0 && !elHasClass(moreLessButton, 'd-none')) {
+    elAddClass(moreLessButton, 'd-none');
+  } else {
+    elRemoveClass(moreLessButton, 'd-none');
+  }
+}
+
+function checkEmptyTable() {
+  const availTable = document.querySelector('#availabilityTable');
+  const primaryItems = availTable.querySelector('tbody#primaryItems');
+  const moreItems = availTable.querySelector('tbody#moreItems');
+
+  if (primaryItems.childElementCount === 0 && moreItems.childElementCount === 0) {
+    if (availTable.parentNode) {
+      availTable.parentNode.removeChild(availTable);
+    }
+    addNoItemsMessage();
+  }
+}
+
 function repositionItemElements() {
   const availTable = document.querySelector('#availabilityTable');
   const primaryItems = availTable.querySelector('#primaryItems');
@@ -153,7 +193,7 @@ function repositionItemElements() {
   const primaryCount = primaryItems.querySelectorAll('.item-row').length;
 
   if (primaryCount < primaryMax) {
-    for (let i = 0; i < 3 - primaryCount; i++) {
+    for (let i = 0; i < 3 - primaryCount; i += 1) {
       const firstItem = moreItems.querySelector('.item-row');
       firstItem.parentNode.removeChild(firstItem);
       primaryItems.appendChild(firstItem);
@@ -166,6 +206,7 @@ function updateItemIndices() {
   const itemRows = availTable.querySelectorAll('.item-row');
 
   itemRows.forEach((itemEl, index) => {
+    // eslint-disable-next-line no-param-reassign
     itemEl.dataset.itemIndex = index;
   });
 }
@@ -185,21 +226,25 @@ function updateCatalogRequestURLs() {
     const queryString = catalogUrl.search;
     const params = new URLSearchParams(queryString);
 
-    catalogUrl.search = params.toString();
-
     params.set('requestItemIndex', rowIndex);
     catalogUrl.search = params.toString();
     requestLink.href = catalogUrl.toString();
   });
 }
 
-function updateShowUIError(items) {
+function updateShowUIError(items, error = undefined) {
   items.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
     if (itemEl === null) return;
-    const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-    availabilityEl.innerText = 'Ask at the Service Desk';
+    if (error === 107) {
+      removeMissingItemElement(itemEl);
+    } else {
+      const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
+      availabilityEl.innerText = 'Ask at the Service Desk';
+    }
   });
+  checkMoreLink();
+  checkEmptyTable();
 }
 
 /**
@@ -225,6 +270,8 @@ function updateShowUI(foundItems = [], missingItems = []) {
     updateItemIndices();
     repositionItemElements();
     updateCatalogRequestURLs();
+    checkMoreLink();
+    checkEmptyTable();
   }
 }
 
@@ -248,7 +295,7 @@ function checkAvailability() {
     callSierraApi(chunk, (response) => {
       if (response.httpStatus) {
         console.log(`Sierra API error ${response.code}: ${response.name}`);
-        updateShowUIError(chunk);
+        updateShowUIError(chunk, response.code);
       } else {
         const foundItems = response.entries;
         const missingItems = findMissing(foundItems, chunk);
