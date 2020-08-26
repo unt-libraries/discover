@@ -43,6 +43,20 @@
         <i class="fab fa-fw fa-google"></i><%= link_to_google_scholar_search(@document) %>
       </li>
 
+      <li class="list-group-item show-tools-item borrow-info-tool" data-tool-item="borrow-info">
+        <i class="fal fa-fw fa-barcode-read"></i><%= link_to 'Borrowing Info',
+                                                             'https://library.unt.edu/services/borrowing/',
+                                                             class: 'nav-link',
+                                                             id: 'borrowingInfoLink',
+                                                             target: '_blank',
+                                                             rel: 'noopener',
+                                                             'ga-on': 'click',
+                                                             'ga-event-category': 'Bib Record',
+                                                             'ga-event-action': 'Tools link click',
+                                                             'ga-event-label': 'Borrowing Info',
+                                                             'ga-event-value': '1' %>
+      </li>
+
       <li class="list-group-item show-tools-item catalog-tool" data-tool-item="catalog">
         <i class="fa fa-fw fa-scroll-old"></i><%= link_to_old_catalog(@document) %>
       </li>
