@@ -386,6 +386,10 @@ const locationData = {
   w1ndc: {
     name: 'Willis 1FL New Books',
   },
+  w1prs: {
+    name: 'Willis 1FL Temporary Reference Collection',
+    abbr: 'Willis 1FL Temp',
+  },
   w1upr: {
     name: 'Willis 1FL UNT Press',
     abbr: 'Willis UNT Press',
