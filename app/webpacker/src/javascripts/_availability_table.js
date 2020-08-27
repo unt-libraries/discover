@@ -195,8 +195,10 @@ function repositionItemElements() {
   if (primaryCount < primaryMax) {
     for (let i = 0; i < 3 - primaryCount; i += 1) {
       const firstItem = moreItems.querySelector('.item-row');
-      firstItem.parentNode.removeChild(firstItem);
-      primaryItems.appendChild(firstItem);
+      if (firstItem !== null) {
+        firstItem.parentNode.removeChild(firstItem);
+        primaryItems.appendChild(firstItem);
+      }
     }
   }
 }
@@ -224,10 +226,8 @@ function updateCatalogRequestURLs() {
     const requestUrl = requestLink.href;
     const catalogUrl = new URL(requestUrl);
     const queryString = catalogUrl.search;
-    const params = new URLSearchParams(queryString);
 
-    params.set('requestItemIndex', rowIndex);
-    catalogUrl.search = params.toString();
+    catalogUrl.search = queryString.replace(/(requestItemIndex=)(\d*)/i, `$1${rowIndex}`);
     requestLink.href = catalogUrl.toString();
   });
 }
@@ -275,6 +275,9 @@ function updateShowUI(foundItems = [], missingItems = []) {
   }
 }
 
+/**
+ * Update UI elements for items that are "fake" and should not be included in the API call
+ */
 function updateShowNoApiItems() {
   const noApiElements = getPlaceholderItemsElements();
 
