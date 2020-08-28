@@ -141,7 +141,8 @@
         margin-bottom: 1rem;
       }
 
-      .more-available {
+      .more-available,
+      .check-availability {
         @extend .btn;
         @extend .btn-sm;
         @extend .btn-block;

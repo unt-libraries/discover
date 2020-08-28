@@ -79,3 +79,10 @@ export function actWithTimeOut(callback, optTimeout) {
   setTimeout(fn, optTimeout || 1000);
   return fn;
 }
+
+// Safe IE-friendly way to remove an element
+export function removeElement(element) {
+  if (element.parentNode) {
+    element.parentNode.removeChild(element);
+  }
+}

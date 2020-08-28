@@ -9,7 +9,9 @@ import {
   getStatusData,
   updateAeonRequestUrl,
 } from './_availability_util';
-import {elAddClass, elHasClass, elRemoveClass, removeAllChildren,} from './_utils';
+import {
+  elAddClass, elHasClass, elRemoveClass, removeAllChildren, removeElement,
+} from './_utils';
 
 /**
  * FUNCTIONS FOR `SHOW` VIEWS
@@ -143,12 +145,6 @@ function updateShowLocationElement(itemEl, itemLocation) {
   locationEl.appendChild(createShowLocationLink(itemLocation));
 }
 
-function removeMissingItemElement(itemEl) {
-  if (itemEl.parentNode) {
-    itemEl.parentNode.removeChild(itemEl);
-  }
-}
-
 function addNoItemsMessage() {
   const itemAvailabilityCard = document.querySelector('.item-availability');
   const cardBody = itemAvailabilityCard.querySelector('.card-body');
@@ -237,7 +233,7 @@ function updateShowUIError(items, error = undefined) {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
     if (itemEl === null) return;
     if (error === 107) {
-      removeMissingItemElement(itemEl);
+      removeElement(itemEl);
     } else {
       const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
       availabilityEl.innerText = 'Ask at the Service Desk';
@@ -262,7 +258,7 @@ function updateShowUI(foundItems = [], missingItems = []) {
 
   missingItems.forEach((item) => {
     const itemEl = document.querySelector(`[data-item-id='${item}']`);
-    removeMissingItemElement(itemEl);
+    removeElement(itemEl);
     console.log(`Item ${item} not returned by the API`);
   });
 

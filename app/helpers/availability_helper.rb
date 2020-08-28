@@ -83,7 +83,7 @@ module AvailabilityHelper
   end
 
   def render_availability_text(item)
-    element_text = item['i'].blank? ? "Ask at the service desk" : item['i']
+    element_text = item['i'].blank? ? "Ask at the service desk" : ''
     content_tag(:div, element_text,
                 {
                   class: "availability-text #{'d-none' if item['i'].present?}",
@@ -137,6 +137,22 @@ module AvailabilityHelper
                            'ga-event-value': '1' do
           "More available"
         end
+      end
+    end
+  end
+
+  def render_check_availability_btn(document, counter)
+    avail_context_href = document_availability_context_href(document, counter)
+    avail_url = document_availability_href(document)
+    content_tag(:div,
+                { class: 'no-items' }) do
+      link_to avail_url, class: "check-availability d-none", data: { "context-href": avail_context_href },
+                         'ga-on': 'click',
+                         'ga-event-category': 'List Item Link',
+                         'ga-event-action': 'Availability button click',
+                         'ga-event-label': 'Check availability',
+                         'ga-event-value': '1' do
+        "Check availability"
       end
     end
   end
