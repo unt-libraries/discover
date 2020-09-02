@@ -7,6 +7,7 @@ import {
   getPlaceholderItemsElements,
   getServiceDeskData,
   getStatusData,
+  itemsFromPromises,
   updateAeonRequestUrl,
 } from './_availability_util';
 import {
@@ -22,7 +23,7 @@ import {
  * @param {Object} itemLocation
  * @return {(HTMLElement)}
  */
-function createShowLocationLink(itemLocation) {
+function createLocationLink(itemLocation) {
   const locationData = getLocationData(itemLocation.code);
   const locationText = locationData.name ? locationData.name : itemLocation.name;
   const linkText = locationData.linkText ? locationData.linkText : itemLocation.name;
@@ -48,7 +49,7 @@ function createShowLocationLink(itemLocation) {
  * @param {Object} itemStatus
  * @return {(HTMLElement)}
  */
-function createShowStatusElement(itemStatus) {
+function createStatusElement(itemStatus) {
   const statusCode = itemStatus.code;
   const statusDueDate = itemStatus.duedate;
   const statusData = getStatusData(statusCode);
@@ -77,11 +78,45 @@ function createShowStatusElement(itemStatus) {
 }
 
 /**
+ * Determine whether to show the request column if one of the items is not an online item
+ * @param {(HTMLElement|Element)} itemEl
+ * @param {Object} itemStatus
+ * @return {Boolean} Whether to show the request column
+ */
+function shouldShowRequestColumn(itemEl, itemStatus) {
+  if (itemStatus.code === 'w') return false;
+  const availTableBody = itemEl.parentNode;
+  const availRows = availTableBody.querySelectorAll('.item-row');
+  let requestColumn = false;
+
+  availRows.forEach((el) => {
+    if (el.dataset.itemRequestability) {
+      requestColumn = true;
+    }
+  });
+  return requestColumn;
+}
+
+/**
+ * Reveal the request column for all items
+ * @param {(HTMLElement|Element)} itemEl
+ */
+function revealRequestColumn(itemEl) {
+  const availTableBody = itemEl.parentNode;
+  const availTable = availTableBody.parentNode;
+  const requestEls = availTable.querySelectorAll('.blacklight-request.d-none');
+
+  requestEls.forEach((el) => {
+    elRemoveClass(el, 'd-none');
+  });
+}
+
+/**
  * Updates the status element for an item, including due date
  * @param {(HTMLElement|Element)} itemEl
  * @param {Object} itemStatus
  */
-function updateShowStatusElement(itemEl, itemStatus = null) {
+function updateStatusElement(itemEl, itemStatus = null) {
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
 
   if (!itemStatus) {
@@ -91,27 +126,11 @@ function updateShowStatusElement(itemEl, itemStatus = null) {
 
   availabilityEl.dataset.statusCode = itemStatus.code;
   removeAllChildren(availabilityEl);
-  availabilityEl.appendChild(createShowStatusElement(itemStatus));
+  availabilityEl.appendChild(createStatusElement(itemStatus));
 
   // Show the Request column if this isn't an online only record
-  if (itemStatus.code !== 'w') {
-    const availTableBody = itemEl.parentNode;
-    const availTable = availTableBody.parentNode;
-    const availRows = availTableBody.querySelectorAll('.item-row');
-    const requestEls = availTable.querySelectorAll('.blacklight-request.d-none');
-    let requestColumn = false;
-
-    availRows.forEach((el) => {
-      if (el.dataset.itemRequestability) {
-        requestColumn = true;
-      }
-    });
-
-    if (requestColumn) {
-      requestEls.forEach((el) => {
-        elRemoveClass(el, 'd-none');
-      });
-    }
+  if (shouldShowRequestColumn(itemEl, itemStatus)) {
+    revealRequestColumn(itemEl);
   }
 }
 
@@ -120,7 +139,7 @@ function updateShowStatusElement(itemEl, itemStatus = null) {
  * @param {(HTMLElement|Element)} itemEl
  * @param {Object} itemLocation
  */
-function updateShowLocationElement(itemEl, itemLocation) {
+function updateLocationElement(itemEl, itemLocation) {
   if (!itemLocation) return;
 
   const locationEl = itemEl.querySelector('.blacklight-location.result__value');
@@ -142,7 +161,7 @@ function updateShowLocationElement(itemEl, itemLocation) {
     linkEl.dataset.aeonUrl = updateAeonRequestUrl(linkEl.dataset.aeonUrl, itemLocation);
   }
 
-  locationEl.appendChild(createShowLocationLink(itemLocation));
+  locationEl.appendChild(createLocationLink(itemLocation));
 }
 
 function addNoItemsMessage() {
@@ -228,9 +247,11 @@ function updateCatalogRequestURLs() {
   });
 }
 
-function updateShowUIError(items, error = undefined) {
+function updateUIError(items, error = undefined) {
+  const availabilityTable = document.getElementById('availabilityTable');
+
   items.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item}']`);
+    const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
     if (itemEl === null) return;
     if (error === 107) {
       removeElement(itemEl);
@@ -248,18 +269,20 @@ function updateShowUIError(items, error = undefined) {
  * @param {Array} foundItems
  * @param {Array} missingItems
  */
-function updateShowUI(foundItems = [], missingItems = []) {
+function updateUI(foundItems = [], missingItems = []) {
+  const availabilityTable = document.getElementById('availabilityTable');
+
   foundItems.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item.id}']`);
+    const itemEl = availabilityTable.querySelector(`[data-item-id='${item.id}']`);
     if (itemEl === null) return;
-    updateShowStatusElement(itemEl, item.status);
-    updateShowLocationElement(itemEl, item.location);
+    updateStatusElement(itemEl, item.status);
+    updateLocationElement(itemEl, item.location);
   });
 
   missingItems.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item}']`);
+    const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
     removeElement(itemEl);
-    console.log(`Item ${item} not returned by the API`);
+    // console.log(`Item ${item} not returned by the API`);
   });
 
   if (missingItems.length > 0) {
@@ -274,7 +297,7 @@ function updateShowUI(foundItems = [], missingItems = []) {
 /**
  * Update UI elements for items that are "fake" and should not be included in the API call
  */
-function updateShowNoApiItems() {
+function updateNoApiItems() {
   const noApiElements = getPlaceholderItemsElements();
 
   noApiElements.forEach((item) => {
@@ -285,23 +308,41 @@ function updateShowNoApiItems() {
   });
 }
 
-function checkAvailability() {
-  const itemBibs = getItemsIDs();
+/**
+ * Main function for checking availability on Show view.
+ * @returns {Promise<void>}
+ */
+async function checkAvailability() {
+  const chunkedItemBibs = getItemsIDs();
+  let allItemBibs = chunkedItemBibs.flat();
 
-  updateShowNoApiItems();
+  updateNoApiItems();
 
-  itemBibs.forEach((chunk) => {
-    callSierraApi(chunk, (response) => {
-      if (response.httpStatus) {
-        console.log(`Sierra API error ${response.code}: ${response.name}`);
-        updateShowUIError(chunk, response.code);
-      } else {
-        const foundItems = response.entries;
-        const missingItems = findMissing(foundItems, chunk);
-        updateShowUI(foundItems, missingItems);
-      }
-    });
+  // Create a map of chunked bib numbers that will return promises
+  const promises = chunkedItemBibs.map(async (chunk) => {
+    try {
+      return await callSierraApi(chunk);
+    } catch (error) {
+      // Update items that returned a Sierra API error and remove them from further UI updates
+      // console.log(`Sierra API error ${error.code}: ${error.name}`);
+      updateUIError(chunk, error.code);
+      allItemBibs = allItemBibs.filter((el) => !chunk.includes(el));
+      return error;
+    }
   });
+
+  await Promise.allSettled(promises)
+    .then((result) => {
+      let foundItems = itemsFromPromises(result);
+
+      // Error from the Sierra API
+      if (foundItems[0] === undefined) {
+        foundItems = [];
+      }
+
+      const missingItems = findMissing(foundItems, allItemBibs);
+      updateUI(foundItems, missingItems);
+    });
 }
 
 export {
