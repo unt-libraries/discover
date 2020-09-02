@@ -248,7 +248,7 @@ function updateCatalogRequestURLs() {
 }
 
 function updateUIError(items, error = undefined) {
-  const availabilityTable = document.getElementById('availabilityTable');
+  const availabilityTable = document.querySelector('#availabilityTable');
 
   items.forEach((item) => {
     const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
@@ -270,7 +270,7 @@ function updateUIError(items, error = undefined) {
  * @param {Array} missingItems
  */
 function updateUI(foundItems = [], missingItems = []) {
-  const availabilityTable = document.getElementById('availabilityTable');
+  const availabilityTable = document.querySelector('#availabilityTable');
 
   foundItems.forEach((item) => {
     const itemEl = availabilityTable.querySelector(`[data-item-id='${item.id}']`);

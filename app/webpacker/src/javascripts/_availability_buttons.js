@@ -123,33 +123,37 @@ function combineDuplicates() {
 
   buttonContainers.forEach((container) => {
     const availInfo = container.querySelectorAll('.result__field');
+    if (availInfo.length === 0) return;
 
-    if (availInfo.length > 0) {
-      const usedText = [];
-      availInfo.forEach((infoEl) => {
-        const { innerText } = infoEl;
-        if (usedText.includes(innerText)) {
-          removeElement(infoEl);
-        } else {
-          usedText.push(innerText);
-        }
-      });
-    }
+    const usedText = [];
+    availInfo.forEach((infoEl) => {
+      const { innerText } = infoEl;
+      if (usedText.includes(innerText)) {
+        removeElement(infoEl);
+      } else {
+        usedText.push(innerText);
+      }
+    });
   });
 }
 
 function updateUIError(items, error = undefined) {
-  const documentsEl = document.getElementById('documents');
+  const documentsEl = document.querySelector('#documents');
 
   items.forEach((item) => {
-    const itemEl = documentsEl.querySelector(`[data-item-id='${item}']`);
-    if (itemEl === null) return;
+    const itemEls = documentsEl.querySelectorAll(`[data-item-id='${item}']`);
+    if (itemEls.length === 0) return;
+
     if (error === 107) {
-      removeElement(itemEl);
+      itemEls.forEach((node) => {
+        removeElement(node);
+      });
     } else {
-      const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-      const availabilityBtn = availabilityEl.querySelector('.availability-btn');
-      availabilityBtn.innerText = 'Ask at the Service Desk';
+      itemEls.forEach((node) => {
+        const availabilityEl = node.querySelector('.blacklight-availability.result__value');
+        const availabilityBtn = availabilityEl.querySelector('.availability-btn');
+        availabilityBtn.innerText = 'Ask at the Service Desk';
+      });
     }
   });
 }
@@ -160,17 +164,22 @@ function updateUIError(items, error = undefined) {
  * @param {Array} missingItems
  */
 function updateUI(foundItems = [], missingItems = []) {
-  const documentsEl = document.getElementById('documents');
+  const documentsEl = document.querySelector('#documents');
 
   foundItems.forEach((item) => {
-    const itemEl = documentsEl.querySelector(`[data-item-id='${item.id}']`);
-    if (itemEl === null) return;
-    updateStatusElement(itemEl, item);
+    const itemEls = documentsEl.querySelectorAll(`[data-item-id='${item.id}']`);
+    if (itemEls.length === 0) return;
+    itemEls.forEach((node) => {
+      updateStatusElement(node, item);
+    });
   });
 
   missingItems.forEach((item) => {
-    const itemEl = documentsEl.querySelector(`[data-item-id='${item}']`);
-    updateStatusElement(itemEl);
+    const itemEls = documentsEl.querySelectorAll(`[data-item-id='${item}']`);
+    if (itemEls.length === 0) return;
+    itemEls.forEach((node) => {
+      updateStatusElement(node);
+    });
     // console.log(`Item ${item} not returned by the API`);
   });
 }
