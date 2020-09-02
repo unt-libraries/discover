@@ -9,13 +9,15 @@ if (analytics.allowTracking()) {
   })(window,document,'script',gaUrl,'ga');
 
   // Load additional tracking scripts
-  analytics.init();
-  analytics.trackErrors();
-  analytics.trackSearchForm();
-  analytics.trackShowRecordFacets();
-  analytics.trackNoContextDocPosition();
-  analytics.trackWebVitals();
-  analytics.addBrowserInfoToFeedback();
+  document.addEventListener('turbolinks:load', () => {
+    analytics.init();
+    analytics.trackErrors();
+    analytics.trackSearchForm();
+    analytics.trackShowRecordFacets();
+    analytics.trackNoContextDocPosition();
+    analytics.trackWebVitals();
+    analytics.addBrowserInfoToFeedback();
+  });
 } else {
   console.log('Respecting browser Do Not Track')
 }

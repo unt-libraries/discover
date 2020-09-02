@@ -66,7 +66,7 @@ function trackErrors() {
         const errLine = e.lineno || ie.errorLine;
         const gaCat = 'JavaScript Error';
         const gaAction = `${errMsg} in: ${errSrc} on line ${errLine}`;
-        const bodyEl = document.querySelector('body');
+        const bodyEl = document.body;
         const gaLabel = bodyEl.dataset.blacklightContext;
         const url = document.location.href;
 
@@ -80,7 +80,7 @@ function trackErrors() {
 
 // Track submittes searches
 function trackSearchForm() {
-  const bodyEl = document.querySelector('body');
+  const bodyEl = document.body;
   const searchForms = bodyEl.querySelectorAll('.search-query-form');
 
   searchForms.forEach((node) => {
@@ -116,7 +116,7 @@ function trackSearchForm() {
 
 // Track Bib Record clicks
 function trackShowRecordFacets() {
-  const bodyEl = document.querySelector('body');
+  const bodyEl = document.body;
   const viewContext = bodyEl.dataset.blacklightContext;
   if (viewContext !== 'show') return;
   const mainContainer = bodyEl.querySelector('#main-container');
@@ -140,7 +140,7 @@ function trackShowRecordFacets() {
 // Track the position in search results of a document when clicked
 // Called from the Blacklight search context handler
 function trackDocPosition(link) {
-  const bodyEl = document.querySelector('body');
+  const bodyEl = document.body;
   const viewContext = bodyEl.dataset.blacklightContext;
   if (viewContext !== 'index') return;
 
@@ -157,7 +157,7 @@ function trackDocPosition(link) {
 
 // Track document position for links not bound in Blacklight search context
 function trackNoContextDocPosition() {
-  const bodyEl = document.querySelector('body');
+  const bodyEl = document.body;
   const viewContext = bodyEl.dataset.blacklightContext;
   if (viewContext !== 'index') return;
   const docContainer = bodyEl.querySelector('#documents');
