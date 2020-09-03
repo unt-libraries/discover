@@ -176,6 +176,7 @@ function addNoItemsMessage() {
 function checkMoreLink() {
   const availTable = document.querySelector('#availabilityTable');
   const moreItemsTable = availTable.querySelector('tbody#moreItems');
+  if (moreItemsTable === null) return;
   const moreLessButton = availTable.querySelector('tbody#moreLessButton');
 
   if (moreItemsTable.childElementCount === 0 && !elHasClass(moreLessButton, 'd-none')) {
@@ -187,13 +188,12 @@ function checkMoreLink() {
 
 function checkEmptyTable() {
   const availTable = document.querySelector('#availabilityTable');
-  const primaryItems = availTable.querySelector('tbody#primaryItems');
-  const moreItems = availTable.querySelector('tbody#moreItems');
+  if (availTable === null) return;
+  const primaryItems = availTable.querySelectorAll('tbody#primaryItems .item-row');
+  const moreItems = availTable.querySelectorAll('tbody#moreItems .item-row');
 
-  if (primaryItems.childElementCount === 0 && moreItems.childElementCount === 0) {
-    if (availTable.parentNode) {
-      availTable.parentNode.removeChild(availTable);
-    }
+  if (primaryItems.length === 0 && moreItems.length === 0) {
+    removeElement(availTable);
     addNoItemsMessage();
   }
 }
@@ -220,6 +220,7 @@ function repositionItemElements() {
 
 function updateItemIndices() {
   const availTable = document.querySelector('#availabilityTable');
+  if (availTable === null) return;
   const itemRows = availTable.querySelectorAll('.item-row');
 
   itemRows.forEach((itemEl, index) => {
@@ -230,6 +231,7 @@ function updateItemIndices() {
 
 function updateCatalogRequestURLs() {
   const availTable = document.querySelector('#availabilityTable');
+  if (availTable === null) return;
   const itemRows = availTable.querySelectorAll('.item-row');
 
   itemRows.forEach((row) => {
@@ -249,6 +251,7 @@ function updateCatalogRequestURLs() {
 
 function updateUIError(items, error = undefined) {
   const availabilityTable = document.querySelector('#availabilityTable');
+  if (availabilityTable === null) return;
 
   items.forEach((item) => {
     const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
@@ -260,8 +263,11 @@ function updateUIError(items, error = undefined) {
       availabilityEl.innerText = 'Ask at the Service Desk';
     }
   });
-  checkMoreLink();
-  checkEmptyTable();
+  if (error === 107) {
+    updateItemIndices();
+    repositionItemElements();
+    updateCatalogRequestURLs();
+  }
 }
 
 /**
@@ -271,6 +277,7 @@ function updateUIError(items, error = undefined) {
  */
 function updateUI(foundItems = [], missingItems = []) {
   const availabilityTable = document.querySelector('#availabilityTable');
+  if (availabilityTable === null) return;
 
   foundItems.forEach((item) => {
     const itemEl = availabilityTable.querySelector(`[data-item-id='${item.id}']`);
@@ -281,6 +288,7 @@ function updateUI(foundItems = [], missingItems = []) {
 
   missingItems.forEach((item) => {
     const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
+    if (itemEl === null) return;
     removeElement(itemEl);
     // console.log(`Item ${item} not returned by the API`);
   });
@@ -289,8 +297,6 @@ function updateUI(foundItems = [], missingItems = []) {
     updateItemIndices();
     repositionItemElements();
     updateCatalogRequestURLs();
-    checkMoreLink();
-    checkEmptyTable();
   }
 }
 
@@ -302,6 +308,7 @@ function updateNoApiItems() {
 
   noApiElements.forEach((item) => {
     const locationEl = item.querySelector('.blacklight-location.result__value');
+    if (locationEl === null) return;
     const locationCode = locationEl.dataset.itemLocation;
     const serviceDesk = getServiceDeskData(locationCode);
     locationEl.innerHTML = `Ask at the <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
@@ -342,6 +349,9 @@ async function checkAvailability() {
 
       const missingItems = findMissing(foundItems, allItemBibs);
       updateUI(foundItems, missingItems);
+    }).finally(() => {
+      checkMoreLink();
+      checkEmptyTable();
     });
 }
 
