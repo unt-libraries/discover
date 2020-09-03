@@ -1,6 +1,21 @@
 // Availability on index template
 .blacklight-catalog-index {
   .documents-list {
+    .loading-spinner {
+      & span {
+        @extend .spinner-grow;
+        @extend .spinner-grow-sm;
+
+        &:nth-child(2) {
+          animation-delay: 0.16s;
+        }
+
+        &:nth-child(3) {
+          animation-delay: 0.32s;
+        }
+      }
+    }
+
     .item-availability {
       font-size: 0.9rem;
       color: $text-muted;
@@ -116,21 +131,6 @@
             &:hover,
             &:focus {
               background-color: darken(theme-color('gray-light'), 5%);
-            }
-          }
-
-          & .loading-spinner {
-            & span {
-              @extend .spinner-grow;
-              @extend .spinner-grow-sm;
-
-              &:nth-child(2) {
-                animation-delay: 0.16s;
-              }
-
-              &:nth-child(3) {
-                animation-delay: 0.32s;
-              }
             }
           }
         }

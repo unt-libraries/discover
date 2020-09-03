@@ -2,7 +2,11 @@
    id = document[:id]
    counter = document_counter_with_offset(document_counter)%>
 
-<div class="item-availability d-flex flex-column">
+<div class="item-loading-spinner text-center">
+  <%= render 'shared/loading-spinner' %>
+</div>
+
+<div class="item-availability d-none flex-column">
   <% if document_online_urls document %>
     <div class="result__field d-flex flex-column"
          data-item-id=""
@@ -13,6 +17,7 @@
       </span>
     </div>
   <% end %>
+
 
   <% items.each do |item| %>
     <div class="result__field d-flex flex-column"

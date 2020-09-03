@@ -47,7 +47,7 @@ function updateStatusElement(itemEl, item = null) {
     }
 
     if (statusBtnClass) {
-      elRemoveClass(availabilityBtn, 'loading', 'disabled');
+      elRemoveClass(availabilityBtn,'disabled');
       elAddClass(availabilityBtn, statusBtnClass);
     }
 
@@ -198,6 +198,20 @@ function updateNoApiItems() {
   });
 }
 
+function revealButtonContainers() {
+  const documentsList = document.querySelector('#documents');
+  const loadingElements = documentsList.querySelectorAll('.item-loading-spinner');
+  const buttonContainers = documentsList.querySelectorAll('.item-availability');
+
+  buttonContainers.forEach((node) => {
+    elAddClass(node, 'd-flex');
+    elRemoveClass(node, 'd-none');
+  });
+  loadingElements.forEach((node) => {
+    removeElement(node);
+  });
+}
+
 /**
  * Main function for checking availability on Index view.
  * @returns {Promise<void>}
@@ -236,6 +250,7 @@ async function checkAvailability() {
     .finally(() => {
       checkForNoButtons();
       combineDuplicates();
+      revealButtonContainers();
     });
 }
 

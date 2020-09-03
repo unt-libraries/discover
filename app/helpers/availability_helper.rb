@@ -67,11 +67,9 @@ module AvailabilityHelper
 
     if item['i'].blank?
       link_text = 'Contact the Service Desk'
-    else
-      link_text = render "shared/loading-spinner"
     end
 
-    link_to avail_url, class: "availability-btn loading disabled",
+    link_to avail_url, class: "availability-btn disabled",
                        data: { "context-href": avail_context_href },
                        'ga-on': 'click',
                        'ga-event-category': 'List Item Link',
