@@ -56,7 +56,7 @@ module AvailabilityHelper
     return unless online_count == 1
     online_item = online_items[0]
     if online_item['n'].present?
-      element_text = online_item['n']
+      element_text = online_item['n'].html_safe
       content_tag(:div, element_text)
     end
   end
