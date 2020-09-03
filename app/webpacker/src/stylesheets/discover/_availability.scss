@@ -50,7 +50,7 @@
           font-weight: 700;
           padding: 0.15rem 0.5rem;
 
-          &.loading {
+          &.disabled {
             color: theme-color('gray-light');
             background-color: white;
             border-color: theme-color('gray-light');
