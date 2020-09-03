@@ -200,15 +200,18 @@ function updateNoApiItems() {
 
 function revealButtonContainers() {
   const documentsList = document.querySelector('#documents');
-  const loadingElements = documentsList.querySelectorAll('.item-loading-spinner');
   const buttonContainers = documentsList.querySelectorAll('.item-availability');
 
   buttonContainers.forEach((node) => {
-    elAddClass(node, 'd-flex');
-    elRemoveClass(node, 'd-none');
-  });
-  loadingElements.forEach((node) => {
-    removeElement(node);
+    const parent = node.parentNode;
+    const loading = parent.querySelector('.item-loading-spinner');
+    if (loading === null) return;
+
+    loading.addEventListener('transitionend', () => {
+      removeElement(loading);
+      elAddClass(node, 'show');
+    });
+    elAddClass(loading, 'hide');
   });
 }
 

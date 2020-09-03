@@ -1,24 +1,43 @@
 // Availability on index template
 .blacklight-catalog-index {
   .documents-list {
-    .loading-spinner {
-      & span {
-        @extend .spinner-grow;
-        @extend .spinner-grow-sm;
+    .item-loading-spinner {
+      &.hide {
+        height: 1.75rem;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
 
-        &:nth-child(2) {
-          animation-delay: 0.16s;
-        }
+      .loading-spinner {
+        & span {
+          @extend .spinner-grow;
+          @extend .spinner-grow-sm;
 
-        &:nth-child(3) {
-          animation-delay: 0.32s;
+          &:nth-child(2) {
+            animation-delay: 0.16s;
+          }
+
+          &:nth-child(3) {
+            animation-delay: 0.32s;
+          }
         }
       }
     }
 
     .item-availability {
+      visibility: hidden;
+      opacity: 0;
       font-size: 0.9rem;
       color: $text-muted;
+      max-height: 0;
+
+      &.show {
+        visibility: visible;
+        opacity: 100;
+        transition: opacity 0.25s;
+        max-height: 500px;
+      }
 
       .result__field {
         margin-bottom: 1rem;
