@@ -86,3 +86,21 @@ export function removeElement(element) {
     element.parentNode.removeChild(element);
   }
 }
+
+export function polyfillPromiseAllSettled() {
+  if (!Promise.allSettled) {
+    console.log('Polyfilling Promise.allSettled');
+    Promise.allSettled = (promises) => Promise.all(
+      promises.map((promise, i) => promise
+        .then((value) => ({
+          status: 'fulfilled',
+          value,
+        }))
+        .catch((reason) => ({
+          status: 'rejected',
+          reason,
+        })),
+      ),
+    );
+  }
+}

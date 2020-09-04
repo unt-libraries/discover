@@ -3,7 +3,7 @@ import {
   callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
   getServiceDeskData, getStatusData, itemsFromPromises,
 } from './_availability_util';
-import { elAddClass, elRemoveClass, removeElement } from './_utils';
+import { elAddClass, elRemoveClass, polyfillPromiseAllSettled, removeElement } from './_utils';
 
 /**
  * FUNCTIONS FOR `INDEX` VIEWS
@@ -237,6 +237,9 @@ async function checkAvailability() {
       return error;
     }
   });
+
+  // Polyfill for Edge 44 and lower
+  polyfillPromiseAllSettled();
 
   await Promise.allSettled(promises)
     .then((result) => {
