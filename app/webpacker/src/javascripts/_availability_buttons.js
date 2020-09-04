@@ -131,7 +131,7 @@ function combineDuplicates() {
       if (usedText.includes(innerText)) {
         removeElement(infoEl);
       } else {
-        usedText.push(innerText);
+        usedText.push(usedText);
       }
     });
   });
