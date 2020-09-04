@@ -127,11 +127,11 @@ function combineDuplicates() {
 
     const usedText = [];
     availInfo.forEach((infoEl) => {
-      const { innerText } = infoEl;
-      if (usedText.includes(innerText)) {
+      const { textContent } = infoEl;
+      if (usedText.includes(textContent)) {
         removeElement(infoEl);
       } else {
-        usedText.push(usedText);
+        usedText.push(textContent);
       }
     });
   });
