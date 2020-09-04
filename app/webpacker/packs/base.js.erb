@@ -10,6 +10,7 @@ import initDOM, * as www from '../src/javascripts/www/_main';
 import sidebarTypeaheads from '../src/javascripts/www/_typeaheads';
 import { animateSearchIcon, bindDismissBannerCookie, initTooltips, initPopovers, linkify } from "../src/javascripts/_ui";
 import './base.scss';
+import { polyfillPromiseAllSettled } from '../src/javascripts/_utils';
 
 document.addEventListener("DOMContentLoaded", () => {
   Rails.start();
@@ -23,6 +24,9 @@ import 'blacklight-frontend/app/javascript/blacklight/modal';
 import 'blacklight-frontend/app/javascript/blacklight/button_focus';
 // Import overridden search_context for google analytics
 import '../src/javascripts/override/search_context';
+
+// Polyfill Promise.allSettled() on Edge 44 and lower
+polyfillPromiseAllSettled();
 
 document.addEventListener('turbolinks:load', () => {
   animateSearchIcon();

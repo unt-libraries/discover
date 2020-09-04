@@ -14,7 +14,6 @@ import {
   elAddClass,
   elHasClass,
   elRemoveClass,
-  polyfillPromiseAllSettled,
   removeAllChildren,
   removeElement,
 } from './_utils';
@@ -342,9 +341,6 @@ async function checkAvailability() {
       return error;
     }
   });
-
-  // Polyfill for Edge 44 and lower
-  polyfillPromiseAllSettled();
 
   await Promise.allSettled(promises)
     .then((result) => {
