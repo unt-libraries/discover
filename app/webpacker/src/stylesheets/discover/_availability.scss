@@ -82,6 +82,8 @@
 
             &.checked-out {
               @extend .btn-outline-light-teal;
+
+              background-color: transparent;
             }
           }
 
@@ -92,6 +94,8 @@
 
             &.checked-out {
               @extend .btn-outline-dark-teal;
+
+              background-color: transparent;
             }
           }
 
@@ -104,6 +108,14 @@
 
             &.checked-out {
               @extend .btn-outline-light-green;
+
+              background-color: transparent;
+
+              &:active,
+              &:hover,
+              &:focus {
+                color: white;
+              }
             }
           }
 
@@ -114,6 +126,8 @@
 
             &.checked-out {
               @extend .btn-outline-lime-green;
+
+              background-color: transparent;
             }
           }
 
@@ -126,6 +140,8 @@
 
             &.checked-out {
               @extend .btn-outline-aqua;
+
+              background-color: transparent;
             }
           }
 
