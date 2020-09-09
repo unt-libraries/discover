@@ -1,11 +1,13 @@
 // Script files that should be included in all pages
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
+import 'intersection-observer';
 import Rails from '@rails/ujs';
 import Turbolinks from 'turbolinks';
 import 'jquery'
 import 'popper.js'
 import 'bootstrap'
+import runBrowserUpdate from '../src/javascripts/_browser-update';
 import initDOM, * as www from '../src/javascripts/www/_main';
 import sidebarTypeaheads from '../src/javascripts/www/_typeaheads';
 import { animateSearchIcon, bindDismissBannerCookie, initTooltips, initPopovers, linkify } from "../src/javascripts/_ui";
@@ -38,4 +40,5 @@ document.addEventListener('turbolinks:load', () => {
   sidebarTypeaheads();
   Blacklight.modal.setupModal();
   Blacklight.doSearchContextBehavior();
+  runBrowserUpdate();
 });

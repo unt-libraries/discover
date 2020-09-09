@@ -2,5 +2,4 @@
 import lazySizes from 'lazysizes';
 import './priority.scss';
 
-
 lazySizes.init();
