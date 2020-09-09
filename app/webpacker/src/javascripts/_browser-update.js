@@ -1,4 +1,5 @@
 import browserUpdate from 'browser-update';
+import { allowTracking } from './_analytics.js.erb';
 
 const config = {
   required: {
@@ -19,6 +20,24 @@ const config = {
     bnever: 'Never show again',
   },
   style: 'bottom',
+  onshow(info) {
+    console.log(`Browser ${info.browser.t} is out of date.`);
+    if (allowTracking()) {
+      ga('send', 'event', 'Browser Update Banner', 'Banner Shown', info.browser.t, 1, {
+        nonInteraction: true,
+      });
+    }
+  },
+  onclick(info) {
+    if (allowTracking()) {
+      ga('send', 'event', 'Browser Update Banner', 'Banner Clicked', info.browser.t, 1);
+    }
+  },
+  onclose(info) {
+    if (allowTracking()) {
+      ga('send', 'event', 'Browser Update Banner', 'Banner Closed', info.browser.t, 1);
+    }
+  },
 };
 
 export default function runBrowserUpdate() {
