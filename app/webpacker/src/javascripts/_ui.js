@@ -194,9 +194,11 @@ function animateSearchIcon() {
 }
 
 // Store a cookie if the banner is dismissed
-function bindDismissBannerCookie(name, selector, expiry = undefined) {
-  $(selector).on('closed.bs.alert', () => {
-    Cookies.set(`banner_dismissed_${name}`, '1', { expires: expiry });
+function bindDismissBannerCookie() {
+  $('#site-messages .alert-dismissible').on('closed.bs.alert', function () {
+    const alertName = $(this).data('alert-name');
+    const alertExpiry = $(this).data('alert-expiry');
+    Cookies.set(`banner_dismissed_${alertName}`, '1', { expires: alertExpiry });
   });
 }
 

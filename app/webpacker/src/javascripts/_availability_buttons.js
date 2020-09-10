@@ -1,15 +1,16 @@
 import moment from 'moment';
 import {
   callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
-  getStatusData, updateAeonRequestUrl,
+  getServiceDeskData, getStatusData, itemsFromPromises,
 } from './_availability_util';
-import { elAddClass, elRemoveClass } from './_utils';
+import { elAddClass, elRemoveClass, removeElement } from './_utils';
 
 /**
  * FUNCTIONS FOR `INDEX` VIEWS
  */
 
-function updateIndexStatusElement(itemEl, item = null) {
+function updateStatusElement(itemEl, item = null) {
+  if (itemEl === null) return;
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
   const availabilityBtn = availabilityEl.querySelector('.availability-btn');
   const availabilityText = availabilityEl.querySelector('.availability-text');
@@ -22,10 +23,7 @@ function updateIndexStatusElement(itemEl, item = null) {
   }
 
   if (!itemStatus) {
-    availabilityBtn.innerText = 'Not Available';
-    availabilityText.innerText = 'ASK AT SERVICE DESK';
-    availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
-    elRemoveClass(availabilityText, 'd-none');
+    removeElement(itemEl);
     return;
   }
 
@@ -49,7 +47,7 @@ function updateIndexStatusElement(itemEl, item = null) {
     }
 
     if (statusBtnClass) {
-      elRemoveClass(availabilityBtn, 'loading', 'disabled');
+      elRemoveClass(availabilityBtn,'disabled');
       elAddClass(availabilityBtn, statusBtnClass);
     }
 
@@ -81,16 +79,6 @@ function updateIndexStatusElement(itemEl, item = null) {
 
     availabilityEl.dataset.locationCode = itemLocation.code;
 
-    // Aeon request URLs must be updated to include data from the Sierra API call
-    // TODO: Are we even allowing requests from the index anymore?
-    if (itemEl.dataset.itemRequestability === 'aeon') {
-      const linkEl = itemEl.querySelector('.request-aeon');
-      linkEl.href = updateAeonRequestUrl(linkEl.href, itemLocation);
-    } else if (itemEl.dataset.itemRequestability === 'catalog') {
-      const linkEl = itemEl.querySelector('.request-catalog');
-      linkEl.dataset.aeonUrl = updateAeonRequestUrl(linkEl.dataset.aeonUrl, itemLocation);
-    }
-
     if (locationText && !isOnlineItem) {
       availabilityBtn.append(` - ${locationText}`);
       availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
@@ -104,13 +92,69 @@ function updateIndexStatusElement(itemEl, item = null) {
   }
 }
 
-function updateIndexUIError(items) {
+/**
+ * If no buttons remain but "more" items exist, hide "more" button and show "check availability"
+ */
+function checkForNoButtons() {
+  const buttonContainers = document.querySelectorAll('.item-availability');
+
+  buttonContainers.forEach((container) => {
+    const buttons = container.querySelectorAll('div.result__field');
+
+    if (buttons.length === 0) {
+      const moreButton = container.querySelector('div.more-items-available');
+      if (moreButton !== null) {
+        if (moreButton.parentNode) {
+          removeElement(moreButton);
+        }
+      }
+
+      const checkButton = container.querySelector('.check-availability');
+      elRemoveClass(checkButton, 'd-none');
+    }
+  });
+}
+
+/**
+ * Remove duplicate buttons within availability section
+ */
+function combineDuplicates() {
+  const buttonContainers = document.querySelectorAll('.item-availability');
+
+  buttonContainers.forEach((container) => {
+    const availInfo = container.querySelectorAll('.result__field');
+    if (availInfo.length === 0) return;
+
+    const usedText = [];
+    availInfo.forEach((infoEl) => {
+      const { textContent } = infoEl;
+      if (usedText.includes(textContent)) {
+        removeElement(infoEl);
+      } else {
+        usedText.push(textContent);
+      }
+    });
+  });
+}
+
+function updateUIError(items, error = undefined) {
+  const documentsEl = document.querySelector('#documents');
+
   items.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item}']`);
-    if (itemEl === null) return;
-    const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-    const availabilityBtn = availabilityEl.querySelector('.availability-btn');
-    availabilityBtn.innerText = 'Ask at the Service Desk';
+    const itemEls = documentsEl.querySelectorAll(`[data-item-id='${item}']`);
+    if (itemEls.length === 0) return;
+
+    if (error === 107) {
+      itemEls.forEach((node) => {
+        removeElement(node);
+      });
+    } else {
+      itemEls.forEach((node) => {
+        const availabilityEl = node.querySelector('.blacklight-availability.result__value');
+        const availabilityBtn = availabilityEl.querySelector('.availability-btn');
+        availabilityBtn.innerText = 'Ask at the Service Desk';
+      });
+    }
   });
 }
 
@@ -119,48 +163,98 @@ function updateIndexUIError(items) {
  * @param {Array} foundItems
  * @param {Array} missingItems
  */
-function updateIndexUI(foundItems = [], missingItems = []) {
+function updateUI(foundItems = [], missingItems = []) {
+  const documentsEl = document.querySelector('#documents');
+
   foundItems.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item.id}']`);
-    if (itemEl === null) return;
-    updateIndexStatusElement(itemEl, item);
+    const itemEls = documentsEl.querySelectorAll(`[data-item-id='${item.id}']`);
+    if (itemEls.length === 0) return;
+    itemEls.forEach((node) => {
+      updateStatusElement(node, item);
+    });
   });
 
   missingItems.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item}']`);
-    updateIndexStatusElement(itemEl);
-    console.log(`Item ${item} not returned by the API`);
+    const itemEls = documentsEl.querySelectorAll(`[data-item-id='${item}']`);
+    if (itemEls.length === 0) return;
+    itemEls.forEach((node) => {
+      updateStatusElement(node);
+    });
+    // console.log(`Item ${item} not returned by the API`);
   });
 }
 
-function updateIndexNoApiItems() {
+/**
+ * Update UI elements for items that are "fake" and should not be included in the API call
+ */
+function updateNoApiItems() {
   const noApiElements = getPlaceholderItemsElements();
 
   noApiElements.forEach((item) => {
     const availabilityTextEl = item.querySelector('.availability-text');
     const locationCode = availabilityTextEl.dataset.itemLocation;
-    const locationData = getLocationData(locationCode);
-    availabilityTextEl.innerText = `Ask at the ${locationData.name} service desk`;
+    const serviceDesk = getServiceDeskData(locationCode);
+    availabilityTextEl.innerHTML = `Ask at the <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
   });
 }
 
-function checkAvailability() {
-  const itemBibs = getItemsIDs();
+function revealButtonContainers() {
+  const documentsList = document.querySelector('#documents');
+  const buttonContainers = documentsList.querySelectorAll('.item-availability');
 
-  updateIndexNoApiItems();
+  buttonContainers.forEach((node) => {
+    const parent = node.parentNode;
+    const loading = parent.querySelector('.item-loading-spinner');
+    if (loading === null) return;
 
-  itemBibs.forEach((chunk) => {
-    callSierraApi(chunk, (response) => {
-      if (response.httpStatus) {
-        console.log(`Sierra API error ${response.code}: ${response.name}`);
-        updateIndexUIError(chunk);
-      } else {
-        const foundItems = response.entries;
-        const missingItems = findMissing(foundItems, chunk);
-        updateIndexUI(foundItems, missingItems);
-      }
+    loading.addEventListener('transitionend', () => {
+      removeElement(loading);
+      elAddClass(node, 'show');
     });
+    elAddClass(loading, 'hide');
   });
+}
+
+/**
+ * Main function for checking availability on Index view.
+ * @returns {Promise<void>}
+ */
+async function checkAvailability() {
+  const chunkedItemBibs = getItemsIDs();
+  let allItemBibs = chunkedItemBibs.flat();
+
+  updateNoApiItems();
+
+  // Create a map of chunked bib numbers that will return promises
+  const promises = chunkedItemBibs.map(async (chunk) => {
+    try {
+      return await callSierraApi(chunk);
+    } catch (error) {
+      // Update items that returned a Sierra API error and remove them from further UI updates
+      // console.log(`Sierra API error ${error.code}: ${error.name}`);
+      updateUIError(chunk, error.code);
+      allItemBibs = allItemBibs.filter((el) => !chunk.includes(el));
+      return error;
+    }
+  });
+
+  await Promise.allSettled(promises)
+    .then((result) => {
+      let foundItems = itemsFromPromises(result);
+
+      // Error from the Sierra API
+      if (foundItems[0] === undefined) {
+        foundItems = [];
+      }
+
+      const missingItems = findMissing(foundItems, allItemBibs);
+      updateUI(foundItems, missingItems);
+    })
+    .finally(() => {
+      checkForNoButtons();
+      combineDuplicates();
+      revealButtonContainers();
+    });
 }
 
 export {

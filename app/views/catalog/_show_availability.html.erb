@@ -8,11 +8,19 @@
   <div class="card-body">
     <h3 id="show-availability" class="card-title anchor">Availability</h3>
     <div class="table-responsive">
-      <table class="table table-borderless table-striped table-hover" data-more-scope data-showing-less>
+      <table id="availabilityTable" class="table table-borderless table-striped table-hover" data-more-scope data-showing-less>
         <thead>
         <tr>
           <th scope="col" class="blacklight-location result__label">Location</th>
-          <th scope="col" class="blacklight-call-number result__label">Call Number</th>
+          <th scope="col" class="blacklight-call-number result__label">
+            <a href="https://guides.library.unt.edu/discover/call-numbers"
+               target="_blank"
+               ga-on="click"
+               ga-event-category="Bib Record"
+               ga-event-action="Availability help link click"
+               ga-event-label="Call Number"
+               ga-event-value="1">Call Number</a>
+          </th>
           <th scope="col" class="blacklight-availability result__label">Availability</th>
           <th scope="col" class="blacklight-request result__label d-none">Request</th>
           <% if items_have_notes?(items) %>
@@ -20,20 +28,20 @@
           <% end %>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="primaryItems">
         <% items.each_with_index do |item, index| %>
           <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item, item_index: index } %>
         <% end %>
         </tbody>
 
         <% if more_items %>
-          <tbody class="more-max d-none">
+          <tbody id="moreItems" class="more-max d-none">
           <% more_items.each_with_index do |item, index| %>
             <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item, item_index: index + 3, hidden: true } %>
           <% end %>
           </tbody>
 
-          <tbody>
+          <tbody id="moreLessButton">
           <tr>
             <td colspan="5" class="more-less text-center pb-0">
               <a href="#" onclick="return false" class="reveal-more">

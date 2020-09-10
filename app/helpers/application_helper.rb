@@ -210,6 +210,27 @@ module ApplicationHelper
     end
   end
 
+  ##
+  # Checks the current search parameters to determine whether to show a control number field
+  # @param [Hash] params - Parameters of the current search
+  # @param [String] field_name - The name of the field to check
+  # @return [Boolean]
+  def display_control_number?(params, field_name)
+    non_sudoc_fields = ['call_number', 'standard_number', 'control_number']
+
+    if field_name == 'sudocs_display'
+      if params[:search_field].blank? || params[:search_field] == 'sudoc'
+        return true
+      end
+      !non_sudoc_fields.include?(params[:search_field])
+    else
+      if params.present? && params[:search_field].present?
+        return true if field_name.include? params[:search_field]
+      end
+    end
+    false
+  end
+
   def accessible_remove_label(label, value)
     if label.blank?
       t('blacklight.search.filters.remove.value', value: value)

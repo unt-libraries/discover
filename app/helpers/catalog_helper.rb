@@ -22,7 +22,8 @@ module CatalogHelper
           'ga-event-label': link_type,
         })
       else
-        link_to "#{link_text}", json['u'], class: "link-media-item #{link_type}",
+        link_text = link_text.html_safe if link_type == 'link'
+        link_to link_text, json['u'], class: "link-media-item #{link_type}",
                                            target: "_blank",
                                            rel: "noopener",
                                            data: { "link-type": link_type },
@@ -48,6 +49,7 @@ module CatalogHelper
 
   def fulltext_link(item, opts = {})
     link_text = item['n'] || item['l'] || item['u']
+    link_text = link_text.html_safe
     link_type = item['t']
     find_it_img_el = content_tag :span, ' ', class: 'find-it-image'
     text_el = content_tag :span, link_text

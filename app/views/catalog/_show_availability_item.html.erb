@@ -4,7 +4,8 @@
      data-item-location="<%= item['l'] %>"
      data-item-barcode="<%= item['b'] %>"
      data-item-notes="<%= item['n'] %>"
-     data-item-requestability="<%= item['r'] %>">
+     data-item-requestability="<%= item['r'] %>"
+     data-item-index="<%= item_index %>">
   <td class="blacklight-location result__value" data-item-location="<%= item['l'] %>"></td>
   <td class="blacklight-call-number result__value" data-item-call-number="<%= item['c'] %><%= " #{item['v']}" if item['v'].present? %>">
     <%= item['c'] %><%= " #{item['v']}" if item['v'].present? %>

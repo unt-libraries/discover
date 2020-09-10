@@ -1,9 +1,22 @@
 import moment from 'moment';
 import {
-  callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
-  getStatusData, updateAeonRequestUrl,
+  callSierraApi,
+  findMissing,
+  getItemsIDs,
+  getLocationData,
+  getPlaceholderItemsElements,
+  getServiceDeskData,
+  getStatusData,
+  itemsFromPromises,
+  updateAeonRequestUrl,
 } from './_availability_util';
-import { elRemoveClass, removeAllChildren } from './_utils';
+import {
+  elAddClass,
+  elHasClass,
+  elRemoveClass,
+  removeAllChildren,
+  removeElement,
+} from './_utils';
 
 /**
  * FUNCTIONS FOR `SHOW` VIEWS
@@ -14,7 +27,7 @@ import { elRemoveClass, removeAllChildren } from './_utils';
  * @param {Object} itemLocation
  * @return {(HTMLElement)}
  */
-function createShowLocationLink(itemLocation) {
+function createLocationLink(itemLocation) {
   const locationData = getLocationData(itemLocation.code);
   const locationText = locationData.name ? locationData.name : itemLocation.name;
   const linkText = locationData.linkText ? locationData.linkText : itemLocation.name;
@@ -40,7 +53,7 @@ function createShowLocationLink(itemLocation) {
  * @param {Object} itemStatus
  * @return {(HTMLElement)}
  */
-function createShowStatusElement(itemStatus) {
+function createStatusElement(itemStatus) {
   const statusCode = itemStatus.code;
   const statusDueDate = itemStatus.duedate;
   const statusData = getStatusData(statusCode);
@@ -69,11 +82,45 @@ function createShowStatusElement(itemStatus) {
 }
 
 /**
+ * Determine whether to show the request column if one of the items is not an online item
+ * @param {(HTMLElement|Element)} itemEl
+ * @param {Object} itemStatus
+ * @return {Boolean} Whether to show the request column
+ */
+function shouldShowRequestColumn(itemEl, itemStatus) {
+  if (itemStatus.code === 'w') return false;
+  const availTableBody = itemEl.parentNode;
+  const availRows = availTableBody.querySelectorAll('.item-row');
+  let requestColumn = false;
+
+  availRows.forEach((el) => {
+    if (el.dataset.itemRequestability) {
+      requestColumn = true;
+    }
+  });
+  return requestColumn;
+}
+
+/**
+ * Reveal the request column for all items
+ * @param {(HTMLElement|Element)} itemEl
+ */
+function revealRequestColumn(itemEl) {
+  const availTableBody = itemEl.parentNode;
+  const availTable = availTableBody.parentNode;
+  const requestEls = availTable.querySelectorAll('.blacklight-request.d-none');
+
+  requestEls.forEach((el) => {
+    elRemoveClass(el, 'd-none');
+  });
+}
+
+/**
  * Updates the status element for an item, including due date
  * @param {(HTMLElement|Element)} itemEl
  * @param {Object} itemStatus
  */
-function updateShowStatusElement(itemEl, itemStatus = null) {
+function updateStatusElement(itemEl, itemStatus = null) {
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
 
   if (!itemStatus) {
@@ -83,27 +130,11 @@ function updateShowStatusElement(itemEl, itemStatus = null) {
 
   availabilityEl.dataset.statusCode = itemStatus.code;
   removeAllChildren(availabilityEl);
-  availabilityEl.appendChild(createShowStatusElement(itemStatus));
+  availabilityEl.appendChild(createStatusElement(itemStatus));
 
   // Show the Request column if this isn't an online only record
-  if (itemStatus.code !== 'w') {
-    const availTableBody = itemEl.parentNode;
-    const availTable = availTableBody.parentNode;
-    const availRows = availTableBody.querySelectorAll('.item-row');
-    const requestEls = availTable.querySelectorAll('.blacklight-request.d-none');
-    let requestColumn = false;
-
-    availRows.forEach((el) => {
-      if (el.dataset.itemRequestability) {
-        requestColumn = true;
-      }
-    });
-
-    if (requestColumn) {
-      requestEls.forEach((el) => {
-        elRemoveClass(el, 'd-none');
-      });
-    }
+  if (shouldShowRequestColumn(itemEl, itemStatus)) {
+    revealRequestColumn(itemEl);
   }
 }
 
@@ -112,7 +143,7 @@ function updateShowStatusElement(itemEl, itemStatus = null) {
  * @param {(HTMLElement|Element)} itemEl
  * @param {Object} itemLocation
  */
-function updateShowLocationElement(itemEl, itemLocation) {
+function updateLocationElement(itemEl, itemLocation) {
   if (!itemLocation) return;
 
   const locationEl = itemEl.querySelector('.blacklight-location.result__value');
@@ -134,16 +165,113 @@ function updateShowLocationElement(itemEl, itemLocation) {
     linkEl.dataset.aeonUrl = updateAeonRequestUrl(linkEl.dataset.aeonUrl, itemLocation);
   }
 
-  locationEl.appendChild(createShowLocationLink(itemLocation));
+  locationEl.appendChild(createLocationLink(itemLocation));
 }
 
-function updateShowUIError(items) {
-  items.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item}']`);
-    if (itemEl === null) return;
-    const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-    availabilityEl.innerText = 'Ask at the Service Desk';
+function addNoItemsMessage() {
+  const itemAvailabilityCard = document.querySelector('.item-availability');
+  const cardBody = itemAvailabilityCard.querySelector('.card-body');
+  const newEl = document.createElement('div');
+
+  newEl.innerHTML = 'No items found. Please contact the <a target="_blank" href="https://library.unt.edu/willis/service-desk/">Willis Library Service Desk</a> for assistance';
+  cardBody.appendChild(newEl);
+}
+
+function checkMoreLink() {
+  const availTable = document.querySelector('#availabilityTable');
+  const moreItemsTable = availTable.querySelector('tbody#moreItems');
+  if (moreItemsTable === null) return;
+  const moreLessButton = availTable.querySelector('tbody#moreLessButton');
+
+  if (moreItemsTable.childElementCount === 0 && !elHasClass(moreLessButton, 'd-none')) {
+    elAddClass(moreLessButton, 'd-none');
+  } else {
+    elRemoveClass(moreLessButton, 'd-none');
+  }
+}
+
+function checkEmptyTable() {
+  const availTable = document.querySelector('#availabilityTable');
+  if (availTable === null) return;
+  const primaryItems = availTable.querySelectorAll('tbody#primaryItems .item-row');
+  const moreItems = availTable.querySelectorAll('tbody#moreItems .item-row');
+
+  if (primaryItems.length === 0 && moreItems.length === 0) {
+    removeElement(availTable);
+    addNoItemsMessage();
+  }
+}
+
+function repositionItemElements() {
+  const availTable = document.querySelector('#availabilityTable');
+  const primaryItems = availTable.querySelector('#primaryItems');
+  const moreItems = availTable.querySelector('#moreItems');
+  if (moreItems === null) return;
+
+  const primaryMax = 3;
+  const primaryCount = primaryItems.querySelectorAll('.item-row').length;
+
+  if (primaryCount < primaryMax) {
+    for (let i = 0; i < 3 - primaryCount; i += 1) {
+      const firstItem = moreItems.querySelector('.item-row');
+      if (firstItem !== null) {
+        firstItem.parentNode.removeChild(firstItem);
+        primaryItems.appendChild(firstItem);
+      }
+    }
+  }
+}
+
+function updateItemIndices() {
+  const availTable = document.querySelector('#availabilityTable');
+  if (availTable === null) return;
+  const itemRows = availTable.querySelectorAll('.item-row');
+
+  itemRows.forEach((itemEl, index) => {
+    // eslint-disable-next-line no-param-reassign
+    itemEl.dataset.itemIndex = index;
   });
+}
+
+function updateCatalogRequestURLs() {
+  const availTable = document.querySelector('#availabilityTable');
+  if (availTable === null) return;
+  const itemRows = availTable.querySelectorAll('.item-row');
+
+  itemRows.forEach((row) => {
+    if (row.dataset.itemRequestability !== 'catalog') return;
+
+    const rowIndex = row.dataset.itemIndex;
+    const requestCell = row.querySelector('.blacklight-request.result__value');
+    const requestLink = requestCell.querySelector('a');
+    const requestUrl = requestLink.href;
+    const catalogUrl = new URL(requestUrl);
+    const queryString = catalogUrl.search;
+
+    catalogUrl.search = queryString.replace(/(requestItemIndex=)(\d*)/i, `$1${rowIndex}`);
+    requestLink.href = catalogUrl.toString();
+  });
+}
+
+function updateUIError(items, error = undefined) {
+  const availabilityTable = document.querySelector('#availabilityTable');
+  if (availabilityTable === null) return;
+
+  items.forEach((item) => {
+    const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
+    if (itemEl === null) return;
+    if (error === 107) {
+      removeElement(itemEl);
+    } else {
+      const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
+      availabilityEl.innerText = 'Ask at the Service Desk';
+    }
+  });
+  if (error === 107) {
+    updateItemIndices();
+    repositionItemElements();
+    updateCatalogRequestURLs();
+  }
 }
 
 /**
@@ -151,49 +279,84 @@ function updateShowUIError(items) {
  * @param {Array} foundItems
  * @param {Array} missingItems
  */
-function updateShowUI(foundItems = [], missingItems = []) {
+function updateUI(foundItems = [], missingItems = []) {
+  const availabilityTable = document.querySelector('#availabilityTable');
+  if (availabilityTable === null) return;
+
   foundItems.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item.id}']`);
+    const itemEl = availabilityTable.querySelector(`[data-item-id='${item.id}']`);
     if (itemEl === null) return;
-    updateShowStatusElement(itemEl, item.status);
-    updateShowLocationElement(itemEl, item.location);
+    updateStatusElement(itemEl, item.status);
+    updateLocationElement(itemEl, item.location);
   });
 
   missingItems.forEach((item) => {
-    const itemEl = document.querySelector(`[data-item-id='${item}']`);
-    updateShowStatusElement(itemEl);
-    console.log(`Item ${item} not returned by the API`);
+    const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
+    if (itemEl === null) return;
+    removeElement(itemEl);
+    // console.log(`Item ${item} not returned by the API`);
   });
+
+  if (missingItems.length > 0) {
+    updateItemIndices();
+    repositionItemElements();
+    updateCatalogRequestURLs();
+  }
 }
 
-function updateShowNoApiItems() {
+/**
+ * Update UI elements for items that are "fake" and should not be included in the API call
+ */
+function updateNoApiItems() {
   const noApiElements = getPlaceholderItemsElements();
 
   noApiElements.forEach((item) => {
     const locationEl = item.querySelector('.blacklight-location.result__value');
+    if (locationEl === null) return;
     const locationCode = locationEl.dataset.itemLocation;
-    const locationData = getLocationData(locationCode);
-    locationEl.innerText = `Ask at the ${locationData.name} service desk`;
+    const serviceDesk = getServiceDeskData(locationCode);
+    locationEl.innerHTML = `Ask at the <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
   });
 }
 
-function checkAvailability() {
-  const itemBibs = getItemsIDs();
+/**
+ * Main function for checking availability on Show view.
+ * @returns {Promise<void>}
+ */
+async function checkAvailability() {
+  const chunkedItemBibs = getItemsIDs();
+  let allItemBibs = chunkedItemBibs.flat();
 
-  updateShowNoApiItems();
+  updateNoApiItems();
 
-  itemBibs.forEach((chunk) => {
-    callSierraApi(chunk, (response) => {
-      if (response.httpStatus) {
-        console.log(`Sierra API error ${response.code}: ${response.name}`);
-        updateShowUIError(chunk);
-      } else {
-        const foundItems = response.entries;
-        const missingItems = findMissing(foundItems, chunk);
-        updateShowUI(foundItems, missingItems);
-      }
-    });
+  // Create a map of chunked bib numbers that will return promises
+  const promises = chunkedItemBibs.map(async (chunk) => {
+    try {
+      return await callSierraApi(chunk);
+    } catch (error) {
+      // Update items that returned a Sierra API error and remove them from further UI updates
+      // console.log(`Sierra API error ${error.code}: ${error.name}`);
+      updateUIError(chunk, error.code);
+      allItemBibs = allItemBibs.filter((el) => !chunk.includes(el));
+      return error;
+    }
   });
+
+  await Promise.allSettled(promises)
+    .then((result) => {
+      let foundItems = itemsFromPromises(result);
+
+      // Error from the Sierra API
+      if (foundItems[0] === undefined) {
+        foundItems = [];
+      }
+
+      const missingItems = findMissing(foundItems, allItemBibs);
+      updateUI(foundItems, missingItems);
+    }).finally(() => {
+      checkMoreLink();
+      checkEmptyTable();
+    });
 }
 
 export {

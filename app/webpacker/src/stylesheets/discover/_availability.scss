@@ -1,9 +1,43 @@
 // Availability on index template
 .blacklight-catalog-index {
   .documents-list {
+    .item-loading-spinner {
+      &.hide {
+        height: 1.75rem;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+
+      .loading-spinner {
+        & span {
+          @extend .spinner-grow;
+          @extend .spinner-grow-sm;
+
+          &:nth-child(2) {
+            animation-delay: 0.16s;
+          }
+
+          &:nth-child(3) {
+            animation-delay: 0.32s;
+          }
+        }
+      }
+    }
+
     .item-availability {
+      visibility: hidden;
+      opacity: 0;
       font-size: 0.9rem;
       color: $text-muted;
+      max-height: 0;
+
+      &.show {
+        visibility: visible;
+        opacity: 100;
+        transition: opacity 0.25s;
+        max-height: 500px;
+      }
 
       .result__field {
         margin-bottom: 1rem;
@@ -35,7 +69,7 @@
           font-weight: 700;
           padding: 0.15rem 0.5rem;
 
-          &.loading {
+          &.disabled {
             color: theme-color('gray-light');
             background-color: white;
             border-color: theme-color('gray-light');
@@ -48,6 +82,8 @@
 
             &.checked-out {
               @extend .btn-outline-light-teal;
+
+              background-color: transparent;
             }
           }
 
@@ -58,6 +94,8 @@
 
             &.checked-out {
               @extend .btn-outline-dark-teal;
+
+              background-color: transparent;
             }
           }
 
@@ -70,6 +108,14 @@
 
             &.checked-out {
               @extend .btn-outline-light-green;
+
+              background-color: transparent;
+
+              &:active,
+              &:hover,
+              &:focus {
+                color: white;
+              }
             }
           }
 
@@ -80,6 +126,8 @@
 
             &.checked-out {
               @extend .btn-outline-lime-green;
+
+              background-color: transparent;
             }
           }
 
@@ -92,6 +140,8 @@
 
             &.checked-out {
               @extend .btn-outline-aqua;
+
+              background-color: transparent;
             }
           }
 
@@ -118,21 +168,6 @@
               background-color: darken(theme-color('gray-light'), 5%);
             }
           }
-
-          & .loading-spinner {
-            & span {
-              @extend .spinner-grow;
-              @extend .spinner-grow-sm;
-
-              &:nth-child(2) {
-                animation-delay: 0.16s;
-              }
-
-              &:nth-child(3) {
-                animation-delay: 0.32s;
-              }
-            }
-          }
         }
       }
 
@@ -141,7 +176,8 @@
         margin-bottom: 1rem;
       }
 
-      .more-available {
+      .more-available,
+      .check-availability {
         @extend .btn;
         @extend .btn-sm;
         @extend .btn-block;
@@ -174,6 +210,21 @@
 
       .more-less {
         background-color: #fff !important;
+      }
+
+      tbody.more-max {
+        tr:nth-of-type(odd) {
+          background-color: #fff;
+        }
+
+        tr:nth-of-type(even) {
+          background-color: $table-accent-bg;
+        }
+
+        tr:hover {
+          color: $table-hover-color;
+          background-color: $table-hover-bg;
+        }
       }
     }
   }

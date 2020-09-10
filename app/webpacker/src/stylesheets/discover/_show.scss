@@ -16,15 +16,37 @@
   }
 
   .show-tools-values {
-    padding: 0.5rem 0;
+    padding: 0;
     font-size: 90%;
     font-weight: 400;
+
+    li:first-of-type {
+      padding-top: 1rem;
+    }
+
+    li:last-of-type {
+      padding-bottom: 1rem;
+    }
+
+    li:nth-of-type(even) {
+      background: $table-accent-bg;
+    }
+
+    li:hover {
+      color: $table-hover-color;
+      background-color: $table-hover-bg;
+    }
 
     .show-tools-item {
       border: 0;
       padding: 0.5rem 1rem;
 
+      .fa-fw {
+        width: 3em;
+      }
+
       .nav-link {
+        display: inline-block;
         padding: 0;
         border: 0;
       }

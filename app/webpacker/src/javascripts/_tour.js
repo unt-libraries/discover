@@ -91,7 +91,7 @@ const searchResultsTourSteps = [
 
 function needsTour(tourName) {
   let tourEligible = true;
-  let context = document.querySelector('body').dataset.blacklightContext;
+  let context = document.body.dataset.blacklightContext;
   const skips = parseInt(localStorage.getItem(`${tourName}_skips`) || '0');
   const searchParams = new URLSearchParams(window.location.search);
   if (context === 'index' && searchParams.toString() === '') {

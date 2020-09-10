@@ -1,6 +1,6 @@
 // Override link behavior within dropdown menu associated with search form for resource type,
 // appending values to hidden form element.
-import { actWithTimeOut, elAddClass, elHasClass, elRemoveClass, elToggleClass } from './_utils';
+import { elAddClass, elHasClass, elRemoveClass } from './_utils';
 
 function searchSelector() {
   const searchForm = document.querySelector('.search-query-form');
@@ -34,6 +34,12 @@ function searchSelector() {
       queryInput.focus();
     });
   });
+
+  // Add separator to dropdown
+  const dividerEl = document.createElement('div');
+  dividerEl.classList.add('dropdown-divider');
+  const callNumberOption = dropdown.querySelector('[data-search-field="call_number"]');
+  callNumberOption.parentNode.insertBefore(dividerEl, callNumberOption);
 }
 
 function rotateSearchTips() {

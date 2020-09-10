@@ -14,7 +14,7 @@ class SearchBuilder < Blacklight::SearchBuilder
   #     solr_parameters[:custom] = blacklight_params[:user_value]
   #   end
 
-  self.default_processor_chain += [:filter_out_suppressed_records, :only_home_facets]
+  self.default_processor_chain += [:filter_out_suppressed_records, :only_home_facets, :modify_numbers_field_query]
 
   def filter_out_suppressed_records(solr_parameters)
     solr_parameters[:fq] ||= []
@@ -28,6 +28,15 @@ class SearchBuilder < Blacklight::SearchBuilder
     has_query = blacklight_config.facet_fields.select { |_, v| v[:home] && v[:query].present? }.values
     solr_parameters['facet.query'] = has_query.map { |val| val.query.values.map { |v| v[:fq] } }.flatten
     solr_parameters['facet.pivot'] = []
+  end
+
+  # Modify the query to be more suitable for solr when searching number fields
+  def modify_numbers_field_query(solr_parameters)
+    return if solr_parameters[:qt] != 'catalog-numtype-search'
+    matches = /^(?<query_type>{.*})(?<query>.*)$/.match(solr_parameters[:q])
+    if matches.present? && matches[:query_type].present?
+      solr_parameters[:q] = %Q(#{matches[:query_type]}"#{matches[:query].gsub!(/^["'‘’“”]*(.*?)["'‘’“”]*$/, '\1')}")
+    end
   end
 
   ##

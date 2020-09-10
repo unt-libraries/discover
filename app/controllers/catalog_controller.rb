@@ -18,14 +18,16 @@ class CatalogController < ApplicationController
     config.advanced_search[:url_key] ||= 'advanced'
     config.advanced_search[:query_parser] ||= 'dismax'
     config.advanced_search[:form_solr_parameters] ||= {
-      'facet.field' => %w(access_facet resource_type_facet media_type_facet collection_facet languages),
+      'facet.field' => %w(access_facet resource_type_facet media_type_facet languages collection_facet building_facet shelf_facet),
       'facet.limit' => -1,
       'facet.sort' => 'index',
       'f.access_facet.facet.limit' => -1,
       'f.resource_type_facet.facet.limit' => -1,
       'f.media_type_facet.facet.limit' => -1,
+      'f.languages.facet.limit' => -1,
       'f.collection_facet.facet.limit' => -1,
-      "f.languages.facet.limit" => -1,
+      'f.building_facet.facet.limit' => -1,
+      'f.shelf_facet.facet.limit' => -1,
       'facet.query' => [],
     }
 
@@ -248,7 +250,14 @@ class CatalogController < ApplicationController
     config.add_index_field 'publication_dates', label: 'Publication Date',
                                                 separator_options: { words_connector: '; ' },
                                                 no_label: true
-    config.add_index_field 'main_call_number', label: 'Call number', if: false
+    config.add_index_field 'sudocs_display', no_label: true, display: :control_numbers,
+                                             label: 'SuDocs Numbers'
+    config.add_index_field 'call_numbers_display', no_label: true, display: :control_numbers,
+                                                   label: 'Call Numbers'
+    config.add_index_field 'all_standard_numbers', no_label: true, display: :control_numbers,
+                                                   label: 'All Standard Numbers'
+    config.add_index_field 'all_control_numbers', no_label: true, display: :control_numbers,
+                                                  label: 'All Control Numbers'
     config.add_index_field 'items_json', label: 'Items', display: :availability
     config.add_index_field 'has_more_items', if: false
 
@@ -375,15 +384,17 @@ class CatalogController < ApplicationController
     config.add_show_field 'geospatial_data'
 
     # Call Number Fields
-    config.add_show_field 'loc_call_numbers', label: 'LC Call Numbers'
-    config.add_show_field 'dewey_call_numbers', label: 'Dewey Call Numbers'
-    config.add_show_field 'sudoc_numbers', label: 'SuDoc Numbers'
-    config.add_show_field 'other_call_numbers', label: 'Local Call Numbers'
+    config.add_show_field 'call_numbers_display', label: 'Call Numbers'
+    config.add_show_field 'sudocs_display', label: 'SuDocs Numbers',
+                                            tooltip: 'Government Document Classification Number'
     # Standard Number Fields
-    config.add_show_field 'isbn_numbers', label: 'ISBN'
-    config.add_show_field 'issn_numbers', label: 'ISSN'
-    config.add_show_field 'lccn_numbers', label: 'LCCN'
-    config.add_show_field 'oclc_numbers', label: 'OCLC Number'
+    config.add_show_field 'isbns_display', label: 'ISBNs'
+    config.add_show_field 'issns_display', label: 'ISSNs'
+    config.add_show_field 'other_standard_numbers_display', label: 'Other Standard Numbers'
+    config.add_show_field 'lccns_display', label: 'Library of Congress Control Numbers'
+    config.add_show_field 'oclc_numbers_display', label: 'OCLC Numbers'
+    config.add_show_field 'other_control_numbers_display', label: 'Other Control Numbers'
+
     # Notes fields -- eventually we will have a lot more of these
 
     # "fielded" search configuration. Used by pulldown among other places.
@@ -433,6 +444,41 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$subject_qf',
         pf: '$subject_pf',
+      }
+    end
+
+    config.add_search_field('call_number') do |field|
+      field.qt = 'catalog-numtype-search'
+      field.include_in_advanced_search = false
+      field.solr_local_parameters = {
+        df: 'call_numbers_search',
+      }
+    end
+
+    config.add_search_field('sudoc') do |field|
+      field.label = 'SuDocs'
+      field.qt = 'catalog-numtype-search'
+      field.include_in_advanced_search = false
+      field.solr_local_parameters = {
+        df: 'sudocs_search',
+      }
+    end
+
+    config.add_search_field('standard_number') do |field|
+      field.label = 'Standard # (ISBN/ISSN)'
+      field.qt = 'catalog-numtype-search'
+      field.include_in_advanced_search = false
+      field.solr_local_parameters = {
+        df: 'standard_numbers_search',
+      }
+    end
+
+    config.add_search_field('control_number') do |field|
+      field.label = 'Control # (LCCN/OCLC)'
+      field.qt = 'catalog-numtype-search'
+      field.include_in_advanced_search = false
+      field.solr_local_parameters = {
+        df: 'control_numbers_search',
       }
     end
 

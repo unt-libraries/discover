@@ -1,0 +1,31 @@
+body {
+  .buorg {
+    border: 0;
+  }
+
+  .buorg-pad {
+    @extend .alert-secondary;
+  }
+
+  .buorg-buttons {
+    display: inline-block;
+  }
+
+  #buorgig,
+  #buorgul,
+  #buorgpermanent {
+    @extend .btn;
+  }
+
+  #buorgig {
+    @extend .btn-dark;
+  }
+
+  #buorgul {
+    @extend .btn-primary;
+  }
+
+  #buorgpermanent {
+    @extend .btn-primary;
+  }
+}

@@ -1,5 +1,6 @@
 import { locationData } from './data/availability_locations';
 import { statusDescData } from './data/availability_statuses';
+import { serviceDeskData } from './data/service_desks';
 
 /**
  * Splits an array into chunks of 50 for more manageable API calls
@@ -42,7 +43,12 @@ function getItemsIDs() {
  * @return {Object}
  */
 function findMissing(foundItems = [], allItems) {
-  const foundIDs = foundItems.map((el) => el.id);
+  const foundIDs = foundItems.map((el) => {
+    if (el !== undefined) {
+      return el.id;
+    }
+    return null;
+  });
   return allItems.filter((el) => !foundIDs.includes(el));
 }
 
@@ -80,6 +86,20 @@ function getStatusData(statusCode) {
   return statusDescData[statusCode];
 }
 
+function getServiceDeskData(locationCode) {
+  let serviceDesk;
+  Object.entries(serviceDeskData).forEach(([key, value]) => {
+    if (locationCode.startsWith(key)) {
+      serviceDesk = value;
+    }
+  });
+
+  if (serviceDesk === undefined) {
+    serviceDesk = serviceDeskData.default;
+  }
+  return serviceDesk;
+}
+
 /**
  * Appends required query string parameters to an Aeon URL that require the Sierra API call.
  * @param {string} itemURL
@@ -102,35 +122,54 @@ function updateAeonRequestUrl(itemURL, itemLocation) {
 }
 
 /**
+ * Transforms fulfilled Promises from API response to an Array of data objects.
+ * @param {Array} result - An array of Promises
+ * @returns {FlatArray<*, number>[] | any[]} An array of item data returned by Sierra API
+ */
+function itemsFromPromises(result) {
+  return result
+    .filter((response) => response.status === 'fulfilled')
+    .map((item) => item.value.entries)
+    .flat(1);
+}
+
+/**
  * Entry point to update availability of items through the Sierra API.
  * @param {array} itemBibs
- * @param {function} callback
- * @return {JSON}
+ * @return {Promise}
  */
-function callSierraApi(itemBibs, callback) {
-  const request = new XMLHttpRequest();
-  request.open('POST', '/availability/items', true);
-  request.setRequestHeader('Content-Type', 'application/json');
+function callSierraApi(itemBibs) {
+  return new Promise((resolve, reject) => {
+    const request = new XMLHttpRequest();
+    request.open('POST', '/availability/items', true);
+    request.setRequestHeader('Content-Type', 'application/json');
 
-  const tokenEl = document.querySelector('meta[name="csrf-token"]');
-  const token = tokenEl.getAttribute('content');
+    const tokenEl = document.querySelector('meta[name="csrf-token"]');
+    const token = tokenEl.getAttribute('content');
 
-  request.setRequestHeader('X-CSRF-Token', token);
+    request.setRequestHeader('X-CSRF-Token', token);
 
-  const data = `{"item_id": [${itemBibs}]}`;
-  let response;
+    const data = `{"item_id": [${itemBibs}]}`;
 
-  request.onload = function () {
-    if (this.status < 200 || this.status > 400) {
-      console.log('Error from API');
-      console.log(this.response);
-      return;
-    }
-    response = JSON.parse(this.response);
+    request.onload = () => {
+      if (request.status >= 200 && request.status < 300) {
+        const response = JSON.parse(request.response);
 
-    if (typeof callback === 'function') callback(response);
-  };
-  request.send(data);
+        // Check for error status from Sierra API
+        if (response.httpStatus) {
+          reject(response);
+        } else {
+          resolve(response);
+        }
+      } else {
+        console.log('Error from API');
+        console.log(request.response);
+        reject(request.statusText);
+      }
+    };
+    request.onerror = () => reject(request.statusText);
+    request.send(data);
+  });
 }
 
 export {
@@ -138,7 +177,9 @@ export {
   findMissing,
   getItemsIDs,
   getLocationData,
+  getServiceDeskData,
   getStatusData,
   getPlaceholderItemsElements,
+  itemsFromPromises,
   updateAeonRequestUrl,
 };

@@ -29,7 +29,6 @@
     </div>
   <% end -%>
 
-  <%# TODO: Move this into catalog controller conditional rendering on these fields %>
   <%# First publication statement field %>
   <% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :pub_statements } -%>
     <% pub_field_name, pub_field, pub_field_presenter = doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.first %>
@@ -39,6 +38,18 @@
       </dt>
       <dd class="blacklight-<%= pub_field_name.parameterize %> result__value muted"><%= pub_field_presenter.render %></dd>
     </div>
+  <% end -%>
+
+  <%# Render the control number if the search was a control number search %>
+  <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :control_numbers }.each do |field_name, field, field_presenter| -%>
+    <% if display_control_number? params, field_name %>
+      <div class="result__field">
+        <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> sr-only<% end %>">
+          <%= render_index_field_label document, label: field_presenter.label, field: field_name %>
+        </dt>
+        <dd class="blacklight-<%= field_name.parameterize %> result__value muted font-weight-bold"><%= field_presenter.render %></dd>
+      </div>
+    <% end %>
   <% end -%>
 
   <%# Fields with no display value, but set to render in catalog_controller.rb %>
