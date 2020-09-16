@@ -20,6 +20,7 @@ export function elHasClass(el, className) {
  * @param {...string} classNames
  */
 export function elAddClass(el, ...classNames) {
+  if (el === null) return;
   classNames.forEach((className) => {
     if (el.classList) {
       el.classList.add(className);
@@ -36,6 +37,7 @@ export function elAddClass(el, ...classNames) {
  * @param {...string} classNames
  */
 export function elRemoveClass(el, ...classNames) {
+  if (el === null) return;
   classNames.forEach((className) => {
     if (el.classList) {
       el.classList.remove(className);
