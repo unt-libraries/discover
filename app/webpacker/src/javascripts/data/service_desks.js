@@ -15,6 +15,14 @@ const serviceDeskData = {
     name: 'Music Library Service Desk',
     url: 'https://library.unt.edu/music/service-desk/',
   },
+  w4spe: {
+    name: 'Special Collections',
+    url: 'https://library.unt.edu/special-collections/',
+  },
+  xspe: {
+    name: 'Special Collections',
+    url: 'https://library.unt.edu/special-collections/',
+  },
   default: {
     name: 'Willis Library Services Desk',
     url: 'https://library.unt.edu/willis/service-desk/',
