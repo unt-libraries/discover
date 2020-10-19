@@ -194,7 +194,7 @@ function updateNoApiItems() {
     const availabilityTextEl = item.querySelector('.availability-text');
     const locationCode = availabilityTextEl.dataset.itemLocation;
     const serviceDesk = getServiceDeskData(locationCode);
-    availabilityTextEl.innerHTML = `Ask at the <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
+    availabilityTextEl.innerHTML = `Contact <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
   });
 }
 

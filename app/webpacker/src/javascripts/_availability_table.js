@@ -124,7 +124,7 @@ function updateStatusElement(itemEl, itemStatus = null) {
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
 
   if (!itemStatus) {
-    availabilityEl.innerText = 'ASK AT SERVICE DESK';
+    availabilityEl.innerText = 'Ask at the Service Desk';
     return;
   }
 
@@ -315,7 +315,7 @@ function updateNoApiItems() {
     if (locationEl === null) return;
     const locationCode = locationEl.dataset.itemLocation;
     const serviceDesk = getServiceDeskData(locationCode);
-    locationEl.innerHTML = `Ask at the <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
+    locationEl.innerHTML = `Contact <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
   });
 }
 
