@@ -282,9 +282,6 @@ GEM
       nokogiri (~> 1.9)
       slop (>= 3.4.5, < 4.0)
       yell
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (1.2.7)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
@@ -332,7 +329,6 @@ DEPENDENCIES
   rspec-rails (~> 4.0.0)
   rubocop-airbnb
   solr_wrapper (>= 0.3)
-  turbolinks (~> 5.2)
   tzinfo-data
   uglifier (>= 2.7.2)
   web-console (>= 3.3.0)
@@ -342,4 +338,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   1.17.3
+   2.1.4

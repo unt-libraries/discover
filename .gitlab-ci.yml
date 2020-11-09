@@ -1,6 +1,7 @@
-image: alpine:3.10.3
+image: alpine:3.12
 
 stages:
+  - build-container
   - test
   - deploy
 
@@ -12,6 +13,69 @@ variables:
 
 # Include before_script to download utilities repo & run scripts
 include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitlab-ci/.before-script-utils-repo.yml'
+
+
+########################
+# Build container stage
+########################
+
+.build-container:
+  stage: build-container
+  image: docker:19.03.11
+  tags:
+    - dind-privileged
+  variables:
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker pull $FULL_IMAGE_NAME || true
+    - docker build --cache-from $FULL_IMAGE_NAME -f Dockerfile -t $FULL_IMAGE_NAME .
+    - docker push $FULL_IMAGE_NAME
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "web"'
+      when: always
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "trigger"'
+      when: never
+    - changes:
+        - Dockerfile*
+        - .gitlab-ci.yml
+        - Gemfile*
+        - package*.json
+        - yarn.lock
+      when: always
+    - when: manual
+      allow_failure: true
+
+build-container:alpha:
+  extends: .build-container
+  variables:
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/alpha:latest
+    RAILS_PORT: 3000
+    RAILS_ENV: development
+    RAILS_SERVE_STATIC_FILES: "false"
+
+build-container:beta:
+  extends: .build-container
+  variables:
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/beta:latest
+    RAILS_PORT: 3100
+    RAILS_ENV: production
+    RAILS_SERVE_STATIC_FILES: "true"
+
+build-container:production:
+  extends: .build-container
+  variables:
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/production:latest
+    RAILS_PORT: 3200
+    RAILS_ENV: production
+    RAILS_SERVE_STATIC_FILES: "true"
+
+#############
+# Test stage
+#############
 
 test:
   image: docker:19.03.4
@@ -31,7 +95,7 @@ test:
   script:
     - "docker info"
     - "pip install docker-compose"
-    - "echo \"$RAILS_MASTER_KEY\" > config/master.key"
+    - "echo \"$RAILS_MASTER_KEY\" >> .env"
     - "docker-compose build"
     - "docker-compose run --rm web rake db:create"
     - "docker-compose run --rm web rake db:migrate"
@@ -40,27 +104,38 @@ test:
     - "docker-compose down"
   when: manual
 
+
+###############
+# Deploy stage
+###############
+
 .deploy:
   stage: deploy
+  image: $CI_REGISTRY/www/utilities/deploy:latest
+  tags:
+    - dind-privileged
   variables:
-    UTIL_SCRIPTS: source ./prepare_ssh.sh
     GIT_SUBMODULE_STRATEGY: none
     GIT_BRANCH: master
     SITE_DEST_DIR: /var/www/html/$CI_ENVIRONMENT_URL
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
+  before_script:
+    - source /app/prepare_ssh.sh
   script:
     - ssh $SSH_USER@$SSH_SERVER "
         cd $SITE_DEST_DIR &&
         git fetch --all &&
         git checkout $CI_COMMIT_SHA &&
         rm -f .env &&
+        echo APP_IMAGE_NAME=$FULL_IMAGE_NAME >> .env &&
         echo RAILS_PORT=$RAILS_PORT >> .env &&
         echo RAILS_ENV=$RAILS_ENV >> .env &&
         echo RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES >> .env &&
-        docker-compose down &&
-        docker-compose build &&
-        docker-compose run --rm web rake db:migrate &&
-        docker-compose run --rm web rails assets:precompile &&
-        docker-compose up -d
+        echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .env &&
+        echo RAILS_MASTER_KEY=$RAILS_MASTER_KEY >> .env &&
+        docker-compose pull &&
+        docker-compose up -d &&
+        docker-compose exec -T web rails assets:precompile
         "
   when: manual
 
@@ -70,6 +145,7 @@ deploy:alpha:
     name: alpha
     url: alpha.discover.library.unt.edu
   variables:
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/alpha:latest
     RAILS_PORT: 3000
     RAILS_ENV: development
     RAILS_SERVE_STATIC_FILES: "false"
@@ -80,6 +156,7 @@ deploy:beta:
     name: beta
     url: beta.discover.library.unt.edu
   variables:
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/beta:latest
     RAILS_PORT: 3100
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
@@ -90,6 +167,7 @@ deploy:production:
     name: production
     url: discover.library.unt.edu
   variables:
+    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/production:latest
     RAILS_PORT: 3200
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"

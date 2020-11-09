@@ -29,60 +29,95 @@ $ git clone https://github.com/unt-libraries/discover discover
 $ cd discover
 ```
 
-Set the exposed port of your Rails app with a shell environment variable or
-with a [docker-compose .env file](https://docs.docker.com/v17.12/compose/environment-variables/):
+Environment variables should be set in a `.env` file in the root directory to make local development 
+easier. They can be overridden at runtime by specifying a different `.env*` file with the 
+`--env-file` option or passing environment variables in the shell.
 
+Recommended `.env` file:
 ```console
+# .env file
+RAILS_PORT=3000
+RAILS_ENV=development
+RAILS_SERVE_STATIC_FILES=false
+RAILS_MASTER_KEY=#YOUR_RAILS_MASTER_KEY
+POSTGRES_PASSWORD=#YOUR_POSTGRES_PASSWORD
+
+# OR in the shell
 $ source RAILS_PORT=3000  # or port of your choice
 ```
-or in `.env` file:
-```ruby
-RAILS_PORT=3000
-```
+
+Find more information about how Docker Compose evaluates environment variables
+[here](https://docs.docker.com/compose/environment-variables/).
+
+To build locally, modify Docker and Docker Compose files, or run without an upstream image, you
+should modify the `image` value for the `web` app in `docker-compose.yml`, or replace it with
+`build: .` to build a container from the `Dockerfile`.
 
 Build the containers with:
 
 ```console
 $ docker-compose build
-```
 
-or with yarn:
-```console
+# OR with Yarn
 $ yarn build
 ```
 
-After building the containers, [create your credentials](#managing-secrets) and add your secrets.
+After building the containers, [create your credentials](#managing-secrets) with the keys below.
+
+```yaml
+default: &default
+  SOLR_URL: 
+  google_analytics: 
+  SIERRA_API_KEY: 
+  SIERRA_API_SECRET: 
+  COVID_RESTRICTED: 
+  POSTGRES_PASSWORD: 
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+
+secret_key_base: 
+```
 
 If you do not already have a database for the app, create one with:
 
 ```console
-$ docker-compose run web rake db:create
-```
+$ docker-compose run --rm web rake db:create
 
-or with yarn:
-```console
+# OR with Yarn
 $ yarn web:dbCreate
 ```
 
 Run database migrations with:
 
 ```console
-$ docker-compose run web rake db:migrate
+$ docker-compose run --rm web rake db:migrate
+
+# OR with Yarn
+$ yarn web:dbMigrate
 ```
 
-or with yarn:
+Prior to running the development environment, you'll need to precompile assets.
+
 ```console
-$ yarn web:dbMigrate
+$ docker-compose run --rm web rails assets:precompile
+
+# OR with Yarn
+$ yarn web:compileAssets
 ```
 
 Start the app and database with:
 
 ```console
 $ docker-compose up
-```
 
-or with yarn:
-```console
+# OR with Yarn
 $ yarn start
 ```
 
@@ -215,7 +250,8 @@ shared among developers and securely deployed to environments.
 All credentials are stored in `config/credentials.yml.enc`, an encrypted file that can
 only be read through the Rails command line. The file should contain key/value pairs in the
 same format as a normal YAML file. Rails uses `RAILS_MASTER_KEY`, stored in
-`config/master.key` to decrypt `credentials.yml.enc`. `master.key` should not be stored
+`config/master.key` (or in the `RAILS_MASTER_KEY` environment variable, which can be defined in the
+`.env` file) to decrypt `credentials.yml.enc`. `master.key` should not be stored
 in version control and has been added to the `.gitignore` file.
 
 **If you cloned our project, you will need to delete credentials.yml.enc before you will
@@ -233,10 +269,8 @@ To edit secrets stored in `credentials.yml.enc`, use the following command:
 
 ```console
 $ docker-compose run web bash -c "EDITOR=vim rails credentials:edit"
-```
 
-or with yarn:
-```console
+# OR with Yarn
 $ yarn web:credentials
 ```
 
@@ -293,25 +327,7 @@ More information about Rails credentials:
 - [Rails 5.2 credentials cheat sheet](https://blog.eq8.eu/til/rails-52-credentials-tricks.html)
 
 For this project, Rails should have generated a `secret_key_base` for you and you should add your 
-`SOLR_URL` to your credentials file. And example is below.
-
-```yaml
-
-default: &default
-  SOLR_URL: http://solr.example.com:8983/solr/alpha-solrmarc
-
-development:
-  <<: *default
-
-test:
-  <<: *default
-
-production:
-  <<: *default
-  SOLR_URL: http://solr.example.com:8983/solr/alpha-solrmarc
-  secret_key_base: <secret key here>
-
-```
+`SOLR_URL` to your credentials file.
 
 If you find yourself needing to generate a new secret, you can so so with:
 

@@ -1,24 +1,25 @@
 version: '3'
 services:
   db:
-    image: postgres
+    image: postgres:12.4
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
     restart: always
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
   web:
-    build: .
-    command: bash -c "echo $RAILS_ENV && rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    image: "${APP_IMAGE_NAME}"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     volumes:
       - .:/app
+      - /app/node_modules
       - bundle_cache:/bundle
     ports:
       - "${RAILS_PORT}:3000"
     depends_on:
       - db
     restart: always
-    environment:
-      - SOLR_URL
-      - RAILS_ENV=${RAILS_ENV}
-      - RAILS_SERVE_STATIC_FILES=${RAILS_SERVE_STATIC_FILES}
+    env_file:
+      - .env
 volumes:
   bundle_cache:
