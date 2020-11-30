@@ -1,5 +1,6 @@
 en:
   announcement:
+    class: ''
     content: "Library systems will be undergoing routine maintenance at 5 AM until approximately
         7 AM on Tuesday, 12/1. During the maintenance window, item availability information will
         not load."

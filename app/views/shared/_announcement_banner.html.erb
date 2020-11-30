@@ -1,7 +1,7 @@
 <div class="col px-0">
   <div id="site-messages">
     <% if t('announcement.content').present? %>
-      <div class="alert alert-info text-center site-announcement" role="alert">
+      <div class="alert alert-<%= t('announcement.class').blank? ? 'info' : t('announcement.class') %> text-center site-announcement" role="alert">
         <%= t('announcement.content').html_safe %>
       </div>
     <% end %>
