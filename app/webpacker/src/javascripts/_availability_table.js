@@ -202,6 +202,15 @@ function checkEmptyTable() {
   }
 }
 
+/**
+ * Checks if the list of links includes a fulltext link, indicating that this is an online only item
+ * @returns {boolean}
+ */
+function isOnlineOnly() {
+  const links = document.querySelectorAll('[data-link-type=\'fulltext\'].link-media-item');
+  return links.length > 0;
+}
+
 function repositionItemElements() {
   const availTable = document.querySelector('#availabilityTable');
   const primaryItems = availTable.querySelector('#primaryItems');
@@ -313,9 +322,19 @@ function updateNoApiItems() {
   noApiElements.forEach((item) => {
     const locationEl = item.querySelector('.blacklight-location.result__value');
     if (locationEl === null) return;
+    const availEl = item.querySelector('.blacklight-availability.result__value');
     const locationCode = locationEl.dataset.itemLocation;
+    const locationData = getLocationData(locationCode);
     const serviceDesk = getServiceDeskData(locationCode);
-    locationEl.innerHTML = `Contact <a href="${serviceDesk.url}" target="_blank">${serviceDesk.name}</a>`;
+    locationEl.innerHTML = `<a href="${locationData.url}" target="_blank">${locationData.name}</a>`;
+    if (isOnlineOnly()) {
+      const itemStatus = { code: 'w' };
+      const statusEl = createStatusElement(itemStatus);
+      removeAllChildren(availEl);
+      availEl.appendChild(statusEl);
+    } else {
+      availEl.innerHTML = `Unknown: Contact the <a href="${serviceDesk.url}" target="_blank">Service Desk</a>`;
+    }
   });
 }
 

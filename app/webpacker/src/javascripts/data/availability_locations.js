@@ -344,6 +344,7 @@ const locationData = {
   w: {
     name: 'Willis Library',
     abbr: 'Willis',
+    url: 'https://library.unt.edu/willis/',
     btnClass: 'willis',
   },
   'w1*': {

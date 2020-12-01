@@ -10,7 +10,7 @@
   <td class="blacklight-call-number result__value" data-item-call-number="<%= item['c'] %><%= " #{item['v']}" if item['v'].present? %>">
     <%= item['c'] %><%= " #{item['v']}" if item['v'].present? %>
   </td>
-  <td class="blacklight-availability result__value"><%= item['i'] ? "Checking availability" : "Unavailable" %></td>
+  <td class="blacklight-availability result__value"><%= item['i'] ? "Checking availability" : "Unknown" %></td>
   <td class="blacklight-request result__value d-none" data-item-requestability="<%= item['r'] %>">
     <% unless item['r'].blank? %>
       <%= link_to_request_item document, item: item, item_index: item_index %>
