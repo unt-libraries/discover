@@ -136,6 +136,7 @@ test:
         docker-compose pull &&
         docker-compose up -d &&
         docker-compose exec -T web rails assets:precompile
+        docker-compose restart
         "
   when: manual
 
