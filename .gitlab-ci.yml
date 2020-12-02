@@ -135,7 +135,7 @@ test:
         echo RAILS_MASTER_KEY=$RAILS_MASTER_KEY >> .env &&
         docker-compose pull &&
         docker-compose up -d &&
-        docker-compose exec -T web rails assets:precompile
+        docker-compose exec -T web rails assets:precompile &&
         docker-compose restart
         "
   when: manual
