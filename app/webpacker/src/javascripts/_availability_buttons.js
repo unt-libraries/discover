@@ -116,6 +116,16 @@ function checkForNoButtons() {
 }
 
 /**
+ * Checks if the buttons include an online button, indicating that this is an online only item
+ * @returns {boolean}
+ */
+function isOnlineOnly(item) {
+  const parent = item.parentNode;
+  const onlineButtons = parent.querySelectorAll('[data-online].result__field');
+  return onlineButtons.length > 0;
+}
+
+/**
  * Remove duplicate buttons within availability section
  */
 function combineDuplicates() {
@@ -191,6 +201,11 @@ function updateNoApiItems() {
   const noApiElements = getPlaceholderItemsElements();
 
   noApiElements.forEach((item) => {
+    if (isOnlineOnly(item)) {
+      removeElement(item);
+      return;
+    }
+
     const availabilityTextEl = item.querySelector('.availability-text');
     const locationCode = availabilityTextEl.dataset.itemLocation;
     const serviceDesk = getServiceDeskData(locationCode);
