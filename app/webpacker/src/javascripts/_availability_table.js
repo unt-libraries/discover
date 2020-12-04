@@ -117,7 +117,7 @@ function revealRequestColumn(itemEl) {
 
 /**
  * Updates the status element for an item, including due date
- * @param {(HTMLElement|Element)} itemEl
+ * @param {(HTMLElement|Element|Node)} itemEl
  * @param {Object} itemStatus
  */
 function updateStatusElement(itemEl, itemStatus = null) {
@@ -140,7 +140,7 @@ function updateStatusElement(itemEl, itemStatus = null) {
 
 /**
  * Updates the location element for an item and calls function to update Aeon URL if necessary
- * @param {(HTMLElement|Element)} itemEl
+ * @param {(HTMLElement|Element|Node)} itemEl
  * @param {Object} itemLocation
  */
 function updateLocationElement(itemEl, itemLocation) {
@@ -323,16 +323,19 @@ function updateNoApiItems() {
     const locationEl = item.querySelector('.blacklight-location.result__value');
     if (locationEl === null) return;
     const availEl = item.querySelector('.blacklight-availability.result__value');
-    const locationCode = locationEl.dataset.itemLocation;
-    const locationData = getLocationData(locationCode);
-    const serviceDesk = getServiceDeskData(locationCode);
-    locationEl.innerHTML = `<a href="${locationData.url}" target="_blank">${locationData.name}</a>`;
+
     if (isOnlineOnly()) {
+      // Set specific status and location codes to get the data we want.
       const itemStatus = { code: 'w' };
-      const statusEl = createStatusElement(itemStatus);
-      removeAllChildren(availEl);
-      availEl.appendChild(statusEl);
+      const itemLoc = { code: 'lwww' };
+      updateStatusElement(item, itemStatus);
+      updateLocationElement(item, itemLoc);
     } else {
+      const locationCode = locationEl.dataset.itemLocation;
+      const locationData = getLocationData(locationCode);
+      const serviceDesk = getServiceDeskData(locationCode);
+      locationData.code = locationCode;
+      updateLocationElement(item, locationData);
       availEl.innerHTML = `Unknown: Contact the <a href="${serviceDesk.url}" target="_blank">Service Desk</a>`;
     }
   });
