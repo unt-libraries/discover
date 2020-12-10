@@ -187,27 +187,9 @@ class CatalogController < ApplicationController
                                               index_range: 'A'..'Z', group: 'subjects'
 
     # Group game
-    config.add_facet_field 'game_duration_facet_field', label: 'Games - Duration', :query => {
-      :duration_1 => { label: 'less than 30 minutes', fq: "game_facet:d1t29" },
-      :duration_30 => { label: '30 minutes to 1 hour', fq: "game_facet:d30t59" },
-      :duration_60 => { label: '1 to 2 hours', fq: "game_facet:d60t120" },
-      :duration_120 => { label: 'more than 2 hours', fq: "game_facet:d120t500" },
-    }, group: 'game'
-    config.add_facet_field 'game_players_facet_field',
-                           label: 'Games - Number of Players',
-                           :query => {
-                             :players_1 => { label: '1 player', fq: "game_facet:p1" },
-                             :players_2 => { label: '2 to 4 players', fq: "game_facet:p2t4" },
-                             :players_4 => { label: '5 to 8 players', fq: "game_facet:p4t8" },
-                             :players_8 => { label: 'more than 8 players', fq: "game_facet:p9t99" },
-                           }, group: 'game'
-    config.add_facet_field 'game_age_facet_field', label: 'Games - Recommended Age', :query => {
-      :age_1 => { label: '1 to 4 years', fq: "game_facet:a1t4" },
-      :age_5 => { label: '5 to 9 years', fq: "game_facet:a5t9" },
-      :age_10 => { label: '10 to 13 years', fq: "game_facet:a10t13" },
-      :age_14 => { label: '14 to 16 years', fq: "game_facet:a14t16" },
-      :age_17 => { label: '17 years and up', fq: "game_facet:a17t100" },
-    }, group: 'game'
+    config.add_facet_field 'games_duration_facet', label: 'Games - Duration', group: 'game'
+    config.add_facet_field 'games_players_facet', label: 'Games - Number of Players', group: 'game'
+    config.add_facet_field 'games_ages_facet', label: 'Games - Recommended Age', group: 'game'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
