@@ -187,9 +187,15 @@ class CatalogController < ApplicationController
                                               index_range: 'A'..'Z', group: 'subjects'
 
     # Group game
-    config.add_facet_field 'games_duration_facet', label: 'Games - Duration', group: 'game'
-    config.add_facet_field 'games_players_facet', label: 'Games - Number of Players', group: 'game'
-    config.add_facet_field 'games_ages_facet', label: 'Games - Recommended Age', group: 'game'
+    config.add_facet_field 'games_duration_facet', label: 'Games - Duration', sort: 'index',
+                                                   helper_method: :get_split_facet_display,
+                                                   group: 'game'
+    config.add_facet_field 'games_players_facet', label: 'Games - Number of Players', sort: 'index',
+                                                  helper_method: :get_split_facet_display,
+                                                  group: 'game'
+    config.add_facet_field 'games_ages_facet', label: 'Games - Recommended Age', sort: 'index',
+                                               helper_method: :get_split_facet_display,
+                                               group: 'game'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
