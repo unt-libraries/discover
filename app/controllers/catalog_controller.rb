@@ -169,22 +169,28 @@ class CatalogController < ApplicationController
 
     # Group publication
     config.add_facet_field 'author_contributor_facet', label: 'Author or Contributor', limit: 10,
-                                                       index_range: 'A'..'Z', group: 'publication'
+                                                       helper_method: :get_split_facet_display,
+                                                       index_range: 'a'..'z', group: 'publication'
     config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
-                                            index_range: 'A'..'Z', group: 'publication'
+                                            helper_method: :get_split_facet_display,
+                                            index_range: 'a'..'z', group: 'publication'
     config.add_facet_field 'title_series_facet', label: 'Title or Series', limit: 10, index_range: 'a'..'z',
                                                  helper_method: :get_split_facet_display,
                                                  group: 'publication'
 
     # Group subjects
-    config.add_facet_field 'public_genre_facet', label: 'Genre', limit: 10, index_range: 'A'..'Z',
-                                                 group: 'subjects'
-    config.add_facet_field 'public_subject_facet', label: 'Subject - Topic', limit: 10,
-                                                   index_range: 'A'..'Z', group: 'subjects'
-    config.add_facet_field 'geographic_terms_facet', label: 'Subject - Region', limit: 10,
-                                                     index_range: 'A'..'Z', group: 'subjects'
-    config.add_facet_field 'era_terms_facet', label: 'Subject - Era', limit: 10,
-                                              index_range: 'A'..'Z', group: 'subjects'
+    config.add_facet_field 'genre_facet', label: 'Genre', limit: 10,
+                                          helper_method: :get_split_facet_display,
+                                          index_range: 'a'..'z', group: 'subjects'
+    config.add_facet_field 'topic_facet', label: 'Subject - Topic', limit: 10,
+                                          helper_method: :get_split_facet_display,
+                                          index_range: 'a'..'z', group: 'subjects'
+    config.add_facet_field 'region_facet', label: 'Subject - Region', limit: 10,
+                                           helper_method: :get_split_facet_display,
+                                           index_range: 'a'..'z', group: 'subjects'
+    config.add_facet_field 'era_facet', label: 'Subject - Era', limit: 10,
+                                        helper_method: :get_split_facet_display,
+                                        index_range: 'a'..'z', group: 'subjects'
 
     # Group game
     config.add_facet_field 'games_duration_facet', label: 'Games - Duration', sort: 'index',
