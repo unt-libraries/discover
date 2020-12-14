@@ -87,18 +87,21 @@ module ApplicationHelper
   end
 
   ##
-  # Helper method for catalog_controller specific to json provided by solr for author fields
+  # Helper method for catalog_controller specific to json provided by solr for some fields
   # @param [Hash] options - field options
   # @return [String] HTML links joined together
-  def author_json_to_links(options = {})
+  def json_to_links(options = {})
     values = options[:value]
     facet = options[:config][:link_to_facet]
 
     values.map do |item|
       relator = item['r'].blank? ? '' : ", #{item['r'].join(', ')}"
       item['p'].map do |i|
-        i['v'] ||= i['d']
-        json_value_to_facet_link(i, facet, context: 'show')
+        if i['v'].present?
+          json_value_to_facet_link(i, facet, context: 'show')
+        else
+          i['d']
+        end
       end.join.strip.concat(relator)
     end.join('<br>').html_safe
   end
@@ -160,7 +163,7 @@ module ApplicationHelper
       # If it is a multi-part item, we use the value for both display and value
       if item[:p].length > 1
         last_part = item['p'].last
-        display = last_part[:v]
+        display = get_split_facet_display(last_part[:v])
         value = last_part[:v]
         part = {
           :d => display,

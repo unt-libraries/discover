@@ -203,6 +203,13 @@ class CatalogController < ApplicationController
                                                helper_method: :get_split_facet_display,
                                                group: 'game'
 
+    # Hidden facets
+    config.add_facet_field 'subject_heading_facet', label: 'Subject', show: false,
+                                                    helper_method: :get_split_facet_display
+
+    config.add_facet_field 'genre_heading_facet', label: 'Genre', show: false,
+                                                  helper_method: :get_split_facet_display
+
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
     # handler defaults, or have no facets.
@@ -295,13 +302,13 @@ class CatalogController < ApplicationController
     config.add_show_field 'summary_notes', label: 'Summary'
 
     config.add_show_field 'author_json', label: 'Author/Creator', accessor: 'json_str_to_hash',
-                                         helper_method: :author_json_to_links,
+                                         helper_method: :json_to_links,
                                          link_to_facet: 'author_contributor_facet'
     config.add_show_field 'contributors_json', label: 'Contributors', accessor: 'json_str_to_array',
-                                               helper_method: :author_json_to_links,
+                                               helper_method: :json_to_links,
                                                link_to_facet: 'author_contributor_facet'
     config.add_show_field 'meetings_json', label: 'Meetings', accessor: 'json_str_to_array',
-                                           helper_method: :author_json_to_links,
+                                           helper_method: :json_to_links,
                                            link_to_facet: 'meeting_facet'
     config.add_show_field 'series_creators', label: 'Series Creators',
                                              link_to_facet: 'public_author_facet'
@@ -332,8 +339,14 @@ class CatalogController < ApplicationController
     config.add_show_field 'publication_date_notes'
 
     # Subject Search Fields
-    config.add_show_field 'full_subjects', label: 'Subjects',
-                                           helper_method: "link_to_subject_search"
+    config.add_show_field 'subject_headings_json', label: 'Subjects',
+                                                   accessor: 'json_str_to_array',
+                                                   helper_method: :json_to_links,
+                                                   link_to_facet: :subject_heading_facet
+    config.add_show_field 'genre_headings_json', label: 'Genres',
+                                                 accessor: 'json_str_to_array',
+                                                 helper_method: :json_to_links,
+                                                 link_to_facet: :genre_heading_facet
 
     # Performance Fields
     config.add_show_field 'performers'
