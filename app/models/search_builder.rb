@@ -14,7 +14,12 @@ class SearchBuilder < Blacklight::SearchBuilder
   #     solr_parameters[:custom] = blacklight_params[:user_value]
   #   end
 
-  self.default_processor_chain += [:filter_out_suppressed_records, :only_home_facets, :modify_numbers_field_query]
+  self.default_processor_chain += [
+    :filter_out_suppressed_records,
+    :only_home_facets,
+    :modify_numbers_field_query,
+    :add_user_query_param,
+  ]
 
   def filter_out_suppressed_records(solr_parameters)
     solr_parameters[:fq] ||= []
@@ -37,6 +42,12 @@ class SearchBuilder < Blacklight::SearchBuilder
     if matches.present? && matches[:query_type].present?
       solr_parameters[:q] = %Q(#{matches[:query_type]}"#{matches[:query].gsub!(/^["'‘’“”]*(.*?)["'‘’“”]*$/, '\1')}")
     end
+  end
+
+  #
+  def add_user_query_param(solr_parameters)
+    return if blacklight_params[:q].blank?
+    solr_parameters[:q] += "&user_query=#{blacklight_params[:q]}"
   end
 
   ##

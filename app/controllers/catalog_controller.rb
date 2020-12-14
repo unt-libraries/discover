@@ -434,6 +434,7 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$title_qf',
         pf: '$title_pf',
+        bq: '$title_bq',
       }
     end
 
@@ -442,6 +443,7 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$creator_qf',
         pf: '$creator_pf',
+        bq: '$creator_bq',
       }
     end
 
@@ -451,6 +453,7 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$subject_qf',
         pf: '$subject_pf',
+        bq: '$subject_bq',
       }
     end
 
@@ -460,6 +463,7 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$genre_qf',
         pf: '$genre_pf',
+        bq: '$genre_bq',
       }
     end
 
