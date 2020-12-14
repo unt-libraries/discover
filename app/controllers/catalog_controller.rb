@@ -454,6 +454,15 @@ class CatalogController < ApplicationController
       }
     end
 
+    config.add_search_field('genre') do |field|
+      field.solr_parameters = { 'spellcheck.dictionary': 'default' }
+      field.qt = 'catalog-search'
+      field.solr_local_parameters = {
+        qf: '$genre_qf',
+        pf: '$genre_pf',
+      }
+    end
+
     config.add_search_field('call_number') do |field|
       field.qt = 'catalog-numtype-search'
       field.include_in_advanced_search = false
