@@ -44,10 +44,10 @@ class SearchBuilder < Blacklight::SearchBuilder
     end
   end
 
-  #
+  # Adds `user_query` param to solr query for boosting queries
   def add_user_query_param(solr_parameters)
     return if blacklight_params[:q].blank?
-    solr_parameters[:q] += "&user_query=#{blacklight_params[:q]}"
+    solr_parameters[:user_query] = blacklight_params[:q]
   end
 
   ##
