@@ -319,6 +319,10 @@ class CatalogController < ApplicationController
 
     # Title Fields
     config.add_show_field 'non_truncated_title_display', label: 'Full Title'
+    config.add_show_field 'main_work_title_json', label: 'Main Work',
+                                                  accessor: 'json_str_to_hash',
+                                                  helper_method: :title_json_to_links,
+                                                  link_to_facet: 'title_series_facet'
     config.add_show_field 'included_work_titles_json', label: 'Included Works',
                                                        accessor: 'json_str_to_array',
                                                        helper_method: :title_json_to_links,
