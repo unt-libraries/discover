@@ -4,6 +4,8 @@ class CatalogController < ApplicationController
   include BlacklightAdvancedSearch::Controller
 
   include Blacklight::Catalog
+  include BlacklightRangeLimit::ControllerOverride
+
   include Blacklight::Marc::Catalog
 
   def search_action_url(options = {})
@@ -148,6 +150,8 @@ class CatalogController < ApplicationController
                                           sort: 'index', group: 'location'
 
     # Group date
+    config.add_facet_field 'publication_year_range_facet', label: 'Publication Date', range: true,
+                                                           group: 'date'
     config.add_facet_field 'publication_year_facet', label: 'Publication Year', limit: true, sort: 'index',
                                                      helper_method: :get_split_facet_display,
                                                      group: 'date'

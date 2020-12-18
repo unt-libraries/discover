@@ -13,7 +13,7 @@
    ga-on="click"
    ga-event-category="facet removed - button"
    ga-event-action="<%= label %>"
-   ga-event-label="<%= value %>"
+   ga-event-label="<%= value.gsub(/"/, '&quot;') %>"
    ga-event-value="1"
  <%= 'aria-disabled="true"' if options[:remove].blank? %>>
   <span class="constraint-value">

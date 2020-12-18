@@ -24,6 +24,7 @@ gem 'webpacker', '~> 5.x'
 gem 'blacklight', '>= 7.7.0'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
 gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
+gem 'blacklight_range_limit', '>= 7', '< 8'
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
