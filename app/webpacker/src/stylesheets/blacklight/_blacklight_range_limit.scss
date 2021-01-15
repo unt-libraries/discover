@@ -21,6 +21,11 @@ form.range_limit {
 
 .limit_content .subsection {
   padding: 0.5rem 1rem;
+
+  &.slider_js {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .hover_legend {

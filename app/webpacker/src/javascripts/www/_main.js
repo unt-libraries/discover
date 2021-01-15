@@ -1,5 +1,4 @@
 // Modified for Discover from unt-jekyll-theme/_assets/_scripts/main.js
-import 'bootstrap';
 import size from 'lodash/size';
 import words from 'lodash/words';
 import { allowTracking } from '../_analytics.js.erb';

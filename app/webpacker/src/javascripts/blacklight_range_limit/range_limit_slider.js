@@ -6,8 +6,8 @@
  *    camel case names)
  */
 
-// for Blacklight.onLoad:
-Blacklight.onLoad(() => {
+// Uses turbolinks:load instead of Blacklight.onLoad, otherwise doesn't work in some cases
+document.addEventListener('turbolinks:load', () => {
   $('.range_limit .profile .range.slider_js').each(function () {
     buildSlider(this);
   });

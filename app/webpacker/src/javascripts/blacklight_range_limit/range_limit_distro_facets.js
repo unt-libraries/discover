@@ -2,15 +2,16 @@
 /**
  * Modified for our use from blacklight_range_version version 7.8.0
  */
+import 'bootstrap/js/dist/collapse';
 import debounce from 'lodash/debounce';
 
-// for Blacklight.onLoad:
+// Uses turbolinks:load instead of Blacklight.onLoad, otherwise doesn't work in some cases
 
 /* A custom event "plotDrawn.blacklight.rangeLimit" will be sent when flot plot
    is (re-)drawn on screen possibly with a new size. target of event will be the DOM element
    containing the plot.  Used to resize slider to match. */
 
-Blacklight.onLoad(() => {
+document.addEventListener('turbolinks:load', () => {
   // ratio of width to height for desired display, multiply width by this ratio
   // to get height. hard-coded in for now.
   const displayRatio = 1 / (1.618 * 2); // half a golden rectangle, why not
@@ -296,4 +297,9 @@ Blacklight.onLoad(() => {
 
     return (flotLoaded && canvasAvailable);
   }
+
+  // Additional listener to trigger collapse when page is loaded to resize date chart
+  window.addEventListener('load', () => {
+    $('#facet-publication_year_range_facet').trigger('shown.bs.collapse');
+  });
 });

@@ -10,7 +10,7 @@
 <div class="limit_content range_limit <%= field_name %>-config blrl-plot-config current">
   <% if has_selected_range_limit?(field_name) %>
     <%= link_to search_action_url(remove_range_param(field_name).except(:controller, :action)),
-                :class => "selected list-group-item list-group-item-action facet-values-item",
+                :class => "selected list-group-item list-group-item-action facet-values-item current",
                 :title => t('blacklight.range_limit.remove_limit') do %>
       <span class="selected facet-label">
         <%= range_display(field_name) %>

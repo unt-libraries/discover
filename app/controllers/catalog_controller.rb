@@ -150,14 +150,10 @@ class CatalogController < ApplicationController
                                           sort: 'index', group: 'location'
 
     # Group date
-    config.add_facet_field 'publication_year_range_facet', label: 'Publication Date', range: true,
-                                                           group: 'date'
-    config.add_facet_field 'publication_year_facet', label: 'Publication Year', limit: true, sort: 'index',
-                                                     helper_method: :get_split_facet_display,
-                                                     group: 'date'
-    config.add_facet_field 'publication_decade_facet', label: 'Publication Decade', limit: true, sort: 'index',
-                                                       helper_method: :get_split_facet_display,
-                                                       group: 'date'
+    config.add_facet_field 'publication_year_range_facet', label: 'Publication Date',
+                                                           range: {
+                                                             assumed_boundaries: [1000, Time.now.year + 10],
+                                                           }, group: 'date'
     config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
       :weeks_1 => { label: 'Within the last week', fq: "date_added:[NOW-7DAYS/DAY TO NOW/DAY]" },
       :weeks_2 => { label: 'Within the last 2 weeks', fq: "date_added:[NOW-14DAYS/DAY TO NOW/DAY]" },
