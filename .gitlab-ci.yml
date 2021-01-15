@@ -125,7 +125,7 @@ test:
     - ssh $SSH_USER@$SSH_SERVER "
         cd $SITE_DEST_DIR &&
         git fetch --all &&
-        git checkout $CI_COMMIT_SHA &&
+        git checkout -f $CI_COMMIT_SHA &&
         rm -f .env &&
         echo APP_IMAGE_NAME=$FULL_IMAGE_NAME >> .env &&
         echo RAILS_PORT=$RAILS_PORT >> .env &&
