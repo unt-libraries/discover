@@ -101,7 +101,7 @@ const locationData = {
   'k*': {
     name: '', abbr: '', linkText: '', url: '',
   },
-  kmatt: {
+  'kmat*': {
     name: 'Matthews Hall 307 Lab',
     abbr: 'Matthews Hall',
   },
