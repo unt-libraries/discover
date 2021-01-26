@@ -50,11 +50,13 @@ class CatalogController < ApplicationController
     config.default_solr_params = {
       qt: 'catalog-search',
       rows: 10,
+      fq: ["suppressed:false"],
     }
 
     # solr path which will be added to solr base url before the other solr params.
     # config.solr_path = 'select'
-    # config.document_solr_path = 'get'
+    config.document_solr_path = 'get-discover'
+    config.document_unique_id_param = :id
 
     # items to show per page, each number in the array represent another option to choose from.
     config.per_page = [10, 20, 50, 100]

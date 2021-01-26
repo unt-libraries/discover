@@ -16,15 +16,9 @@ class SearchBuilder < Blacklight::SearchBuilder
   #   end
 
   self.default_processor_chain += [
-    :filter_out_suppressed_records,
     :only_home_facets,
     :modify_numbers_field_query,
   ]
-
-  def filter_out_suppressed_records(solr_parameters)
-    solr_parameters[:fq] ||= []
-    solr_parameters[:fq] << 'suppressed:false'
-  end
 
   def only_home_facets(solr_parameters)
     return if search_parameters?
