@@ -155,6 +155,7 @@ class CatalogController < ApplicationController
     config.add_facet_field 'publication_year_range_facet', label: 'Publication Date',
                                                            range: {
                                                              assumed_boundaries: [1000, Time.now.year + 10],
+                                                             maxlength: 4,
                                                            }, group: 'date'
     config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
       :weeks_1 => { label: 'Within the last week', fq: "date_added:[NOW-7DAYS/DAY TO NOW/DAY]" },

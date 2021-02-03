@@ -179,8 +179,14 @@ document.addEventListener('turbolinks:load', () => {
         plot = $.plot($(container), [seriesData],
           $.extend(true, config, {
             yaxis: { ticks: [], min: 0, autoscaleMargin: 0.1 },
-            // xaxis: { ticks: xTicks },
-            xaxis: { tickDecimals: 0 }, // force integer ticks
+            xaxis: {
+              labelHeight: 20,
+              labelWidth: 30,
+              ticks: xTicks,
+              tickDecimals: 0, // force integer ticks
+              tickLength: 0,
+              reserveSpace: true,
+            },
             series: { lines: { fill: true, steps: true } },
             grid: {
               clickable: true, hoverable: true, autoHighlight: false, margin: { left: 0, right: 0 },
@@ -195,7 +201,7 @@ document.addEventListener('turbolinks:load', () => {
       let lastSegment = null;
 
       $(container).tooltip({
-        html: true, placement: 'bottom', trigger: 'manual', delay: { show: 0, hide: 100},
+        html: true, placement: 'bottom', trigger: 'manual', delay: { show: 0, hide: 100 },
       });
 
       $(container).bind('plothover', (event, pos, item) => {
@@ -265,12 +271,12 @@ document.addEventListener('turbolinks:load', () => {
 
   function formSelection(form, min, max) {
     let beginVal = window.BlacklightRangeLimit.parseNum($(form).find('input.range_begin').val());
-    if (isNaN(beginVal) || beginVal < min) {
+    if (Number.isNaN(beginVal) || beginVal < min) {
       beginVal = min;
     }
 
     let endVal = window.BlacklightRangeLimit.parseNum($(form).find('input.range_end').val());
-    if (isNaN(endVal) || endVal > max) {
+    if (Number.isNaN(endVal) || endVal > max) {
       endVal = max;
     }
 

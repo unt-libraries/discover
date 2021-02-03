@@ -39,12 +39,12 @@ document.addEventListener('turbolinks:load', () => {
     let min = window.BlacklightRangeLimit.parseNum(currentLimit.find('.single').data('blrlSingle'));
     let max = min;
 
-    if (isNaN(min)) {
+    if (Number.isNaN(min)) {
       min = window.BlacklightRangeLimit.parseNum(currentLimit.find('.from').first().data('blrlBegin'));
       max = window.BlacklightRangeLimit.parseNum(currentLimit.find('.to').first().data('blrlEnd'));
     }
 
-    if (isNaN(min) || isNaN(max)) {
+    if (Number.isNaN(min) || Number.isNaN(max)) {
       // no current limit, take from results min max included in spans
       min = window.BlacklightRangeLimit.parseNum($(rangeElement).find('.min').first().text());
       max = window.BlacklightRangeLimit.parseNum($(rangeElement).find('.max').first().text());
@@ -68,10 +68,10 @@ document.addEventListener('turbolinks:load', () => {
 
       const rangeElement = $(thisContext);
       let form = $(rangeElement).closest('.range_limit').find('form.range_limit');
-      var beginEl = form.find('input.range_begin');
-      var endEl = form.find('input.range_end');
+      const beginEl = form.find('input.range_begin');
+      const endEl = form.find('input.range_end');
 
-      var placeholderInput = $('<input type="hidden" data-slider-placeholder="true" />').appendTo(rangeElement);
+      const placeholderInput = $('<input type="hidden" data-slider-placeholder="true" />').appendTo(rangeElement);
 
       // make sure slider is loaded
       if (placeholderInput.slider !== undefined) {
@@ -116,9 +116,9 @@ document.addEventListener('turbolinks:load', () => {
       beginEl.val(min);
       endEl.val(max);
 
-      beginEl.change(() => {
-        let val = window.BlacklightRangeLimit.parseNum($(thisContext).val());
-        if (isNaN(val) || val < min) {
+      beginEl.change(function () {
+        let val = window.BlacklightRangeLimit.parseNum($(this).val());
+        if (Number.isNaN(val) || val < min) {
           // for weird data, set slider at min
           val = min;
         }
@@ -127,9 +127,9 @@ document.addEventListener('turbolinks:load', () => {
         placeholderInput.slider('setValue', values);
       });
 
-      endEl.change(() => {
-        let val = window.BlacklightRangeLimit.parseNum($(thisContext).val());
-        if (isNaN(val) || val > max) {
+      endEl.change(function () {
+        let val = window.BlacklightRangeLimit.parseNum($(this).val());
+        if (Number.isNaN(val) || val > max) {
           // weird entry, set slider to max
           val = max;
         }

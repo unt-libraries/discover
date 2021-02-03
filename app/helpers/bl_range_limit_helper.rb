@@ -24,4 +24,20 @@ module BlRangeLimitHelper
 
     return stats[type].to_s.gsub(/\.0+/, '')
   end
+
+  # Overrides BLRL 7.9.1 to modify input fields
+  def render_range_input(solr_field, type, input_label = nil, maxlength=4)
+    type = type.to_s
+
+    default = params["range"][solr_field][type] if params["range"] && params["range"][solr_field] && params["range"][solr_field][type]
+
+    options = {
+      :maxlength => maxlength,
+      :placeholder => "YYYY",
+      :class => "form-control text-center range_#{type}",
+    }
+    html = text_field_tag("range[#{solr_field}][#{type}]", default, options)
+    html += label_tag("range[#{solr_field}][#{type}]", input_label, class: 'sr-only') if input_label.present?
+    html
+  end
 end

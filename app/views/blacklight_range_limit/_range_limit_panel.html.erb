@@ -27,6 +27,9 @@
     <%= render_hash_as_hidden_fields(search_state.params_for_search.except(:page)) %>
     <div class="input-group input-group-sm flex-nowrap range-limit-input-group">
       <%= render_range_input(field_name, :begin, input_label_range_begin, maxlength) %>
+      <div class="input-group-append">
+        <span class="range-limit-input-divider input-group-text">-</span>
+      </div>
       <%= render_range_input(field_name, :end, input_label_range_end, maxlength) %>
       <div class="input-group-append">
         <%= submit_tag t('blacklight.range_limit.submit_limit'), class: BlacklightRangeLimit.classes[:submit] %>

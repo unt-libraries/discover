@@ -6,9 +6,15 @@ form.range_limit {
 .range_limit .range-limit-input-group {
   max-width: 350px;
   width: 100% !important;
+
+  .range-limit-input-divider {
+    background-color: inherit;
+    border: none;
+  }
 }
 
-.range_limit input.range_begin, .range_limit input.range_end {
+.range_limit input.range_begin,
+.range_limit input.range_end {
   display: inline-block;
   width: 4.5em;
 }
@@ -42,12 +48,16 @@ form.range_limit {
 }
 
 .slider_js .slider-horizontal {
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .chart_js .flot-x-axis {
   font-size: 14px;
+
+  .flot-tick-label {
+    font-size: smaller;
+  }
 }
 
 .modal-body .view_larger {
@@ -70,6 +80,4 @@ form.range_limit {
 
 .range_limit .chart_js {
   min-height: 80px;
-  margin-left: -12px;
-  margin-right: -14px;
 }
