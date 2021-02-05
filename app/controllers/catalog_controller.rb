@@ -152,7 +152,7 @@ class CatalogController < ApplicationController
                                           sort: 'index', group: 'location'
 
     # Group date
-    config.add_facet_field 'publication_year_range_facet', label: 'Publication Date',
+    config.add_facet_field 'publication_year_range_facet', label: 'Date',
                                                            range: {
                                                              assumed_boundaries: [1000, Time.now.year + 10],
                                                              maxlength: 4,

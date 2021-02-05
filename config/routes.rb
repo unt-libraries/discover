@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   root to: "catalog#index"
   concern :searchable, Blacklight::Routes::Searchable.new
+  concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable

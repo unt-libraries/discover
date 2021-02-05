@@ -11,6 +11,21 @@
     for a chosen.js-compatible multi-select.
 %>
 
-<div class="advanced-facet-limits panel-group col-md-9 offset-md-3">
-  <%= render_facet_partials facet_field_names_for_advanced_search, response: @response %>
+<div class="advanced-facet-limits col">
+  <%# Publication Date is a range input loaded separately from other facets %>
+  <% pub_date = facet_configuration_for_field('publication_year_range_facet') %>
+  <div class="form-group row advanced-search-field mb-4">
+    <%= label_tag pub_date, "#{pub_date.label}", :class => "col-3 control-label col-form-label text-md-right" %>
+    <div class="col-md-8 range_limit">
+      <label for="range_pub_date_start_sort_begin" class="sr-only">Publication date range (starting year)</label>
+      <%= render_range_input(pub_date.field, :begin) %> –
+      <label for="range_pub_date_start_sort_end" class="sr-only">Publication date range (ending year)</label>
+      <%= render_range_input(pub_date.field, :end) %>
+    </div>
+  </div>
+
+  <div class="panel-group col-md-9 offset-md-3">
+    <%= render_facet_partials facet_field_names_for_advanced_search, response: @response %>
+  </div>
+
 </div>

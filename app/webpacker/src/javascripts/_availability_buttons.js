@@ -215,6 +215,7 @@ function updateNoApiItems() {
 
 function revealButtonContainers() {
   const documentsList = document.querySelector('#documents');
+  if (documentsList === null) return;
   const buttonContainers = documentsList.querySelectorAll('.item-availability');
 
   buttonContainers.forEach((node) => {

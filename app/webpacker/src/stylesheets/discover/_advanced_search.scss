@@ -58,6 +58,15 @@
     }
   }
 
+  .panel-group {
+    padding-left: 0.5rem;
+    padding-right: 0;
+
+    @include media-breakpoint-down(sm) {
+      padding-left: 0;
+    }
+  }
+
   .facet-limit {
     border-radius: $card-border-radius;
     box-shadow: none;

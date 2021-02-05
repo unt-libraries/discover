@@ -11,6 +11,10 @@ form.range_limit {
     background-color: inherit;
     border: none;
   }
+
+  .submit.btn {
+    @extend .btn-dark-teal;
+  }
 }
 
 .range_limit input.range_begin,
