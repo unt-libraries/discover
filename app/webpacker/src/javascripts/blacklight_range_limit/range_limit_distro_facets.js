@@ -204,7 +204,7 @@ document.addEventListener('turbolinks:load', () => {
         html: true, placement: 'bottom', trigger: 'manual', delay: { show: 0, hide: 100 },
       });
 
-      $(container).bind('plothover', (event, pos, item) => {
+      $(container).on('plothover', (event, pos, item) => {
         const segment = findSegmentFor(pos.x);
 
         if (segment !== lastSegment) {
@@ -215,18 +215,19 @@ document.addEventListener('turbolinks:load', () => {
         }
       });
 
-      $(container).bind('mouseout', () => {
+      $(container).on('mouseout', () => {
         lastSegment = null;
         $(container).tooltip('hide');
       });
-      $(container).bind('plotclick', (event, pos, item) => {
+
+      $(container).on('plotclick', (event, pos, item) => {
         if (plot.getSelection() == null) {
           const segment = findSegmentFor(pos.x);
           plot.setSelection(normalizedSelection(segment.from, segment.to));
         }
       });
 
-      $(container).bind('plotselected plotselecting', (event, ranges) => {
+      $(container).on('plotselected plotselecting', (event, ranges) => {
         if (ranges != null) {
           const from = Math.floor(ranges.xaxis.from);
           const to = Math.floor(ranges.xaxis.to);
@@ -243,7 +244,7 @@ document.addEventListener('turbolinks:load', () => {
       });
 
       const form = $(container).closest('.limit_content').find('form.range_limit');
-      form.find('input.range_begin, input.range_end').change(() => {
+      form.find('input.range_begin, input.range_end').on('change', () => {
         plot.setSelection(formSelection(form, min, max), true);
       });
 

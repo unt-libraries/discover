@@ -5,6 +5,7 @@ import { initTour } from '../src/javascripts/_tour';
 import { replaceBookCovers } from '../src/javascripts/_ui';
 import 'flot/source/jquery.canvaswrapper';
 import 'flot/source/jquery.colorhelpers';
+import 'flot/lib/jquery.event.drag';
 import 'flot/source/jquery.flot';
 import 'flot/source/jquery.flot.browser';
 import 'flot/source/jquery.flot.saturated';

@@ -116,7 +116,7 @@ document.addEventListener('turbolinks:load', () => {
       beginEl.val(min);
       endEl.val(max);
 
-      beginEl.change(function () {
+      beginEl.on('change', function () {
         let val = window.BlacklightRangeLimit.parseNum($(this).val());
         if (Number.isNaN(val) || val < min) {
           // for weird data, set slider at min
@@ -127,7 +127,7 @@ document.addEventListener('turbolinks:load', () => {
         placeholderInput.slider('setValue', values);
       });
 
-      endEl.change(function () {
+      endEl.on('change', function () {
         let val = window.BlacklightRangeLimit.parseNum($(this).val());
         if (Number.isNaN(val) || val > max) {
           // weird entry, set slider to max
