@@ -191,7 +191,7 @@ document.addEventListener('turbolinks:load', () => {
             grid: {
               clickable: true, hoverable: true, autoHighlight: false, margin: { left: 0, right: 0 },
             },
-            selection: { mode: 'x' },
+            selection: { displaySelectionDecorations: false, mode: 'x' },
           }));
       } catch (err) {
         alert(err);
