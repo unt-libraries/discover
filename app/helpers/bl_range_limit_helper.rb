@@ -33,6 +33,7 @@ module BlRangeLimitHelper
 
     options = {
       :maxlength => maxlength,
+      :type => "text",
       :placeholder => "YYYY",
       :pattern => '\d{4}',
       :class => "form-control text-center range_#{type}",

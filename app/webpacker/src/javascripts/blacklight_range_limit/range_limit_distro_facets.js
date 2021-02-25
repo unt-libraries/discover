@@ -251,6 +251,39 @@ document.addEventListener('turbolinks:load', () => {
         plot.setSelection(formSelection(form, min, max), true);
       });
 
+      // Only allow digits in date fields
+      form.find('#range_publication_year_range_facet_begin, #range_publication_year_range_facet_end').on('keydown', (e) => {
+        if (e.shiftKey === true) {
+          return e.which === 9;
+        }
+        if (e.which > 57) {
+          return false;
+        }
+        return e.which !== 32;
+      });
+
+      // Don't allow form submission if dates are in wrong order
+      form.on('submit', (e) => {
+        const startDateEl = document.getElementById('range_publication_year_range_facet_begin');
+        const endDateEl = document.getElementById('range_publication_year_range_facet_end');
+        const startDt = form.find('input.range_begin').val();
+        const endDt = form.find('input.range_end').val();
+
+        if (new Date(startDt).getTime() > new Date(endDt).getTime()) {
+          form.addClass('was-validated');
+
+          startDateEl.setCustomValidity('End date cannot be before begin date');
+          endDateEl.setCustomValidity('End date cannot be before begin date');
+          endDateEl.reportValidity();
+          e.preventDefault();
+          e.stopPropagation();
+        } else {
+          startDateEl.setCustomValidity('');
+          endDateEl.setCustomValidity('');
+          endDateEl.reportValidity();
+        }
+      });
+
       $(container).closest('.limit_content').find('.profile .range').on('slide', (event, ui) => {
         const values = $(event.target).data('slider').getValue();
         form.find('input.range_begin').val(values[0]);
