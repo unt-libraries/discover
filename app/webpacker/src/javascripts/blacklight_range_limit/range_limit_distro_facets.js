@@ -253,10 +253,12 @@ document.addEventListener('turbolinks:load', () => {
 
       // Only allow digits in date fields
       form.find('#range_publication_year_range_facet_begin, #range_publication_year_range_facet_end').on('keydown', (e) => {
+        // Only allow tab, arrows, home, end with shift
         if (e.shiftKey === true) {
-          return e.which === 9;
+          return e.which === 9 || (e.which >= 35 && e.which <= 40);
         }
-        if (e.which > 57) {
+        // Only allow digits and numpad
+        if (e.which > 57 && (e.which < 96 || e.which > 105)) {
           return false;
         }
         return e.which !== 32;
