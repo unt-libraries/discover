@@ -102,7 +102,7 @@ module AvailabilityHelper
                 })
   end
 
-  def render_notes(items)
+  def render_notes(document, items)
     notes = nil
     items.each do |item|
       if item['n'].present?
@@ -110,8 +110,9 @@ module AvailabilityHelper
       end
     end
     if notes.present?
-      content_tag(:span, "See full record for additional info.",
-                  { class: 'blacklight-notes result__value text-center' })
+      link_to_document(document, 'See full record for additional info.',
+                       { class: 'blacklight-notes result__value text-center' }
+      )
     end
   end
 
