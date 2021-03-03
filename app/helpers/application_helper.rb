@@ -65,6 +65,14 @@ module ApplicationHelper
     field_config.display_label('search')
   end
 
+  def format_toc(options = {})
+    values = options[:value]
+
+    values.map do |item|
+      item.gsub("--", "<hr class='p-0 m-0'>")
+    end.join.html_safe
+  end
+
   ##
   # Converts a single JSON string from solr to Ruby hash
   # Used for single value fields

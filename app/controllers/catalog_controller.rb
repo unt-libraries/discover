@@ -307,7 +307,7 @@ class CatalogController < ApplicationController
 
     # Summary and TOC
     config.add_show_field 'summary_notes', label: 'Summary'
-    config.add_show_field 'toc_notes', label: 'Table of Contents'
+    config.add_show_field 'toc_notes', label: 'Table of Contents', helper_method: :format_toc
 
     config.add_show_field 'author_json', label: 'Author/Creator', accessor: 'json_str_to_hash',
                                          helper_method: :json_to_links,
