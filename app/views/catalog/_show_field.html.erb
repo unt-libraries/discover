@@ -1,0 +1,9 @@
+<div class="row result__field">
+  <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label">
+            <span <%= raw("data-toggle=\"tooltip\" data-title=\"#{field.tooltip}\" data-placement=\"left\" class=\"tooltip-nolink\"") if field.tooltip %>>
+              <%= render_document_show_field_label document, label: field_presenter.label, field: field_name %>
+            </span>
+  </dt>
+  <dd class="col blacklight-<%= field_name.parameterize %> result__value linkify-text"
+      data-field-name="<%= field_presenter.label %>" data-card-title="<%= display_name.titlecase %>"><%= field_presenter.render %></dd>
+</div>

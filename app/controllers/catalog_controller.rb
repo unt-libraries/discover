@@ -305,9 +305,9 @@ class CatalogController < ApplicationController
     config.add_show_field 'items_json', label: 'Items', display: :availability
     config.add_show_field 'has_more_items', if: false
 
-    # TOC and Summary
-    config.add_show_field 'toc_notes', label: 'Table of Contents'
+    # Summary and TOC
     config.add_show_field 'summary_notes', label: 'Summary'
+    config.add_show_field 'toc_notes', label: 'Table of Contents'
 
     config.add_show_field 'author_json', label: 'Author/Creator', accessor: 'json_str_to_hash',
                                          helper_method: :json_to_links,
