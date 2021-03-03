@@ -154,30 +154,33 @@ function initPopovers() {
  * sibling `.more-min` and reveal `.more-max`
  */
 function bindShowAvailMoreField() {
-  const moreScope = document.querySelector('[data-more-scope]');
-  const moreLink = moreScope.querySelector('.reveal-more');
-  const lessLink = moreScope.querySelector('.reveal-less');
-  const moreMax = moreScope.querySelectorAll('.more-max');
-  if (moreLink === null) return;
+  const moreScopes = document.querySelectorAll('[data-more-scope]');
 
-  moreLink.addEventListener('click', () => {
-    moreMax.forEach((thisEl) => {
-      elRemoveClass(thisEl, 'd-none');
-    });
-    elAddClass(moreLink, 'd-none');
-    elRemoveClass(lessLink, 'd-none');
-    moreScope.removeAttribute('data-showing-less');
-    moreScope.setAttribute('data-showing-more', 'true');
-  });
+  moreScopes.forEach((moreScope) => {
+    const moreLink = moreScope.querySelector('.reveal-more');
+    const lessLink = moreScope.querySelector('.reveal-less');
+    const moreMax = moreScope.querySelectorAll('.more-max');
+    if (moreLink === null) return;
 
-  lessLink.addEventListener('click', () => {
-    moreMax.forEach((thisEl) => {
-      elAddClass(thisEl, 'd-none');
+    moreLink.addEventListener('click', () => {
+      moreMax.forEach((thisEl) => {
+        elRemoveClass(thisEl, 'd-none');
+      });
+      elAddClass(moreLink, 'd-none');
+      elRemoveClass(lessLink, 'd-none');
+      moreScope.removeAttribute('data-showing-less');
+      moreScope.setAttribute('data-showing-more', 'true');
     });
-    elAddClass(lessLink, 'd-none');
-    elRemoveClass(moreLink, 'd-none');
-    moreScope.removeAttribute('data-showing-more');
-    moreScope.setAttribute('data-showing-less', 'true');
+
+    lessLink.addEventListener('click', () => {
+      moreMax.forEach((thisEl) => {
+        elAddClass(thisEl, 'd-none');
+      });
+      elAddClass(lessLink, 'd-none');
+      elRemoveClass(moreLink, 'd-none');
+      moreScope.removeAttribute('data-showing-more');
+      moreScope.setAttribute('data-showing-less', 'true');
+    });
   });
 }
 

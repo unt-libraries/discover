@@ -65,11 +65,46 @@ module ApplicationHelper
     field_config.display_label('search')
   end
 
+  ##
+  # Formats the table of contents for the show view.
+  # If there are more than `primary_threshold` lines in the TOC, anything over that threshold
+  # is split into a hidden container that the user must reveal.
+  # @param [Hash] options - field options
+  # @return [String] HTML elements joined together
   def format_toc(options = {})
     values = options[:value]
 
     values.map do |item|
-      item.gsub("--", "<hr class='p-0 m-0'>")
+      split_items = item.split('--')
+      primary_threshold = 20
+
+      if split_items.size > primary_threshold
+        primary_items = split_items.take(primary_threshold).join("<hr class='p-0 m-0'>")
+        more_items = split_items.drop(primary_threshold).join("<hr class='p-0 m-0'>")
+
+        primary_tag = content_tag :span, primary_items.html_safe
+        more_tag = content_tag :span, more_items.html_safe, class: 'more-max d-none'
+        more_button = content_tag :span do
+          "<div>
+            <span class='more-less'>
+              <a href='#' onclick='return false' class='reveal-more'>
+                <span class='more-text'>View #{split_items.size - primary_threshold} more lines</span>
+              </a>
+              <a href='#' onclick='return false' class='reveal-less d-none'>
+                <span class='less-text'>View less</span>
+              </a>
+            </span>
+          </div>".html_safe
+        end
+
+        content_tag :span, { data: { 'more_scope': true, 'showing_less': true } } do
+          concat(primary_tag)
+          concat(more_tag)
+          concat(more_button)
+        end
+      else
+        split_items.join("<hr class='p-0 m-0'>")
+      end
     end.join.html_safe
   end
 
