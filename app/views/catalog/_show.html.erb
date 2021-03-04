@@ -14,5 +14,18 @@
         <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= field_presenter.render %></dd>
       </div>
     <% end -%>
+
+    <%# Add Related Series field to top card, duplicated from "more details" section %>
+    <% doc_presenter.fields_to_render.select { |name, f| name == 'related_series_titles_json' }.each do |field_name, field, field_presenter| -%>
+      <%= render partial: 'show_field',
+                 locals: {
+                     document: @document,
+                     display_name: 'priority',
+                     field_name: field_name,
+                     field: field,
+                     field_presenter: field_presenter
+                 }
+      %>
+    <% end %>
   </dl>
 <% end %>
