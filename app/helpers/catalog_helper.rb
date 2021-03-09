@@ -45,6 +45,10 @@ module CatalogHelper
     content_tag 'span', contents.join('<br>'), nil, false
   end
 
+  def get_split_facet_display(value)
+    value.split('!', 2).last
+  end
+
   private
 
   def fulltext_link(item, opts = {})
@@ -61,10 +65,6 @@ module CatalogHelper
       concat(find_it_img_el)
       concat(text_el)
     end
-  end
-
-  def get_split_facet_display(value)
-    value.split('!', 2).last
   end
 
   def link_to_subject_search(data)

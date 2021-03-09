@@ -3,6 +3,9 @@
     doc_presenter = show_presenter(document) %>
 <% content_for(:head) { render_link_rel_alternates } %>
 
+<%# Search context query for highlighting %>
+<%= content_tag :div, nil, id: 'searchContext', class: 'd-none', :data => {'search-context' => search_context_query} %>
+
 <div class="card ">
   <div class="card-body">
     <div class="row">

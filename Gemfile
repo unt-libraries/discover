@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 2.6.5'
+ruby '~> 2.6.6'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 # Use CoffeeScript for .coffee assets and views
@@ -23,7 +23,7 @@ gem 'webpacker', '~> 5.x'
 
 gem 'blacklight', '>= 7.7.0'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
-gem 'blacklight-marc', '>= 7.0.0.rc1', '< 8'
+gem 'blacklight-marc'
 gem 'blacklight_range_limit', '>= 7', '< 8'
 
 group :development do
