@@ -81,6 +81,21 @@
     text-transform: none;
     color: theme-color("gray-dark");
   }
+
+  .result__value {
+    &.blacklight-toc_notes {
+      line-height: 1.4rem;
+      margin-bottom: 0.6rem;
+      margin-left: 15px;
+      border-left: 4px solid theme-color("gray-lighter");
+
+      br {
+        content: '';
+        display: block;
+        height: 10px;
+      }
+    }
+  }
 }
 
 .link-media-item.fulltext {
