@@ -292,7 +292,7 @@ module ApplicationHelper
   ##
   # Returns the current search context for use in templates
   def search_context_query
-    if current_search_session.blank? && current_search_session[:query_params].blank?
+    if current_search_session.blank? || current_search_session[:query_params].blank?
       return
     end
     current_search_session[:query_params].to_json

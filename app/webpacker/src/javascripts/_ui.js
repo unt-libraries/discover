@@ -8,7 +8,6 @@ import 'bootstrap/js/dist/tooltip';
 import 'bootstrap/js/dist/popover';
 import Cookies from 'js-cookie';
 import escapeRegExp from 'lodash/escapeRegExp';
-import Mark from 'mark.js/dist/mark.es6';
 
 const has = Object.prototype.hasOwnProperty;
 const idTypes = {
@@ -132,42 +131,6 @@ function replaceBookCovers() {
 }
 
 /**
- * Uses mark.js to highlight search terms in Show view
- */
-function highlightSearchTerms() {
-  const searchContextEl = document.getElementById('searchContext');
-  if (searchContextEl !== null) {
-    const { searchContext } = searchContextEl.dataset;
-    const searchContextObj = JSON.parse(searchContext);
-    let searchQuery = searchContextObj.q;
-    searchQuery = searchQuery.replaceAll(/^["']|["']$/g, '');
-
-    // Check top information for matches
-    const instance = new Mark(document.getElementById('document'));
-    const options = {
-      separateWordSearch: false,
-      done(total) {
-        if (total === 0) {
-          // If the search phrase doesn't appear in the top block, highlight in "More Details"
-          const moreDetails = document.querySelector('.card.item-more-details');
-          const moreMarks = new Mark(moreDetails);
-          const moreOptions = { separateWordSearch: false };
-          moreMarks.mark(searchQuery, moreOptions);
-          const markEls = moreDetails.querySelectorAll('mark');
-          // Add tooltips
-          markEls.forEach((el) => {
-            el.dataset.toggle = 'tooltip';
-            el.dataset.title = 'This is the term you searched for';
-          });
-        }
-      },
-    };
-    instance.mark(searchQuery, options);
-    instance.unmark();
-  }
-}
-
-/**
  * Initializes tooltips already in the DOM, as well as dynamically added tooltips.
  */
 function initTooltips() {
@@ -280,7 +243,6 @@ export {
   animateSearchIcon,
   bindDismissBannerCookie,
   bindShowAvailMoreField,
-  highlightSearchTerms,
   initPopovers,
   initTooltips,
   linkify,
