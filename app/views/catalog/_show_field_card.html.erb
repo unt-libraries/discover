@@ -1,7 +1,7 @@
 <%# render general fields without :display property %>
 <% document ||= @document
    id = document[:id]
-   doc_presenter = show_presenter(document)
+   doc_presenter = document_presenter(document)
 %>
 
 <div class="card item-more-details">

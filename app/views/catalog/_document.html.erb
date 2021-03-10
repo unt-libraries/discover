@@ -1,5 +1,5 @@
 <%# container for a single doc -%>
-<% doc_presenter = index_presenter(document) %>
+<% doc_presenter = document_presenter(document) %>
 
 <%= tag.article class: "document row col-12 #{render_document_class document} document-position-#{document_counter} ",
                 data: {

@@ -13,7 +13,7 @@
 
     <% # container for facet groups -%>
     <div id="facet-panel-collapse" class="facets-collapse collapse">
-      <% facet_group_names.each do |groupname| %>
+      <% blacklight_config.facet_group_names.each do |groupname| %>
         <%= render 'facet_group', groupname: groupname %>
       <% end %>
     </div>

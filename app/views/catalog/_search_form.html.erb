@@ -9,7 +9,7 @@
                                autocomplete_path: search_action_path(action: :suggest) }  %>
 
     <div class="input-group-append">
-    <% if search_fields.length > 1 %>
+    <% if blacklight_config.search_fields.length > 1 %>
       <div class="dropdown d-none d-sm-block" id="searchFieldDropdownGroup">
         <button class="btn dropdown-toggle search__btn" type="button" id="search-fields" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <%= t('blacklight.search.form.search_field.label') %>
@@ -23,7 +23,7 @@
                                  class: "dropdown-menu",
                                  'aria-labelledby': "search-fields") %>
       </div>
-        <%= hidden_field_tag :search_field, (params[:search_field] || search_fields.first.last) %>
+        <%= hidden_field_tag :search_field, (params[:search_field] || blacklight_config.search_fields.first.last) %>
     <% elsif search_fields.length == 1 %>
       <%= hidden_field_tag :search_field, search_fields.first.last %>
     <% end %>

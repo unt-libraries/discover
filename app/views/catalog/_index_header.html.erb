@@ -20,7 +20,7 @@
                            'ga-on': 'click',
                            'ga-event-category': 'List Item Link',
                            'ga-event-action': 'Header title',
-                           'ga-event-label': index_presenter(document).heading %>
+                           'ga-event-label': document_presenter(document).heading %>
       <% unless document[:publication_year_display].nil? %>
         <span class="document-title-date">[<%= document[:publication_year_display] %>]</span>
       <% end %>

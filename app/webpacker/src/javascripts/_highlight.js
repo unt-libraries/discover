@@ -9,6 +9,7 @@ function highlightSearchTerms() {
 
   const { searchContext } = searchContextEl.dataset;
   const searchContextObj = JSON.parse(searchContext);
+  if (!searchContextObj.q) return;
   const searchQuery = searchContextObj.q.replaceAll(/^["']|["']$/g, '');
   const stopWords = ['a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'has', 'he',
     'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'was', 'were', 'will', 'with'];
