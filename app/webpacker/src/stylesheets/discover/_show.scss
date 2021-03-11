@@ -85,14 +85,11 @@
   .result__value {
     &.blacklight-toc_notes {
       line-height: 1.4rem;
-      margin-bottom: 0.6rem;
-      margin-left: 15px;
-      border-left: 4px solid theme-color("gray-lighter");
 
-      br {
-        content: '';
+      .toc_item {
         display: block;
-        height: 10px;
+        padding: 0.32rem 0 0.32rem 1rem;
+        border-left: 4px solid theme-color("gray-lighter");
       }
     }
   }

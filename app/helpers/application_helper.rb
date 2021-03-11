@@ -75,26 +75,27 @@ module ApplicationHelper
     values = options[:value]
 
     values.map do |item|
-      split_items = item.split('--')
       primary_threshold = 20
+      split_items = item.split('--')
+      item_elements = split_items.map.with_index do |toc_item, index |
+        content_tag :span, toc_item, class: 'toc_item', data: {'toc-index': index}
+      end
 
-      if split_items.size > primary_threshold
-        primary_items = split_items.take(primary_threshold).join("<br>")
-        more_items = split_items.drop(primary_threshold).join("<br>")
+      if item_elements.size > primary_threshold
+        primary_items = item_elements.take(primary_threshold).join
+        more_items = item_elements.drop(primary_threshold).join
 
         primary_tag = content_tag :span, primary_items.html_safe
         more_tag = content_tag :span, more_items.html_safe, class: 'more-max d-none'
-        more_button = content_tag :span do
-          "<div>
-            <span class='more-less'>
-              <a href='#' onclick='return false' class='reveal-more'>
-                <span class='more-text'>View #{split_items.size - primary_threshold} more lines</span>
-              </a>
-              <a href='#' onclick='return false' class='reveal-less d-none'>
-                <span class='less-text'>View less</span>
-              </a>
-            </span>
-          </div>".html_safe
+        more_button = content_tag :div, class: "more-less text-center" do
+          "<a href='#' onclick='return false' class='reveal-more'>
+            <span class='more-text d-block'>View #{item_elements.size - primary_threshold} more lines</span>
+            <i class='fal fa-chevron-down more-icon d-inline-block'></i>
+          </a>
+          <a href='#' onclick='return false' class='reveal-less d-none'>
+            <span class='less-text d-block'>View less</span>
+            <i class='fal fa-chevron-up less-icon d-inline-block'></i>
+          </a>".html_safe
         end
 
         content_tag :span, { data: { 'more_scope': true, 'showing_less': true } } do
@@ -103,7 +104,7 @@ module ApplicationHelper
           concat(more_button)
         end
       else
-        split_items.join("<br>")
+        item_elements.join
       end
     end.join.html_safe
   end
