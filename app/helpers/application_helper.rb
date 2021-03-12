@@ -76,7 +76,7 @@ module ApplicationHelper
     primary_threshold = 20
     delimiter = '--'
     # TOC is a multivalued field, so this combines multiple entries using the delimiter
-    combined_values = sanitize(values.join(delimiter))
+    combined_values = values.join(delimiter)
     split_items = combined_values.split(delimiter)
     item_elements = split_items.map.with_index do |toc_item, index|
       content_tag :span, toc_item, class: 'toc_item', data: { 'toc-index': index }

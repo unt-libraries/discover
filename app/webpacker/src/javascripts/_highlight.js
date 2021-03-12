@@ -21,16 +21,22 @@ function highlightSearchTerms() {
     className: 'markjs-stopword',
     exclude: ['.result__label', 'mark'],
     filter(node, term, totalCounter, counter) {
-      const isStopWord = stopWords.includes(term);
-      if (!isStopWord) return false;
+      if (!stopWords.includes(term)) return false;
 
       const { nextSibling, previousSibling } = node;
 
       if (nextSibling && elHasClass(nextSibling, 'markjs-partial')) {
-        return true;
+        if (node.textContent.trim().toLowerCase().endsWith(term.toLowerCase())) {
+          return true;
+        }
       }
 
-      return previousSibling && elHasClass(previousSibling,'markjs-partial');
+      if (previousSibling && elHasClass(previousSibling, 'markjs-partial')) {
+        if (node.textContent.trim().toLowerCase().startsWith(term.toLowerCase())) {
+          return true;
+        }
+      }
+      return false;
     },
   };
   const partialOptions = {
