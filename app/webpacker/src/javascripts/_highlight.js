@@ -34,6 +34,7 @@ function highlightSearchTerms() {
     },
   };
   const partialOptions = {
+    accuracy: { value: 'exactly', limiters: [',', '.', '!', '?', ';', ':', '\'', '"', '-', '_', '(', ')', '[', ']', '{', '}', '+', '='] },
     className: 'markjs-partial',
     exclude: ['.result__label', 'mark'],
     separateWordSearch: true,
