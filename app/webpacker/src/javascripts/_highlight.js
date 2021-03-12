@@ -1,4 +1,5 @@
 import Mark from 'mark.js/dist/mark.es6';
+import { elHasClass } from './_utils';
 
 /**
  * Uses mark.js to highlight search terms in Show view
@@ -25,11 +26,11 @@ function highlightSearchTerms() {
 
       const { nextSibling, previousSibling } = node;
 
-      if (nextSibling && nextSibling.classList.contains('markjs-partial')) {
+      if (nextSibling && elHasClass(nextSibling, 'markjs-partial')) {
         return true;
       }
 
-      return previousSibling && previousSibling.classList.contains('markjs-partial');
+      return previousSibling && elHasClass(previousSibling,'markjs-partial');
     },
   };
   const partialOptions = {
