@@ -15,19 +15,41 @@ function highlightSearchTerms() {
     'in', 'is', 'it', 'its', 'of', 'on', 'that', 'the', 'to', 'was', 'were', 'will', 'with'];
 
   const instance = new Mark(document.querySelector('.card.item-more-details'));
-  const partialOptions = {
+  const stopWordOptions = {
+    accuracy: 'exactly',
+    className: 'markjs-stopword',
     exclude: ['.result__label', 'mark'],
+    filter(node, term, totalCounter, counter) {
+      const isStopWord = stopWords.includes(term);
+      if (!isStopWord) return false;
+
+      const { nextSibling, previousSibling } = node;
+
+      if (nextSibling && nextSibling.classList.contains('markjs-partial')) {
+        return true;
+      }
+
+      return previousSibling && previousSibling.classList.contains('markjs-partial');
+    },
+  };
+  const partialOptions = {
+    className: 'markjs-partial',
+    exclude: ['.result__label', 'mark'],
+    separateWordSearch: true,
     filter(node, term, totalCounter, counter) {
       return !stopWords.includes(term);
     },
-    separateWordSearch: true,
+    done() {
+      instance.mark(searchQuery, stopWordOptions);
+    },
   };
   const completeOptions = {
+    className: 'markjs-complete',
     exclude: ['.result__label'],
+    separateWordSearch: false,
     done() {
       instance.mark(searchQuery, partialOptions);
     },
-    separateWordSearch: false,
   };
   instance.mark(searchQuery, completeOptions);
 }
