@@ -73,40 +73,41 @@ module ApplicationHelper
   # @return [String] HTML elements joined together
   def format_toc(options = {})
     values = options[:value]
+    primary_threshold = 20
+    delimiter = '--'
+    # TOC is a multivalued field, so this combines multiple entries using the delimiter
+    combined_values = sanitize(values.join(delimiter))
+    split_items = combined_values.split(delimiter)
+    item_elements = split_items.map.with_index do |toc_item, index|
+      content_tag :span, toc_item, class: 'toc_item', data: { 'toc-index': index }
+    end
 
-    values.map do |item|
-      primary_threshold = 20
-      split_items = item.split('--')
-      item_elements = split_items.map.with_index do |toc_item, index |
-        content_tag :span, toc_item, class: 'toc_item', data: {'toc-index': index}
+    if item_elements.size > primary_threshold
+      primary_items = item_elements.take(primary_threshold).join
+      more_items = item_elements.drop(primary_threshold).join
+      more_count = item_elements.size - primary_threshold
+
+      primary_tag = content_tag :span, primary_items.html_safe
+      more_tag = content_tag :span, more_items.html_safe, class: 'more-max d-none'
+      more_button = content_tag :div, class: "more-less text-center" do
+        "<a href='#' onclick='return false' class='reveal-more'>
+          <span class='more-text d-block'>View #{more_count} more #{'line'.pluralize(more_count)}</span>
+          <i class='fal fa-chevron-down more-icon d-inline-block'></i>
+        </a>
+        <a href='#' onclick='return false' class='reveal-less d-none'>
+          <span class='less-text d-block'>View less</span>
+          <i class='fal fa-chevron-up less-icon d-inline-block'></i>
+        </a>".html_safe
       end
 
-      if item_elements.size > primary_threshold
-        primary_items = item_elements.take(primary_threshold).join
-        more_items = item_elements.drop(primary_threshold).join
-
-        primary_tag = content_tag :span, primary_items.html_safe
-        more_tag = content_tag :span, more_items.html_safe, class: 'more-max d-none'
-        more_button = content_tag :div, class: "more-less text-center" do
-          "<a href='#' onclick='return false' class='reveal-more'>
-            <span class='more-text d-block'>View #{item_elements.size - primary_threshold} more lines</span>
-            <i class='fal fa-chevron-down more-icon d-inline-block'></i>
-          </a>
-          <a href='#' onclick='return false' class='reveal-less d-none'>
-            <span class='less-text d-block'>View less</span>
-            <i class='fal fa-chevron-up less-icon d-inline-block'></i>
-          </a>".html_safe
-        end
-
-        content_tag :span, { data: { 'more_scope': true, 'showing_less': true } } do
-          concat(primary_tag)
-          concat(more_tag)
-          concat(more_button)
-        end
-      else
-        item_elements.join
+      content_tag :span, { data: { 'more_scope': true, 'showing_less': true } } do
+        concat(primary_tag)
+        concat(more_tag)
+        concat(more_button)
       end
-    end.join.html_safe
+    else
+      item_elements.join.html_safe
+    end
   end
 
   ##
