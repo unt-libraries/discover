@@ -142,11 +142,12 @@ function highlightSearchTerms() {
     // Get user query
     const searchContextEl = document.getElementById('searchContext');
     if (searchContextEl === null) return;
-
     const { searchContext } = searchContextEl.dataset;
+    if (!searchContext) return;
     const searchContextObj = JSON.parse(searchContext);
     if (!searchContextObj || !searchContextObj.q) return;
     const userQuery = searchContextObj.q;
+
     const instance = new Mark(document.querySelector('.card.item-more-details'));
 
     // Parse user query
@@ -162,7 +163,7 @@ function highlightSearchTerms() {
         const termList = result.phrases.concat(result.justWords);
         const termRe = termsToRegExp(myPunctuation, termList);
         instance.markRegExp(termRe, {
-          className: 'markjs-complete',
+          className: 'markjs',
           exclude: ['.result__label'],
           ignoreGroups: 1,
         });
