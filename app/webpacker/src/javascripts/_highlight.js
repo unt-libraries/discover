@@ -134,7 +134,7 @@ function highlightSearchTerms() {
         return true;
       });
       return charRe;
-    }).join(internalPunctRe)).join(wordDelimitersRe));
+    }).join(internalPunctRe)).filter((x) => !!x).join(wordDelimitersRe));
     return new RegExp(`(^|${wordDelimitersRe})(${finalTermList.join('|')})(?=(${wordDelimitersRe}|$))`, 'i');
   }
 
