@@ -102,7 +102,7 @@ function highlightSearchTerms() {
   // Array of stopwords for demonstration purposes.
   const myStopwords = ['a', 'an', 'the', 'is', 'in', 'on', 'of', 'to', 'from', 'and'];
   // Array of punctuation marks to ignore (used inside words and at word boundaries).
-  const myPunctuation = ":;.,-–—‒_(){}[]!'+=".split('');
+  const myPunctuation = ":;.,-–—‒_(){}[]!'+=>".split('');
 
   function escapeStringForRe(str) {
     return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
@@ -134,7 +134,9 @@ function highlightSearchTerms() {
         return true;
       });
       return charRe;
-    }).join(internalPunctRe)).filter((x) => !!x).join(wordDelimitersRe));
+    }).filter((x) => !!x).join(internalPunctRe))
+      .filter((x) => !!x).join(wordDelimitersRe))
+      .filter((x) => !!x);
     return new RegExp(`(^|${wordDelimitersRe})(${finalTermList.join('|')})(?=(${wordDelimitersRe}|$))`, 'i');
   }
 
@@ -163,6 +165,7 @@ function highlightSearchTerms() {
         const termList = result.phrases.concat(result.justWords);
         const termRe = termsToRegExp(myPunctuation, termList);
         instance.markRegExp(termRe, {
+          acrossElements: true,
           className: 'markjs',
           exclude: ['.result__label'],
           ignoreGroups: 1,
