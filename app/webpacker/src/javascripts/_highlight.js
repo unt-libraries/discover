@@ -187,7 +187,7 @@ function highlightSearchTerms() {
     if (!searchContextObj || !searchContextObj.q) return;
     const userQuery = searchContextObj.q;
 
-    const instance = new Mark(document.querySelector('.card.item-more-details'));
+    const instance = new Mark(document.querySelectorAll('.card.item-more-details, #availabilityTable .blacklight-call-number.result__value'));
 
     // Parse user query
     const termList = parseUserQuery(userQuery, myStopwords);
