@@ -47,32 +47,65 @@ function highlightSearchTerms() {
     }).hyphenized;
   }
 
+  /** Return an array of normalized terms from a user query (`q`).
+   * Normalization occurs for transitions between numbers and letters. When a term
+   * contains such transitions, normalization happens as follows:
+   *   - For each string of letters, numbers, letters, etc., a hyphen is placed at
+   *     each transition.
+   *   - A >three-letter word and space before a number OR a space and >1-letter word
+   *     following a number breaks the hyphenization. E.g.: `england 2002` and
+   *     `2002 in review` are NOT hyphenated; `mt 2002` and `1000 c` are.
+   *   - Transitions without spaces are ALWAYS hyphenated. E.g.: `england2000` and
+   *     `2002inreview` are hyphenated.
+   *   - Punctuation between transitions is collapsed (to hyphen):
+   *     `1000 .c35` => `1000-c-35`.
+   *   - Punctuation within each part of the string is left as-is.
+   * Terms containing no such transitions are left as-is and returned in the correct
+   * posiiton in the return array.
+   *
+   * Example: `mt 1000.1 .c35 and y1.2` => [
+   *   'mt-1000.1-c-35',
+   *   'and',
+   *   'y-1.2'
+   * ]
+   *
+   * @param {string} term
+   * @return {Array} list of normalized terms generated from the input term
+   */
+  function normalizeTerms(term) {
+    const hyphenizerRe = /(.*?(?:\p{N}(?=\p{L})|\p{L}(?=\p{N})))/u;
+    const collapseNumLetterRe = /(\p{N})[^\p{L}\p{N}]+(\p{L})([^\p{L}]|$)/ug;
+    const collapseLetterNumRe = /(^|[^\p{L}])(\p{L}{1,3})[^\p{L}\p{N}]+(\p{N})/ug;
+    const collapsed = term.replaceAll(collapseNumLetterRe, '$1$2$3').replaceAll(collapseLetterNumRe, '$1$2$3');
+    return collapsed.split(' ').reduce((normTerms, part, i, original) => {
+      if (part !== '') {
+        const formattedParts = part.split(hyphenizerRe).filter((x) => !!x);
+        normTerms.push(formattedParts.length > 1 ? formattedParts.join('-') : part);
+      }
+      return normTerms;
+    }, []);
+  }
+
   /**
    * Converts a user query string to two arrays:
    * @param {string} q
    * @param {Array} allStopwords
-   * @return {Object}
-   *   cleanTerms {Array} list of terms from the user query, in query order
-   *   hyphenizedTerms {Array} list of hyphenated terms for e.g. parts of call numbers
+   * @return {Array} list of normalized terms from the user query, in query order
    */
   function queryToTerms(q, allStopwords) {
-    return q.split('"').reduce((env, term, i) => {
+    return q.split('"').reduce((allTerms, term, i) => {
       const insideQuotes = i % 2;
       const trimmed = term.trim();
       if (trimmed) {
-        const words = trimmed.split(' ').filter((x) => !!x);
-        if (insideQuotes && words.every((word) => allStopwords.indexOf(word) > -1)) {
-          env.cleanTerms.push(trimmed);
+        const normTerms = normalizeTerms(trimmed);
+        if (insideQuotes && normTerms.every((word) => allStopwords.indexOf(word) > -1)) {
+          allTerms.push(trimmed);
         } else {
-          env.cleanTerms.push(...words);
+          allTerms.push(...normTerms);
         }
-        env.hyphenizedTerms.push(...hyphenize(trimmed));
       }
-      return env;
-    }, {
-      cleanTerms: [],
-      hyphenizedTerms: [],
-    });
+      return allTerms;
+    }, []);
   }
 
   /**
@@ -129,10 +162,10 @@ function highlightSearchTerms() {
    */
   function parseUserQuery(userQuery, allStopwords) {
     const qterms = queryToTerms(userQuery.toLowerCase(), allStopwords);
-    const allAsPhrase = qterms.cleanTerms.join(' ');
-    const phrases = [allAsPhrase].concat(termsToPhrases(qterms.cleanTerms, allStopwords));
-    const justTerms = qterms.cleanTerms.filter((term) => allStopwords.indexOf(term) === -1);
-    return [...new Set(qterms.hyphenizedTerms.concat(phrases).concat(justTerms))];
+    const allAsPhrase = qterms.join(' ');
+    const phrases = [allAsPhrase].concat(termsToPhrases(qterms, allStopwords));
+    const justTerms = qterms.filter((term) => allStopwords.indexOf(term) === -1);
+    return [...new Set(phrases.concat(justTerms))];
   }
 
   // Example vars that may need to be changed. These are used in both methods.
