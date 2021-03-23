@@ -4,108 +4,54 @@ import Mark from 'mark.js/dist/mark.es6';
  * Uses mark.js to highlight search terms in Show view
  */
 function highlightSearchTerms() {
-  /** hyphenize: If a term includes any transitions between numbers and letters
-   * (with optional spaces), a separate hyphenated term is generated for each
-   * of these transitions.
-   *
-   * E.g.: `mt1000 c35` => ['mt-1000-c-35', 'mt-1000-c', 'mt-1000',
-   *                        '1000-c-35', '1000-c', 'c-35']
-   *
-   * Assuming we're handling interword punctuation so that these marks will
-   * match any interword delimiter OR word boundary (i.e., punctuation, space,
-   * or nothing) -- this should let us (mostly) mimic Solr's behavior for these
-   * kinds of terms. It should at least be good enough to highlight call numbers,
-   * SuDocs, and other formatted numbers, no matter how the user formatted the
-   * number.
-   * @param {string} term
-   * @return {Array} list of hyphenated terms generated from the input term
-   */
-  function hyphenize(term) {
-    const hyphenizerRe = /\s*(.*?(?:\p{N}(?=\s*\p{L})|\p{L}(?=\s*\p{N})))\s*/u;
-    return term.split(hyphenizerRe).reduce((env, part, i, original) => {
-      if (part) {
-        const subParts = part.split(' ');
-        if (env.partStack.length > 0) {
-          if ((part.indexOf(' ') > -1) || (i === original.length - 1)) {
-            env.partStack.push(subParts[0]);
-            env.partStack.forEach((val, j, originalStack) => {
-              const stackSlice = originalStack.slice(j);
-              while (stackSlice.length > 1) {
-                env.hyphenized.push(stackSlice.join('-'));
-                stackSlice.pop();
-              }
-            });
-            env.partStack = [];
-          }
-        }
-        env.partStack.push(subParts[subParts.length - 1]);
-      }
-      return env;
-    }, {
-      hyphenized: [],
-      partStack: [],
-    }).hyphenized;
-  }
-
-  /** Return an array of normalized terms from a user query (`q`).
-   * Normalization occurs for transitions between numbers and letters. When a term
-   * contains such transitions, normalization happens as follows:
-   *   - For each string of letters, numbers, letters, etc., a hyphen is placed at
-   *     each transition.
-   *   - A >three-letter word and space before a number OR a space and >1-letter word
-   *     following a number breaks the hyphenization. E.g.: `england 2002` and
-   *     `2002 in review` are NOT hyphenated; `mt 2002` and `1000 c` are.
-   *   - Transitions without spaces are ALWAYS hyphenated. E.g.: `england2000` and
-   *     `2002inreview` are hyphenated.
-   *   - Punctuation between transitions is collapsed (to hyphen):
-   *     `1000 .c35` => `1000-c-35`.
-   *   - Punctuation within each part of the string is left as-is.
-   * Terms containing no such transitions are left as-is and returned in the correct
-   * posiiton in the return array.
-   *
-   * Example: `mt 1000.1 .c35 and y1.2` => [
-   *   'mt-1000.1-c-35',
-   *   'and',
-   *   'y-1.2'
-   * ]
-   *
-   * @param {string} term
-   * @return {Array} list of normalized terms generated from the input term
-   */
-  function normalizeTerms(term) {
-    const hyphenizerRe = /(.*?(?:\p{N}(?=\p{L})|\p{L}(?=\p{N})))/u;
-    const collapseNumLetterRe = /(\p{N})[^\p{L}\p{N}]+(\p{L})([^\p{L}]|$)/ug;
-    const collapseLetterNumRe = /(^|[^\p{L}])(\p{L}{1,3})[^\p{L}\p{N}]+(\p{N})/ug;
-    const collapsed = term.replaceAll(collapseNumLetterRe, '$1$2$3').replaceAll(collapseLetterNumRe, '$1$2$3');
-    return collapsed.split(' ').reduce((normTerms, part, i, original) => {
-      if (part !== '') {
-        const formattedParts = part.split(hyphenizerRe).filter((x) => !!x);
-        normTerms.push(formattedParts.length > 1 ? formattedParts.join('-') : part);
-      }
-      return normTerms;
-    }, []);
-  }
-
   /**
    * Converts a user query string to two arrays:
    * @param {string} q
    * @param {Array} allStopwords
-   * @return {Array} list of normalized terms from the user query, in query order
+   * @param {boolean} asPhrasesOnly Whether to treat this as a call number or not
+   * @return {Object}
+   *   terms {Array} list of individual terms from the user query, in query order
+   *   phrasesOnly {Array} list of hyphenated phrases for e.g. call numbers or parts of call numbers
+
    */
-  function queryToTerms(q, allStopwords) {
-    return q.split('"').reduce((allTerms, term, i) => {
+  function queryToTerms(q, allStopwords, asPhrasesOnly) {
+    return q.split('"').reduce((env, term, i) => {
       const insideQuotes = i % 2;
       const trimmed = term.trim();
-      if (trimmed) {
-        const normTerms = normalizeTerms(trimmed);
-        if (insideQuotes && normTerms.every((word) => allStopwords.indexOf(word) > -1)) {
-          allTerms.push(trimmed);
-        } else {
-          allTerms.push(...normTerms);
+      const parsed = trimmed.split(/\p{P}*\s+\p{P}*/u).reduce((wordEnv, word, j, original) => {
+        if (word !== '') {
+          const normWord = word.replace(/(?:(\p{L})(\p{N})|(\p{N})(\p{L}))/u, '$1$3-$2$4');
+          const lastWord = wordEnv.terms.length > 0 ? wordEnv.terms[wordEnv.terms.length - 1] : '';
+          const atAlphaNumTransition = lastWord !== '' && /(\p{L}~!!~\p{N}|\p{N}~!!~\p{L})/u.test([lastWord, normWord].join('~!!~'));
+          const atEndOfLoop = j === original.length - 1;
+          if (asPhrasesOnly || atAlphaNumTransition) {
+            wordEnv.wordStack.push(normWord);
+          }
+          if (atEndOfLoop || (!asPhrasesOnly && !atAlphaNumTransition)) {
+            if (asPhrasesOnly || wordEnv.wordStack.length > 1) {
+              wordEnv.phrasesOnly.push(wordEnv.wordStack.join('-'));
+            }
+            wordEnv.wordStack = [normWord];
+          }
+          wordEnv.terms.push(normWord);
         }
+        return wordEnv;
+      }, {
+        terms: [],
+        phrasesOnly: [],
+        wordStack: [],
+      });
+      if (insideQuotes && parsed.terms.every((word) => allStopwords.indexOf(word) > -1)) {
+        env.terms.push(trimmed);
+      } else {
+        env.terms.push(...parsed.terms);
       }
-      return allTerms;
-    }, []);
+      env.phrasesOnly.push(...parsed.phrasesOnly);
+      return env;
+    }, {
+      terms: [],
+      phrasesOnly: [],
+    });
   }
 
   /**
@@ -158,25 +104,22 @@ function highlightSearchTerms() {
    * The main function to use to parse a user query.
    * @param {string} userQuery
    * @param {Array} allStopwords
+   * @param {boolean} asPhrasesOnly `true` for number-type searches, `false` for all others
    * @return {Array} all terms to find, does not include stopwords
    */
-  function parseUserQuery(userQuery, allStopwords) {
-    const qterms = queryToTerms(userQuery.toLowerCase(), allStopwords);
-    const allAsPhrase = qterms.join(' ');
-    const phrases = [allAsPhrase].concat(termsToPhrases(qterms, allStopwords));
-    const justTerms = qterms.filter((term) => allStopwords.indexOf(term) === -1);
+  function parseUserQuery(userQuery, allStopwords, asPhrasesOnly) {
+    const qterms = queryToTerms(userQuery.toLowerCase(), allStopwords, asPhrasesOnly);
+    if (asPhrasesOnly) {
+      return qterms.phrasesOnly.length > 1 ? [qterms.phrasesOnly.join(' ')].concat(qterms.phrasesOnly) : qterms.phrasesOnly;
+    }
+    const phrases = [qterms.terms.join(' ')].concat(qterms.phrasesOnly).concat(termsToPhrases(qterms.terms, allStopwords));
+    const justTerms = qterms.terms.filter((term) => allStopwords.indexOf(term) === -1);
     return [...new Set(phrases.concat(justTerms))];
   }
 
   // Example vars that may need to be changed. These are used in both methods.
   // Array of stopwords for demonstration purposes.
   const myStopwords = ['a', 'an', 'the', 'is', 'in', 'on', 'of', 'to', 'from', 'and'];
-  // Array of punctuation marks to ignore (used inside words and at word boundaries).
-  const myPunctuation = [..."/\\:;.,-–—‒_(){}[]!'+=><`~@#$%^&*"];
-
-  function escapeStringForRe(str) {
-    return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
-  }
 
   /**
    * Converts a list of terms to a RegExp to pass to mark.js. It handles: diacritics,
@@ -186,15 +129,14 @@ function highlightSearchTerms() {
    * @param {Array} terms
    * @return {RegExp}
    */
-  function termsToRegExp(punctuationArray, terms) {
+  function termsToRegExp(terms) {
     const diacritics = ['aàáảãạăằắẳẵặâầấẩẫậäåāąAÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÄÅĀĄ', 'cçćčCÇĆČ', 'dđďDĐĎ',
       'eèéẻẽẹêềếểễệëěēęEÈÉẺẼẸÊỀẾỂỄỆËĚĒĘ', 'iìíỉĩịîïīIÌÍỈĨỊÎÏĪ', 'lłLŁ', 'nñňńNÑŇŃ',
       'oòóỏõọôồốổỗộơởỡớờợöøōOÒÓỎÕỌÔỒỐỔỖỘƠỞỠỚỜỢÖØŌ', 'rřRŘ', 'sšśșşSŠŚȘŞ', 'tťțţTŤȚŢ',
       'uùúủũụưừứửữựûüůūUÙÚỦŨỤƯỪỨỬỮỰÛÜŮŪ', 'yýỳỷỹỵÿYÝỲỶỸỴŸ', 'zžżźZŽŻŹ'];
-    const escapedPunctuation = escapeStringForRe(punctuationArray.join(''));
-    const internalPunctRe = `[${escapedPunctuation}]`;
-    const wordDelimitersRe = `[\\s${escapedPunctuation}]`;
-    const finalTermList = terms.map((term) => term.split(new RegExp(`${wordDelimitersRe}+`)).map((word) => word.split('').map((char) => {
+    const internalPunctRe = `[\\p{P}]`;
+    const wordDelimitersRe = `[\\s\\p{P}]`;
+    const finalTermList = terms.map((term) => term.split(new RegExp(`${wordDelimitersRe}+`, 'u')).map((word) => word.split('').map((char) => {
       let charRe = char;
       diacritics.every((dct) => {
         if (dct.indexOf(char) !== -1) {
@@ -207,23 +149,41 @@ function highlightSearchTerms() {
     }).filter((x) => !!x).join(`${internalPunctRe}*`))
       .filter((x) => !!x).join(`${wordDelimitersRe}*`))
       .filter((x) => !!x);
-    return new RegExp(`(^|${wordDelimitersRe}+)(${finalTermList.join('|')})(?=(${wordDelimitersRe}+|$))`, 'i');
+    return new RegExp(`(^|${wordDelimitersRe}+)(${finalTermList.join('|')})(?=(${wordDelimitersRe}+|$))`, 'iu');
+  }
+
+  function getSearchData() {
+    const searchContextEl = document.getElementById('searchContext');
+    if (searchContextEl === null) return null;
+    const { searchContext } = searchContextEl.dataset;
+    if (!searchContext) return null;
+    const searchContextObj = JSON.parse(searchContext);
+    if (!searchContextObj || !searchContextObj.q) return null;
+    return {
+      field: searchContextObj.search_field,
+      query: searchContextObj.q,
+    };
   }
 
   function regExpMark() {
-    // Get user query
-    const searchContextEl = document.getElementById('searchContext');
-    if (searchContextEl === null) return;
-    const { searchContext } = searchContextEl.dataset;
-    if (!searchContext) return;
-    const searchContextObj = JSON.parse(searchContext);
-    if (!searchContextObj || !searchContextObj.q) return;
-    const userQuery = searchContextObj.q;
+    const searchData = getSearchData();
+    if (searchData === null) return;
+    const userQuery = searchData.query;
+    const searchType = searchData.search_field;
+    const numberSearchTypes = ['call_number', 'sudoc', 'standard_number', 'control_number'];
+    const searchFields = ['call_numbers_display', 'sudocs_display', 'isbns_display',
+      'issns_display', 'other_standard_numbers_display', 'lccns_display', 'oclc_numbers_display',
+      'other_control_numbers_display'];
+    let instance;
+    let termList;
 
-    const instance = new Mark(document.querySelectorAll('.card.item-more-details, #availabilityTable .blacklight-call-number.result__value'));
-
-    // Parse user query
-    const termList = parseUserQuery(userQuery, myStopwords);
+    if (numberSearchTypes.includes(searchType)) {
+      termList = parseUserQuery(userQuery, myStopwords, false);
+      instance = new Mark(document.querySelectorAll(`${searchFields.map((field) => `.card.item-more-details .blacklight-${field}`).join(', ')}, #availabilityTable .blacklight-call-number.result__value`));
+    } else {
+      termList = parseUserQuery(userQuery, myStopwords, true);
+      instance = new Mark(document.querySelectorAll('.card.item-more-details, #availabilityTable .blacklight-call-number.result__value'));
+    }
 
     // Remove previous marked elements and mark new phrases and words
     instance.unmark({
@@ -232,7 +192,7 @@ function highlightSearchTerms() {
            character classes that will match most punctuation and space, to give better
            highlighting/matching no matter what word delimiter is used in the query *and* the text.
         */
-        const termRe = termsToRegExp(myPunctuation, termList);
+        const termRe = termsToRegExp(termList);
         instance.markRegExp(termRe, {
           className: 'markjs',
           exclude: ['.result__label'],
