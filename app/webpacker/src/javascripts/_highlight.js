@@ -157,18 +157,13 @@ function highlightSearchTerms() {
     if (searchContextEl === null) return null;
     const { searchContext } = searchContextEl.dataset;
     if (!searchContext) return null;
-    const searchContextObj = JSON.parse(searchContext);
-    if (!searchContextObj || !searchContextObj.q) return null;
-    return {
-      field: searchContextObj.search_field,
-      query: searchContextObj.q,
-    };
+    return JSON.parse(searchContext);
   }
 
   function regExpMark() {
     const searchData = getSearchData();
     if (searchData === null) return;
-    const userQuery = searchData.query;
+    const userQuery = searchData.q;
     const searchType = searchData.search_field;
     const numberSearchTypes = ['call_number', 'sudoc', 'standard_number', 'control_number'];
     const searchFields = ['call_numbers_display', 'sudocs_display', 'isbns_display',
