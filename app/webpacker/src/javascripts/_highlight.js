@@ -154,7 +154,7 @@ function highlightSearchTerms() {
 
   function getSearchData() {
     const searchContextEl = document.getElementById('searchContext');
-    if (searchContextEl === null) return null;
+    if (!searchContextEl) return null;
     const { searchContext } = searchContextEl.dataset;
     if (!searchContext) return null;
     return JSON.parse(searchContext);
@@ -162,7 +162,7 @@ function highlightSearchTerms() {
 
   function regExpMark() {
     const searchData = getSearchData();
-    if (searchData === null) return;
+    if (!searchData || !searchData.q) return;
     const userQuery = searchData.q;
     const searchType = searchData.search_field;
     const numberSearchTypes = ['call_number', 'sudoc', 'standard_number', 'control_number'];
