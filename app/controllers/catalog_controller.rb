@@ -296,6 +296,9 @@ class CatalogController < ApplicationController
     config.add_show_field 'copyright_display',
                           label: 'Copyright', display: :priority,
                           tooltip: 'Date that the resource was copyrighted.'
+    config.add_show_field 'serial_continuity_linking_json',
+                          label: 'Serial Continuity', accessor: 'json_str_to_array',
+                          display: :priority, helper_method: :related_json_to_links
 
     # Links and media
     config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls,
@@ -339,6 +342,9 @@ class CatalogController < ApplicationController
                                                       accessor: 'json_str_to_array',
                                                       helper_method: :title_json_to_links,
                                                       link_to_facet: 'title_series_facet'
+    config.add_show_field 'related_resources_linking_json', label: 'Other Related Resources',
+                                                            accessor: 'json_str_to_array',
+                                                            helper_method: :related_json_to_links
     config.add_show_field 'related_series_titles_json', label: 'Related Series',
                                                         accessor: 'json_str_to_array',
                                                         helper_method: :title_json_to_links,

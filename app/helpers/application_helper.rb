@@ -173,6 +173,54 @@ module ApplicationHelper
   end
 
   ##
+  # Helper method for catalog_controller specific to json provided by solr related works and
+  # serial continuity fields
+  # @param [Hash] options - field options
+  # @return [String] HTML links joined together
+  def related_json_to_links(options = {})
+    values = options[:value]
+    label = options[:config][:label]
+
+    values.map do |item|
+      before_text = "#{item['b']} "
+      item['p'].map do |i|
+        display = i['d']
+        separator = i['s']
+        terms = {
+          'Author/Creator' => i['a'],
+          :title => i['t'],
+          :control_number => i['cn'],
+          :standard_number => i['sn'],
+        }.compact
+        if terms.count > 1
+          search_string = terms.map { |key, val| "\"#{val}\"" }.join(" AND ")
+          link_to("#{display}",
+                  search_catalog_url(
+                    q: search_string,
+                    search_field: 'text'
+                  ),
+                  'ga-on': 'click',
+                  'ga-event-category': 'Bib Record',
+                  'ga-event-action': label,
+                  'ga-event-label': display).concat(separator || ' ')
+        elsif terms.count === 1
+          link_to("#{display}",
+                  search_catalog_url(
+                    q: terms.values.first,
+                    search_field: terms.keys.first,
+                  ),
+                  'ga-on': 'click',
+                  'ga-event-category': 'Bib Record',
+                  'ga-event-action': label,
+                  'ga-event-label': display).concat(separator || ' ')
+        else
+          "#{display}#{separator || ' '}"
+        end
+      end.join.prepend(before_text).strip
+    end.join('<br>').html_safe
+  end
+
+  ##
   # Takes a single json value and returns a link to search the facet
   # @param [Hash] data
   # @return [String] HTML link
