@@ -206,7 +206,7 @@ module ApplicationHelper
         elsif terms.count === 1
           link_to("#{display}",
                   search_catalog_url(
-                    q: terms.values.first,
+                    q: "\"#{terms.values.first}\"",
                     search_field: terms.keys.first,
                   ),
                   'ga-on': 'click',
