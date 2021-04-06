@@ -383,6 +383,9 @@ const locationData = {
   },
   w1mls: {
     name: 'Willis 2FL Best Sellers',
+    abbr: 'Willis 2nd',
+    linkText: 'Willis Library 2nd Floor Directory',
+    url: 'https://library.unt.edu/willis/second-floor/#directory',
   },
   w1ndc: {
     name: 'Willis 1FL New Books',
