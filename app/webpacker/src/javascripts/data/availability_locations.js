@@ -382,7 +382,7 @@ const locationData = {
     name: 'Willis 1FL Monthly Display',
   },
   w1mls: {
-    name: 'Willis 1FL Best Sellers',
+    name: 'Willis 2FL Best Sellers',
   },
   w1ndc: {
     name: 'Willis 1FL New Books',
