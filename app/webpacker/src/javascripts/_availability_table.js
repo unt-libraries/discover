@@ -81,7 +81,7 @@ function createStatusElement(itemStatus, holdCount) {
     return newEl;
   }
 
-  if (statusCode !== '-') {
+  if ((statusCode !== '-') || !onHold) {
     if (statusData && statusData.label) {
       statusEl.textContent = statusData.label;
       newEl.prepend(statusEl);
