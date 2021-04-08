@@ -68,7 +68,7 @@ function createStatusElement(itemStatus, holdCount) {
   if (onHold) {
     elAddClass(holdEl, 'hold-text', 'tooltip-nolink');
     holdEl.textContent = `On Hold (${holdCount} ${holdCount > 1 ? 'Holds' : 'Hold'})`;
-    holdEl.dataset.title = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} in line to check it out before it becomes available.`;
+    holdEl.dataset.title = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} queued to check it out before it becomes available.`;
     holdEl.dataset.toggle = 'tooltip';
     newEl.append(holdEl);
 

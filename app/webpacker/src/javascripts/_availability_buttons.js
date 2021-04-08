@@ -44,7 +44,7 @@ function updateStatusElement(itemEl, item = null) {
     let statusDisplay;
 
     if (onHold && statusCode === '-') {
-      statusDesc = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} in line to check it out before it becomes available.`;
+      statusDesc = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} queued to check it out before it becomes available.`;
       statusBtnClass = 'checked-out';
       statusDisplay = 'On Hold';
     } else {
