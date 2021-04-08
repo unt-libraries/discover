@@ -71,6 +71,11 @@ function createStatusElement(itemStatus, holdCount) {
     holdEl.dataset.title = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} in line to check it out before it becomes available.`;
     holdEl.dataset.toggle = 'tooltip';
     newEl.append(holdEl);
+
+    // If the item status is available and not checked out, return the hold message
+    if (statusCode === '-' && !statusDueDate) {
+      return newEl;
+    }
   }
 
   // If the item is checked out
@@ -81,16 +86,16 @@ function createStatusElement(itemStatus, holdCount) {
     return newEl;
   }
 
-  if ((statusCode !== '-') || !onHold) {
-    if (statusData && statusData.label) {
-      statusEl.textContent = statusData.label;
-      newEl.prepend(statusEl);
-    } else {
-      statusEl.textContent = itemStatus.display;
-      newEl.prepend(statusEl);
-    }
+  // Use the status label if present, otherwise the item display
+  if (statusData && statusData.label) {
+    statusEl.textContent = statusData.label;
+    newEl.prepend(statusEl);
+  } else {
+    statusEl.textContent = itemStatus.display;
+    newEl.prepend(statusEl);
   }
 
+  // Add a tooltip for the status description if present
   if (statusData && statusData.desc) {
     elAddClass(statusEl, 'tooltip-nolink');
     statusEl.dataset.title = statusData.desc;
