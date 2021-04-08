@@ -276,6 +276,7 @@ class CatalogController < ApplicationController
 
     config.add_show_field 'resource_type', label: 'Resource Type', no_label: true,
                                            display: :priority, accessor: 'resource_type_name'
+    config.add_show_field 'editions_display', label: 'Edition', display: :priority
 
     # Publication-related statements
     config.add_show_field 'creation_display',

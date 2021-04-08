@@ -16,10 +16,14 @@ function updateStatusElement(itemEl, item = null) {
   const availabilityText = availabilityEl.querySelector('.availability-text');
   let itemStatus = null;
   let itemLocation = null;
+  let holdCount = 0;
+  let onHold;
 
   if (item) {
     itemStatus = item.status;
     itemLocation = item.location;
+    holdCount = item.holdCount;
+    onHold = holdCount > 0;
   }
 
   if (!itemStatus) {
@@ -35,9 +39,19 @@ function updateStatusElement(itemEl, item = null) {
   availabilityEl.dataset.statusCode = statusCode;
 
   if (statusData) {
-    const statusDesc = statusData.desc;
-    const statusBtnClass = statusData.btnClass;
-    const statusDisplay = statusData.label;
+    let statusDesc;
+    let statusBtnClass;
+    let statusDisplay;
+
+    if (onHold && statusCode === '-') {
+      statusDesc = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} in line to check it out before it becomes available.`;
+      statusBtnClass = 'checked-out';
+      statusDisplay = 'On Hold';
+    } else {
+      statusDesc = statusData.desc;
+      statusBtnClass = statusData.btnClass;
+      statusDisplay = statusData.label;
+    }
 
     // Hide the button if it's online, we already have buttons for that
     if (isOnlineItem) {

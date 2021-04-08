@@ -51,31 +51,50 @@ function createLocationLink(itemLocation) {
 /**
  * Accesses the mapped item status to add a tooltip and create an element
  * @param {Object} itemStatus
+ * @param {int} holdCount
  * @return {(HTMLElement)}
  */
-function createStatusElement(itemStatus) {
+function createStatusElement(itemStatus, holdCount) {
   const statusCode = itemStatus.code;
   const statusDueDate = itemStatus.duedate;
   const statusData = getStatusData(statusCode);
   const newEl = document.createElement('span');
+  const statusEl = document.createElement('div');
+  const holdEl = document.createElement('div');
+  const onHold = holdCount > 0;
+
+  elAddClass(statusEl, 'status-text');
+
+  if (onHold) {
+    elAddClass(holdEl, 'hold-text', 'tooltip-nolink');
+    holdEl.textContent = `On Hold (${holdCount} ${holdCount > 1 ? 'Holds' : 'Hold'})`;
+    holdEl.dataset.title = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} in line to check it out before it becomes available.`;
+    holdEl.dataset.toggle = 'tooltip';
+    newEl.append(holdEl);
+  }
 
   // If the item is checked out
   if (statusDueDate) {
     const dueDate = moment(itemStatus.duedate).format('MMM DD, YYYY');
-    newEl.innerHTML = `Checked out</br>Due ${dueDate}`;
+    statusEl.innerHTML = `Checked out</br>Due ${dueDate}`;
+    newEl.prepend(statusEl);
     return newEl;
   }
 
-  if (statusData && statusData.label) {
-    newEl.textContent = statusData.label;
-  } else {
-    newEl.textContent = itemStatus.display;
+  if (statusCode !== '-') {
+    if (statusData && statusData.label) {
+      statusEl.textContent = statusData.label;
+      newEl.prepend(statusEl);
+    } else {
+      statusEl.textContent = itemStatus.display;
+      newEl.prepend(statusEl);
+    }
   }
 
   if (statusData && statusData.desc) {
-    newEl.classList.add('tooltip-nolink');
-    newEl.dataset.title = statusData.desc;
-    newEl.dataset.toggle = 'tooltip';
+    elAddClass(statusEl, 'tooltip-nolink');
+    statusEl.dataset.title = statusData.desc;
+    statusEl.dataset.toggle = 'tooltip';
   }
 
   return newEl;
@@ -119,8 +138,9 @@ function revealRequestColumn(itemEl) {
  * Updates the status element for an item, including due date
  * @param {(HTMLElement|Element|Node)} itemEl
  * @param {Object} itemStatus
+ * @param {int} holdCount
  */
-function updateStatusElement(itemEl, itemStatus = null) {
+function updateStatusElement(itemEl, itemStatus = null, holdCount = 0) {
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
 
   if (!itemStatus) {
@@ -130,7 +150,7 @@ function updateStatusElement(itemEl, itemStatus = null) {
 
   availabilityEl.dataset.statusCode = itemStatus.code;
   removeAllChildren(availabilityEl);
-  availabilityEl.appendChild(createStatusElement(itemStatus));
+  availabilityEl.appendChild(createStatusElement(itemStatus, holdCount));
 
   // Show the Request column if this isn't an online only record
   if (shouldShowRequestColumn(itemEl, itemStatus)) {
@@ -152,8 +172,10 @@ function updateLocationElement(itemEl, itemLocation) {
 
   // Check for location tooltip that would override status tooltip
   if (getLocationData(itemLocation.code).statusText) {
-    const statusSpan = itemEl.querySelector('.blacklight-availability .tooltip-nolink');
-    statusSpan.dataset.title = getLocationData(itemLocation.code).statusText;
+    const statusSpan = itemEl.querySelector('.blacklight-availability .status-text');
+    if (statusSpan) {
+      statusSpan.dataset.title = getLocationData(itemLocation.code).statusText;
+    }
   }
 
   // Aeon request URLs must be updated to include data from the Sierra API call
@@ -295,7 +317,7 @@ function updateUI(foundItems = [], missingItems = []) {
   foundItems.forEach((item) => {
     const itemEl = availabilityTable.querySelector(`[data-item-id='${item.id}']`);
     if (itemEl === null) return;
-    updateStatusElement(itemEl, item.status);
+    updateStatusElement(itemEl, item.status, item.holdCount);
     updateLocationElement(itemEl, item.location);
   });
 
