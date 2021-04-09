@@ -192,6 +192,13 @@ module ApplicationHelper
           :control_number => i['cn'],
           :standard_number => i['sn'],
         }.compact
+        link_data = {
+          "data-toggle" => "tooltip",
+          'ga-on': 'click',
+          'ga-event-category': 'Bib Record',
+          'ga-event-action': label,
+          'ga-event-label': display,
+        }
         if terms.count > 1
           search_string = terms.map { |key, val| "\"#{val}\"" }.join(" AND ")
           link_to("#{display}",
@@ -199,20 +206,16 @@ module ApplicationHelper
                     q: search_string,
                     search_field: 'text'
                   ),
-                  'ga-on': 'click',
-                  'ga-event-category': 'Bib Record',
-                  'ga-event-action': label,
-                  'ga-event-label': display).concat(separator || ' ')
+                  link_data.merge({ title: "Search for #{search_string}" }),
+          ).concat(separator || ' ')
         elsif terms.count === 1
           link_to("#{display}",
                   search_catalog_url(
                     q: "\"#{terms.values.first}\"",
                     search_field: terms.keys.first,
                   ),
-                  'ga-on': 'click',
-                  'ga-event-category': 'Bib Record',
-                  'ga-event-action': label,
-                  'ga-event-label': display).concat(separator || ' ')
+                  link_data.merge({ title: "Search for #{display}" }),
+          ).concat(separator || ' ')
         else
           "#{display}#{separator || ' '}"
         end
