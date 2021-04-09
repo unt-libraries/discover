@@ -36,7 +36,7 @@
   </div>
 
   <div class="row">
-    <div id="searchBarTips" class="col order-first mt-3">
+    <div id="searchBarTips" class="col order-first mt-3 d-none d-sm-block">
       <% t('blacklight.search.tips').shuffle.each_with_index do | item, index | %>
         <div class="search-tip text-muted font-italic <%= 'current-tip' if index == 0 %>"><strong>Tip:</strong> <%= item.html_safe %></div>
       <% end %>
