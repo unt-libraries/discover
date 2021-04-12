@@ -2,9 +2,10 @@
 <% document ||= @document
    id = document[:id]
    doc_presenter = document_presenter(document)
+   fields ||= doc_presenter.fields_to_render.select { |name, f| f[:display] == display_name.to_sym }
 %>
 
-<div class="card item-more-details">
+<div class="card item-<%= display_name %>">
   <div class="card-body">
     <h3 class="card-title <%= display_name.parameterize %>-heading"><%= display_name.titlecase %></h3>
     <dl class="dl-invert document-metadata">

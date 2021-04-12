@@ -301,6 +301,9 @@ class CatalogController < ApplicationController
                           label: 'Serial Continuity', accessor: 'json_str_to_array',
                           display: :priority, helper_method: :related_json_to_links
 
+    # Journal / Serial holdings
+    config.add_show_field 'library_has_display', label: 'Library Has', display: :holdings
+
     # Links and media
     config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls,
                                        display: :links_media
