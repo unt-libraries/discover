@@ -302,7 +302,10 @@ class CatalogController < ApplicationController
                           display: :priority, helper_method: :related_json_to_links
 
     # Journal / Serial holdings
-    config.add_show_field 'library_has_display', label: 'Serial Holdings', display: :priority
+    config.add_show_field 'library_has_display',
+                          label: 'Serial Holdings', display: :priority,
+                          tooltip: 'Statements about which volumes and issues of a serial '\
+                            '(journal/periodical) the library has.'
 
     # Links and media
     config.add_show_field 'urls_json', label: 'Links & Media', helper_method: :links_media_urls,
