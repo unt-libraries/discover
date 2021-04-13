@@ -1,7 +1,7 @@
 en:
   announcement:
     class: ''
-    content: "Library systems will be undergoing routine maintenance on Thursday, April 15th at 7:00 am until approximately 7:30 am. During the maintenance window, item availability will not load and requesting will be unavailable."
+    content: "Library systems will be undergoing routine maintenance beginning Thursday, April 15th at 7:00 am. During the maintenance window, item availability will not load and requesting will be unavailable."
   home:
     about:
       title: 'About Discover'
