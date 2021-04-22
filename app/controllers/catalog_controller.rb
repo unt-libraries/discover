@@ -159,7 +159,6 @@ class CatalogController < ApplicationController
     # Group date
     config.add_facet_field 'publication_year_range_facet', label: 'Date',
                                                            range: {
-                                                             assumed_boundaries: [1000, Time.now.year + 10],
                                                              maxlength: 4,
                                                            }, group: 'date'
     config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
