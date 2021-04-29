@@ -35,7 +35,6 @@ module BlRangeLimitHelper
       :maxlength => maxlength,
       :type => "text",
       :placeholder => "YYYY",
-      :pattern => '\d{4}',
       :class => "form-control text-center range_#{type}",
     }
     html = text_field_tag("range[#{solr_field}][#{type}]", default, options)

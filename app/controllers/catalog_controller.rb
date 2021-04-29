@@ -372,6 +372,8 @@ class CatalogController < ApplicationController
                                                  helper_method: :json_to_links,
                                                  link_to_facet: :genre_heading_facet
 
+    config.add_show_field 'system_details'
+
     # Performance Fields
     config.add_show_field 'performers'
     config.add_show_field 'production_credits'
@@ -380,9 +382,13 @@ class CatalogController < ApplicationController
     # Notes Fields
     config.add_show_field 'dissertation_notes'
     config.add_show_field 'notes', label: 'General Notes'
+    config.add_show_field 'audience'
+    config.add_show_field 'creator_demographics'
+    config.add_show_field 'curriculum_objectives'
 
     # Physical Description Fields
     config.add_show_field 'physical_description'
+    config.add_show_field 'arrangement_of_materials', label: 'Organization and Arrangement of Materials'
     config.add_show_field 'physical_medium', label: 'Physical Characteristics',
                                              separator_options: {
                                                :words_connector => '; ',
@@ -527,10 +533,11 @@ class CatalogController < ApplicationController
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     config.add_sort_field 'score desc, title_sort asc', label: 'Relevance'
-    config.add_sort_field 'publication_sort desc, title_sort asc', label: 'Publication Date'
-    config.add_sort_field 'author_sort asc, title_sort asc', label: 'Author/Creator'
-    config.add_sort_field 'title_sort asc', label: 'Title'
-    config.add_sort_field 'date_added desc, title_sort asc', label: 'Newest to the Libraries'
+    config.add_sort_field 'publication_sort desc, title_sort asc', label: 'Publication Year (New to Old)'
+    config.add_sort_field 'publication_sort asc, title_sort asc', label: 'Publication Year (Old to New)'
+    config.add_sort_field 'author_sort asc, title_sort asc', label: 'Author/Creator (A-Z)'
+    config.add_sort_field 'title_sort asc', label: 'Title (A-Z)'
+    config.add_sort_field 'date_added desc, title_sort asc', label: 'New to the Libraries'
 
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
