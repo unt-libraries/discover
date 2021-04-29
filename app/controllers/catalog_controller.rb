@@ -533,8 +533,8 @@ class CatalogController < ApplicationController
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     config.add_sort_field 'score desc, title_sort asc', label: 'Relevance'
-    config.add_sort_field 'publication_sort desc, title_sort asc', label: 'Publication Year (New to Old)'
-    config.add_sort_field 'publication_sort asc, title_sort asc', label: 'Publication Year (Old to New)'
+    config.add_sort_field 'publication_sort desc, title_sort asc', label: 'Publication Year (Newest)'
+    config.add_sort_field 'publication_sort asc, title_sort asc', label: 'Publication Year (Oldest)'
     config.add_sort_field 'author_sort asc, title_sort asc', label: 'Author/Creator (A-Z)'
     config.add_sort_field 'title_sort asc', label: 'Title (A-Z)'
     config.add_sort_field 'date_added desc, title_sort asc', label: 'New to the Libraries'
