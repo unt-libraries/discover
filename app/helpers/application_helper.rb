@@ -79,7 +79,7 @@ module ApplicationHelper
     combined_values = values.join(delimiter)
     split_items = combined_values.split(delimiter)
     item_elements = split_items.map.with_index do |toc_item, index|
-      content_tag :span, toc_item, class: 'toc_item', data: { 'toc-index': index }
+      content_tag :li, toc_item, class: 'toc_item', data: { 'toc-index': index }
     end
 
     if item_elements.size > primary_threshold
@@ -87,8 +87,8 @@ module ApplicationHelper
       more_items = item_elements.drop(primary_threshold).join
       more_count = item_elements.size - primary_threshold
 
-      primary_tag = content_tag :span, primary_items.html_safe
-      more_tag = content_tag :span, more_items.html_safe, class: 'more-max d-none'
+      primary_tag = content_tag :ul, primary_items.html_safe, class: 'toc_list'
+      more_tag = content_tag :ul, more_items.html_safe, class: 'toc_list more-max d-none'
       more_button = content_tag :div, class: "more-less text-center" do
         "<a href='#' onclick='return false' class='reveal-more'>
           <span class='more-text d-block'>View #{more_count} more #{'line'.pluralize(more_count)}</span>
@@ -100,14 +100,16 @@ module ApplicationHelper
         </a>".html_safe
       end
 
-      content_tag :span, { data: { 'more_scope': true, 'showing_less': true } } do
+      full_toc = content_tag :span, { data: { 'more_scope': true, 'showing_less': true } } do
         concat(primary_tag)
         concat(more_tag)
         concat(more_button)
       end
     else
-      item_elements.join.html_safe
+      full_toc = content_tag :ul, item_elements.join.html_safe, class: 'toc_list'
     end
+
+    content_tag :div, full_toc, class: 'toc_container'
   end
 
   ##

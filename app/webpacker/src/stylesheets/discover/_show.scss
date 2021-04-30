@@ -86,10 +86,13 @@
     &.blacklight-toc_notes {
       line-height: 1.4rem;
 
-      .toc_item {
-        display: block;
-        padding: 0.32rem 0 0.32rem 1rem;
-        border-left: 4px solid theme-color("gray-lighter");
+      .toc_container {
+        padding-left: 15px;
+      }
+
+      .toc_list {
+        margin-bottom: 0;
+        padding-inline-start: 0;
       }
     }
   }
