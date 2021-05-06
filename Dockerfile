@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y \
   build-essential \
   patch \
   zlib1g-dev \
-  liblzma-dev
+  liblzma-dev \
+  shared-mime-info
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \

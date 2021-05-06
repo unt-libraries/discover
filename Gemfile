@@ -23,7 +23,7 @@ gem 'webpacker', '~> 5.x'
 
 gem 'blacklight', '7.13.2'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
-gem 'blacklight-marc'
+gem 'blacklight-marc', '>= 7.0.0', '< 8'
 gem 'blacklight_range_limit', '>= 7', '< 8'
 
 group :development do
