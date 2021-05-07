@@ -3,6 +3,7 @@
   "version": "1.2.0",
   "scripts": {
     "start": "docker-compose up",
+    "stop": "docker-compose down",
     "build": "docker-compose build",
     "web:run": "docker-compose run --rm web",
     "web:assetServer": "docker-compose run -e \"RAILS_ENV=development\" --rm web ./bin/webpack --watch --colors --progress",

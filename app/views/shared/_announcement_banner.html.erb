@@ -1,9 +1,11 @@
 <div class="col px-0">
   <div id="site-messages">
-    <% if t('announcement.content').present? %>
-      <div class="alert alert-<%= t('announcement.class').blank? ? 'info' : t('announcement.class') %> text-center site-announcement" role="alert">
-        <%= t('announcement.content').html_safe %>
-      </div>
+    <% t('announcement').each do | announcement | %>
+      <% if announcement[:active] %>
+        <div class="alert alert-<%= announcement[:class].blank? ? 'info' : announcement[:class] %> text-center site-announcement" role="alert">
+          <%= announcement[:content].html_safe %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
