@@ -174,10 +174,10 @@ function highlightSearchTerms() {
 
     if (numberSearchTypes.includes(searchType)) {
       termList = parseUserQuery(userQuery, myStopwords, true);
-      instance = new Mark(document.querySelectorAll(`${searchFields.map((field) => `.card.item-more-details .blacklight-${field}`).join(', ')}, #availabilityTable .blacklight-call-number.result__value`));
+      instance = new Mark(document.querySelectorAll(`${searchFields.map((field) => `.card.item-more_details .blacklight-${field}`).join(', ')}, #availabilityTable .blacklight-call-number.result__value`));
     } else {
       termList = parseUserQuery(userQuery, myStopwords, false);
-      instance = new Mark(document.querySelectorAll('.card.item-more-details, #availabilityTable .blacklight-call-number.result__value'));
+      instance = new Mark(document.querySelectorAll('.card.item-more_details, #availabilityTable .blacklight-call-number.result__value'));
     }
 
     // Remove previous marked elements and mark new phrases and words
