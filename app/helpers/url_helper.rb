@@ -210,7 +210,7 @@ module UrlHelper
     query_hash[:ItemDate] = document[:publication_year_display] || 'none'
     pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
     query_hash[:ItemPublisher] = pub.present? ? pub.join('; ') : 'none'
-    query_hash[:SubLocation] = document[:library_has_display] || nil
+    query_hash[:SubLocation] = document[:library_has_display].join("\n") if document[:library_has_display]
     query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
     query_hash[:CallNumber] = item.present? ? item['c'] || 'none' : 'none'
     query_hash[:Volume] = item.present? ? item['v'] || 'none' : 'none'
