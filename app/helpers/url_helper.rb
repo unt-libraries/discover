@@ -123,8 +123,7 @@ module UrlHelper
     query_hash['rft.au'] = author
     query_hash['rft.isbn'] = document[:isbn_numbers][0] if document[:isbn_numbers]
     query_hash['rft.issn'] = document[:issn_numbers][0] if document[:issn_numbers]
-    # Edition will be added in the future
-    query_hash['rft.edition'] = nil
+    query_hash['rft.edition'] = document[:editions_display].first if document[:editions_display]
     query_hash['rft.date'] = document[:publication_year_display]
     pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
     query_hash['rft.pub'] = pub.join('; ') unless pub.nil?
@@ -176,8 +175,7 @@ module UrlHelper
     query_hash['rft.au'] = author || 'none'
     query_hash['rft.isbn'] = document[:isbn_numbers].first if document[:isbn_numbers]
     query_hash['rft.issn'] = document[:issn_numbers].first if document[:issn_numbers]
-    # Edition will be added in the future
-    query_hash['rft.edition'] = nil
+    query_hash['rft.edition'] = document[:editions_display].first if document[:editions_display]
     query_hash['rft.date'] = document[:publication_year_display] || 'none'
     pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
     query_hash['rft.pub'] = pub.present? ? pub.join('; ') : 'none'
@@ -208,13 +206,11 @@ module UrlHelper
     query_hash[:ItemTitle] = document[:title_display].present? ? "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}" : 'none'
     query_hash[:ItemAuthor] = author || 'none'
     query_hash[:ItemNumber] = "#{document[:id]}a"
-    # ItemEdition will be added in the future
-    query_hash[:ItemEdition] = nil
+    query_hash[:ItemEdition] = document[:editions_display].first if document[:editions_display]
     query_hash[:ItemDate] = document[:publication_year_display] || 'none'
     pub = document[:publication_display] || document[:creation_display] || document[:distribution_display] || document[:manufacture_display]
     query_hash[:ItemPublisher] = pub.present? ? pub.join('; ') : 'none'
-    # SubLocation will be added in the future
-    query_hash[:SubLocation] = nil
+    query_hash[:SubLocation] = document[:library_has_display] || nil
     query_hash[:notes] = "Discover record: #{request.base_url}/catalog/#{document[:id]}"
     query_hash[:CallNumber] = item.present? ? item['c'] || 'none' : 'none'
     query_hash[:Volume] = item.present? ? item['v'] || 'none' : 'none'
