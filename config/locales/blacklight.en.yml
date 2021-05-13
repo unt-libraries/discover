@@ -1,6 +1,6 @@
 en:
   announcement:
-    - active: true
+    - active: false
       class: ''
       content: "EBSCO is conducting a system upgrade from May 5 – 12, 2021. During this time, downloading full ebooks from EBSCO is not available, however, you can download a book chapter or read it online."
     - active: false
