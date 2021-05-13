@@ -208,7 +208,8 @@ document.addEventListener('turbolinks:load', () => {
         const segment = findSegmentFor(pos.x);
 
         if (segment !== lastSegment) {
-          const humanizedNumber = window.BlacklightRangeLimit.parseNum(segment.count).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+          // eslint-disable-next-line max-len
+          const humanizedNumber = window.BlacklightRangeLimit.parseNum(segment.count).toLocaleString();
           const humanizedLabel = window.BlacklightRangeLimit.parseNum(segment.count) === 1 ? 'item' : 'items';
 
           const title = `${findSegmentFor(pos.x).label} (${humanizedNumber} ${humanizedLabel})`;
