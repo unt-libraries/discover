@@ -21,11 +21,10 @@
   <link href="https://lgapi-us.libapps.com" rel="preconnect" crossorigin>
   <link href="https://books.google.com" rel="preconnect" crossorigin>
 
-  <%= preload_link_tag "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,400&family=Oswald:wght@300;400&subset=latin-ext&display=swap", as: "style" %>
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,400&family=Oswald:wght@300;400&subset=latin-ext&display=swap"
         media="print"
-        onload="this.media='all'">
+        onload="this.media='all'; this.onload=null;">
   <noscript>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,400&family=Oswald:wght@300;400&subset=latin-ext&display=swap">
   </noscript>
