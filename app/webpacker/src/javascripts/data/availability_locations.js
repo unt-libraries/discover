@@ -189,95 +189,95 @@ const locationData = {
     name: 'Discovery Park Library Reserves',
   },
   's*': {
-    name: 'Eagle Commons Library',
-    abbr: 'ECL',
-    linkText: 'Eagle Commons Library Directory',
-    url: 'https://library.unt.edu/eagle-commons/#directory"',
-    btnClass: 'eagle-commons',
+    name: 'Sycamore Library',
+    abbr: 'Sycamore',
+    linkText: 'Sycamore Library Directory',
+    url: 'https://library.unt.edu/sycamore/#directory"',
+    btnClass: 'sycamore',
   },
   s1fdc: {
-    name: 'Eagle Commons Library 1FL Display',
+    name: 'Sycamore Library 1FL Display',
   },
   s1ndc: {
-    name: 'Eagle Commons Library 1FL New Books',
+    name: 'Sycamore Library 1FL New Books',
   },
   scbg: {
-    name: 'Eagle Commons Library CMC & Juvenile Oversized Books',
+    name: 'Sycamore Library CMC & Juvenile Oversized Books',
   },
   sckit: {
-    name: 'Eagle Commons Library CMC Kits',
+    name: 'Sycamore Library CMC Kits',
   },
   scmc: {
-    name: 'Eagle Commons Library Curriculum Materials Collection',
+    name: 'Sycamore Library Curriculum Materials Collection',
   },
   sd: {
-    name: 'Eagle Commons Library Government Documents',
+    name: 'Sycamore Library Government Documents',
   },
   sd1dc: {
-    name: 'Eagle Commons Library 1FL Display',
+    name: 'Sycamore Library 1FL Display',
   },
   sdai: {
-    name: 'Eagle Commons Library Docs A&I',
+    name: 'Sycamore Library Docs A&I',
   },
   sdbi: {
-    name: 'Eagle Commons Library Docs Bib Center',
+    name: 'Sycamore Library Docs Bib Center',
   },
   sdcd: {
-    name: 'Eagle Commons Library Docs CD',
+    name: 'Sycamore Library Docs CD',
   },
   sdmc: {
-    name: 'Eagle Commons Library Docs Microform',
+    name: 'Sycamore Library Docs Microform',
   },
   sdmp: {
-    name: 'Eagle Commons Library Docs Maps',
+    name: 'Sycamore Library Docs Maps',
   },
   sdnb: {
-    name: 'Eagle Commons Library Docs-NOBARCODE',
+    name: 'Sycamore Library Docs-NOBARCODE',
   },
   sdndc: {
-    name: 'Eagle Commons Library Docs New Books',
+    name: 'Sycamore Library Docs New Books',
   },
   sdov: {
-    name: 'Eagle Commons Library Docs Oversize',
+    name: 'Sycamore Library Docs Oversize',
   },
   sdtx: {
-    name: 'Eagle Commons Library TX Documents',
+    name: 'Sycamore Library TX Documents',
   },
   sdtov: {
-    name: 'Eagle Commons Library TX Docs Oversize',
+    name: 'Sycamore Library TX Docs Oversize',
   },
   sdus: {
-    name: 'Eagle Commons Library US Documents',
+    name: 'Sycamore Library US Documents',
   },
   sdvf: {
-    name: 'Eagle Commons Library Docs Vertical File',
+    name: 'Sycamore Library Docs Vertical File',
   },
   sdzmr: {
-    name: 'Eagle Commons Library Map Reserves',
+    name: 'Sycamore Library Map Reserves',
   },
   sdzrf: {
-    name: 'Eagle Commons Library Reference',
+    name: 'Sycamore Library Reference',
   },
   sdzrs: {
-    name: 'Eagle Commons Library Docs Reserves',
+    name: 'Sycamore Library Docs Reserves',
   },
   sdzsd: {
-    name: 'Eagle Commons Library Service Desk',
+    name: 'Sycamore Library Service Desk',
   },
   sfin: {
-    name: 'Eagle Commons Library Funding Information Network',
+    name: 'Sycamore Library Funding Information Network',
   },
   sjbg: {
-    name: 'Eagle Commons Library CMC & Juvenile Oversized Books',
+    name: 'Sycamore Library CMC & Juvenile Oversized Books',
   },
   sjuv: {
-    name: 'Eagle Commons Library Juvenile Collection',
+    name: 'Sycamore Library Juvenile Collection',
   },
   spe: {
-    name: 'Eagle Commons Library Periodicals',
+    name: 'Sycamore Library Periodicals',
   },
   smls: {
-    name: 'Eagle Commons Library Best Sellers',
+    name: 'Sycamore Library Best Sellers',
   },
   spec: {
     name: 'Special ID',
@@ -286,30 +286,30 @@ const locationData = {
     url: '',
   },
   swr: {
-    name: 'Eagle Commons Library Workroom',
+    name: 'Sycamore Library Workroom',
   },
   szmp: {
-    name: 'Eagle Commons Library Maps',
+    name: 'Sycamore Library Maps',
   },
   'szz*': {
-    name: 'Eagle Commons Library',
-    abbr: 'ECL',
-    linkText: 'Eagle Commons Library Directory',
-    url: 'https://library.unt.edu/eagle-commons/#directory',
-    btnClass: 'eagle-commons',
+    name: 'Sycamore Library',
+    abbr: 'Sycamore',
+    linkText: 'Sycamore Library Directory',
+    url: 'https://library.unt.edu/sycamore/#directory',
+    btnClass: 'sycamore',
   },
   szzov: {
-    name: 'Eagle Commons Library Oversize Books',
+    name: 'Sycamore Library Oversize Books',
   },
   szzrf: {
-    name: 'Eagle Commons Library Reference',
+    name: 'Sycamore Library Reference',
   },
   szzrs: {
-    name: 'Eagle Commons Library Reserves',
-    abbr: 'ECL Reserves',
+    name: 'Sycamore Library Reserves',
+    abbr: 'Sycamore Reserves',
   },
   szzsd: {
-    name: 'Eagle Commons Library Service Desk',
+    name: 'Sycamore Library Service Desk',
   },
   tamc: {
     name: 'Texas A and M Commerce',

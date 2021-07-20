@@ -4,8 +4,8 @@ const serviceDeskData = {
     url: 'https://library.unt.edu/discovery-park/service-desk/',
   },
   s: {
-    name: 'Eagle Commons Library Service Desk',
-    url: 'https://library.unt.edu/eagle-commons/service-desk/',
+    name: 'Sycamore Library Service Desk',
+    url: 'https://library.unt.edu/sycamore/service-desk/',
   },
   czm: {
     name: 'Media Library Service Desk',

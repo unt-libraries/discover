@@ -75,7 +75,7 @@
             border-color: theme-color('gray-light');
           }
 
-          &.location-eagle-commons {
+          &.location-sycamore {
             &.available:not(.checked-out) {
               @extend .btn-light-teal;
             }
