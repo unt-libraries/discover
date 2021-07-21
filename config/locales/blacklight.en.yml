@@ -1,9 +1,9 @@
 en:
   announcement:
-    - active: false
+    - active: true
       dismissible: true
       class: ''
-      content: "EBSCO is conducting a system upgrade from May 5 – 12, 2021. During this time, downloading full ebooks from EBSCO is not available, however, you can download a book chapter or read it online."
+      content: "The Eagle Commons Library will be known as <b>Sycamore Library</b> effective August 1st. You may encounter both names for the same location in Discover while we complete this transition."
     - active: false
       dismissible: false
       class: ''
