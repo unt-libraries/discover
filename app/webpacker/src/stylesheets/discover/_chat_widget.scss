@@ -1,3 +1,18 @@
-#lcs_slide_out-10406 {
+#lcs_slide_out-22116 {
   top: 150px !important;
+}
+
+@media (max-width: 575.98px) {
+  #lcs_slide_out-22116 {
+    top: 50px !important;
+  }
+
+  #lcs_slide_out_button-22116 img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+#lcs_slide_out_button-22116 {
+  border: 1px solid #ddd;
 }
