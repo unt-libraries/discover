@@ -224,6 +224,16 @@ module UrlHelper
     URI::HTTPS.build(host: 'aeon.library.unt.edu', path: '/logon/', query: query_hash.to_query).to_s
   end
 
+  def construct_finding_aid_url(document)
+    # Construct URL for Finding Aids
+
+    json = document[:urls_json].map { |item| JSON.parse(item) }
+    urls = json.select { |item| item['t'] != 'fulltext' }
+    url = urls.select { |item| item['u'].include?('findingaids.library.unt.edu') }
+
+    "#{url.first['u']}#boxfolder"
+  end
+
   def link_to_request_item(document, item: nil, item_index: nil)
     requestability = item['r']
     data = {}
@@ -250,6 +260,12 @@ module UrlHelper
       el_class = "request-aeon"
       data['toggle'] = 'tooltip'
       data['title'] = 'This item is not available for checkout. Place a request to use it in a reading room at the library.'
+    when 'finding_aid'
+      url = construct_finding_aid_url(document)
+      text = "<i class='fal fa-fw fa-archive'></i> Request on-site use via finding aid"
+      el_class = "request-finding-aid"
+      data['toggle'] = 'tooltip'
+      data['title'] = 'Items in this collection are not available for checkout. Access the finding aid to navigate the collection and request items to use in a reading room at the library.'
     else
       return 'Cannot request this item'
     end
