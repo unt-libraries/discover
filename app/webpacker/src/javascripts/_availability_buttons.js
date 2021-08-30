@@ -32,7 +32,7 @@ function updateStatusElement(itemEl, item = null) {
   }
 
   const statusCode = itemStatus.code;
-  const isOnlineItem = statusCode === 'w';
+  const isOnlineItem = statusCode === 'w' || (itemLocation && itemLocation.code.endsWith('www'));
   const statusDueDate = itemStatus.duedate;
   const statusData = getStatusData(statusCode);
 

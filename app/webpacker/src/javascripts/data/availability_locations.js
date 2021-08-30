@@ -159,6 +159,12 @@ const locationData = {
     linkText: '',
     url: '',
   },
+  pwww: {
+    name: 'Special Collections Online Resources',
+    abbr: 'Special Collections Online',
+    linkText: '',
+    url: '',
+  },
   'r*': {
     name: 'Discovery Park Library',
     abbr: 'DPL',
@@ -516,6 +522,9 @@ const locationData = {
   w4mwr: {
     name: 'Willis 4th Floor Music Workroom',
   },
+  w4spc: {
+    name: 'Willis 4FL Special Collections',
+  },
   w4spe: {
     name: 'Willis 4FL Special Collections',
   },
@@ -603,6 +612,11 @@ const locationData = {
   xprsv: {
     name: 'Preservation Lab',
     abbr: 'Preservation Lab',
+  },
+  xspc: {
+    name: 'Special Collections Remote Storage',
+    abbr: 'Special Collections Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xspe: {
     name: 'Special Collections Remote Storage',
