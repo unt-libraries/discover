@@ -230,8 +230,10 @@ module UrlHelper
     json = document[:urls_json].map { |item| JSON.parse(item) }
     urls = json.select { |item| item['t'] != 'fulltext' }
     url = urls.select { |item| item['u'].include?('findingaids.library.unt.edu') }
+    url = url.first['u']
+    url['controlcard'] = 'findingaid'
 
-    "#{url.first['u']}#boxfolder"
+    "#{url}#boxfolder"
   end
 
   def link_to_request_item(document, item: nil, item_index: nil)
