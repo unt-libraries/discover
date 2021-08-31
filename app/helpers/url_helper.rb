@@ -259,13 +259,13 @@ module UrlHelper
       text = "<i class='fal fa-fw fa-archive'></i> Request on-site use"
       el_class = "request-aeon"
       data['toggle'] = 'tooltip'
-      data['title'] = 'This item is not available for checkout. Place a request to use it in a reading room at the library.'
+      data['title'] = 'Reading Room Use Only. Place a request through Aeon to use this item at the library.'
     when 'finding_aid'
       url = construct_finding_aid_url(document)
-      text = "<i class='fal fa-fw fa-archive'></i> Request on-site use via finding aid"
+      text = "<i class='fal fa-fw fa-archive'></i> Request on-site use"
       el_class = "request-finding-aid"
       data['toggle'] = 'tooltip'
-      data['title'] = 'Items in this collection are not available for checkout. Access the finding aid to navigate the collection and request items to use in a reading room at the library.'
+      data['title'] = 'Reading Room Use Only. Place a request through the finding aid to use this item at the library.'
     else
       return 'Cannot request this item'
     end
