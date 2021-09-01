@@ -231,7 +231,7 @@ module UrlHelper
     urls = json.select { |item| item['t'] != 'fulltext' }
     url = urls.select { |item| item['u'].include?('findingaids.library.unt.edu') }
     url = url.first['u']
-    url['controlcard'] = 'findingaid'
+    url = url.sub('controlcard', 'findingaid')
 
     "#{url}#boxfolder"
   end
