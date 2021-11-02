@@ -594,6 +594,11 @@ const locationData = {
     abbr: 'Juvenile Storage',
     statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
+  xmau: {
+    name: 'Music Audio Coll Remote Storage',
+    abbr: 'Music Storage',
+    statusText: 'This item is located off campus and will take time for processing and delivery.',
+  },
   xmed: {
     name: 'Media Remote Storage',
     abbr: 'Media Storage',

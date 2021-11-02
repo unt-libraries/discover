@@ -20,7 +20,7 @@ search interface for accessing the online catalog.
 SSH:
 ```console
 $ git clone git@github.com:unt-libraries/discover.git discover
-$ cd unt-blacklight
+$ cd discover
 ```
 
 or HTTPS:
