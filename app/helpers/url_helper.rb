@@ -292,27 +292,6 @@ module UrlHelper
                        'ga-event-value': '1'
   end
 
-  def feedback_issue_url
-    gitlab = t('gitlab')
-    host = gitlab[:url]
-    path = "#{gitlab[:project_path]}#{gitlab[:issues_path]}"
-    endpoint = "#{path}#{gitlab[:new_endpoint]}"
-
-    query_hash = {
-      'issue[title]': 'Site feedback',
-      'issue[description]': "[your request here, attach file if needed.]\n\n\n\n
-<!-- due date, assignee, and label will automatically be filled below -->
-<!-- NO EDITS BELOW THIS LINE -->\n
-- [PUBLIC URL](#{request.original_url})\n
-- User Agent: {{userAgent}}\n\n
-/assign @UI
-/due <in 2 days
-/label ~feedback",
-    }
-
-    URI::HTTPS.build(host: host, path: endpoint, query: query_hash.to_query).to_s
-  end
-
   def feedback_issue_email
     email_add = t('urls.feedback_email')
 

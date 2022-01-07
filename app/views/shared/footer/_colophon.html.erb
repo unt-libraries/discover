@@ -7,6 +7,7 @@
 <% url_policy = "https://policy.unt.edu/policy/14-005" %>
 <% url_required = "https://www.unt.edu/required-links" %>
 <% url_unt = "https://www.unt.edu" %>
+<% url_feedback = "https://unt.az1.qualtrics.com/jfe/form/SV_1BRQnARsgKm8YUS" %>
 
 <div class="wrapper--colophon" role="contentinfo" data-turbolinks="false">
   <section class="colophon  container-fluid">
@@ -82,12 +83,12 @@
              ga-event-action="university"
              ga-event-label="<%= url_unt %>"
              ga-event-value="1">UNT Home</a>
-        | <%= link_to 'Send Feedback', feedback_issue_url, target:'_blank',
+        | <%= link_to 'Send Feedback', url_feedback, target:'_blank',
                       rel: 'noopener',
                       class: 'feedback feedback-url',
                       data: {
                           toggle: 'tooltip',
-                          title: 'Provide site feedback, library staff only'
+                          title: 'Provide site feedback'
                       } %>
       </p>
     </div>
