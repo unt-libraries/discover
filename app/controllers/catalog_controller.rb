@@ -313,6 +313,7 @@ class CatalogController < ApplicationController
     # Availability
     config.add_show_field 'items_json', label: 'Items', display: :availability
     config.add_show_field 'has_more_items', if: false
+    config.add_show_field 'building_locations', if: false
 
     # Summary and TOC
     config.add_show_field 'summary_notes', label: 'Summary'
