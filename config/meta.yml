@@ -1,0 +1,4 @@
+meta_title: "Discover"
+meta_description: "Discover searches the UNT Libraries' descriptive records of 3 million+ items, including books, media, music (and more)."
+meta_image: "cover.png" # should exist in `app/assets/images/`
+twitter_account: "@unt_libraries"   # required for Twitter Cards

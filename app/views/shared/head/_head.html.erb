@@ -9,9 +9,7 @@
   <meta name="google-site-verification" content="OwynCvJj6eU9FfLBLGGhNEvTjTXLLzcSdsFSSzSacMA" />
 
   <title><%= render_page_title %></title>
-
-  <meta name="description" content="Discover searches the UNT Libraries' descriptive records of 3 million+ items, including books, media, music (and more).">
-
+  <%= render '/shared/head/meta_tags' %>
   <%= opensearch_description_tag application_name, opensearch_catalog_url(format: 'xml') %>
 
   <!-- CSS -->
@@ -43,7 +41,6 @@
 
   <%= render '/shared/head/icons' %>
 
-  <%= render '/shared/head/opengraph' %>
 
   <!-- Head scripts -->
   <%= javascript_packs_with_chunks_tag 'priority', 'data-turbolinks-track': 'reload', async: true %>
