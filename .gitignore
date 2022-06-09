@@ -1,8 +1,10 @@
 # Ignore bundler config.
 /.bundle
 
-# jetbrains IDE files
-.idea/*
+# IDE files
+.idea/
+.history/
+.vscode/
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
