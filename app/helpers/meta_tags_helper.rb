@@ -12,11 +12,11 @@ module MetaTagsHelper
       responsibility = document[:responsibility_display]&.upcase_first
       resource_type = document.resource_type_name
       published = document[:publication_display]&.first
-      location = document[:building_locations]&.first || 'Online'
-      call_number = document[:call_numbers_display]&.first || ''
+      location = document[:building_locations]&.first
+      call_number = location ? document[:call_numbers_display]&.first : nil
 
-      "#{responsibility}#{'; ' if responsibility}#{resource_type}, published #{published};"\
-      " @ UNT Libraries Denton - #{location}#{', ' if call_number}#{call_number}"
+      "#{resource_type}; #{responsibility + '; ' if responsibility}#{published + '; ' if published}"\
+      "@ UNT Libraries Denton#{' - ' + location if location || call_number}#{', ' + call_number if location && call_number}"
     else
       DEFAULT_META['meta_description']
     end
