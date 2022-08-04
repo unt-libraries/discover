@@ -1,4 +1,4 @@
-FROM ruby:2.6.6-slim-buster AS builder
+FROM docker.io/ruby:2.6.6-slim-buster AS builder
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
@@ -40,7 +40,7 @@ COPY yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Second stage of multi-stage build for smaller final image
-FROM ruby:2.6.6-slim-buster
+FROM docker.io/ruby:2.6.6-slim-buster
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \

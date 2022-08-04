@@ -27,14 +27,14 @@
   "private": true,
   "dependencies": {
     "@rails/ujs": "^6.0.2-2",
-    "@rails/webpacker": "^5.0.1",
+    "@rails/webpacker": "^5.4.3",
     "autotrack": "^2.4.1",
     "blacklight-frontend": "^7.7.0",
     "blacklight-marc": "https://github.com/projectblacklight/blacklight-marc.git",
     "bootstrap": "^4.4.1",
     "bootstrap-tourist": "^0.3.2",
     "brotli-webpack-plugin": "^1.1.0",
-    "browser-update": "^3.3.21",
+    "browser-update": "^3.3.40",
     "clean-webpack-plugin": "^3.0.0",
     "corejs-typeahead": "^1.3.1",
     "expose-loader": "^0.7.5",
@@ -54,11 +54,11 @@
     "webpack": "^4.44.1"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.22.0",
-    "stylelint": "^13.6.1",
-    "stylelint-config-standard": "^20.0.0",
+    "eslint": "^8.21.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "stylelint": "^14.9.1",
+    "stylelint-config-standard": "^26.0.0",
     "webpack-dev-server": "^3.10.3"
   }
 }
