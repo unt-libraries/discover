@@ -145,4 +145,100 @@ module FacetsHelper
       :video_film => { :label => 'Video/<wbr>Film'.html_safe, :icon => 'film' },
     }
   end
+
+  def prefilter_hash
+    {
+      :books => {
+        'icon' => 'book',
+        'label' => 'Books',
+        'color' => 'light-teal',
+        'links' => [
+          { 'label' => 'Any', 'url' => '/?f[resource_type_facet][]=books' },
+          { 'label' => 'New', 'url' => 'https://discover.library.unt.edu/?Author/Creator=&f[newly_added_facet][]=months_3&f[resource_type_facet][]=books&genre=&op=AND&range[publication_year_range_facet][begin]=2021&range[publication_year_range_facet][end]=2022&search_field=advanced&sort=publication_sort+desc,+title_sort+asc' },
+          { 'label' => 'E-books', 'url' => 'https://discover.library.unt.edu/?f[access_facet][]=Online&f[resource_type_facet][]=books' },
+          { 'label' => 'Print Books', 'url' => 'https://discover.library.unt.edu/?f[access_facet][]=At+the+Library&f[resource_type_facet][]=books' },
+          { 'label' => 'Juvenile Books', 'url' => 'https://discover.library.unt.edu/?f[resource_type_facet][]=books&f[shelf_facet][]=Sycamore+Library+Juvenile+Collection' },
+          { 'label' => 'Reserves', 'url' => 'https://iii.library.unt.edu/search/r' },
+        ]
+      },
+      :journals => {
+        'icon' => 'book-alt',
+        'label' => 'Journals & Periodicals',
+        'color' => 'dark-teal',
+        'links' => [
+          { 'label' => 'Any', 'url' => 'https://discover.library.unt.edu/?f[resource_type_facet][]=journals_periodicals' },
+          { 'label' => 'e-Journals', 'url' => 'https://discover.library.unt.edu/?f[access_facet][]=Online&f[resource_type_facet][]=journals_periodicals' },
+          { 'label' => 'Print Journals', 'url' => 'https://discover.library.unt.edu/?f[access_facet][]=At+the+Library&f[resource_type_facet][]=journals_periodicals' },
+          { 'label' => 'Newspapers', 'url' => 'https://discover.library.unt.edu/?f[resource_type_facet][]=newspapers' },
+          { 'label' => 'Search Inside', 'url' => 'https://untexas.summon.serialssolutions.com/search?q=&fvf=ContentType,Journal+Article,f&fvf=IsPeerReviewed,true,f&fvf=IsFullText,true,f#!/search?ho=t&include.ft.matches=f&fvf=ContentType,Journal Article,f|IsPeerReviewed,true,f|IsFullText,true,f&l=en' },
+        ]
+      },
+      :music => {
+        'icon' => 'music',
+        'label' => 'Music',
+        'color' => 'lime-green',
+        'links' => [
+          { 'label' => 'Any', 'url' => 'https://discover.library.unt.edu/?f[collection_facet][]=Music+Library' },
+          { 'label' => 'Scores', 'url' => 'https://discover.library.unt.edu/?f[resource_type_facet][]=music_scores' },
+          { 'label' => 'Music Recordings', 'url' => 'https://discover.library.unt.edu/?f[resource_type_facet][]=music_recordings' },
+          { 'label' => 'Books', 'url' => 'https://discover.library.unt.edu/?f[collection_facet][]=Music+Library&f[resource_type_facet][]=books' },
+          { 'label' => 'Online', 'url' => 'https://discover.library.unt.edu/?f[access_facet][]=Online&f[collection_facet][]=Music+Library' },
+          { 'label' => 'Reference', 'url' => 'https://discover.library.unt.edu/?f[shelf_facet][]=Willis+4FL+Music+Reference' },
+        ]
+      },
+      :film => {
+        'icon' => 'film',
+        'label' => 'Film & Media',
+        'color' => 'light-green',
+        'links' => [
+          { 'label' => 'Any', 'url' => 'https://discover.library.unt.edu/?f[collection_facet][]=Media+Library' },
+          { 'label' => 'New', 'url' => 'https://discover.library.unt.edu/?f[collection_facet][]=Media+Library&f[newly_added_facet][]=months_3&range[publication_year_range_facet][begin]=2021&range[publication_year_range_facet][end]=2022&sort=publication_sort+desc,+title_sort+asc' },
+          { 'label' => 'DVDs', 'url' => 'https://discover.library.unt.edu/?f[media_type_facet][]=DVDs' },
+          { 'label' => 'Blu-ray', 'url' => 'https://discover.library.unt.edu/?f[media_type_facet][]=Blu-ray+Discs' },
+          { 'label' => 'Online', 'url' => 'https://discover.library.unt.edu/?f[access_facet][]=Online&f[collection_facet][]=Media+Library' },
+        ]
+      },
+      :gaming => {
+        'icon' => 'gamepad',
+        'label' => 'Gaming',
+        'color' => 'green',
+        'links' => [
+          { 'label' => 'Any', 'url' => 'https://discover.library.unt.edu/?f[resource_type_facet][]=games' },
+          { 'label' => 'Systems & Peripherals', 'url' => 'https://discover.library.unt.edu/?f[collection_facet][]=Media+Library&f[resource_type_facet][]=equipment' },
+          { 'label' => 'Console Games', 'url' => 'https://discover.library.unt.edu/?f[media_type_facet][]=Console+Games' },
+          { 'label' => 'Handheld', 'url' => 'https://discover.library.unt.edu/?f[media_type_facet][]=Handheld+Games' },
+          { 'label' => 'Tabletop', 'url' => 'https://discover.library.unt.edu/?f[media_type_facet][]=Tabletop+Games' },
+        ]
+      },
+      :makers => {
+        'icon' => 'cube',
+        'label' => 'Makers',
+        'color' => 'aqua',
+        'links' => [
+          { 'label' => 'Equipment & Tools', 'url' => 'https://discover.library.unt.edu/?f[collection_facet][]=The+Spark+(Makerspace)' },
+          { 'label' => 'A/V Equipment', 'url' => 'https://guides.library.unt.edu/spark/av' },
+        ]
+      },
+      :reference => {
+        'icon' => 'database',
+        'label' => 'Reference',
+        'color' => 'lime',
+        'links' => [
+          { 'label' => 'Style Manuals', 'url' => 'https://discover.library.unt.edu/?f[genre_heading_facet][]=style-manuals!Style+manuals' },
+          { 'label' => 'Encyclopedias and Dictionaries', 'url' => 'https://discover.library.unt.edu/?f[genre_facet][]=encyclopedias-and-dictionaries!Encyclopedias+and+dictionaries' },
+          { 'label' => 'Online Databases', 'url' => 'https://discover.library.unt.edu/?f[resource_type_facet][]=online_databases' },
+        ]
+      },
+      :gov_docs => {
+        'icon' => 'archive',
+        'label' => 'Government Docs',
+        'color' => 'forest-green',
+        'links' => [
+          { 'label' => 'Any', 'url' => 'https://discover.library.unt.edu/?f[collection_facet][]=Government+Documents' },
+          { 'label' => 'Print Documents', 'url' => 'https://discover.library.unt.edu/?f[access_facet][]=At+the+Library&f[collection_facet][]=Government+Documents' },
+          { 'label' => 'Online Documents', 'url' => 'https://discover.library.unt.edu/?f[access_facet][]=Online&f[collection_facet][]=Government+Documents' },
+        ]
+      }
+    }
+  end
 end
