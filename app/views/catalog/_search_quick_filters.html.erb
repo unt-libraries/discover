@@ -14,7 +14,7 @@
           </button>
           <div class="dropdown-menu">
             <% button['links'].each do |link| %>
-              <a href="<%=u link['url'] %>"
+              <a href="<%= link['url'] %>"
                  class="dropdown-item"
                  ga-on="click"
                  ga-event-category="Pre-filter"
