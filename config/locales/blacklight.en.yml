@@ -101,7 +101,7 @@ en:
       next: 'next <i class="fa fa-caret-right"></i>'
   blacklight:
     application_name: 'Discover'
-
+    site_subtitle: 'The New UNT Library Catalog'
     search:
       header: 'What are you looking for?'
       page_title:
