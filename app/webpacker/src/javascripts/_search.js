@@ -70,7 +70,21 @@ function rotateSearchTips() {
   });
 }
 
+function initPrefilters() {
+  const prefilterLinks = document.querySelectorAll('.pre-filter-btn-group .dropdown-item');
+  const queryField = document.querySelector('#q');
+  prefilterLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const query = queryField.value;
+      const url = e.target.getAttribute('href');
+      window.location.href = `${url}&q=${query}`;
+    });
+  });
+}
+
 export {
   rotateSearchTips,
   searchSelector,
+  initPrefilters,
 };

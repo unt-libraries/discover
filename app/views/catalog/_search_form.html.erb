@@ -48,8 +48,9 @@
     </div>
   </div>
 
-  <hr>
-
-  <%= render partial: 'search_quick_filters' %>
+  <% if request.original_url == root_url %>
+    <hr>
+    <%= render partial: 'search_quick_filters' %>
+  <% end %>
 
 <% end %>
