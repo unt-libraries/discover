@@ -77,11 +77,13 @@ function initPrefilters() {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const query = queryField.value;
+      const url = e.target.getAttribute('href');
       if (query.length > 0) {
         link.setAttribute('ga-event-value', '1');
+        window.location.href = `${url}&q=${query}`;
+      } else {
+        window.location.href = url;
       }
-      const url = e.target.getAttribute('href');
-      window.location.href = `${url}&q=${query}`;
     });
   });
 }
