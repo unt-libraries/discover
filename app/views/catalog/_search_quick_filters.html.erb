@@ -7,21 +7,14 @@
       <% row.each do |k, button| %>
         <div class="btn-group flex-fill p-1 pre-filter-btn-group">
 
-
           <button type="button" class="btn btn-<%= button['color'] %> dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="icon fal fa-<%= button['icon'] %> img-fluid"></i>
             <%= button['label'] %>
           </button>
           <div class="dropdown-menu">
             <% button['links'].each do |link| %>
-              <a href="<%= link['url'] %>"
-                 class="dropdown-item"
-                 ga-on="click"
-                 ga-event-category="Pre-filter"
-                 ga-event-action="<%= button['label'] %>"
-                 ga-event-label="<%= link['label'] %>"
-                 ga-event-value="0"><%= link['label'] %></a>
-              <% end %>
+              <%= render_prefilter_link(link, button['label']) %>
+            <% end %>
           </div>
         </div>
       <% end %>
