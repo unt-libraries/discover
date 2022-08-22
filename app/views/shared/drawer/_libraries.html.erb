@@ -8,9 +8,8 @@
 <% url_community = "#{url_home}/services/for-community-visitors/" %>
 <% url_accessibility = "#{url_home}/services/persons-with-disabilities/" %>
 <% url_spaces = "#{url_home}/spaces/" %>
-<% url_student_reservations = "https://calendar.library.unt.edu/reserve/" %>
-<% url_faculty_reservations = "https://calendar.library.unt.edu/reserve/" %>
-<% url_esports_reservations = "https://esports.library.unt.edu/" %>
+<% url_reserve_space = "https://calendar.library.unt.edu/reserve/" %>
+<% url_esports_reservations = "https://calendar.library.unt.edu/reserve/spaces/medialibrary/" %>
 <% url_service_desks = "#{url_home}/services/desks/" %>
 <% url_ask_us = "#{url_home}/ask-us/" %>
 <% url_staff_directory = "#{url_home}/people/" %>
@@ -224,23 +223,14 @@
            ga-event-label="<%= url_spaces %>"
            ga-event-value="1">Study Spaces, Classrooms, etc.</a>
 
-        <a href="<%= url_student_reservations %>"
+        <a href="<%= url_reserve_space %>"
            rel="noopener"
            class="nav-item nav-link"
            ga-on="click"
            ga-event-category="link - drawer"
            ga-event-action="libraries"
-           ga-event-label="<%= url_student_reservations %>"
-           ga-event-value="1">Student Room Reservations</a>
-
-        <a href="<%= url_faculty_reservations %>"
-           rel="noopener"
-           class="nav-item nav-link"
-           ga-on="click"
-           ga-event-category="link - drawer"
-           ga-event-action="libraries"
-           ga-event-label="<%= url_faculty_reservations %>"
-           ga-event-value="1">Faculty/Staff Event Reservations</a>
+           ga-event-label="<%= url_reserve_space %>"
+           ga-event-value="1">Reserve a Space</a>
 
         <a href="<%= url_esports_reservations %>"
            rel="noopener"
