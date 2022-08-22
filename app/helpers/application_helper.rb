@@ -1,5 +1,31 @@
 module ApplicationHelper
   include Blacklight::BlacklightHelperBehavior
+
+  ##
+  # Get the name of this application from an i18n string
+  # key: blacklight.application_name
+  # Try first in the current locale, then the default locale
+  #
+  # @return [String] the application name
+  def render_page_title
+    (content_for(:page_title) if content_for?(:page_title)) || @page_title || "#{application_name}: #{site_subtitle}"
+  end
+
+  ##
+  # Get the site subtitle of this application from an i18n string.
+  # key: blacklight.site_subtitle
+  # Try first in the current locale, then the default locale
+  #
+  # @return [String] the site subtitle
+  def site_subtitle
+    # It's important that we don't use ActionView::Helpers::CacheHelper#cache here
+    # because it returns nil.
+    Rails.cache.fetch 'blacklight/site_subtitle' do
+      t('blacklight.site_subtitle',
+        default: t('blacklight.site_subtitle', locale: I18n.default_locale))
+    end
+  end
+
   ##
   # Return the number of search results from the response object
   #
@@ -8,6 +34,7 @@ module ApplicationHelper
   def get_number_search_results(response)
     number_with_delimiter(response['response']['numFound'])
   end
+
 
   def bootstrap_select_tag(name, option_tags = nil, options = {}) # rubocop:disable Airbnb/OptArgParameters
     option_tags ||= ""

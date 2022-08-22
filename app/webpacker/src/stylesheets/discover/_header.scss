@@ -1,0 +1,17 @@
+.header {
+  &__title {
+    &--subtitle {
+      font-weight: 300;
+      font-size: 80%;
+      display: inline;
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    &__title {
+      &--subtitle {
+        display: none;
+      }
+    }
+  }
+}

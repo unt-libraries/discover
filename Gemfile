@@ -19,7 +19,7 @@ gem 'rubocop-airbnb'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 2.7.2'
-gem 'webpacker', '~> 5.x'
+gem 'webpacker', '~> 5.4.3'
 
 gem 'blacklight', '7.13.2'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'

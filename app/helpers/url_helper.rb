@@ -81,7 +81,7 @@ module UrlHelper
     catalog_url = 'https://iii.library.unt.edu/record='
     url = "#{catalog_url}#{record_id}"
 
-    link_to text, url, class: 'nav-link', id: 'catalogLink', target: '_blank', rel: 'noopener',
+    link_to text, url, class: 'nav-link', id: 'catalogLink', target: '_blank', rel: 'noopener nofollow',
                        'ga-on': 'click',
                        'ga-event-category': 'Bib Record',
                        'ga-event-action': 'Tools link click',
