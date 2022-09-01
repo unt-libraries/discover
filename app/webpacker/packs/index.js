@@ -1,6 +1,6 @@
 import { checkAvailability } from '../src/javascripts/_availability_buttons';
 import { setDocHistory, getDocHistory } from '../src/javascripts/_history';
-import { rotateSearchTips, searchSelector } from '../src/javascripts/_search';
+import { rotateSearchTips, searchSelector, initFilters } from '../src/javascripts/_search';
 import { initTour } from '../src/javascripts/_tour';
 import { replaceBookCovers } from '../src/javascripts/_ui';
 import 'flot/source/jquery.canvaswrapper';
@@ -26,4 +26,5 @@ document.addEventListener('turbolinks:load', () => {
   rotateSearchTips();
   replaceBookCovers();
   initTour();
+  initFilters();
 });

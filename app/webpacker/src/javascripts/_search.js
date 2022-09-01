@@ -70,6 +70,7 @@ function rotateSearchTips() {
   });
 }
 
+// Initialize pre-built filters on the home page to pass search form values to the new search
 function initPrefilters() {
   const prefilterLinks = document.querySelectorAll('.pre-filter-btn-group .dropdown-item');
   const queryField = document.querySelector('#q');
@@ -77,14 +78,52 @@ function initPrefilters() {
     link.addEventListener('click', (e) => {
       e.preventDefault();
       const query = queryField.value;
-      const url = e.target.getAttribute('href');
-      if (query.length > 0) {
+      const href = link.getAttribute('href');
+      const urlObj = new URL(href);
+      const currentUrl = new URL(window.location.href);
+      if ((query.length > 0) && (currentUrl.host === urlObj.host)) {
+        const paramString = href.split('?')[1];
+        const params = new URLSearchParams(paramString);
+        const searchField = document.querySelector('#search_field');
+        const searchFieldVal = searchField.value;
+        params.set('utf8', '✓');
+        params.set('q', query);
+        params.set('search_field', searchFieldVal);
+        const newParams = params.toString();
         link.setAttribute('ga-event-value', '1');
-        window.location.href = `${url}&q=${query}`;
+
+        window.location.href = `/?${newParams}`;
       } else {
-        window.location.href = url;
+        window.location.href = href;
       }
-    });
+    }, { once: true });
+  });
+}
+
+// Initialize filters to include search form values in the search
+function initFilters() {
+  const filterLinks = document.querySelectorAll('a.facet-values-item');
+  const queryField = document.querySelector('#q');
+  filterLinks.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const query = queryField.value;
+      const href = link.getAttribute('href');
+      if (query.length > 0) {
+        const paramString = href.split('?')[1];
+        const params = new URLSearchParams(paramString);
+        const searchField = document.querySelector('#search_field');
+        const searchFieldVal = searchField.value;
+        params.set('utf8', '✓');
+        params.set('q', query);
+        params.set('search_field', searchFieldVal);
+        const newParams = params.toString();
+
+        window.location.href = `/?${newParams}`;
+      } else {
+        window.location.href = href;
+      }
+    }, { once: true });
   });
 }
 
@@ -92,4 +131,5 @@ export {
   rotateSearchTips,
   searchSelector,
   initPrefilters,
+  initFilters,
 };
