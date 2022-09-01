@@ -4,6 +4,20 @@ module FacetsHelper
   include Blacklight::FacetsHelperBehavior
 
   ##
+  # Overrides default blacklight implementation
+  # Reads `no_collapse_query` facet field to expand when query criteria is present
+  def should_collapse_facet?(facet_field)
+    no_collapse_query = facet_field.no_collapse_query || nil
+    no_collapse = nil
+
+    no_collapse_query.to_h.each do |key, value|
+      return false if search_state.params.dig(key) == value
+    end
+
+    !facet_field_in_params?(facet_field.key) && facet_field.collapse
+  end
+
+  ##
   # Overrides default Blacklight implementation
   # Renders the list of values
   # removes any elements where render_facet_item returns a nil value. This enables an application

@@ -112,7 +112,6 @@ module PrefilterHelper
     label = link['label']
     full_url = url.present? ? url : search_action_url(params)
 
-
     link_to full_url, class: "dropdown-item",
             'ga-on': 'click',
             'ga-event-category': 'Pre-filter',

@@ -136,6 +136,7 @@ class CatalogController < ApplicationController
     #
     # set `home` to true for it to appear on the home screen facets list. Default is false.
     # set `home_collapse` true to collapse on the home page, false to expand it. Default is true
+    # set `no_collapse_query` to true to prevent the facet from being collapsed when key/value is present in query
 
     # Group priority
     config.add_facet_field 'access_facet', label: 'Access', home: true, home_collapse: false,
@@ -150,10 +151,13 @@ class CatalogController < ApplicationController
 
     # Group location
     config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false,
+                                               no_collapse_query: { "search_field" => "call_number" },
                                                sort: 'index', group: 'location'
     config.add_facet_field 'building_facet', label: 'Building Location', limit: false,
+                                             no_collapse_query: { "search_field" => "call_number" },
                                              sort: 'index', group: 'location'
     config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10,
+                                          no_collapse_query: { "search_field" => "call_number" },
                                           sort: 'index', group: 'location'
 
     # Group date
@@ -177,26 +181,32 @@ class CatalogController < ApplicationController
     # Group publication
     config.add_facet_field 'author_contributor_facet', label: 'Author or Contributor', limit: 10,
                                                        helper_method: :get_split_facet_display,
+                                                       no_collapse_query: { "search_field" => "Author/Creator" },
                                                        index_range: 'a'..'z', group: 'publication'
     config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
                                             helper_method: :get_split_facet_display,
                                             index_range: 'a'..'z', group: 'publication'
     config.add_facet_field 'title_series_facet', label: 'Title or Series', limit: 10, index_range: 'a'..'z',
                                                  helper_method: :get_split_facet_display,
+                                                 no_collapse_query: { "search_field" => "title" },
                                                  group: 'publication'
 
     # Group subjects
     config.add_facet_field 'genre_facet', label: 'Genre', limit: 10,
                                           helper_method: :get_split_facet_display,
+                                          no_collapse_query: { "search_field" => "genre" },
                                           index_range: 'a'..'z', group: 'subjects'
     config.add_facet_field 'topic_facet', label: 'Subject - Topic', limit: 10,
                                           helper_method: :get_split_facet_display,
+                                          no_collapse_query: { "search_field" => "subject" },
                                           index_range: 'a'..'z', group: 'subjects'
     config.add_facet_field 'region_facet', label: 'Subject - Region', limit: 10,
                                            helper_method: :get_split_facet_display,
+                                           no_collapse_query: { "search_field" => "subject" },
                                            index_range: 'a'..'z', group: 'subjects'
     config.add_facet_field 'era_facet', label: 'Subject - Era', limit: 10,
                                         helper_method: :get_split_facet_display,
+                                        no_collapse_query: { "search_field" => "subject" },
                                         index_range: 'a'..'z', group: 'subjects'
 
     # Group game
