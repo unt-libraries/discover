@@ -373,10 +373,10 @@ const locationData = {
     name: 'Willis 1FL Forum',
   },
   w1idl: {
-    name: 'Willis 1FL Information Desk Weekend Laptops',
+    name: 'Willis 1FL Tech Desk Longterm Laptops',
   },
   w1ind: {
-    name: 'Willis 1FL Information Desk',
+    name: 'Willis 1FL Spark Technology Desk',
   },
   w1mak: {
     name: 'The Spark @ Willis Library',
@@ -461,6 +461,9 @@ const locationData = {
   },
   w4fil: {
     name: 'Willis 4FL Music Microfilm',
+  },
+  w4lok: {
+    name: 'Willis 4FL Lockers',
   },
   w4m: {
     name: 'Willis 4FL Music Library',
@@ -555,11 +558,11 @@ const locationData = {
   wlbig: {
     name: 'Willis LL Oversize',
   },
+  wllok: {
+    name: 'Willis LL Lockers',
+  },
   wlmic: {
     name: 'Willis LL Microforms',
-  },
-  wlper: {
-    name: 'Willis LL Periodicals',
   },
   'x*': {
     name: 'Remote Storage',
