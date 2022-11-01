@@ -63,7 +63,10 @@ const locationData = {
     name: 'Dallas Campus Reserves',
   },
   'f*': {
-    name: '', abbr: '', linkText: '', url: '',
+    name: '',
+    abbr: '',
+    linkText: '',
+    url: '',
     btnClass: 'frisco',
   },
   fip: {
@@ -83,6 +86,7 @@ const locationData = {
     abbr: 'Frisco Landing',
     linkText: 'Frisco Landing',
     url: 'https://frisco.unt.edu/',
+    btnClass: 'frisco',
   },
   flrs: {
     name: 'Frisco Landing Library Reserves',
