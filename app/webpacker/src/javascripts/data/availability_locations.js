@@ -72,10 +72,29 @@ const locationData = {
     url: 'https://frisco.unt.edu/location/inspire-park#map',
   },
   frsco: {
-    name: 'Frisco Campus',
-    abbr: 'Frisco',
+    name: 'Frisco Hall Park',
+    abbr: 'Frisco Hall Park',
     linkText: 'Frisco Hall Park',
     url: 'https://frisco.unt.edu/location/hall-park',
+  },
+  'fl*': {
+    name: 'Frisco Landing Library',
+    abbr: 'Frisco Landing',
+    linkText: 'Frisco Landing',
+    url: 'https://frisco.unt.edu/',
+  },
+  flrs: {
+    name: 'Frisco Landing Library Reserves',
+    abbr: 'Frisco Landing Reserves',
+  },
+  flmak: {
+    name: 'Frisco Landing The Spark',
+    abbr: 'The Spark @ Frisco',
+    linkText: 'The Spark Guide',
+    url: 'https://guides.library.unt.edu/c.php?g=421156&p=9378118',
+  },
+  flind: {
+    name: 'Frisco Landing Spark Technology Desk',
   },
   gwww: {
     name: 'Govt Online Resources', abbr: ' Govt Online', linkText: '', url: '',
@@ -396,10 +415,6 @@ const locationData = {
   w1ndc: {
     name: 'Willis 1FL New Books',
   },
-  w1prs: {
-    name: 'Willis 1FL Temporary Reference Collection',
-    abbr: 'Willis 1FL Temp',
-  },
   w1upr: {
     name: 'Willis 1FL UNT Press',
     abbr: 'Willis UNT Press',
@@ -436,9 +451,6 @@ const locationData = {
   },
   w3lab: {
     name: 'Willis 3rd Floor Digital Lab',
-  },
-  w3mfa: {
-    name: 'Willis 3FL Microform Indices and Finding Aids',
   },
   w3per: {
     name: 'Willis 3FL Periodicals',
