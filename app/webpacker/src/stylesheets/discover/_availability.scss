@@ -145,6 +145,20 @@
             }
           }
 
+          &.location-frisco {
+            &.available:not(.checked-out) {
+              @extend .btn-forest-green;
+
+              color: white;
+            }
+
+            &.checked-out {
+              @extend .btn-outline-forest-green;
+
+              background-color: transparent;
+            }
+          }
+
           &.online {
             color: white;
             background-color: theme-color('primary');

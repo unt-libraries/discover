@@ -64,6 +64,7 @@ const locationData = {
   },
   'f*': {
     name: '', abbr: '', linkText: '', url: '',
+    btnClass: 'frisco',
   },
   fip: {
     name: 'Frisco Inspire Park',
