@@ -191,6 +191,7 @@ function updateUI(foundItems = [], missingItems = []) {
   const documentsEl = document.querySelector('#documents');
 
   foundItems.forEach((item) => {
+    if (item === undefined) return;
     const itemEls = documentsEl.querySelectorAll(`[data-item-id='${item.id}']`);
     if (itemEls.length === 0) return;
     itemEls.forEach((node) => {

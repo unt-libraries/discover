@@ -101,6 +101,9 @@ const locationData = {
   flind: {
     name: 'Frisco Landing Spark Technology Desk',
   },
+  flix: {
+    name: 'Frisco Landing Tech Desk 2 Week Laptops',
+  },
   gwww: {
     name: 'Govt Online Resources', abbr: ' Govt Online', linkText: '', url: '',
   },
@@ -401,6 +404,9 @@ const locationData = {
   },
   w1ind: {
     name: 'Willis 1FL Spark Technology Desk',
+  },
+  w1ix: {
+    name: 'Willis 1FL Tech Desk 2 Week Laptops',
   },
   w1mak: {
     name: 'The Spark @ Willis Library',
