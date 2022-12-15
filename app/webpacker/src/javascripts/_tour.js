@@ -90,6 +90,10 @@ const searchResultsTourSteps = [
 ];
 
 function needsTour(tourName) {
+  // No tours on mobile, can move this further down if we change our minds
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    return false;
+  }
   let tourEligible = true;
   let context = document.body.dataset.blacklightContext;
   const skips = parseInt(localStorage.getItem(`${tourName}_skips`) || '0');
