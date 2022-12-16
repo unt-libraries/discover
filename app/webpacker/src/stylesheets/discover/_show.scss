@@ -21,10 +21,14 @@
     font-weight: 400;
 
     li:first-of-type {
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
       padding-top: 1rem;
     }
 
     li:last-of-type {
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
       padding-bottom: 1rem;
     }
 
@@ -94,6 +98,11 @@
         margin-bottom: 0;
         padding-inline-start: 0;
       }
+    }
+
+    & .hover {
+      color: $link-hover-color;
+      text-decoration: underline;
     }
   }
 }

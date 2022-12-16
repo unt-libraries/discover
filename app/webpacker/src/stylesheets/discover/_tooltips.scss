@@ -1,3 +1,8 @@
+.tooltip > .tooltip-inner {
+  border-radius: 0.25rem;
+  max-width: 600px;
+}
+
 .tooltip-nolink {
   cursor: help;
   text-decoration: underline dotted $link-color;
