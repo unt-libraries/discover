@@ -258,7 +258,7 @@ module ApplicationHelper
   def json_value_to_facet_link(data, facet, author: nil, context: nil)
     display = data['d']
     value = data['v']
-    separator_element = "<span class=\"separator\">#{data['s'] || ''}</span>".html_safe
+    separator_element = data['s'].blank? ? ' ' : "<span class=\"separator\">#{data['s']}</span>".html_safe
     author_facet = author.present? ? "f[author_contributor_facet][]=#{CGI.escape(author)}&" : ''
     ga_category = context == 'show' ? 'Bib Record' : 'List Item Link'
 
