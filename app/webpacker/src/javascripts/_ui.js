@@ -239,6 +239,39 @@ function linkify() {
   });
 }
 
+// When a link in hierarchical linking results is hovered,
+// add hover state to previous elements on the same line
+function hoverHierarchicalLinks() {
+  // Collect desired elements
+  const showDoc = document.querySelector('.show-document');
+  const linkRows = showDoc.querySelectorAll('.result__value__row.hierarchical-link');
+  if (!linkRows) return;
+
+  linkRows.forEach((row) => {
+    // children are a and span elements
+    const children = row.childNodes;
+    children.forEach((childElement) => {
+      if (childElement.nodeName === 'A') {
+        childElement.addEventListener('mouseenter', () => {
+          let prevSibling = childElement.previousElementSibling;
+          while (prevSibling) {
+            elAddClass(prevSibling, 'hover');
+            prevSibling = prevSibling.previousElementSibling;
+          }
+        });
+
+        childElement.addEventListener('mouseleave', () => {
+          let prevSibling = childElement.previousElementSibling;
+          while (prevSibling) {
+            elRemoveClass(prevSibling, 'hover');
+            prevSibling = prevSibling.previousElementSibling;
+          }
+        });
+      }
+    });
+  });
+}
+
 export {
   animateSearchIcon,
   bindDismissBannerCookie,
@@ -247,4 +280,5 @@ export {
   initTooltips,
   linkify,
   replaceBookCovers,
+  hoverHierarchicalLinks,
 };

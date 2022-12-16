@@ -163,42 +163,41 @@ module ApplicationHelper
   ##
   # Helper method for catalog_controller specific to json provided by solr for some fields
   # @param [Hash] options - field options
+  # {
+  #   "a": "", # Optional, string. Author/contributor facet heading that goes with this title.
+  #   "b": "", # Optional, string. Display text to display before the title heading parts.
+  #   "p": Array{obj}. Parts of the heading. Contains an array of objs, each describing a heading part, in order.
+  #     [
+  #       {
+  #         "d": String. Display term. This is the text to display for this segment.
+  #         "v": String. Value term. This is the full facet value this segment links to.
+  #         "s": String. Separator. Display this as non-linked text immediately following the display <a> element.
+  #       }
+  #     ],
+  #     "r": String. Relationship. Optional, string. Display text to display after the title heading parts.
+  # }
   # @return [String] HTML links joined together
   def json_to_links(options = {})
     values = options[:value]
     facet = options[:config][:link_to_facet]
 
     values.map do |item|
-      relator = item['r'].blank? ? '' : ", #{item['r'].join(', ')}"
-      item['p'].map do |i|
-        if i['v'].present?
-          json_value_to_facet_link(i, facet, context: 'show')
-        else
-          i['d']
-        end
-      end.join.strip.concat(relator)
-    end.join('<br>').html_safe
-  end
-
-  ##
-  # Helper method for catalog_controller specific to json provided by solr for title fields
-  # @param [Hash] options - field options
-  # @return [String] HTML links joined together
-  def title_json_to_links(options = {})
-    values = options[:value]
-    facet = options[:config][:link_to_facet]
-
-    values.map do |item|
-      author = item['a']
-      before_text = "#{item['b']} "
-      item['p'].map do |i|
-        if i['v'].present?
-          json_value_to_facet_link(i, facet, author: author, context: 'show')
-        else
-          "#{i['d']}#{i['s'] || ' '}"
-        end
-      end.join.prepend(before_text).strip
-    end.join('<br>').html_safe
+      content_tag(:div, class: 'result__value__row hierarchical-link') do
+        author = item['a'] || nil
+        before_text = item['b'].blank? ? '' : "#{item['b']} "
+        relator = item['r'].blank? ? '' : ", #{item['r'].join(', ')}"
+        item['p'].map do |i|
+          display = i['d']
+          value = i['v']
+          separator = i['s'] || ''
+          if value.present?
+            json_value_to_facet_link(i, facet, author: author, context: 'show')
+          else
+            content_tag(:span, "#{display}#{separator}")
+          end
+        end.join.prepend(before_text).strip.concat(relator).html_safe
+      end
+    end.join.html_safe
   end
 
   ##
@@ -214,7 +213,7 @@ module ApplicationHelper
       before_text = "#{item['b']} "
       item['p'].map do |i|
         display = i['d']
-        separator = i['s']
+        separator = i['s'] || ' '
         terms = {
           'Author/Creator' => i['a'],
           :title => i['t'],
@@ -235,18 +234,18 @@ module ApplicationHelper
                     q: search_string,
                     search_field: 'text'
                   ),
-                  link_data.merge({ title: "Search for #{search_string}" }),
-          ).concat(separator || ' ')
+                  link_data.merge({ title: "Search: #{search_string}" }),
+          ).concat(separator)
         elsif terms.count === 1
           link_to("#{display}",
                   search_catalog_url(
                     q: "\"#{terms.values.first}\"",
                     search_field: terms.keys.first,
                   ),
-                  link_data.merge({ title: "Search for #{display}" }),
-          ).concat(separator || ' ')
+                  link_data.merge({ title: "Search: #{display}" }),
+          ).concat(separator)
         else
-          "#{display}#{separator || ' '}"
+          "#{display}#{separator}"
         end
       end.join.prepend(before_text).strip
     end.join('<br>').html_safe
@@ -259,18 +258,18 @@ module ApplicationHelper
   def json_value_to_facet_link(data, facet, author: nil, context: nil)
     display = data['d']
     value = data['v']
-    separator = data['s'] || ' '
+    separator_element = "<span class=\"separator\">#{data['s'] || ''}</span>".html_safe
     author_facet = author.present? ? "f[author_contributor_facet][]=#{CGI.escape(author)}&" : ''
     ga_category = context == 'show' ? 'Bib Record' : 'List Item Link'
 
     link_to(display, "/?#{author_facet}f[#{facet}][]=#{CGI.escape(value)}",
             class: "",
             "data-toggle" => "tooltip",
-            title: "Search for #{value.split('!', 2).last}",
+            title: "Search: #{value.split('!', 2).last}",
             'ga-on': 'click',
             'ga-event-category': ga_category,
             'ga-event-action': "#{facet}",
-            'ga-event-label': value).concat(separator)
+            'ga-event-label': value).concat(separator_element)
   end
 
   ##

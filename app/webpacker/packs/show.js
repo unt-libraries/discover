@@ -1,6 +1,6 @@
 import { checkAvailability } from '../src/javascripts/_availability_table';
 import {
-  bindShowAvailMoreField, replaceBookCovers,
+  bindShowAvailMoreField, replaceBookCovers, hoverHierarchicalLinks,
 } from '../src/javascripts/_ui';
 import { highlightSearchTerms } from '../src/javascripts/_highlight';
 
@@ -9,4 +9,5 @@ document.addEventListener('turbolinks:load', () => {
   bindShowAvailMoreField();
   highlightSearchTerms();
   replaceBookCovers();
+  hoverHierarchicalLinks();
 });
