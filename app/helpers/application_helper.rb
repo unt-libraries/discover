@@ -185,17 +185,19 @@ module ApplicationHelper
       content_tag(:div, class: 'result__value__row hierarchical-link') do
         author = item['a'] || nil
         before_text = item['b'].blank? ? '' : "#{item['b']} "
-        relator = item['r'].blank? ? '' : ", #{item['r'].join(', ')}"
-        item['p'].map do |i|
+        relationship = item['r'].blank? ? '' : ", #{item['r'].join(', ')}"
+        item_count = item['p'].size
+        item['p'].map.with_index do |i, idx|
           display = i['d']
           value = i['v']
-          separator = i['s'] || ''
+          separator = i['s'] || ' '
+          separator_element = (item_count == idx + 1) ? '' : "<span class=\"separator\">#{separator}</span>".html_safe
           if value.present?
-            json_value_to_facet_link(i, facet, author: author, context: 'show')
+            json_value_to_facet_link(i, facet, author: author, context: 'show').concat(separator_element)
           else
-            content_tag(:span, "#{display}#{separator}")
+            content_tag(:span, "#{display}#{separator_element}".html_safe)
           end
-        end.join.prepend(before_text).strip.concat(relator).html_safe
+        end.join.prepend(before_text).strip.concat(relationship).html_safe
       end
     end.join.html_safe
   end
@@ -256,9 +258,9 @@ module ApplicationHelper
   # @param [Hash] data
   # @return [String] HTML link
   def json_value_to_facet_link(data, facet, author: nil, context: nil)
+    puts data
     display = data['d']
     value = data['v']
-    separator_element = data['s'].blank? ? ' ' : "<span class=\"separator\">#{data['s']}</span>".html_safe
     author_facet = author.present? ? "f[author_contributor_facet][]=#{CGI.escape(author)}&" : ''
     ga_category = context == 'show' ? 'Bib Record' : 'List Item Link'
 
@@ -269,7 +271,7 @@ module ApplicationHelper
             'ga-on': 'click',
             'ga-event-category': ga_category,
             'ga-event-action': "#{facet}",
-            'ga-event-label': value).concat(separator_element)
+            'ga-event-label': value)
   end
 
   ##
