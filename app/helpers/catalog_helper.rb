@@ -36,15 +36,6 @@ module CatalogHelper
     contents.join('').html_safe
   end
 
-  def index_format_items(items_json)
-    field_data = items_json[:value]
-    contents = field_data.map do |item|
-      json = JSON.parse item
-      link_to "#{json['n']} (#{json['t']})", json['u']
-    end
-    content_tag 'span', contents.join('<br>'), nil, false
-  end
-
   def get_split_facet_display(value)
     value.split('!', 2).last
   end
