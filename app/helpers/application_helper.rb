@@ -161,6 +161,15 @@ module ApplicationHelper
   end
 
   ##
+  # Converts JSON to links and replaces the separator with a emdash
+  # @param value [String] JSON string
+  # @return [String] HTML string
+  def sub_gen_json_to_links(options = {})
+    options[:new_separator] = ' — '
+    json_to_links(options)
+  end
+
+  ##
   # Helper method for catalog_controller specific to json provided by solr for some fields
   # @param [Hash] options - field options
   # {
@@ -191,6 +200,7 @@ module ApplicationHelper
           display = i['d']
           value = i['v']
           separator = i['s'] || ' '
+          separator = options[:new_separator] if options[:new_separator].present?
           separator_element = (item_count == idx + 1) ? '' : "<span class=\"separator\">#{separator}</span>".html_safe
           if value.present?
             json_value_to_facet_link(i, facet, author: author, context: 'show').concat(separator_element)
@@ -212,45 +222,47 @@ module ApplicationHelper
     label = options[:config][:label]
 
     values.map do |item|
-      before_text = "#{item['b']} "
-      item['p'].map do |i|
-        display = i['d']
-        separator = i['s'] || ' '
-        terms = {
-          'Author/Creator' => i['a'],
-          :title => i['t'],
-          :control_number => i['cn'],
-          :standard_number => i['sn'],
-        }.compact
-        link_data = {
-          "data-toggle" => "tooltip",
-          'ga-on': 'click',
-          'ga-event-category': 'Bib Record',
-          'ga-event-action': label,
-          'ga-event-label': display,
-        }
-        if terms.count > 1
-          search_string = terms.map { |key, val| "\"#{val}\"" }.join(" AND ")
-          link_to("#{display}",
-                  search_catalog_url(
-                    q: search_string,
-                    search_field: 'text'
-                  ),
-                  link_data.merge({ title: "Search: #{search_string}" }),
-          ).concat(separator)
-        elsif terms.count === 1
-          link_to("#{display}",
-                  search_catalog_url(
-                    q: "\"#{terms.values.first}\"",
-                    search_field: terms.keys.first,
-                  ),
-                  link_data.merge({ title: "Search: #{display}" }),
-          ).concat(separator)
-        else
-          "#{display}#{separator}"
-        end
-      end.join.prepend(before_text).strip
-    end.join('<br>').html_safe
+      content_tag(:div, class: 'result__value__row') do
+        before_text = "#{item['b']} "
+        item['p'].map do |i|
+          display = i['d']
+          separator = i['s'] || ' '
+          terms = {
+            'Author/Creator' => i['a'],
+            :title => i['t'],
+            :control_number => i['cn'],
+            :standard_number => i['sn'],
+          }.compact
+          link_data = {
+            "data-toggle" => "tooltip",
+            'ga-on': 'click',
+            'ga-event-category': 'Bib Record',
+            'ga-event-action': label,
+            'ga-event-label': display,
+          }
+          if terms.count > 1
+            search_string = terms.map { |key, val| "\"#{val}\"" }.join(" AND ")
+            link_to("#{display}",
+                    search_catalog_url(
+                      q: search_string,
+                      search_field: 'text'
+                    ),
+                    link_data.merge({ title: "Search: #{search_string}" }),
+            ).concat(separator)
+          elsif terms.count === 1
+            link_to("#{display}",
+                    search_catalog_url(
+                      q: "\"#{terms.values.first}\"",
+                      search_field: terms.keys.first,
+                    ),
+                    link_data.merge({ title: "Search: #{display}" }),
+            ).concat(separator)
+          else
+            "#{display}#{separator}"
+          end
+        end.join.prepend(before_text).strip.html_safe
+      end
+    end.join.html_safe
   end
 
   ##

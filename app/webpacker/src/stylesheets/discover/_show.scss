@@ -84,6 +84,7 @@
   .result__label {
     text-transform: none;
     color: theme-color("gray-dark");
+    padding-bottom: 0.5rem;
   }
 
   .result__value {
@@ -103,6 +104,10 @@
     & .hover {
       color: $link-hover-color;
       text-decoration: underline;
+    }
+
+    .result__value__row {
+      padding-bottom: 0.25rem;
     }
   }
 }

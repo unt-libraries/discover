@@ -376,11 +376,11 @@ class CatalogController < ApplicationController
     # Subject Search Fields
     config.add_show_field 'subject_headings_json', label: 'Subjects',
                                                    accessor: 'json_str_to_array',
-                                                   helper_method: :json_to_links,
+                                                   helper_method: :sub_gen_json_to_links,
                                                    link_to_facet: :subject_heading_facet
     config.add_show_field 'genre_headings_json', label: 'Genres',
                                                  accessor: 'json_str_to_array',
-                                                 helper_method: :json_to_links,
+                                                 helper_method: :sub_gen_json_to_links,
                                                  link_to_facet: :genre_heading_facet
 
     config.add_show_field 'system_details'
