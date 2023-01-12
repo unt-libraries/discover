@@ -144,8 +144,10 @@ module UrlHelper
     url = construct_illiad_url(document)
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')}" \
-      "through ILLiad".html_safe
+      "through ILL".html_safe
     link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
+                       'data-toggle': 'tooltip',
+                       'data-title': 'Request through Interlibrary Loan',
                        'ga-on': 'click',
                        'ga-event-category': 'Bib Record',
                        'ga-event-action': 'Tools link click',
