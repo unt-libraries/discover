@@ -3,6 +3,7 @@
 <% url_sycamore = "#{url_home}/sycamore/" %>
 <% url_discovery_park = "#{url_home}/discovery-park/" %>
 <% url_media = "#{url_home}/media/" %>
+<% url_frisco = "#{url_home}/frisco/" %>
 <% url_graduate = "#{url_home}/services/for-graduate-students/" %>
 <% url_faculty = "#{url_home}/services/for-faculty/" %>
 <% url_community = "#{url_home}/services/for-community-visitors/" %>
@@ -206,6 +207,41 @@
               ga-event-label="<%= url_media %>#maps"
               ga-event-value="1"><i aria-hidden="true" class="fas fa-map-marker-alt fa-lg"></i>
               <span class="sr-only">Media Library Location and Floor Maps</span>
+           </a>
+          </span>
+        </div>
+
+        <div class="nav-item d-flex">
+          <a href="<%= url_frisco %>"
+             rel="noopener"
+             class="nav-link col"
+             ga-on="click"
+             ga-event-category="link - drawer"
+             ga-event-action="libraries"
+             ga-event-label="<%= url_frisco %>"
+             ga-event-value="1">Frisco Landing Library</a>
+
+          <span class="float-right mr-3">
+           <a href="<%= url_frisco %>#hours"
+              rel="noopener"
+              class="nav-link d-inline icon-link small"
+              ga-on="click"
+              ga-event-category="link - drawer"
+              ga-event-action="libraries"
+              ga-event-label="<%= url_frisco %>#hours"
+              ga-event-value="1"><i aria-hidden="true" class="fas fa-calendar-alt fa-lg"></i>
+              <span class="sr-only">Frisco Landing Library Hours</span>
+           </a> &nbsp;
+
+           <a href="<%= url_frisco %>#maps"
+              rel="noopener"
+              class="nav-link d-inline icon-link small"
+              ga-on="click"
+              ga-event-category="link - drawer"
+              ga-event-action="libraries"
+              ga-event-label="<%= url_frisco %>#maps"
+              ga-event-value="1"><i aria-hidden="true" class="fas fa-map-marker-alt fa-lg"></i>
+              <span class="sr-only">Frisco Landing Library Location and Floor Maps</span>
            </a>
           </span>
         </div>
