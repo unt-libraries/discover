@@ -84,25 +84,31 @@ const locationData = {
   'fl*': {
     name: 'Frisco Landing Library',
     abbr: 'Frisco Landing',
-    linkText: 'Frisco Landing',
-    url: 'https://frisco.unt.edu/',
+    linkText: 'Frisco Landing Library',
+    url: 'https://library.unt.edu/frisco/',
     btnClass: 'frisco',
   },
   flrs: {
-    name: 'Frisco Landing Library Reserves',
-    abbr: 'Frisco Landing Reserves',
+    name: 'Frisco Landing Library',
+    abbr: 'Frisco Landing',
+    linkText: 'Frisco Landing Library',
+    url: 'https://library.unt.edu/frisco/',
   },
   flmak: {
     name: 'Frisco Landing The Spark',
     abbr: 'The Spark @ Frisco',
-    linkText: 'The Spark Guide',
+    linkText: 'The Spark @ Frisco Guide',
     url: 'https://guides.library.unt.edu/c.php?g=421156&p=9378118',
   },
   flind: {
     name: 'Frisco Landing Spark Technology Desk',
+    linkText: 'The Spark @ Frisco Guide',
+    url: 'https://guides.library.unt.edu/c.php?g=421156&p=9378118',
   },
   flix: {
     name: 'Frisco Landing Tech Desk 2 Week Laptops',
+    linkText: 'The Spark @ Frisco Guide',
+    url: 'https://guides.library.unt.edu/c.php?g=421156&p=9378118',
   },
   gwww: {
     name: 'Govt Online Resources', abbr: ' Govt Online', linkText: '', url: '',
