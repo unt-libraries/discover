@@ -78,7 +78,7 @@ const statusDescData = {
   },
   t: {
     label: 'In Transit',
-    desc: 'The item is currently being delivered to a different location, often as the result of a hold or request.',
+    desc: 'Item is being moved between locations because it\'s new or because of a request.',
     btnClass: 'unavailable',
   },
   w: {
