@@ -134,7 +134,7 @@ module UrlHelper
     if item.nil?
       query_hash[:Action] = '10'
       query_hash[:Form] = '30'
-      URI::HTTPS.build(host: 'unt.illiad.oclc.org', path: '/illiad/illiad.dll', query: query_hash.to_query).to_s
+      URI::HTTPS.build(host: 'ill.library.unt.edu', path: '/illiad/illiad.dll', query: query_hash.to_query).to_s
     else
       URI::HTTPS.build(host: 'iii.library.unt.edu', path: '/screens/jlf-illiad-gateway.html', query: query_hash.to_query).to_s
     end
