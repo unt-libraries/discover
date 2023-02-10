@@ -89,9 +89,9 @@ const locationData = {
     btnClass: 'frisco',
   },
   flrs: {
-    name: 'Frisco Landing Library',
-    abbr: 'Frisco Landing',
-    linkText: 'Frisco Landing Library',
+    name: 'Frisco Landing Library Reserves',
+    abbr: 'Frisco Landing Reserves',
+    linkText: 'Frisco Landing Library Reserves',
     url: 'https://library.unt.edu/frisco/',
   },
   flmak: {
