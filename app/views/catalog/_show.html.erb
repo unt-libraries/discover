@@ -1,7 +1,7 @@
 <% doc_presenter = show_presenter(document) %>
 <%# default partial to display solr document fields in catalog show view -%>
 
-<%# render fields with :priority display property %>
+<%# Render fields with :priority display property %>
 <% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :priority } -%>
   <dl class="dl-invert document-metadata">
     <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field, field_presenter| -%>

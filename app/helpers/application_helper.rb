@@ -343,15 +343,11 @@ module ApplicationHelper
 
     content_tag(:div, class: 'show-heading-title') do
       concat(content_tag(tag, presenter(document).heading,
-                         { class: "show-heading-title__main #{'d-inline' unless responsibility_display}",
+                         { class: "show-heading-title__main",
                            itemprop: "name" }))
       if responsibility_display
         concat(content_tag(:div, responsibility_display,
-                           { class: 'show-heading-title__sub d-inline' }))
-      end
-
-      if add_badges?(document)
-        concat(render_badges(document))
+                           { class: 'show-heading-title__sub' }))
       end
     end
   end
@@ -396,10 +392,6 @@ module ApplicationHelper
       return
     end
     current_search_session[:query_params].to_json
-  end
-
-  def add_badges?(document)
-    recently_added?(document[:date_added])
   end
 
   def render_badges(document)
