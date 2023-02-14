@@ -1,0 +1,26 @@
+.badges_container {
+  .badge {
+    @extend .badge;
+
+    cursor: default;
+    color: $badge-color;
+    padding-right: $badge-pill-padding-x;
+    padding-left: $badge-pill-padding-x;
+    border-radius: $badge-pill-border-radius;
+
+    &.blacklight-date_added {
+      background-color: theme-color("dark-teal");
+    }
+  }
+
+  .blacklight-catalog-index & {
+    display: block;
+    margin-top: -0.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .blacklight-catalog-show & {
+    display: inline-block;
+    vertical-align: super;
+  }
+}

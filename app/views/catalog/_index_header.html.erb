@@ -1,4 +1,6 @@
 <%# header bar for doc items in index view -%>
+<% doc_presenter = document_presenter(document) %>
+
 <header class="documentHeader row">
   <%# main title container for doc partial view
       How many bootstrap columns need to be reserved
@@ -25,6 +27,8 @@
         <span class="document-title-date">[<%= document[:publication_year_display] %>]</span>
       <% end %>
     </h2>
+
+    <%# Badges %>
+    <%= render_badges(document) %>
   </div>
-  
 </header>

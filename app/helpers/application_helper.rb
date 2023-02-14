@@ -270,7 +270,6 @@ module ApplicationHelper
   # @param [Hash] data
   # @return [String] HTML link
   def json_value_to_facet_link(data, facet, author: nil, context: nil)
-    puts data
     display = data['d']
     value = data['v']
     author_facet = author.present? ? "f[author_contributor_facet][]=#{CGI.escape(author)}&" : ''
@@ -340,13 +339,19 @@ module ApplicationHelper
     document = args.first
     tag = options.fetch(:tag, :h4)
     document ||= @document # rubocop:disable Rails/HelperInstanceVariable
+    responsibility_display = document[:responsibility_display]
 
     content_tag(:div, class: 'show-heading-title') do
       concat(content_tag(tag, presenter(document).heading,
-                         { class: 'show-heading-title__main', itemprop: "name" }))
-      if document[:responsibility_display]
-        concat(content_tag(:div, document[:responsibility_display],
-                           { class: 'show-heading-title__sub' }))
+                         { class: "show-heading-title__main #{'d-inline' unless responsibility_display}",
+                           itemprop: "name" }))
+      if responsibility_display
+        concat(content_tag(:div, responsibility_display,
+                           { class: 'show-heading-title__sub d-inline' }))
+      end
+
+      if add_badges?(document)
+        concat(render_badges(document))
       end
     end
   end
@@ -391,5 +396,30 @@ module ApplicationHelper
       return
     end
     current_search_session[:query_params].to_json
+  end
+
+  def add_badges?(document)
+    recently_added?(document[:date_added])
+  end
+
+  def render_badges(document)
+    date_added = document[:date_added]
+    if recently_added?(date_added)
+      content_tag(:span, recently_added_badge(date_added), class: 'badges_container')
+    end
+  end
+
+  def recently_added?(date_added)
+    return false if date_added.blank?
+    added = DateTime.parse(date_added).to_date
+    added > 3.months.ago
+  end
+
+  def recently_added_badge(date_added)
+    added = DateTime.parse(date_added).to_date
+    added_string = added.strftime('%B %Y')
+
+    content_tag(:span, "Added #{added_string}",
+                class: 'badge blacklight-date_added')
   end
 end

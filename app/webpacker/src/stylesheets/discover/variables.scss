@@ -153,3 +153,12 @@ $card-cap-color:                    null !default;
 $card-height:                       null !default;
 $card-color:                        null !default;
 $card-bg:                           $white !default;
+
+// Badges
+
+$badge-font-size:                   .75em !default;
+$badge-font-weight:                 700 !default;
+$badge-color:                       $white !default;
+$badge-padding-y:                   .35em !default;
+$badge-padding-x:                   .65em !default;
+$badge-border-radius:               .375rem !default;

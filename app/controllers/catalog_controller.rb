@@ -232,6 +232,10 @@ class CatalogController < ApplicationController
     # handler defaults, or have no facets.
     config.add_facet_fields_to_solr_request!
 
+    # Badges that appear on search results
+    config.add_index_field 'date_added', label: 'Recently added', no_label: true,
+                           display: :badges, if: false
+
     # solr fields to be displayed in the index (search results) view
     #   The ordering of the field names is the order of the display
     config.add_index_field 'author_json', label: 'Author/Creator', if: false,
@@ -282,6 +286,10 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
     # The :display property controls where in the template the field appears
+
+    # Badges that appear on show view
+    config.add_show_field 'date_added', label: 'Recently added', no_label: true,
+                          display: :badges, if: false
 
     config.add_show_field 'resource_type', label: 'Resource Type', no_label: true,
                                            display: :priority, accessor: 'resource_type_name'

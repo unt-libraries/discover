@@ -66,6 +66,7 @@
     &__main {
       font-size: 2.5rem;
       padding-bottom: 0;
+      margin-inline-end: 1rem;
 
       @include media-breakpoint-down(sm) {
         font-size: 2rem;
