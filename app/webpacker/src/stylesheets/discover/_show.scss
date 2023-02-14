@@ -75,6 +75,7 @@
 
     &__sub {
       @extend .text-muted;
+      margin-inline-end: 1rem;
     }
   }
 
