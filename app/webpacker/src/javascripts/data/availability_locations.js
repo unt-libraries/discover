@@ -483,7 +483,7 @@ const locationData = {
     name: 'Willis 4FL Music Room 433A',
   },
   w4422: {
-    name: 'Willis 4th Floor Music Room 422',
+    name: 'The Soundbox (Willis 422)',
   },
   w4438: {
     name: 'Willis 4th Floor Music Room 438',
