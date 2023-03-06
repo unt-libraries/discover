@@ -21,8 +21,7 @@
     "grepLogs": "docker-compose logs -t | grep",
     "docker:stopAll": "docker stop $(docker ps -a -q)",
     "docker:removeAll": "docker rm $(docker ps -a -q)",
-    "docker:prune": "docker system prune --volumes",
-    "updateBrowserStats": "npx browserslist-ga"
+    "docker:prune": "docker system prune --volumes"
   },
   "private": true,
   "dependencies": {
