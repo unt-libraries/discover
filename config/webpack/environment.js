@@ -2,9 +2,14 @@ const { environment } = require('@rails/webpacker');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const path = require('path');
 
 const webpack = require('webpack');
+const ts = require('./loaders/typescript');
 const erb = require('./loaders/erb');
+const babel = require('./loaders/babel');
+const sourceMap = require('./loaders/source-map');
 
 environment.splitChunks((config) => ({
   ...config,
@@ -46,16 +51,19 @@ environment.plugins.append('MomentLocales', new MomentLocalesPlugin());
 
 environment.plugins.append('BrotliPlugin', new BrotliPlugin());
 
-environment.loaders.append('expose', {
-  test: require.resolve('jquery'),
-  use: [{
-    loader: 'expose-loader',
-    options: '$',
-  }, {
-    loader: 'expose-loader',
-    options: 'jQuery',
-  }],
-});
+environment.plugins.append(
+  'ForkTsCheckerWebpackPlugin',
+  new ForkTsCheckerWebpackPlugin({
+    typescript: {
+      configFile: path.resolve(__dirname, '../../tsconfig.json'),
+    },
+    async: false,
+  }),
+);
 
 environment.loaders.prepend('erb', erb);
+environment.loaders.prepend('sourceMap', sourceMap);
+environment.loaders.prepend('ts', ts);
+environment.loaders.prepend('babel', babel);
+
 module.exports = environment;

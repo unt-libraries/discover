@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "module": "es2015",
+    "target": "esnext",
+    "allowJs": true,
+    "strict": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true
+  },
+  "include": [
+      "./app/webpacker/packs/**/*"
+  ],
+  "exclude": [
+      "node_modules"
+  ]
+}

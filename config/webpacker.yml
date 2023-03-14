@@ -38,6 +38,8 @@ default: &default
     - .erb
     - .mjs
     - .js
+    - .ts
+    - .tsx
     - .sass
     - .scss
     - .css
