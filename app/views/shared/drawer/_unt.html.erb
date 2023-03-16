@@ -32,16 +32,20 @@
           <div class="row">
             <div class="col">
               <div class="input-group">
+              <input type="hidden" 
+                     name="collection"
+                     value="uni-nt-search">
+
                 <input class="form-control primary-search query"
                        id="unt-q"
-                       name="search"
+                       name="query"
                        aria-label="Search across the entire U N T domain."
                        type="text"
                        placeholder="Search unt.edu"
                        value="">
                 <span class="input-group-btn">
                 <button type="submit" class="btn btn-success">
-                  <i aria-hidden="true" class="fas fa-search"></i>
+                  <span aria-hidden="true" class="fas fa-search"></span>
                   <span class="sr-only">Search</span>
                 </button>
                 </span>
