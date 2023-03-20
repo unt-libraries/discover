@@ -3,7 +3,6 @@ import {
   callSierraApi, findMissing, getItemsIDs, getLocationData, getPlaceholderItemsElements,
   getServiceDeskData, getStatusData, itemsFromPromises,
 } from './_availability_util';
-import { elAddClass, elRemoveClass, removeElement } from './_utils';
 
 /**
  * FUNCTIONS FOR `INDEX` VIEWS
@@ -27,7 +26,7 @@ function updateStatusElement(itemEl, item = null) {
   }
 
   if (!itemStatus) {
-    removeElement(itemEl);
+    itemEl.remove();
     return;
   }
 
@@ -55,14 +54,14 @@ function updateStatusElement(itemEl, item = null) {
 
     // Hide the button if it's online, we already have buttons for that
     if (isOnlineItem) {
-      elAddClass(availabilityEl, 'd-none');
-      elAddClass(itemEl, 'm-0', 'p-0');
+      availabilityEl.classList.add('d-none');
+      itemEl.classList.add('m-0', 'p-0');
       return;
     }
 
     if (statusBtnClass) {
-      elRemoveClass(availabilityBtn,'disabled');
-      elAddClass(availabilityBtn, statusBtnClass);
+      availabilityBtn.classList.remove('disabled');
+      availabilityBtn.classList.add(statusBtnClass);
     }
 
     // If the item is checked out
@@ -71,9 +70,9 @@ function updateStatusElement(itemEl, item = null) {
       availabilityBtn.innerText = 'Checked Out';
       availabilityText.innerText = `Due ${dueDate}`;
       availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
-      elRemoveClass(availabilityText, 'd-none');
-      elRemoveClass(availabilityBtn, 'available');
-      elAddClass(availabilityBtn, 'checked-out');
+      availabilityText.classList.remove('d-none');
+      availabilityBtn.classList.remove('available');
+      availabilityBtn.classList.add('checked-out');
     }
 
     if (statusDesc && !statusDueDate) {
@@ -101,7 +100,7 @@ function updateStatusElement(itemEl, item = null) {
       if (locationData.statusText) {
         availabilityBtn.dataset.title = locationData.statusText;
       }
-      if (locationData.btnClass) elAddClass(availabilityBtn, `location-${locationData.btnClass}`);
+      if (locationData.btnClass) availabilityBtn.classList.add(`location-${locationData.btnClass}`);
     }
   }
 }
@@ -119,12 +118,12 @@ function checkForNoButtons() {
       const moreButton = container.querySelector('div.more-items-available');
       if (moreButton !== null) {
         if (moreButton.parentNode) {
-          removeElement(moreButton);
+          moreButton.remove();
         }
       }
 
       const checkButton = container.querySelector('.check-availability');
-      elRemoveClass(checkButton, 'd-none');
+      checkButton.classList.remove('d-none');
     }
   });
 }
@@ -153,7 +152,7 @@ function combineDuplicates() {
     availInfo.forEach((infoEl) => {
       const { textContent } = infoEl;
       if (usedText.includes(textContent)) {
-        removeElement(infoEl);
+        infoEl.remove();
       } else {
         usedText.push(textContent);
       }
@@ -170,7 +169,7 @@ function updateUIError(items, error = undefined) {
 
     if (error === 107) {
       itemEls.forEach((node) => {
-        removeElement(node);
+        node.remove();
       });
     } else {
       itemEls.forEach((node) => {
@@ -217,7 +216,7 @@ function updateNoApiItems() {
 
   noApiElements.forEach((item) => {
     if (isOnlineOnly(item)) {
-      removeElement(item);
+      item.remove();
       return;
     }
 
@@ -239,10 +238,10 @@ function revealButtonContainers() {
     if (loading === null) return;
 
     loading.addEventListener('transitionend', () => {
-      removeElement(loading);
-      elAddClass(node, 'show');
+      loading.remove();
+      node.classList.add('show');
     });
-    elAddClass(loading, 'hide');
+    loading.classList.add('hide');
   });
 }
 

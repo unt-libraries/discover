@@ -5,7 +5,6 @@ module.exports = {
   enforce: 'pre',
   include: [
     path.resolve(__dirname, 'app', 'webpacker', 'packs'),
-    path.resolve(__dirname, 'app', 'webpacker', 'src', 'javascripts'),
   ],
   exclude: /node_modules/,
   use: [{

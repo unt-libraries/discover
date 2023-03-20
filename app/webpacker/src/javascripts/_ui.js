@@ -1,9 +1,3 @@
-import {
-  elAddClass,
-  elHasClass,
-  elRemoveClass,
-  removeAllChildren,
-} from './_utils';
 import 'bootstrap/js/dist/tooltip';
 import 'bootstrap/js/dist/popover';
 import Cookies from 'js-cookie';
@@ -59,9 +53,8 @@ function replaceThumbnailElement(thumbContainer, bookData) {
   newEl.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
   newEl.dataset.src = imgSrc;
   newEl.setAttribute('aria-hidden', 'true');
-  removeAllChildren(thumbContainer);
-  thumbContainer.appendChild(newEl);
-  elAddClass(thumbContainer, 'thumbnail-loaded');
+  thumbContainer.replaceChildren(newEl);
+  thumbContainer.classList.add('thumbnail-loaded');
 }
 
 /**
@@ -78,7 +71,7 @@ window.replaceThumbs = function (payload) {
     const docThumbEl = documentsEl.querySelectorAll(`.document-thumbnail[data-bib-id="${docIDs[idType][id].bib}"]`);
     if (has.call(bookData, 'thumbnail_url')) {
       docThumbEl.forEach((thumbEl) => {
-        if (!elHasClass(thumbEl, 'thumbnail-loaded')) {
+        if (!thumbEl.classList.contains('thumbnail-loaded')) {
           replaceThumbnailElement(thumbEl, bookData);
         }
       });
@@ -164,20 +157,20 @@ function bindShowAvailMoreField() {
 
     moreLink.addEventListener('click', () => {
       moreMax.forEach((thisEl) => {
-        elRemoveClass(thisEl, 'd-none');
+        thisEl.classList.remove('d-none');
       });
-      elAddClass(moreLink, 'd-none');
-      elRemoveClass(lessLink, 'd-none');
+      moreLink.classList.add('d-none');
+      lessLink.classList.remove('d-none');
       moreScope.removeAttribute('data-showing-less');
       moreScope.setAttribute('data-showing-more', 'true');
     });
 
     lessLink.addEventListener('click', () => {
       moreMax.forEach((thisEl) => {
-        elAddClass(thisEl, 'd-none');
+        thisEl.classList.add('d-none');
       });
-      elAddClass(lessLink, 'd-none');
-      elRemoveClass(moreLink, 'd-none');
+      lessLink.classList.add('d-none');
+      moreLink.classList.remove('d-none');
       moreScope.removeAttribute('data-showing-more');
       moreScope.setAttribute('data-showing-less', 'true');
     });
@@ -190,8 +183,8 @@ function animateSearchIcon() {
   searchForms.forEach((thisForm) => {
     thisForm.addEventListener('submit', (e) => {
       const buttonIcon = e.currentTarget.querySelector('.fa-search');
-      elRemoveClass(buttonIcon, 'fa-search');
-      elAddClass(buttonIcon, 'fa-circle-notch', 'fa-spin');
+      buttonIcon.classList.remove('fa-search');
+      buttonIcon.classList.add('fa-circle-notch', 'fa-spin');
     });
   });
 }
@@ -255,7 +248,7 @@ function hoverHierarchicalLinks() {
         childElement.addEventListener('mouseenter', () => {
           let prevSibling = childElement.previousElementSibling;
           while (prevSibling) {
-            elAddClass(prevSibling, 'hover');
+            prevSibling.classList.add('hover');
             prevSibling = prevSibling.previousElementSibling;
           }
         });
@@ -263,7 +256,7 @@ function hoverHierarchicalLinks() {
         childElement.addEventListener('mouseleave', () => {
           let prevSibling = childElement.previousElementSibling;
           while (prevSibling) {
-            elRemoveClass(prevSibling, 'hover');
+            prevSibling.classList.remove('hover');
             prevSibling = prevSibling.previousElementSibling;
           }
         });

@@ -1,6 +1,5 @@
 // Override link behavior within dropdown menu associated with search form for resource type,
 // appending values to hidden form element.
-import { elAddClass, elHasClass, elRemoveClass } from './_utils';
 
 function searchSelector() {
   const searchForm = document.querySelector('.search-query-form');
@@ -26,8 +25,8 @@ function searchSelector() {
       searchForm.querySelector('#search_field').value = scopeValue;
 
       // close the dropdown
-      if (elHasClass(dropdown, 'open')) {
-        elRemoveClass(dropdown, 'open');
+      if (dropdown.classList.contains('open')) {
+        dropdown.classList.remove('open');
       }
 
       // Send focus back to the text input
@@ -54,8 +53,8 @@ function rotateSearchTips() {
     const transitionDur = 500;
 
     setTimeout(() => {
-      elRemoveClass(visibleTip, 'current-tip');
-      elAddClass(nextTip, 'current-tip');
+      visibleTip.classList.remove('current-tip');
+      nextTip.classList.add('current-tip');
     }, transitionDur);
   }, 7000);
 

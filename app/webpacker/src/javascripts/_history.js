@@ -1,5 +1,3 @@
-import { elAddClass, elHasClass } from './_utils';
-
 // When a user visits an item URL, add the ID of the object to localStorage so that subsequent
 // search results are annotated.
 function setDocHistory() {
@@ -16,7 +14,7 @@ function getDocHistory() {
 
   const documents = documentsEl.querySelectorAll('.document');
   documents.forEach((thisDoc) => {
-    if (elHasClass(thisDoc, 'seen')) return;
+    if (thisDoc.classList.contains('seen')) return;
     const docID = thisDoc.dataset.docId;
     const seen = document.createElement('i');
     seen.className = 'fas fa-check';
@@ -25,7 +23,7 @@ function getDocHistory() {
 
     if (sessionStorage.getItem(`doc-history-${docID}`)) {
       const docTitle = thisDoc.querySelector('.document-title-heading');
-      elAddClass(thisDoc, 'seen');
+      thisDoc.classList.add('seen');
       docTitle.appendChild(seen);
     }
   });
