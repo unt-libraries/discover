@@ -1,10 +1,8 @@
 import 'bootstrap/js/dist/tooltip';
 import 'bootstrap/js/dist/popover';
-import Cookies from 'js-cookie';
-import escapeRegExp from 'lodash/escapeRegExp';
 
-const has = Object.prototype.hasOwnProperty;
-const idTypes = {
+type IdTypes = Record<string, string>;
+const idTypes: IdTypes = {
   isbn: 'isbnNumbers',
   oclc: 'oclcNumbers',
 };
@@ -14,15 +12,16 @@ const idTypes = {
  * @return {Object}
  */
 function docIDObject() {
-  const documents = document.querySelectorAll('.document');
-  const docObject = {};
-  Object.keys(idTypes).forEach((idKey) => {
-    docObject[idKey] = {};
-  });
+  const documents = Array.from(document.querySelectorAll('.document'));
+  const docObject = Object.keys(idTypes).reduce((obj, idKey) => {
+    // eslint-disable-next-line no-param-reassign
+    obj[idKey] = {};
+    return obj;
+  }, {} as {[idKey: string]: any});
   documents.forEach((doc) => {
     Object.entries(idTypes).forEach(([idKey, dataID]) => {
-      const idString = doc.dataset[dataID];
-      const bibString = doc.dataset.bibId;
+      const idString = (doc as HTMLElement).dataset[dataID];
+      const bibString = (doc as HTMLElement).dataset.bibId;
       if (idString === undefined) return;
 
       const idStripped = idString.replace(/[[\]"']+/g, '');
@@ -38,11 +37,11 @@ function docIDObject() {
 /**
  * Replaces thumbnail container element with thumbnail image from Google Books API data
  * @param {(HTMLElement|Element)} thumbContainer
- * @param {Object} bookData
+ * @param {{ thumbnail_url: string }} bookData
  */
-function replaceThumbnailElement(thumbContainer, bookData) {
+function replaceThumbnailElement(thumbContainer: Element, bookData: { thumbnail_url: string }) {
   const titleEl = thumbContainer.querySelector('.item-title');
-  const itemTitle = titleEl.textContent;
+  const itemTitle = titleEl?.textContent ?? '';
   const imgSrcZoom = bookData.thumbnail_url.replace(/zoom=./, 'zoom=1');
   const imgSrc = imgSrcZoom.replace('&edge=curl', '');
   const newEl = document.createElement('img');
@@ -60,17 +59,18 @@ function replaceThumbnailElement(thumbContainer, bookData) {
 /**
  * Iterates through images found in Google Books API to replace on the index view.
  * Attached to the window object so that it may be used as a callback from JSONP
- * @param {Object} payload
+ * @param {Record<string, { thumbnail_url: string }>} payload
  */
-window.replaceThumbs = function (payload) {
+// @ts-ignore
+window.replaceThumbs = function (payload: Record<string, { thumbnail_url: string }>): void {
   const documentsEl = document.querySelector('#main-container');
   const docIDs = docIDObject();
 
   Object.entries(payload).forEach(([bookKey, bookData]) => {
     const [idType, id] = bookKey.split(':');
-    const docThumbEl = documentsEl.querySelectorAll(`.document-thumbnail[data-bib-id="${docIDs[idType][id].bib}"]`);
-    if (has.call(bookData, 'thumbnail_url')) {
-      docThumbEl.forEach((thumbEl) => {
+    const docThumbEl = documentsEl?.querySelectorAll(`.document-thumbnail[data-bib-id="${docIDs[idType][id].bib}"]`);
+    if (bookData?.thumbnail_url) {
+      docThumbEl?.forEach((thumbEl) => {
         if (!thumbEl.classList.contains('thumbnail-loaded')) {
           replaceThumbnailElement(thumbEl, bookData);
         }
@@ -80,16 +80,17 @@ window.replaceThumbs = function (payload) {
 };
 
 /**
- * Collects bib ID numbers from documents and removes 'b' to create and array of document IDs.
- * @return {Array}
+ * Collects bib ID numbers from documents and removes 'b' to create an array of document IDs.
+ * @return {Array<string>}
  */
-function docIDArray() {
+function docIDArray(): string[] {
   const mainContainer = document.querySelector('#main-container');
-  const documents = mainContainer.querySelectorAll('.document');
-  const docArray = [];
-  documents.forEach((doc) => {
+  const documents = mainContainer?.querySelectorAll('.document');
+  const docArray: string[] = [];
+
+  documents?.forEach((doc) => {
     Object.entries(idTypes).forEach(([idKey, dataID]) => {
-      const idString = doc.dataset[dataID];
+      const idString = (doc as HTMLElement).dataset[dataID];
       if (idString === undefined) return;
 
       const idStripped = idString.replace(/[[\]"']+/g, '');
@@ -101,18 +102,11 @@ function docIDArray() {
 }
 
 /**
- * Create query string of doc IDs for Google Books API
- */
-function docIDQueryString() {
-  const bibArray = docIDArray();
-  return bibArray.join(',');
-}
-
-/**
  * Entry point to updating book covers and calling Google Books API with callback
  */
 function replaceBookCovers() {
-  const bibkeyQueryString = docIDQueryString();
+  const bibArray: string[] = docIDArray();
+  const bibkeyQueryString = bibArray.join(',');
   if (bibkeyQueryString.length === 0) return;
   const booksCallback = 'replaceThumbs';
 
@@ -129,6 +123,7 @@ function replaceBookCovers() {
 function initTooltips() {
   $(document).tooltip({
     selector: '[data-toggle="tooltip"]',
+    // @ts-ignore
     boundary: 'window',
   });
 }
@@ -147,32 +142,34 @@ function initPopovers() {
  * sibling `.more-min` and reveal `.more-max`
  */
 function bindShowAvailMoreField() {
-  const moreScopes = document.querySelectorAll('[data-more-scope]');
+  const moreScopes = Array.from(document.querySelectorAll('[data-more-scope]'));
 
   moreScopes.forEach((moreScope) => {
-    const moreLink = moreScope.querySelector('.reveal-more');
-    const lessLink = moreScope.querySelector('.reveal-less');
-    const moreMax = moreScope.querySelectorAll('.more-max');
-    if (moreLink === null) return;
+    const moreLink = moreScope.querySelector<HTMLElement>('.reveal-more');
+    const lessLink = moreScope.querySelector<HTMLElement>('.reveal-less');
+    const moreMax = Array.from(moreScope.querySelectorAll<HTMLElement>('.more-max'));
+
+    if (!moreLink) return;
+
+    // eslint-disable-next-line no-unused-vars
+    let isShowingMore = false;
 
     moreLink.addEventListener('click', () => {
       moreMax.forEach((thisEl) => {
-        thisEl.classList.remove('d-none');
+        thisEl.classList.toggle('d-none');
       });
-      moreLink.classList.add('d-none');
-      lessLink.classList.remove('d-none');
-      moreScope.removeAttribute('data-showing-less');
-      moreScope.setAttribute('data-showing-more', 'true');
+      moreLink.classList.toggle('d-none');
+      lessLink?.classList.toggle('d-none');
+      isShowingMore = true;
     });
 
-    lessLink.addEventListener('click', () => {
+    lessLink?.addEventListener('click', () => {
       moreMax.forEach((thisEl) => {
-        thisEl.classList.add('d-none');
+        thisEl.classList.toggle('d-none');
       });
-      lessLink.classList.add('d-none');
-      moreLink.classList.remove('d-none');
-      moreScope.removeAttribute('data-showing-more');
-      moreScope.setAttribute('data-showing-less', 'true');
+      lessLink.classList.toggle('d-none');
+      moreLink.classList.toggle('d-none');
+      isShowingMore = false;
     });
   });
 }
@@ -182,19 +179,24 @@ function animateSearchIcon() {
   const searchForms = document.querySelectorAll('.search-query-form');
   searchForms.forEach((thisForm) => {
     thisForm.addEventListener('submit', (e) => {
-      const buttonIcon = e.currentTarget.querySelector('.fa-search');
-      buttonIcon.classList.remove('fa-search');
-      buttonIcon.classList.add('fa-circle-notch', 'fa-spin');
+      const buttonIcon = (e.currentTarget as HTMLInputElement).querySelector('.fa-search');
+      buttonIcon?.classList.remove('fa-search');
+      buttonIcon?.classList.add('fa-circle-notch', 'fa-spin');
     });
   });
 }
 
 // Store a cookie if the banner is dismissed
 function bindDismissBannerCookie() {
-  $('#site-messages .alert-dismissible').on('closed.bs.alert', function () {
-    const alertName = $(this).data('alert-name');
-    const alertExpiry = $(this).data('alert-expiry');
-    Cookies.set(`banner_dismissed_${alertName}`, '1', { expires: alertExpiry });
+  const siteMessages = document.querySelector('#site-messages');
+  siteMessages?.addEventListener('closed.bs.alert', (event) => {
+    const alert = (event.target as HTMLElement).closest('.alert-dismissible');
+    if (!alert) {
+      return;
+    }
+    const alertName = alert.getAttribute('data-alert-name');
+    const alertExpiry = alert.getAttribute('data-alert-expiry');
+    document.cookie = `banner_dismissed_${alertName}=1; expires=${alertExpiry}; path=/`;
   });
 }
 
@@ -203,32 +205,21 @@ function bindDismissBannerCookie() {
  * that have a specific class.
  */
 function linkify() {
-  const $linkifyFields = $('.linkify-text');
-  // define skipIt -- function used to compare found URLs to any pre-existing links.
-  // e.g., we may match a URL in the text that's already enclosed in an <a> tag,
-  // in which case we don't want to linkify that URL.
-  function skipIt(obj, test) {
-    let val = false;
-    $(obj).find('a').each(function () {
-      if ($(this).text().match(escapeRegExp(test))) {
-        val = true;
-      }
-    });
-    return val;
-  }
+  const linkifyFields = document.querySelectorAll('.linkify-text');
 
-  $linkifyFields.each(function () {
-    const pattern = /(\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)|(https?:\/\/[^\s]+)/gi; // group 1 = email address, group 2 = URL
-    let match;
-    while (match = pattern.exec($(this).text())) {
-      let mText = match[1] ? match[1] : match[2] ? match[2] : '';
-      const mailto = match[1] ? 'mailto:' : '';
-      if (mText && !skipIt($(this), mText)) {
-        // trim trailing punctuation
-        mText = mText.replace(/(\)[:,;.])$|(][:,;.])$|([:,;.)\]])$/, '');
-        $(this).html($(this).html().replace(mText, `<a class="textLink" target="_blank" rel="noopener" href="${mailto}${mText}">${mText}</a>`));
-      }
-    }
+  linkifyFields.forEach((field) => {
+    const pattern = /(https?:\/\/?[\da-z.-]+\.[a-z.]{2,6})([/\w .-]*)*\/?/gi; // match URLs that are not already in an href attribute or inside an HTML tag
+    const emailPattern = /(\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)/gi; // match email addresses
+    let html = field.innerHTML;
+
+    // replace URLs
+    html = html.replace(pattern, '<a class="textLink" target="_blank" rel="noopener" href="$1$2">$1$2</a>');
+
+    // replace email addresses
+    html = html.replace(emailPattern, '<a class="textLink" target="_blank" rel="noopener" href="mailto:$1">$1</a>');
+
+    // eslint-disable-next-line no-param-reassign
+    field.innerHTML = html;
   });
 }
 
@@ -237,13 +228,13 @@ function linkify() {
 function hoverHierarchicalLinks() {
   // Collect desired elements
   const showDoc = document.querySelector('.show-document');
-  const linkRows = showDoc.querySelectorAll('.result__value__row.hierarchical-link');
+  const linkRows = showDoc?.querySelectorAll('.result__value__row.hierarchical-link');
   if (!linkRows) return;
 
   linkRows.forEach((row) => {
     // children are a and span elements
-    const children = row.childNodes;
-    children.forEach((childElement) => {
+    const { children } = row;
+    Array.from(children).forEach((childElement) => {
       if (childElement.nodeName === 'A') {
         childElement.addEventListener('mouseenter', () => {
           let prevSibling = childElement.previousElementSibling;
