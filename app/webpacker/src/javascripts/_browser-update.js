@@ -1,5 +1,5 @@
 import browserUpdate from 'browser-update';
-import { allowTracking } from './_analytics.js.erb';
+import { allowTracking } from './_analytics';
 
 const config = {
   required: {

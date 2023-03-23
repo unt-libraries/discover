@@ -1,7 +1,7 @@
 // Modified for Discover from unt-jekyll-theme/_assets/_scripts/main.js
 import size from 'lodash/size';
 import words from 'lodash/words';
-import { allowTracking } from '../_analytics.js.erb';
+import { allowTracking } from '../_analytics';
 
 window.libutils = {};
 

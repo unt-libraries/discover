@@ -1,6 +1,5 @@
-import $ from 'jquery';
 import Tour from 'bootstrap-tourist';
-import { allowTracking } from './_analytics.js.erb';
+import { allowTracking } from './_analytics';
 
 const tourPromptTemplate = `<div class="popover" role="tooltip">
   <div class="arrow"></div>
@@ -47,7 +46,24 @@ const searchResultsTourTemplate = `<div class="popover" role="tooltip">
   </div>
 </div>`;
 
-const searchResultsTourSteps = [
+interface TourInstance {
+  _options: {
+    name: string;
+  };
+}
+
+interface TourStep {
+  element: string;
+  title?: string;
+  content: string;
+  showProgressBar?: boolean;
+  showProgressText?: boolean;
+  template?: string;
+  backdrop?: boolean;
+  onShown?: (tour: TourInstance) => void;
+}
+
+const searchResultsTourSteps: TourStep[] = [
   {
     element: '#searchResultsHeader',
     content: 'Would you like to take a quick tour?',
@@ -82,6 +98,7 @@ const searchResultsTourSteps = [
     content: 'Check for availability and connect to online items from this screen or click through to the full record for more information, additional copies, holdings, and delivery options.',
     onShown: (tour) => {
       const $document = $(document);
+      // eslint-disable-next-line no-underscore-dangle
       const $popover = $document.find(`.tour-${tour._options.name}`);
       const $next = $popover.find('[data-role="next"]');
       $next.remove();
@@ -89,14 +106,14 @@ const searchResultsTourSteps = [
   },
 ];
 
-function needsTour(tourName) {
+function needsTour(tourName: string): boolean {
   // No tours on mobile, can move this further down if we change our minds
   if (window.matchMedia('(max-width: 767px)').matches) {
     return false;
   }
   let tourEligible = true;
   let context = document.body.dataset.blacklightContext;
-  const skips = parseInt(localStorage.getItem(`${tourName}_skips`) || '0');
+  const skips = parseInt(localStorage.getItem(`${tourName}_skips`) || '0', 10);
   const searchParams = new URLSearchParams(window.location.search);
   if (context === 'index' && searchParams.toString() === '') {
     context = 'home';
@@ -113,80 +130,80 @@ function needsTour(tourName) {
   return tourEligible;
 }
 
-function skipTour(tourName) {
-  const skips = localStorage.getItem(`${tourName}_skips`) || '0';
-  const newSkips = parseInt(skips) + 1;
-  localStorage.setItem(`${tourName}_skips`, newSkips.toString());
-  removeTourFromLinks();
-
-  if (allowTracking()) {
-    ga('send', 'event', 'Tour', 'Tour Skipped', tourName);
-  }
-}
-
-function removeTourFromLinks() {
+function removeTourFromLinks(): void {
   const pageLinks = document.querySelectorAll('a');
   pageLinks.forEach((el) => {
     if (el.host === window.location.host) {
       const linkParams = new URLSearchParams(el.search);
       if (linkParams.get('tour')) {
         linkParams.delete('tour');
+        // eslint-disable-next-line no-param-reassign
         el.search = linkParams.toString();
       }
     }
   });
 }
 
-function removeTourFromLocation() {
+function removeTourFromLocation(): void {
   const searchParams = new URLSearchParams(window.location.search);
   searchParams.delete('tour');
   window.history.replaceState({}, '', `${window.location.pathname}?${searchParams}`);
 }
 
-function initTour() {
-  $(() => {
-    if (needsTour('searchResultsTour') === true) {
-      const searchResultsTour = new Tour(
-        {
-          name: 'searchResultsTour',
-          steps: searchResultsTourSteps,
-          framework: 'bootstrap4',
-          template: searchResultsTourTemplate,
-          showProgressBar: false,
-          backdrop: true,
-          sanitizeWhitelist: {
-            button: ['ga-on', 'ga-event-category', 'ga-event-action', 'ga-event-label'],
-          },
-          onEnd: () => {
-            removeTourFromLocation(); // Replace url in browser
-            removeTourFromLinks(); // Update links on page to remove tour param
-          },
-        },
-      );
+function skipTour(tourName: string): void {
+  const skips = localStorage.getItem(`${tourName}_skips`) || '0';
+  const newSkips = parseInt(skips, 10) + 1;
+  localStorage.setItem(`${tourName}_skips`, newSkips.toString());
+  removeTourFromLinks();
 
-      searchResultsTour.restart();
+  if (allowTracking()) {
+    // @ts-ignore
+    window.ga('send', 'event', 'Tour', 'Tour Skipped', tourName);
+  }
+}
 
-      if (allowTracking()) {
-        ga('send', 'event', 'Tour', 'Tour Presented', 'searchResultsTour', {
-          nonInteraction: true,
-        });
-      }
+function initTour(): void {
+  if (needsTour('searchResultsTour')) {
+    const searchResultsTour = new Tour({
+      name: 'searchResultsTour',
+      steps: searchResultsTourSteps,
+      framework: 'bootstrap4',
+      template: searchResultsTourTemplate,
+      showProgressBar: false,
+      backdrop: true,
+      sanitizeWhitelist: {
+        button: ['ga-on', 'ga-event-category', 'ga-event-action', 'ga-event-label'],
+      },
+      onEnd: () => {
+        removeTourFromLocation(); // Replace url in browser
+        removeTourFromLinks(); // Update links on page to remove tour param
+      },
+    });
 
-      // Dismiss the tour and increment "skips" if they click somewhere other than tour intro
-      $('body').on('click.tour', (e) => {
-        // did not click a popover toggle or popover
-        if ($(e.target).hasClass('popover') !== true
-          && $(e.target).parents('.popover').length === 0) {
-          if (searchResultsTour.getCurrentStepIndex() === 0) {
-            $('.popover.tour-searchResultsTour').popover('hide');
-            skipTour('searchResultsTour');
-            searchResultsTour.hideStep();
-            $('body').off('click.tour');
-          }
-        }
+    searchResultsTour.restart();
+
+    if (allowTracking()) {
+      // @ts-ignore
+      window.ga('send', 'event', 'Tour', 'Tour Presented', 'searchResultsTour', {
+        nonInteraction: true,
       });
     }
-  });
+
+    // Dismiss the tour and increment "skips" if they click somewhere other than tour intro
+    document.body.addEventListener('click', function handleClick(e: MouseEvent) {
+      // did not click a popover toggle or popover
+      const target = e.target as HTMLElement;
+      if (target && !target.closest('.popover')) {
+        if (searchResultsTour.getCurrentStepIndex() === 0) {
+          const popover = document.querySelector('.popover.tour-searchResultsTour') as HTMLElement;
+          popover.style.display = 'none';
+          skipTour('searchResultsTour');
+          searchResultsTour.hideStep();
+          document.body.removeEventListener('click', handleClick);
+        }
+      }
+    });
+  }
 }
 
 export {

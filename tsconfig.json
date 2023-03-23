@@ -8,10 +8,15 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "isolatedModules": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "typeRoots": [
+      "./app/webpacker/src/javascripts/@typings",
+      "node_modules/@types"
+    ]
   },
   "include": [
-      "./app/webpacker/packs/**/*"
+    "app/webpacker/packs/**/*",
+    "app/webpacker/src/javascripts/@typings/**/*"
   ],
   "exclude": [
       "node_modules"

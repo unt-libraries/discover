@@ -1,5 +1,5 @@
 // utility function to create function with timeout, used in ga events
-export function actWithTimeOut(callback: () => void, optTimeout: number | undefined) {
+export function actWithTimeOut(callback: () => void, optTimeout?: number) {
   let called = false;
   function fn() {
     if (!called) {
@@ -7,6 +7,6 @@ export function actWithTimeOut(callback: () => void, optTimeout: number | undefi
       callback();
     }
   }
-  setTimeout(fn, optTimeout || 1000);
+  setTimeout(fn, optTimeout ?? 1000);
   return fn;
 }

@@ -2,7 +2,7 @@
 import $ from 'jquery';
 import 'corejs-typeahead/dist/typeahead.jquery';
 import Bloodhound from 'corejs-typeahead/dist/bloodhound';
-import { allowTracking } from '../_analytics.js.erb';
+import { allowTracking } from '../_analytics';
 
 const has = Object.prototype.hasOwnProperty;
 
