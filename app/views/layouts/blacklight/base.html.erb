@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" translate="no" class="no-js">
 <%= render partial: 'shared/head/head' %>
-<body data-blacklight-context="<%= action_name %>" class="<%= render_body_class %>">
+<body data-blacklight-context="<%= action_name %>" class="<%= render_body_class %>" data-ga-tracking-id="<%= Rails.application.credentials[Rails.env.to_sym][:google_analytics] %>">
   <%= render '/shared/chat-widget' %>
 
   <!--[if lte IE 10]>
