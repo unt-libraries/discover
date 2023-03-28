@@ -12,7 +12,8 @@
     "typeRoots": [
       "./app/webpacker/src/javascripts/@typings",
       "node_modules/@types"
-    ]
+    ],
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "app/webpacker/packs/**/*",

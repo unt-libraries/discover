@@ -1,9 +1,9 @@
-import Mark from 'mark.js/dist/mark.es6';
+import Mark from 'mark.js';
 
 /**
  * Uses mark.js to highlight search terms in Show view
  */
-function highlightSearchTerms() {
+function highlightSearchTerms(): void {
   /**
    * Converts a user query string to two arrays:
    * @param {string} q
@@ -12,9 +12,9 @@ function highlightSearchTerms() {
    * @return {Object}
    *   terms {Array} list of individual terms from the user query, in query order
    *   phrasesOnly {Array} list of hyphenated phrases for e.g. call numbers or parts of call numbers
-
    */
-  function queryToTerms(q, allStopwords, asPhrasesOnly) {
+  // eslint-disable-next-line max-len
+  function queryToTerms(q: string, allStopwords: string[], asPhrasesOnly: boolean): { terms: string[], phrasesOnly: string[] } {
     return q.split('"').reduce((env, term, i) => {
       const insideQuotes = i % 2;
       const trimmed = term.trim();
@@ -31,15 +31,16 @@ function highlightSearchTerms() {
             if (asPhrasesOnly || wordEnv.wordStack.length > 1) {
               wordEnv.phrasesOnly.push(wordEnv.wordStack.join('-'));
             }
+            // eslint-disable-next-line no-param-reassign
             wordEnv.wordStack = [normWord];
           }
           wordEnv.terms.push(normWord);
         }
         return wordEnv;
       }, {
-        terms: [],
-        phrasesOnly: [],
-        wordStack: [],
+        terms: [] as string[],
+        phrasesOnly: [] as string[],
+        wordStack: [] as string[],
       });
       if (insideQuotes && parsed.terms.every((word) => allStopwords.indexOf(word) > -1)) {
         env.terms.push(trimmed);
@@ -49,8 +50,8 @@ function highlightSearchTerms() {
       env.phrasesOnly.push(...parsed.phrasesOnly);
       return env;
     }, {
-      terms: [],
-      phrasesOnly: [],
+      terms: [] as string[],
+      phrasesOnly: [] as string[],
     });
   }
 
@@ -61,8 +62,8 @@ function highlightSearchTerms() {
    * @param {Array} allStopwords
    * @return {Array}
    */
-  function termsToPhrases(terms, allStopwords) {
-    function doStack(mainTerm, stack, forward) {
+  function termsToPhrases(terms: string[], allStopwords: string[]): string[] {
+    function doStack(mainTerm: string, stack: string[], forward: boolean): string[] {
       return stack.map((swTerm, i, swStack) => {
         let termArray = [];
         if (forward) {
@@ -83,16 +84,18 @@ function highlightSearchTerms() {
             env.finalPhrases.push(...doStack(env.previousMainTerm, env.stopwordStack, true));
           }
           env.finalPhrases.push(...doStack(term, env.stopwordStack, false));
+          // eslint-disable-next-line no-param-reassign
           env.stopwordStack = [];
         }
+        // eslint-disable-next-line no-param-reassign
         env.previousMainTerm = term;
       }
       return env;
     }, {
       allStopwords,
-      finalPhrases: [],
+      finalPhrases: [] as string[],
       previousMainTerm: '',
-      stopwordStack: [],
+      stopwordStack: [] as string[],
     });
     if (result.stopwordStack.length && result.previousMainTerm) {
       result.finalPhrases.push(...doStack(result.previousMainTerm, result.stopwordStack, true));
@@ -102,12 +105,14 @@ function highlightSearchTerms() {
 
   /**
    * The main function to use to parse a user query.
-   * @param {string} userQuery
-   * @param {Array} allStopwords
-   * @param {boolean} asPhrasesOnly `true` for number-type searches, `false` for all others
-   * @return {Array} all terms to find, does not include stopwords
+   * @param userQuery - The user query to parse.
+   * @param allStopwords - An array of stopwords to ignore.
+   * @param asPhrasesOnly - A boolean value indicating whether the search type
+   *                        should be treated as a call number or not.
+   * @returns An array of all terms to find (does not include stopwords).
    */
-  function parseUserQuery(userQuery, allStopwords, asPhrasesOnly) {
+  // eslint-disable-next-line max-len
+  function parseUserQuery(userQuery: string, allStopwords: string[], asPhrasesOnly: boolean): string[] {
     const qterms = queryToTerms(userQuery.toLowerCase(), allStopwords, asPhrasesOnly);
     if (asPhrasesOnly) {
       return qterms.phrasesOnly.length > 1 ? [qterms.phrasesOnly.join(' ')].concat(qterms.phrasesOnly) : qterms.phrasesOnly;
@@ -129,13 +134,25 @@ function highlightSearchTerms() {
    * @param {Array} terms
    * @return {RegExp}
    */
-  function termsToRegExp(terms) {
-    const diacritics = ['aàáảãạăằắẳẵặâầấẩẫậäåāąAÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÄÅĀĄ', 'cçćčCÇĆČ', 'dđďDĐĎ',
-      'eèéẻẽẹêềếểễệëěēęEÈÉẺẼẸÊỀẾỂỄỆËĚĒĘ', 'iìíỉĩịîïīIÌÍỈĨỊÎÏĪ', 'lłLŁ', 'nñňńNÑŇŃ',
-      'oòóỏõọôồốổỗộơởỡớờợöøōOÒÓỎÕỌÔỒỐỔỖỘƠỞỠỚỜỢÖØŌ', 'rřRŘ', 'sšśșşSŠŚȘŞ', 'tťțţTŤȚŢ',
-      'uùúủũụưừứửữựûüůūUÙÚỦŨỤƯỪỨỬỮỰÛÜŮŪ', 'yýỳỷỹỵÿYÝỲỶỸỴŸ', 'zžżźZŽŻŹ'];
-    const internalPunctRe = `[\\p{P}]`;
-    const wordDelimitersRe = `[\\s\\p{P}]`;
+  function termsToRegExp(terms: string[]): RegExp {
+    const diacritics = [
+      'aàáảãạăằắẳẵặâầấẩẫậäåāąAÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÄÅĀĄ',
+      'cçćčCÇĆČ',
+      'dđďDĐĎ',
+      'eèéẻẽẹêềếểễệëěēęEÈÉẺẼẸÊỀẾỂỄỆËĚĒĘ',
+      'iìíỉĩịîïīIÌÍỈĨỊÎÏĪ',
+      'lłLŁ',
+      'nñňńNÑŇŃ',
+      'oòóỏõọôồốổỗộơởỡớờợöøōOÒÓỎÕỌÔỒỐỔỖỘƠỞỠỚỜỢÖØŌ',
+      'rřRŘ',
+      'sšśșşSŠŚȘŞ',
+      'tťțţTŤȚŢ',
+      'uùúủũụưừứửữựûüůūUÙÚỦŨỤƯỪỨỬỮỰÛÜŮŪ',
+      'yýỳỷỹỵÿYÝỲỶỸỴŸ',
+      'zžżźZŽŻŹ',
+    ];
+    const internalPunctRe = '[\\p{P}]';
+    const wordDelimitersRe = '[\\s\\p{P}]';
     const finalTermList = terms.map((term) => term.split(new RegExp(`${wordDelimitersRe}+`, 'u')).map((word) => word.split('').map((char) => {
       let charRe = char;
       diacritics.every((dct) => {
@@ -169,8 +186,8 @@ function highlightSearchTerms() {
     const searchFields = ['call_numbers_display', 'sudocs_display', 'isbns_display',
       'issns_display', 'other_standard_numbers_display', 'lccns_display', 'oclc_numbers_display',
       'other_control_numbers_display'];
-    let instance;
-    let termList;
+    let instance: Mark;
+    let termList: string[];
 
     if (numberSearchTypes.includes(searchType)) {
       termList = parseUserQuery(userQuery, myStopwords, true);
@@ -196,9 +213,11 @@ function highlightSearchTerms() {
       },
     });
   }
+
   regExpMark();
 }
 
 export {
+  // eslint-disable-next-line import/prefer-default-export
   highlightSearchTerms,
 };
