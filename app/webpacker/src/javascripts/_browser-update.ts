@@ -1,4 +1,3 @@
-// @ts-ignore
 import browserUpdate from 'browser-update';
 import { allowTracking } from './_analytics';
 
@@ -42,5 +41,6 @@ const config = {
 };
 
 export default function runBrowserUpdate() {
+  // @ts-ignore
   browserUpdate(config);
 }

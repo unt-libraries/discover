@@ -18,7 +18,7 @@
   },
   "include": [
     "app/webpacker/packs/**/*",
-    "app/webpacker/src/javascripts/@typings/**/*",
+    "app/webpacker/src/javascripts/**/*",
     "spec/javascript/**/*"
   ],
   "exclude": [
