@@ -17,7 +17,7 @@ function docIDObject() {
     // eslint-disable-next-line no-param-reassign
     obj[idKey] = {};
     return obj;
-  }, {} as {[idKey: string]: any});
+  }, {} as { [idKey: string]: any });
   documents.forEach((doc) => {
     Object.entries(idTypes).forEach(([idKey, dataID]) => {
       const idString = (doc as HTMLElement).dataset[dataID];
@@ -208,15 +208,15 @@ function linkify() {
   const linkifyFields = document.querySelectorAll('.linkify-text');
 
   linkifyFields.forEach((field) => {
-    const pattern = /(https?:\/\/?[\da-z.-]+\.[a-z.]{2,6})([/\w .-]*)*\/?/gi; // match URLs that are not already in an href attribute or inside an HTML tag
+    const pattern = /(https?:\/\/?[\da-z.-]+\.[a-z.]{2,6})\/?/gi; // match URLs that are not already in an href attribute or inside an HTML tag
     const emailPattern = /(\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)/gi; // match email addresses
     let html = field.innerHTML;
 
     // replace URLs
-    html = html.replace(pattern, '<a class="textLink" target="_blank" rel="noopener" href="$1$2">$1$2</a>');
+    html = html.replace(pattern, '<a class="textLink" target="_blank" rel="noopener" href="$1">$1</a>');
 
     // replace email addresses
-    html = html.replace(emailPattern, '<a class="textLink" target="_blank" rel="noopener" href="mailto:$1">$1</a>');
+    html = html.replace(emailPattern, '<a class="textLink emailLink" target="_blank" rel="noopener" href="mailto:$1">$1</a>');
 
     // eslint-disable-next-line no-param-reassign
     field.innerHTML = html;
