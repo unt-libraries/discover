@@ -36,7 +36,7 @@ const config = {
 
   // A list of paths to directories that Jest should use to search for files in
   roots: [
-    'spec/javascript',
+    './app/webpacker/src/javascripts/tests',
   ],
 
   // The test environment that will be used for testing

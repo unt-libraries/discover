@@ -3,13 +3,13 @@ import { serviceDeskData } from './__mocks__/service_desks';
 import { statusDescData } from './__mocks__/availability_statuses';
 import { locationData } from './__mocks__/availability_locations';
 enableFetchMocks();
-jest.mock('../../app/webpacker/src/javascripts/data/service_desks', () => ({
+jest.mock('../data/service_desks', () => ({
   serviceDeskData,
 }));
-jest.mock('../../app/webpacker/src/javascripts/data/availability_statuses', () => ({
+jest.mock('../data/availability_statuses', () => ({
   statusDescData,
 }));
-jest.mock('../../app/webpacker/src/javascripts/data/availability_locations', () => ({
+jest.mock('../data/availability_locations', () => ({
   locationData,
 }));
 import {
@@ -22,7 +22,7 @@ import {
   getPlaceholderItemsElements,
   itemsFromPromises,
   updateAeonRequestUrl,
-} from '../../app/webpacker/src/javascripts/_availability_util';
+} from '../_availability_util';
 
 import mocked = jest.mocked;
 
