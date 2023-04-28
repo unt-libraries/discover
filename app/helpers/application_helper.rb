@@ -183,7 +183,7 @@ module ApplicationHelper
   #         "s": String. Separator. Display this as non-linked text immediately following the display <a> element.
   #       }
   #     ],
-  #     "r": String. Relationship. Optional, string. Display text to display after the title heading parts.
+  #   "r": [String]. Relationship. Optional, string. Display text to display after the title heading parts.
   # }
   # @return [String] HTML links joined together
   def json_to_links(options = {})
@@ -201,7 +201,7 @@ module ApplicationHelper
           value = i['v']
           separator = i['s'] || ' '
           separator = options[:new_separator] if options[:new_separator].present? && i['s'].present?
-          separator_element = (item_count == idx + 1) ? '' : "<span class=\"separator\">#{separator}</span>".html_safe
+          separator_element = "<span class=\"separator\">#{separator}</span>".html_safe
           if value.present?
             json_value_to_facet_link(i, facet, author: author, context: 'show').concat(separator_element)
           else
