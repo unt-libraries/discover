@@ -29,7 +29,7 @@ describe 'Home page' do
 
   describe 'UNT footer' do
     it 'renders' do
-      expect(page).to have_css('footer#main-footer', :text => 'University Libraries')
+      expect(page).to have_css('div#main-footer', :text => 'University Libraries')
     end
 
     it 'contains contact information' do
