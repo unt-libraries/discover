@@ -56,7 +56,7 @@ should modify the `image` value for the `web` app in `docker-compose.yml`, or re
 Build the containers with:
 
 ```console
-$ docker-compose build
+$ docker compose build
 
 # OR with Yarn
 $ yarn build
@@ -88,7 +88,7 @@ secret_key_base:
 If you do not already have a database for the app, create one with:
 
 ```console
-$ docker-compose run --rm web rake db:create
+$ docker compose run --rm web rake db:create
 
 # OR with Yarn
 $ yarn web:dbCreate
@@ -97,7 +97,7 @@ $ yarn web:dbCreate
 Run database migrations with:
 
 ```console
-$ docker-compose run --rm web rake db:migrate
+$ docker compose run --rm web rake db:migrate
 
 # OR with Yarn
 $ yarn web:dbMigrate
@@ -106,7 +106,7 @@ $ yarn web:dbMigrate
 Prior to running the development environment, you'll need to precompile assets.
 
 ```console
-$ docker-compose run --rm web rails assets:precompile
+$ docker compose run --rm web rails assets:precompile
 
 # OR with Yarn
 $ yarn web:compileAssets
@@ -115,7 +115,7 @@ $ yarn web:compileAssets
 Start the app and database with:
 
 ```console
-$ docker-compose up
+$ docker compose up
 
 # OR with Yarn
 $ yarn start
@@ -215,7 +215,7 @@ $ bundle install
 If no database exists, create one with:
 
 ```console
-$ docker-compose run web rake db:create
+$ docker compose run web rake db:create
 ```
 
 **Run database migrations**
@@ -268,7 +268,7 @@ exist, Rails will generate them for you. **Be sure to take note of `RAILS_MASTER
 To edit secrets stored in `credentials.yml.enc`, use the following command:
 
 ```console
-$ docker-compose run web bash -c "EDITOR=vim rails credentials:edit"
+$ docker compose run web bash -c "EDITOR=vim rails credentials:edit"
 
 # OR with Yarn
 $ yarn web:credentials
@@ -332,7 +332,7 @@ For this project, Rails should have generated a `secret_key_base` for you and yo
 If you find yourself needing to generate a new secret, you can so so with:
 
 ```console
-$ docker-compose run web rake secret
+$ docker compose run web rake secret
 ```
 
 ## Scripts
