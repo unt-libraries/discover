@@ -2,6 +2,7 @@ import { enableFetchMocks } from 'jest-fetch-mock';
 import { serviceDeskData } from './__mocks__/service_desks';
 import { statusDescData } from './__mocks__/availability_statuses';
 import { locationData } from './__mocks__/availability_locations';
+
 enableFetchMocks();
 jest.mock('../data/service_desks', () => ({
   serviceDeskData,
@@ -87,12 +88,10 @@ describe('callSierraApi', () => {
     };
 
     // @ts-ignore
-    fetch.mockImplementationOnce(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(mockedJsonData),
-      }),
-    );
+    fetch.mockImplementationOnce(() => Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve(mockedJsonData),
+    }));
 
     const result = await callSierraApi(itemBibs);
     expect(fetch).toHaveBeenCalledTimes(1);
@@ -111,13 +110,11 @@ describe('callSierraApi', () => {
     const itemBibs = ['12345', '67890'];
 
     // @ts-ignore
-    fetch.mockImplementationOnce(() =>
-      Promise.resolve({
-        ok: false,
-        statusText: 'Mocked Error',
-        text: () => Promise.resolve('Error message from the API'),
-      }),
-    );
+    fetch.mockImplementationOnce(() => Promise.resolve({
+      ok: false,
+      statusText: 'Mocked Error',
+      text: () => Promise.resolve('Error message from the API'),
+    }));
 
     await expect(callSierraApi(itemBibs)).rejects.toThrow('Mocked Error');
   });
@@ -131,12 +128,10 @@ describe('callSierraApi', () => {
     };
 
     // @ts-ignore
-    fetch.mockImplementationOnce(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(mockedJsonData),
-      }),
-    );
+    fetch.mockImplementationOnce(() => Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve(mockedJsonData),
+    }));
 
     await expect(callSierraApi(itemBibs)).rejects.toEqual(mockedJsonData);
   });

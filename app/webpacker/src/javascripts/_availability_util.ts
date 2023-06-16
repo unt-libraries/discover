@@ -1,43 +1,9 @@
 import { locationData as locationDataRaw } from './data/availability_locations';
 import { statusDescData as statusDescDataRaw } from './data/availability_statuses';
 import { serviceDeskData } from './data/service_desks';
-
-interface LocationData {
-  [key: string]: {
-    name?: string;
-    abbr?: string;
-    linkText?: string;
-    url?: string;
-    btnClass?: string;
-  };
-}
-
-interface StatusData {
-  [key: string]: {
-    label: string;
-    desc: string;
-    btnClass: string;
-  };
-}
-
-interface ApiEntry {
-  id: string;
-  location: {
-    code: string;
-    name: string;
-  };
-  status: {
-    code: string;
-    display: string;
-  };
-  holdCount: number;
-}
-
-interface ItemType {
-  id: string;
-  status: string;
-  location: string;
-}
+import {
+  LocationData, StatusData, ApiEntry,
+} from './@typings/interfaces.d';
 
 const locationData: LocationData = locationDataRaw;
 const statusDescData: StatusData = statusDescDataRaw;
@@ -61,7 +27,7 @@ function chunkArray(arr: any[], chunkSize = 50): any[][] {
  * @returns A NodeList of elements with the 'data-no-api-request' attribute.
  */
 // eslint-disable-next-line no-undef
-function getPlaceholderItemsElements(): NodeListOf<Element> {
+function getPlaceholderItemsElements(): NodeListOf<HTMLElement> {
   return document.querySelectorAll('[data-no-api-request]');
 }
 
@@ -125,7 +91,7 @@ function getLocationData(locationCode: string): LocationData[keyof LocationData]
  * @param statusCode - The status code to search for.
  * @returns The status data object for the provided status code.
  */
-function getStatusData(statusCode: string): StatusData[keyof StatusData] | undefined {
+function getStatusData(statusCode: string): StatusData[keyof StatusData] | null {
   return statusDescData[statusCode];
 }
 
@@ -185,7 +151,7 @@ function updateAeonRequestUrl(
  * @param result - An array of Promises from API response.
  * @returns An array of item data returned by the Sierra API.
  */
-function itemsFromPromises(result: Array<any>): any[] {
+function itemsFromPromises(result: Array<any>): ApiEntry[] {
   return result
     .filter((response) => response.status === 'fulfilled')
     .map((item) => item.value.entries)
