@@ -10,13 +10,7 @@ import {
   itemsFromPromises,
   updateAeonRequestUrl,
 } from './_availability_util';
-import {
-  elAddClass,
-  elHasClass,
-  elRemoveClass,
-  removeAllChildren,
-  removeElement,
-} from './_utils';
+
 
 /**
  * FUNCTIONS FOR `SHOW` VIEWS
@@ -63,10 +57,10 @@ function createStatusElement(itemStatus, holdCount) {
   const holdEl = document.createElement('div');
   const onHold = holdCount > 0;
 
-  elAddClass(statusEl, 'status-text');
+  statusEl.classList.add('status-text');
 
   if (onHold) {
-    elAddClass(holdEl, 'hold-text', 'tooltip-nolink');
+    holdEl.classList.add('hold-text', 'tooltip-nolink');
     holdEl.textContent = `On Hold (${holdCount} ${holdCount > 1 ? 'Holds' : 'Hold'})`;
     holdEl.dataset.title = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} queued to check it out before it becomes available.`;
     holdEl.dataset.toggle = 'tooltip';
@@ -97,7 +91,7 @@ function createStatusElement(itemStatus, holdCount) {
 
   // Add a tooltip for the status description if present
   if (statusData && statusData.desc) {
-    elAddClass(statusEl, 'tooltip-nolink');
+    statusEl.classList.add('tooltip-nolink');
     statusEl.dataset.title = statusData.desc;
     statusEl.dataset.toggle = 'tooltip';
   }
@@ -135,7 +129,7 @@ function revealRequestColumn(itemEl) {
   const requestEls = availTable.querySelectorAll('.blacklight-request.d-none');
 
   requestEls.forEach((el) => {
-    elRemoveClass(el, 'd-none');
+    el.classList.remove('d-none');
   });
 }
 
@@ -154,7 +148,7 @@ function updateStatusElement(itemEl, itemStatus = null, holdCount = 0) {
   }
 
   availabilityEl.dataset.statusCode = itemStatus.code;
-  removeAllChildren(availabilityEl);
+  availabilityEl.replaceChildren();
   availabilityEl.appendChild(createStatusElement(itemStatus, holdCount));
 
   // Show the Request column if this isn't an online only record
@@ -210,10 +204,10 @@ function checkMoreLink() {
   if (moreItemsTable === null) return;
   const moreLessButton = availTable.querySelector('tbody#moreLessButton');
 
-  if (moreItemsTable.childElementCount === 0 && !elHasClass(moreLessButton, 'd-none')) {
-    elAddClass(moreLessButton, 'd-none');
+  if (moreItemsTable.childElementCount === 0 && !moreLessButton.classList.contains('d-none')) {
+    moreLessButton.classList.add('d-none');
   } else {
-    elRemoveClass(moreLessButton, 'd-none');
+    moreLessButton.classList.remove('d-none');
   }
 }
 
@@ -224,7 +218,7 @@ function checkEmptyTable() {
   const moreItems = availTable.querySelectorAll('tbody#moreItems .item-row');
 
   if (primaryItems.length === 0 && moreItems.length === 0) {
-    removeElement(availTable);
+    availTable.remove();
     addNoItemsMessage();
   }
 }
@@ -297,7 +291,7 @@ function updateUIError(items, error = undefined) {
     const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
     if (itemEl === null) return;
     if (error === 107) {
-      removeElement(itemEl);
+      itemEl.remove();
     } else {
       const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
       availabilityEl.innerText = 'Ask at the Service Desk';
@@ -329,7 +323,7 @@ function updateUI(foundItems = [], missingItems = []) {
   missingItems.forEach((item) => {
     const itemEl = availabilityTable.querySelector(`[data-item-id='${item}']`);
     if (itemEl === null) return;
-    removeElement(itemEl);
+    itemEl.remove();
     // console.log(`Item ${item} not returned by the API`);
   });
 

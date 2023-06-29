@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "module": "es2015",
+    "target": "esnext",
+    "allowJs": true,
+    "strict": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "typeRoots": [
+      "./app/webpacker/src/javascripts/@typings",
+      "node_modules/@types"
+    ],
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "app/webpacker/packs/**/*",
+    "app/webpacker/src/javascripts/**/*",
+    "spec/javascript/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

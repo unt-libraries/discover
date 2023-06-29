@@ -20,7 +20,6 @@ import '../src/javascripts/blacklight_range_limit/range_limit_slider';
 
 document.addEventListener('turbolinks:load', () => {
   checkAvailability();
-  setDocHistory();
   getDocHistory();
   searchSelector();
   rotateSearchTips();

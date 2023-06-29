@@ -15,56 +15,40 @@ module.exports = function (api) {
   return {
     presets: [
       isTestEnv && [
-        require('@babel/preset-env').default,
+        require('@babel/preset-env'),
         {
-          targets: {
-            node: 'current',
+          // targets: {
+          //   node: 'current',
+          // },
+          debug: true,
+          // modules: false,
+          useBuiltIns: 'usage',
+          corejs: {
+            version: '3.29',
+            proposals: true,
           },
+          shippedProposals: true,
         },
       ],
       (isProductionEnv || isDevelopmentEnv) && [
-        require('@babel/preset-env').default,
+        require('@babel/preset-env'),
         {
           debug: true,
-          forceAllTransforms: true,
-          useBuiltIns: 'entry',
-          corejs: 3,
           modules: false,
-          exclude: ['transform-typeof-symbol'],
+          useBuiltIns: 'usage',
+          corejs: {
+            version: '3.29',
+            proposals: true,
+          },
+          shippedProposals: true,
         },
       ],
+      require('@babel/preset-typescript'),
     ].filter(Boolean),
     plugins: [
       require('babel-plugin-macros'),
-      require('@babel/plugin-syntax-dynamic-import').default,
       isTestEnv && require('babel-plugin-dynamic-import-node'),
-      require('@babel/plugin-transform-destructuring').default,
-      [
-        require('@babel/plugin-proposal-class-properties').default,
-        {
-          loose: true,
-        },
-      ],
-      [
-        require('@babel/plugin-proposal-object-rest-spread').default,
-        {
-          useBuiltIns: true,
-        },
-      ],
-      [
-        require('@babel/plugin-transform-runtime').default,
-        {
-          helpers: false,
-          regenerator: true,
-          corejs: false,
-        },
-      ],
-      [
-        require('@babel/plugin-transform-regenerator').default,
-        {
-          async: false,
-        },
-      ],
+      require('@babel/plugin-transform-runtime'),
     ].filter(Boolean),
   };
 };

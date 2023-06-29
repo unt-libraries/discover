@@ -42,6 +42,9 @@ secrets.yml
 yarn-debug.log*
 .yarn-integrity
 
+# Jest files
+/coverage
+
 # Yarn files
 .pnp.*
 .yarn/*

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 2.6.6'
+ruby '~> 2.7.8'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 # Use CoffeeScript for .coffee assets and views
@@ -25,6 +25,7 @@ gem 'blacklight', '7.13.2'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
 gem 'blacklight-marc', '>= 7.0.0', '< 8'
 gem 'blacklight_range_limit', '>= 7', '< 8'
+gem 'view_component', '= 2.82.0' # 3.0.0 required by blacklight does not work.
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'

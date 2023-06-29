@@ -1,5 +1,5 @@
 import browserUpdate from 'browser-update';
-import { allowTracking } from './_analytics.js.erb';
+import { allowTracking } from './_analytics';
 
 const config = {
   required: {
@@ -20,26 +20,27 @@ const config = {
     bnever: 'Never show again',
   },
   style: 'bottom',
-  onshow(info) {
+  onshow(info: { browser: { t: string; }; }) {
     console.log(`Browser ${info.browser.t} is out of date.`);
     if (allowTracking()) {
-      ga('send', 'event', 'Browser Update Banner', 'Banner Shown', info.browser.t, 1, {
+      window.ga('send', 'event', 'Browser Update Banner', 'Banner Shown', info.browser.t, 1, {
         nonInteraction: true,
       });
     }
   },
-  onclick(info) {
+  onclick(info: { browser: { t: string; }; }) {
     if (allowTracking()) {
-      ga('send', 'event', 'Browser Update Banner', 'Banner Clicked', info.browser.t, 1);
+      window.ga('send', 'event', 'Browser Update Banner', 'Banner Clicked', info.browser.t, 1);
     }
   },
-  onclose(info) {
+  onclose(info: { browser: { t: string; }; }) {
     if (allowTracking()) {
-      ga('send', 'event', 'Browser Update Banner', 'Banner Closed', info.browser.t, 1);
+      window.ga('send', 'event', 'Browser Update Banner', 'Banner Closed', info.browser.t, 1);
     }
   },
 };
 
 export default function runBrowserUpdate() {
+  // @ts-ignore
   browserUpdate(config);
 }
