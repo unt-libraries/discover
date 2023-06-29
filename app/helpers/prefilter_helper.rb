@@ -1,4 +1,11 @@
 module PrefilterHelper
+  def end_year
+    Time.now.year.to_s
+  end
+
+  def begin_year
+    (Time.now.year - 10).to_s
+  end
   # This method defines the style and urls for prefilter buttons.
   # Each link can contain an external url or current domain params.
   def prefilter_hash
@@ -11,8 +18,8 @@ module PrefilterHelper
           { 'label' => 'Any', 'params' => { 'f[resource_type_facet][]' => 'books' } },
           { 'label' => 'New',
             'params' => { 'Author/Creator' => '', 'f[newly_added_facet][]' => 'months_3', 'f[resource_type_facet][]' => 'books',
-                          'genre' => '', 'op' => 'AND', 'range[publication_year_range_facet][begin]' => '2012',
-                          'range[publication_year_range_facet][end]' => '2022', 'search_field' => 'advanced', 'sort' => 'publication_sort+desc,+title_sort+asc'
+                          'genre' => '', 'op' => 'AND', 'range[publication_year_range_facet][begin]' => begin_year,
+                          'range[publication_year_range_facet][end]' => end_year, 'search_field' => 'advanced', 'sort' => 'publication_sort+desc,+title_sort+asc'
             }
           },
           { 'label' => 'E-books', 'params' => { 'f[access_facet][]' => 'Online', 'f[resource_type_facet][]' => 'books' } },
@@ -55,7 +62,7 @@ module PrefilterHelper
         'links' => [
           { 'label' => 'Any', 'params' => { 'f[resource_type_facet][]' => 'video_film'} },
           { 'label' => 'New',
-            'params' => { 'f[resource_type_facet][]' => 'video_film', 'f[newly_added_facet][]' => 'months_3', 'range[publication_year_range_facet][begin]' => '2021', 'range[publication_year_range_facet][end]' => '2022', 'sort' => 'publication_sort+desc,+title_sort+asc' } },
+            'params' => { 'f[resource_type_facet][]' => 'video_film', 'f[newly_added_facet][]' => 'months_3', 'range[publication_year_range_facet][begin]' => begin_year, 'range[publication_year_range_facet][end]' => end_year, 'sort' => 'publication_sort+desc,+title_sort+asc' } },
           { 'label' => 'DVDs', 'params' => { 'f[media_type_facet][]' => 'DVDs' } },
           { 'label' => 'Blu-ray', 'params' => { 'f[media_type_facet][]' => 'Blu-ray Discs' } },
           { 'label' => 'Online', 'params' => { 'f[access_facet][]' => 'Online', 'f[resource_type_facet][]' => 'video_film' } },
