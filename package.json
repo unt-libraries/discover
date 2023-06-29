@@ -61,5 +61,6 @@
     "stylelint": "^14.9.1",
     "stylelint-config-standard": "^26.0.0",
     "webpack-dev-server": "^3"
-  }
+  },
+  "packageManager": "yarn@3.6.0"
 }
