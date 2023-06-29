@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
   liblzma-dev \
   shared-mime-info
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get update && apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get update && apt-get install -y nodejs
 RUN corepack enable
 
 WORKDIR /app
@@ -46,8 +46,8 @@ RUN apt-get update && apt-get install -y \
   libpq-dev \
   build-essential
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get update && apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get update && apt-get install -y nodejs
 RUN corepack enable
 
 WORKDIR /app
