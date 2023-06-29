@@ -30,7 +30,6 @@
     "@rails/webpacker": "5.4.3",
     "autotrack": "^2.4.1",
     "blacklight-frontend": "^7.7.0",
-    "blacklight-marc": "https://github.com/projectblacklight/blacklight-marc.git",
     "bootstrap": "^4.4.1",
     "bootstrap-tourist": "^0.3.2",
     "brotli-webpack-plugin": "^1.1.0",

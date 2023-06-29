@@ -41,3 +41,12 @@ secrets.yml
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Yarn files
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
