@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 2.5'
 # Use PostgreSQL as the database for Active Record
 gem 'pg', '~> 1.5.3'
 gem 'puma', '~> 4.2.1'
-gem 'rails', '~> 5.2.4.2'
+gem 'rails', '~> 5.2.8.1'
 gem 'rsolr', '>= 1.0', '< 3'
 gem 'rubocop-airbnb'
 # gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
@@ -21,11 +21,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 2.7.2'
 gem 'webpacker', '~> 5.4.3'
 
-gem 'blacklight', '7.13.2'
+gem 'blacklight', '7.23.0'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
 gem 'blacklight-marc', '>= 7.0.0', '< 8'
 gem 'blacklight_range_limit', '>= 7', '< 8'
-gem 'view_component', '= 2.82.0' # 3.0.0 required by blacklight does not work.
+# gem 'view_component', '= 2.82.0' # 3.0.0 required by blacklight does not work.
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'

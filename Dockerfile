@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
   liblzma-dev \
   shared-mime-info
 
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get update && apt-get install -y nodejs
 RUN corepack enable
@@ -45,6 +46,7 @@ RUN apt-get update && apt-get install -y \
   libpq-dev \
   build-essential
 
+ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get update && apt-get install -y nodejs
 RUN corepack enable
