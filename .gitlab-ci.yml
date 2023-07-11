@@ -21,7 +21,7 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
 
 .build-container:
   stage: build-container
-  image: docker:19.03.11
+  image: docker:24.0.2
   tags:
     - dind-privileged
   variables:
@@ -78,12 +78,12 @@ build-container:production:
 #############
 
 test:
-  image: docker:19.03.4
+  image: docker:24.0.2
   tags: 
     - docker
     - privileged
   services:
-    - docker:19.03.4-dind
+    - docker:24.0.2-dind
   stage: test
   variables:
     DOCKER_DRIVER: overlay2
