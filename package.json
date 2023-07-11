@@ -20,7 +20,7 @@
     "grepLogs": "docker compose logs -t | grep",
     "docker:stopAll": "docker stop $(docker ps -a -q)",
     "docker:removeAll": "docker rm $(docker ps -a -q)",
-    "docker:prune": "docker system prune --volumes"
+    "docker:prune": "docker system prune -a && docker volume prune -a"
   },
   "private": true,
   "dependencies": {

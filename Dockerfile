@@ -24,8 +24,7 @@ ENV BUNDLE_PATH=/bundle \
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 
 # Update rubygems for ruby 2.6.6, otherwise bundler 2.1.4 isn't found at run time
-RUN gem update --system && \
-    gem install bundler && \
+RUN gem update --system --no-document && \
     gem install rake
 
 COPY Gemfile* ./
@@ -65,8 +64,7 @@ ENV BUNDLE_PATH=/bundle \
 ENV PATH="${BUNDLE_BIN}:${PATH}"
 
 # Update rubygems for ruby 2.6.6, otherwise bundler 2.1.4 isn't found at run time
-RUN gem update --system && \
-    gem install bundler && \
+RUN gem update --system --no-document && \
     gem install rake
 
 COPY --from=builder /bundle/ /bundle/
