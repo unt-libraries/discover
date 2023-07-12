@@ -14,6 +14,9 @@ module Discover
     # This tells Rails to use our routes for error handling instead of static error pages
     config.exceptions_app = routes
 
+    # See https://github.com/projectblacklight/blacklight/issues/2768
+    config.active_record.yaml_column_permitted_classes = [HashWithIndifferentAccess]
+
     # Force SSL on all environments, can be overridden in environment config files.
 
     # Settings in config/environments/* take precedence over those specified here.
