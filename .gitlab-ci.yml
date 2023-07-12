@@ -79,7 +79,7 @@ build-container:production:
 
 test:
   image: docker:24.0.2
-  tags: 
+  tags:
     - docker
     - privileged
   services:
@@ -94,14 +94,13 @@ test:
     RAILS_SERVE_STATIC_FILES: "true"
   script:
     - "docker info"
-    - "pip install docker-compose"
     - "echo \"$RAILS_MASTER_KEY\" >> .env"
-    - "docker-compose build"
-    - "docker-compose run --rm web rake db:create"
-    - "docker-compose run --rm web rake db:migrate"
-    - "docker-compose run --rm web rails assets:precompile"
-    - "docker-compose run --rm web bundle exec rspec --format documentation"
-    - "docker-compose down"
+    - "docker compose build"
+    - "docker compose run --rm web rake db:create"
+    - "docker compose run --rm web rake db:migrate"
+    - "docker compose run --rm web rails assets:precompile"
+    - "docker compose run --rm web bundle exec rspec --format documentation"
+    - "docker compose down"
   when: manual
 
 
@@ -133,10 +132,10 @@ test:
         echo RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES >> .env &&
         echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .env &&
         echo RAILS_MASTER_KEY=$RAILS_MASTER_KEY >> .env &&
-        docker-compose pull &&
-        docker-compose up -d &&
-        docker-compose exec -T web rails assets:precompile &&
-        docker-compose restart
+        docker compose pull &&
+        docker compose up -d &&
+        docker compose exec -T web rails assets:precompile &&
+        docker compose restart
         "
   when: manual
 
