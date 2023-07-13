@@ -1,7 +1,9 @@
 const path = require('path');
 
+const env = process.env.NODE_ENV || 'development';
+
 module.exports = {
-  test: /\.tsx?$/,
+  test: () => /\.tsx?$/ && !(env === 'production'),
   enforce: 'pre',
   include: [
     path.resolve(__dirname, 'app', 'webpacker', 'packs'),
