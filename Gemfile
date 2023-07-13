@@ -21,6 +21,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'uglifier', '>= 2.7.2'
 gem 'webpacker', '~> 5.4.3'
 
+# Add net-http gem to resolve this issue: https://github.com/ruby/net-imap/issues/16
+gem "net-http"
+
 gem 'blacklight', '7.23.0.1'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
 gem 'blacklight-marc', '>= 7.0.0'
