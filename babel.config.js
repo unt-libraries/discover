@@ -43,6 +43,12 @@ module.exports = function (api) {
           shippedProposals: true,
         },
       ],
+      isProductionEnv && [
+        require('@babel/preset-env'),
+        {
+          exclude: /^(?!.*tests\/.*$).+\.[jt]sx?$/,
+        },
+      ],
       require('@babel/preset-typescript'),
     ].filter(Boolean),
     plugins: [
