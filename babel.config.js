@@ -45,11 +45,6 @@ module.exports = function (api) {
       ],
       require('@babel/preset-typescript'),
     ].filter(Boolean),
-    exclude: [
-      isProductionEnv && [
-        /^(?!.*tests\/.*$).+\.[jt]sx?$/,
-      ],
-    ],
     plugins: [
       require('babel-plugin-macros'),
       isTestEnv && require('babel-plugin-dynamic-import-node'),
