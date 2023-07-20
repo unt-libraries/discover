@@ -5,28 +5,41 @@ class SearchBuilder < Blacklight::SearchBuilder
   include BlacklightRangeLimit::RangeLimitBuilder
   include BlacklightAdvancedSearch::AdvancedSearchBuilder
 
-  self.default_processor_chain += [:add_advanced_parse_q_to_solr, :add_advanced_search_to_solr]
-
-  ##
-  # @example Adding a new step to the processor chain
-  #   self.default_processor_chain += [:add_custom_data_to_query]
-  #
-  #   def add_custom_data_to_query(solr_parameters)
-  #     solr_parameters[:custom] = blacklight_params[:user_value]
-  #   end
-
   self.default_processor_chain += [
+    :add_advanced_parse_q_to_solr,
+    :add_advanced_search_to_solr,
+    :advanced_query_page,
     :only_home_facets,
     :modify_numbers_field_query,
+    :lucene_deftype,
   ]
+
+  def lucene_deftype(solr_parameters)
+    solr_parameters[:defType] = 'lucene'
+  end
 
   def only_home_facets(solr_parameters)
     return if search_parameters?
+    return if blacklight_params[:controller] == 'advanced'
+    solr_parameters['facet.method'] = 'enum'
+    solr_parameters.delete('stats')
+    solr_parameters.delete('stats.field')
+    solr_parameters.delete('facet.threads')
     solr_parameters['facet.field'] = blacklight_config.facet_fields.select { |_, v| v[:home] && v[:query].blank? }.keys
     # Filter query values that belong on the home page and assign filter.query
     has_query = blacklight_config.facet_fields.select { |_, v| v[:home] && v[:query].present? }.values
     solr_parameters['facet.query'] = has_query.map { |val| val.query.values.map { |v| v[:fq] } }.flatten
     solr_parameters['facet.pivot'] = []
+  end
+
+  # Modify the advanced search form, before any searches have been performed
+  def advanced_query_page(solr_parameters)
+    return if blacklight_params[:controller] != 'advanced'
+    return if search_parameters?
+    solr_parameters['facet.method'] = 'enum'
+    solr_parameters.delete('stats')
+    solr_parameters.delete('stats.field')
+    solr_parameters.delete('facet.threads')
   end
 
   # Modify the query to be more suitable for solr when searching number fields

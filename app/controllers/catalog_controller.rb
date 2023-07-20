@@ -36,6 +36,7 @@ class CatalogController < ApplicationController
       'f.building_facet.facet.limit' => -1,
       'f.shelf_facet.facet.limit' => -1,
       'facet.query' => [],
+      'facet.threads' => 20,
     }
 
     ## Class for sending and receiving requests from a search index
@@ -56,6 +57,7 @@ class CatalogController < ApplicationController
       qt: 'catalog-search',
       rows: 10,
       fq: ["suppressed:false"],
+      'facet.threads': 20,
     }
 
     # solr path which will be added to solr base url before the other solr params.
@@ -471,7 +473,12 @@ class CatalogController < ApplicationController
     # solr request handler? The one set in config[:default_solr_parameters][:qt],
     # since we aren't specifying it otherwise.
 
-    config.add_search_field 'text', label: 'All Fields'
+    config.add_search_field('text') do |field|
+      field.label = 'All Fields'
+      field.solr_local_parameters = {
+        type: 'dismax',
+      }
+    end
 
     # Now we see how to over-ride Solr request handler defaults, in this
     # case for a BL "search field", which is really a dismax aggregate
@@ -483,6 +490,7 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$title_qf',
         pf: '$title_pf',
+        type: 'dismax',
       }
     end
 
@@ -491,6 +499,7 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$creator_qf',
         pf: '$creator_pf',
+        type: 'dismax',
       }
     end
 
@@ -500,6 +509,7 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$subject_qf',
         pf: '$subject_pf',
+        type: 'dismax',
       }
     end
 
@@ -509,6 +519,7 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         qf: '$genre_qf',
         pf: '$genre_pf',
+        type: 'dismax',
       }
     end
 
@@ -517,6 +528,7 @@ class CatalogController < ApplicationController
       field.include_in_advanced_search = false
       field.solr_local_parameters = {
         df: 'call_numbers_search',
+        type: 'dismax',
       }
     end
 
@@ -526,6 +538,7 @@ class CatalogController < ApplicationController
       field.include_in_advanced_search = false
       field.solr_local_parameters = {
         df: 'sudocs_search',
+        type: 'dismax',
       }
     end
 
@@ -535,6 +548,7 @@ class CatalogController < ApplicationController
       field.include_in_advanced_search = false
       field.solr_local_parameters = {
         df: 'standard_numbers_search',
+        type: 'dismax',
       }
     end
 
@@ -544,6 +558,7 @@ class CatalogController < ApplicationController
       field.include_in_advanced_search = false
       field.solr_local_parameters = {
         df: 'control_numbers_search',
+        type: 'dismax',
       }
     end
 
