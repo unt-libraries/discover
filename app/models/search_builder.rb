@@ -8,12 +8,13 @@ class SearchBuilder < Blacklight::SearchBuilder
   self.default_processor_chain += [
     :add_advanced_parse_q_to_solr,
     :add_advanced_search_to_solr,
+    :lucene_deftype,
     :advanced_query_page,
     :only_home_facets,
     :modify_numbers_field_query,
-    :lucene_deftype,
   ]
 
+  # Fielded searches require defType=lucene, so we set it here and change it later if necessary
   def lucene_deftype(solr_parameters)
     solr_parameters[:defType] = 'lucene'
   end
@@ -25,6 +26,7 @@ class SearchBuilder < Blacklight::SearchBuilder
     solr_parameters.delete('stats')
     solr_parameters.delete('stats.field')
     solr_parameters.delete('facet.threads')
+    solr_parameters.delete('defType')
     solr_parameters['facet.field'] = blacklight_config.facet_fields.select { |_, v| v[:home] && v[:query].blank? }.keys
     # Filter query values that belong on the home page and assign filter.query
     has_query = blacklight_config.facet_fields.select { |_, v| v[:home] && v[:query].present? }.values
