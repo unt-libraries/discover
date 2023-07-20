@@ -16,6 +16,7 @@ class SearchBuilder < Blacklight::SearchBuilder
 
   # Fielded searches require defType=lucene, so we set it here and change it later if necessary
   def lucene_deftype(solr_parameters)
+    return if blacklight_params[:q].nil?
     solr_parameters[:defType] = 'lucene'
   end
 
