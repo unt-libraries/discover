@@ -218,6 +218,12 @@ const locationData = {
     linkText: 'The Spark @ Discovery Park Guide',
     url: 'https://guides.library.unt.edu/c.php?g=421156&p=7182130',
   },
+  rmkme: {
+    name: 'Discovery Park The Spark Mechanical Engineering',
+    abbr: 'The Spark @ DP',
+    linkText: 'The Spark @ Discovery Park Guide',
+    url: 'https://guides.library.unt.edu/c.php?g=421156&p=7182130',
+  },
   rst: {
     name: 'Discovery Park Library Storage',
     abbr: 'DPL Storage',
