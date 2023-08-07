@@ -39,7 +39,7 @@
     "@types/mark.js": "^8.11.8",
     "autotrack": "^2.4.1",
     "babel-loader": "^8.0",
-    "blacklight-frontend": "^7.7.0",
+    "blacklight-frontend": "^7.32.0",
     "blacklight-marc": "https://github.com/projectblacklight/blacklight-marc.git",
     "bootstrap": "^4.4.1",
     "bootstrap-tourist": "^0.3.2",

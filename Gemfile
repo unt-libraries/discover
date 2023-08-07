@@ -24,7 +24,7 @@ gem 'webpacker', '~> 5.4.3'
 # Add net-http gem to resolve this issue: https://github.com/ruby/net-imap/issues/16
 gem "net-http"
 
-gem 'blacklight', '7.23.0.1'
+gem 'blacklight', '7.33.1'
 gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
 gem 'blacklight-marc'
 gem 'blacklight_range_limit', '>= 7', '< 8'
