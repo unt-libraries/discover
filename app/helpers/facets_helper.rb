@@ -79,7 +79,7 @@ module FacetsHelper
   # @param [Blacklight::Solr::Response::Facets::FacetField] facet_field
   # @param [String] item
   def render_selected_facet_value(facet_field, item)
-    remove_href = search_action_path(filter(facet_field).remove(item))
+    remove_href = search_action_path(search_state.filter(facet_field).remove(item))
 
     if facet_field == 'resource_type_facet'
       display_value = facet_display_value(facet_field, item)

@@ -147,8 +147,8 @@ deploy:alpha:
   variables:
     FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/alpha:latest
     RAILS_PORT: 3000
-    RAILS_ENV: production
-    RAILS_SERVE_STATIC_FILES: "true"
+    RAILS_ENV: development
+    RAILS_SERVE_STATIC_FILES: "false"
 
 deploy:beta:
   extends: .deploy
