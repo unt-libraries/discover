@@ -204,13 +204,13 @@ function bindDismissBannerCookie() {
  * Similar function to what we use on III to linkify urls and email addresses in fields
  * that have a specific class.
  */
-function linkify() {
-  const linkifyFields = document.querySelectorAll('.linkify-text');
+function linkify(): void {
+  const linkifyFields: NodeListOf<HTMLElement> = document.querySelectorAll('.linkify-text');
 
-  linkifyFields.forEach((field) => {
-    const pattern = /(https?:\/\/?[\da-z.-]+\.[a-z.]{2,6})\/?/gi; // match URLs that are not already in an href attribute or inside an HTML tag
-    const emailPattern = /(\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)/gi; // match email addresses
-    let html = field.innerHTML;
+  linkifyFields.forEach((field: HTMLElement) => {
+    const pattern: RegExp = /(https?:\/\/?[\da-z.-]+\.[a-z.]{2,6})\/?/gi; // match URLs that are not already in an href attribute or inside an HTML tag
+    const emailPattern: RegExp = /(\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)/gi; // match email addresses
+    let html: string = field.innerHTML;
 
     // replace URLs
     html = html.replace(pattern, '<a class="textLink" target="_blank" rel="noopener" href="$1">$1</a>');
