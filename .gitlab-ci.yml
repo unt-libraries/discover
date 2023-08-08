@@ -129,6 +129,7 @@ test:
         echo APP_IMAGE_NAME=$FULL_IMAGE_NAME >> .env &&
         echo RAILS_PORT=$RAILS_PORT >> .env &&
         echo RAILS_ENV=$RAILS_ENV >> .env &&
+        echo NODE_ENV=$RAILS_ENV >> .env &&
         echo RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES >> .env &&
         echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .env &&
         echo RAILS_MASTER_KEY=$RAILS_MASTER_KEY >> .env &&
