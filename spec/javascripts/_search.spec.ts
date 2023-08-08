@@ -3,7 +3,7 @@ import {
   rotateSearchTips,
   initPrefilters,
   initFilters,
-} from '../_search';
+} from '../../app/webpacker/src/javascripts/_search';
 
 describe('searchSelector', () => {
   let container: HTMLElement;

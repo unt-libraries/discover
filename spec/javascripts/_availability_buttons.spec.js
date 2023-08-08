@@ -1,4 +1,4 @@
-import { checkAvailability } from '../_availability_buttons';
+import { checkAvailability } from '../../app/webpacker/src/javascripts/_availability_buttons';
 
 describe('checkAvailability', () => {
   it('should remove duplicate buttons', () => {

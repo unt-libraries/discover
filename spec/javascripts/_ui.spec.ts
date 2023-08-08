@@ -9,7 +9,7 @@ import {
   linkify,
   replaceBookCovers,
   hoverHierarchicalLinks,
-} from '../_ui';
+} from '../../app/webpacker/src/javascripts/_ui';
 
 describe('animateSearchIcon', () => {
   beforeEach(() => {

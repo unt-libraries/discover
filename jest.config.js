@@ -11,7 +11,7 @@ const config = {
   // An array of directory names to be searched recursively up from the requiring module's location
   moduleDirectories: [
     'node_modules',
-    './app/webpacker/src/javascripts',
+    './spec/javascripts',
   ],
 
   // An array of file extensions your modules use
@@ -36,7 +36,7 @@ const config = {
 
   // A list of paths to directories that Jest should use to search for files in
   roots: [
-    './app/webpacker/src/javascripts/tests',
+    './spec/javascripts',
   ],
 
   // The test environment that will be used for testing

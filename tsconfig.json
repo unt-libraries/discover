@@ -19,7 +19,7 @@
   "include": [
     "app/webpacker/packs/**/*",
     "app/webpacker/src/javascripts/**/*",
-    "spec/javascript/**/*"
+    "spec/javascripts/**/*"
   ],
   "exclude": [
     "node_modules"
