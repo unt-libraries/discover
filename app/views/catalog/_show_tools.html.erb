@@ -22,7 +22,8 @@
           <i class="fa fa-fw fa-file-alt"></i><%= link_to_request_refworks(@document) %>
         </li>
 
-        <% unless Rails.application.credentials[Rails.env.to_sym][:COVID_RESTRICTED] -%>
+        <%# TODO: add an actual "should_link_ILL" function %>
+        <% unless Rails.application.credentials[Rails.env.to_sym][:COVID_RESTRICTED] or @document[:resource_type] == 'equipment' -%>
           <li class="list-group-item show-tools-item illiad-tool" data-tool-item="illiad">
             <i class="fa fa-fw fa-file-import"></i><%= link_to_request_illiad(@document) %>
           </li>
