@@ -23,17 +23,17 @@
 
 const locationData = {
   'czm*': {
-    name: 'Chilton Media Library',
+    name: 'Media Library',
     abbr: 'Media',
     linkText: 'Media Library Directory',
-    url: 'https://library.unt.edu/media/#directory',
+    url: 'https://library.unt.edu/willis/second-floor/#directory',
     btnClass: 'media',
   },
   czmrf: {
-    name: 'Chilton Media Reference',
+    name: 'Media Reference',
   },
   czmrs: {
-    name: 'Chilton Media Reserves',
+    name: 'Media Reserves',
   },
   czwww: {
     name: 'Media Online Resources', abbr: 'Media Online', linkText: '', url: '',
@@ -642,7 +642,7 @@ const locationData = {
     statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
   xmed: {
-    name: 'Media Remote Storage',
+    name: 'Media Library Remote Storage',
     abbr: 'Media Storage',
     statusText: 'This item is located off campus and will take time for processing and delivery.',
   },
