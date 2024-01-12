@@ -30,10 +30,10 @@ const locationData = {
     btnClass: 'media',
   },
   czmrf: {
-    name: 'Media Reference',
+    name: 'Media Library Reference',
   },
   czmrs: {
-    name: 'Media Reserves',
+    name: 'Media Library Reserves',
   },
   czwww: {
     name: 'Media Online Resources', abbr: 'Media Online', linkText: '', url: '',
