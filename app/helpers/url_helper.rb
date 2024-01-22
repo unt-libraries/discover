@@ -77,7 +77,7 @@ module UrlHelper
 
   def link_to_old_catalog(document)
     record_id = document[:id]
-    text = 'View in Old Catalog'
+    text = 'View in Legacy Catalog'
     catalog_url = 'https://iii.library.unt.edu/record='
     url = "#{catalog_url}#{record_id}"
 
