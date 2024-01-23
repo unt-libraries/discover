@@ -133,9 +133,15 @@ module FacetsHelper
   end
 
   def resource_type_label(item)
-    # Advanced search results currently return an array instead of a string
-    label = item.is_a?(String) ? item.to_sym : item.first.to_sym
-    resource_type_map.dig(label, :label)
+    label = if item.is_a?(String)
+              item.to_sym
+            elsif item.is_a?(Symbol)
+              item
+            else
+              item.first.to_sym
+            end
+
+    resource_type_map[label][:label] if resource_type_map[label]
   end
 
   # Shares some overlap with /app/models/solr_document.rb#resource_type_map
