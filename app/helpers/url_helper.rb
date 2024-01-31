@@ -90,7 +90,7 @@ module UrlHelper
   end
 
   def link_to_request_refworks(document)
-    url = "http://export2refworks.library.unt.edu/processor_a.php?bib=#{document[:id]}"
+    url = "https://export2refworks.library.unt.edu/processor_a.php?bib=#{document[:id]}"
     content_tag(:span, document[:full_title], class: 'sr-only')
     text = "Add #{content_tag(:span,
                               document[:full_title], class: 'sr-only')} to Refworks".html_safe
