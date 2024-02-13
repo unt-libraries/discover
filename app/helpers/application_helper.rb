@@ -243,7 +243,7 @@ module ApplicationHelper
           if terms.count > 1
             search_string = terms.map { |key, val| "\"#{val}\"" }.join(" AND ")
             link_to("#{display}",
-                    search_catalog_url(
+                    search_action_url(
                       q: search_string,
                       search_field: 'text'
                     ),
@@ -251,7 +251,7 @@ module ApplicationHelper
             ).concat(separator)
           elsif terms.count === 1
             link_to("#{display}",
-                    search_catalog_url(
+                    search_action_url(
                       q: "\"#{terms.values.first}\"",
                       search_field: terms.keys.first,
                     ),
