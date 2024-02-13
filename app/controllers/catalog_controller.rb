@@ -288,6 +288,7 @@ class CatalogController < ApplicationController
     # solr fields to be displayed in the show (single result) view
     # The ordering of the field names is the order of the display
     # The :display property controls where in the template the field appears
+    # The :classes property adds additional classes to the field
 
     # Badges that appear on show view
     config.add_show_field 'date_added', label: 'Recently added', no_label: true,
@@ -335,9 +336,10 @@ class CatalogController < ApplicationController
     config.add_show_field 'has_more_items', if: false
     config.add_show_field 'building_locations', if: false
 
+    ## More Details
     # Summary and TOC
-    config.add_show_field 'summary_notes', label: 'Summary'
-    config.add_show_field 'toc_notes', label: 'Table of Contents', helper_method: :format_toc
+    config.add_show_field 'summary_notes', label: 'Summary', classes: 'linkify-text'
+    config.add_show_field 'toc_notes', label: 'Table of Contents', helper_method: :format_toc, classes: 'linkify-text'
 
     config.add_show_field 'author_json', label: 'Author/Creator', accessor: 'json_str_to_hash',
                                          helper_method: :json_to_links,
@@ -349,11 +351,12 @@ class CatalogController < ApplicationController
                                            helper_method: :json_to_links,
                                            link_to_facet: 'meeting_facet'
     config.add_show_field 'series_creators', label: 'Series Creators',
+                                             classes: 'linkify-text',
                                              link_to_facet: 'public_author_facet'
 
     # Language Field
-    config.add_show_field 'languages', label: 'Languages', link_to_facet: 'languages'
-    config.add_show_field 'language_notes'
+    config.add_show_field 'languages', label: 'Languages', link_to_facet: 'languages', classes: 'linkify-text'
+    config.add_show_field 'language_notes', classes: 'linkify-text'
 
     # Title Fields
     config.add_show_field 'non_truncated_title_display', label: 'Full Title'
@@ -376,12 +379,12 @@ class CatalogController < ApplicationController
                                                         accessor: 'json_str_to_array',
                                                         helper_method: :json_to_links,
                                                         link_to_facet: 'title_series_facet'
-    config.add_show_field 'variant_titles_notes', label: 'Alternate Titles'
+    config.add_show_field 'variant_titles_notes', label: 'Alternate Titles', classes: 'linkify-text'
 
     # Publication Notes Fields
-    config.add_show_field 'current_publication_frequency', label: 'Publication Frequency'
-    config.add_show_field 'former_publication_frequency'
-    config.add_show_field 'publication_date_notes'
+    config.add_show_field 'current_publication_frequency', label: 'Publication Frequency', classes: 'linkify-text'
+    config.add_show_field 'former_publication_frequency', classes: 'linkify-text'
+    config.add_show_field 'publication_date_notes', classes: 'linkify-text'
 
     # Subject Search Fields
     config.add_show_field 'subject_headings_json', label: 'Subjects',
@@ -393,65 +396,72 @@ class CatalogController < ApplicationController
                                                  helper_method: :sub_gen_json_to_links,
                                                  link_to_facet: :genre_heading_facet
 
-    config.add_show_field 'system_details'
+    config.add_show_field 'system_details', classes: 'linkify-text'
 
     # Performance Fields
-    config.add_show_field 'performers'
-    config.add_show_field 'production_credits'
-    config.add_show_field 'performance_medium'
+    config.add_show_field 'performers', classes: 'linkify-text'
+    config.add_show_field 'production_credits', classes: 'linkify-text'
+    config.add_show_field 'performance_medium', classes: 'linkify-text'
 
     # Notes Fields
-    config.add_show_field 'dissertation_notes'
-    config.add_show_field 'notes', label: 'General Notes'
-    config.add_show_field 'audience'
-    config.add_show_field 'creator_demographics'
-    config.add_show_field 'curriculum_objectives'
+    config.add_show_field 'dissertation_notes', classes: 'linkify-text'
+    config.add_show_field 'notes', label: 'General Notes', classes: 'linkify-text'
+    config.add_show_field 'audience', classes: 'linkify-text'
+    config.add_show_field 'creator_demographics', classes: 'linkify-text'
+    config.add_show_field 'curriculum_objectives', classes: 'linkify-text'
 
     # Physical Description Fields
-    config.add_show_field 'physical_description'
-    config.add_show_field 'arrangement_of_materials', label: 'Organization and Arrangement of Materials'
+    config.add_show_field 'physical_description', classes: 'linkify-text'
+    config.add_show_field 'arrangement_of_materials', label: 'Organization and Arrangement of Materials',
+                          classes: 'linkify-text'
     config.add_show_field 'physical_medium', label: 'Physical Characteristics',
                                              separator_options: {
                                                :words_connector => '; ',
                                                :two_words_connector => '; ',
                                                :last_word_connector => '; ',
-                                             }
+                                             },
+                          classes: 'linkify-text'
     config.add_show_field 'audio_characteristics', separator_options: {
-      :words_connector => '; ',
-      :two_words_connector => '; ',
-      :last_word_connector => '; ',
-    }
+                            :words_connector => '; ',
+                            :two_words_connector => '; ',
+                            :last_word_connector => '; ',
+                          },
+                          classes: 'linkify-text'
     config.add_show_field 'projection_characteristics', label: 'Film Characteristics',
                                                         separator_options: {
                                                           :words_connector => '; ',
                                                           :two_words_connector => '; ',
                                                           :last_word_connector => '; ',
-                                                        }
+                                                        },
+                          classes: 'linkify-text'
     config.add_show_field 'video_characteristics', separator_options: {
-      :words_connector => '; ',
-      :two_words_connector => '; ',
-      :last_word_connector => '; ',
-    }
+                            :words_connector => '; ',
+                            :two_words_connector => '; ',
+                            :last_word_connector => '; ',
+                          },
+                          classes: 'linkify-text'
     config.add_show_field 'digital_file_characteristics', label: 'Digital Characteristics',
                                                           separator_options: {
                                                             :words_connector => '; ',
                                                             :two_words_connector => '; ',
                                                             :last_word_connector => '; ',
-                                                          }
-    config.add_show_field 'graphic_representation'
-    config.add_show_field 'geospatial_data'
+                                                          },
+                          classes: 'linkify-text'
+    config.add_show_field 'graphic_representation', classes: 'linkify-text'
+    config.add_show_field 'geospatial_data', classes: 'linkify-text'
 
     # Call Number Fields
-    config.add_show_field 'call_numbers_display', label: 'Call Numbers'
+    config.add_show_field 'call_numbers_display', label: 'Call Numbers', classes: 'linkify-text'
     config.add_show_field 'sudocs_display', label: 'SuDocs Numbers',
+                                            classes: 'linkify-text',
                                             tooltip: 'Government Document Classification Number'
     # Standard Number Fields
-    config.add_show_field 'isbns_display', label: 'ISBNs'
-    config.add_show_field 'issns_display', label: 'ISSNs'
-    config.add_show_field 'other_standard_numbers_display', label: 'Other Standard Numbers'
-    config.add_show_field 'lccns_display', label: 'Library of Congress Control Numbers'
-    config.add_show_field 'oclc_numbers_display', label: 'OCLC Numbers'
-    config.add_show_field 'other_control_numbers_display', label: 'Other Control Numbers'
+    config.add_show_field 'isbns_display', label: 'ISBNs', classes: 'linkify-text'
+    config.add_show_field 'issns_display', label: 'ISSNs', classes: 'linkify-text'
+    config.add_show_field 'other_standard_numbers_display', label: 'Other Standard Numbers', classes: 'linkify-text'
+    config.add_show_field 'lccns_display', label: 'Library of Congress Control Numbers', classes: 'linkify-text'
+    config.add_show_field 'oclc_numbers_display', label: 'OCLC Numbers', classes: 'linkify-text'
+    config.add_show_field 'other_control_numbers_display', label: 'Other Control Numbers', classes: 'linkify-text'
 
     # Notes fields -- eventually we will have a lot more of these
 
