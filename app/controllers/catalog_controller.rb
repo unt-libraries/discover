@@ -351,11 +351,10 @@ class CatalogController < ApplicationController
                                            helper_method: :json_to_links,
                                            link_to_facet: 'meeting_facet'
     config.add_show_field 'series_creators', label: 'Series Creators',
-                                             classes: 'linkify-text',
                                              link_to_facet: 'public_author_facet'
 
     # Language Field
-    config.add_show_field 'languages', label: 'Languages', link_to_facet: 'languages', classes: 'linkify-text'
+    config.add_show_field 'languages', label: 'Languages', link_to_facet: 'languages'
     config.add_show_field 'language_notes', classes: 'linkify-text'
 
     # Title Fields
@@ -456,12 +455,12 @@ class CatalogController < ApplicationController
                                             classes: 'linkify-text',
                                             tooltip: 'Government Document Classification Number'
     # Standard Number Fields
-    config.add_show_field 'isbns_display', label: 'ISBNs', classes: 'linkify-text'
-    config.add_show_field 'issns_display', label: 'ISSNs', classes: 'linkify-text'
-    config.add_show_field 'other_standard_numbers_display', label: 'Other Standard Numbers', classes: 'linkify-text'
-    config.add_show_field 'lccns_display', label: 'Library of Congress Control Numbers', classes: 'linkify-text'
-    config.add_show_field 'oclc_numbers_display', label: 'OCLC Numbers', classes: 'linkify-text'
-    config.add_show_field 'other_control_numbers_display', label: 'Other Control Numbers', classes: 'linkify-text'
+    config.add_show_field 'isbns_display', label: 'ISBNs'
+    config.add_show_field 'issns_display', label: 'ISSNs'
+    config.add_show_field 'other_standard_numbers_display', label: 'Other Standard Numbers'
+    config.add_show_field 'lccns_display', label: 'Library of Congress Control Numbers'
+    config.add_show_field 'oclc_numbers_display', label: 'OCLC Numbers'
+    config.add_show_field 'other_control_numbers_display', label: 'Other Control Numbers'
 
     # Notes fields -- eventually we will have a lot more of these
 
