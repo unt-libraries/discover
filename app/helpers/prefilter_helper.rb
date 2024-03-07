@@ -23,7 +23,7 @@ module PrefilterHelper
             }
           },
           { 'label' => 'E-books', 'params' => { 'f[access_facet][]' => 'Online', 'f[resource_type_facet][]' => 'books' } },
-          { 'label' => 'Print Books', 'params' => { 'f[access_facet][]' => 'At+the+Library', 'f[resource_type_facet][]' => 'books' } },
+          { 'label' => 'Print Books', 'params' => { 'f[access_facet][]' => 'At the Library', 'f[resource_type_facet][]' => 'books' } },
           { 'label' => 'Juvenile Books', 'params' => { 'f[resource_type_facet][]' => 'books', 'f[shelf_facet][]' => 'Sycamore Library Juvenile Collection' } },
           { 'label' => 'Reserves', 'url' => 'https://iii.library.unt.edu/search/r' },
         ],
@@ -96,7 +96,7 @@ module PrefilterHelper
         'color' => 'lime',
         'links' => [
           { 'label' => 'Style Manuals', 'params' => { 'f[genre_heading_facet][]' => 'style-manuals' } },
-          { 'label' => 'Encyclopedias and Dictionaries', 'params' => { 'f[genre_facet][]' => 'encyclopedias-and-dictionaries!Encyclopedias+and+dictionaries' } },
+          { 'label' => 'Encyclopedias and Dictionaries', 'params' => { 'f[genre_facet][]' => 'encyclopedias-and-dictionaries!Encyclopedias and dictionaries' } },
           { 'label' => 'Online Databases', 'params' => { 'f[resource_type_facet][]' => 'online_databases' } },
         ],
       },
@@ -118,6 +118,8 @@ module PrefilterHelper
     params = link['params'] || {}
     label = link['label']
     full_url = url.present? ? url : search_action_url(params)
+    puts "**** HEY LOOK HERE ****"
+    puts full_url
 
     link_to full_url, class: "dropdown-item",
             'ga-on': 'click',
