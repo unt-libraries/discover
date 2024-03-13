@@ -39,10 +39,11 @@
     "@types/jest": "^29.5.0",
     "@types/jquery": "^3.5.16",
     "@types/mark.js": "^8.11.8",
+    "acorn": "^8.11.3",
     "autotrack": "^2.4.1",
     "babel-jest": "^29.5.0",
     "babel-loader": "^8.0",
-    "blacklight-frontend": "^7.32.0",
+    "blacklight-frontend": "^7.33.1",
     "blacklight-marc": "https://github.com/projectblacklight/blacklight-marc.git",
     "bootstrap": "^4.4.1",
     "bootstrap-tourist": "^0.3.2",
@@ -87,5 +88,8 @@
     "stylelint-config-standard": "^26.0.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3"
+  },
+  "resolutions": {
+    "acorn": "^8.11.3"
   }
 }
