@@ -8,10 +8,6 @@ class CatalogController < ApplicationController
 
   include Blacklight::Marc::Catalog
 
-  def search_action_url(options = {})
-    options[:protocol] = request.headers['X-Forwarded-Proto'] || request.protocol
-    super options
-  end
 
   # Handle requests with an invalid date range
   rescue_from BlacklightRangeLimit::InvalidRange do

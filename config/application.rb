@@ -1,4 +1,5 @@
 require_relative 'boot'
+require_relative '../lib/middleware/forwarded_proto'
 
 require 'rails/all'
 
@@ -18,6 +19,8 @@ module Discover
     config.active_record.yaml_column_permitted_classes = [HashWithIndifferentAccess]
 
     # Force SSL on all environments, can be overridden in environment config files.
+
+    config.middleware.use ForwardedProto
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
