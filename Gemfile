@@ -3,44 +3,44 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '~> 2.7.8'
 
-gem 'bootsnap', '>= 1.1.0', require: false
+gem 'bootsnap', '>= 1.17.1', require: false
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 gem 'httparty', '~> 0.17.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+gem 'jbuilder', '~> 2.11.5'
 # Use PostgreSQL as the database for Active Record
-gem 'pg', '~> 1.5.3'
-gem 'puma', '~> 4.2.1'
-gem 'rails', '~> 5.2.8.1'
-gem 'rsolr', '>= 1.0', '< 3'
+gem 'pg', '~> 1.5.4'
+gem 'puma', '~> 6.0'
+gem 'rails', '~> 6.1'
+gem 'rsolr', '~> 2.5'
 gem 'rubocop-airbnb'
 # gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'uglifier', '>= 2.7.2'
-gem 'webpacker', '~> 5.4.3'
+gem 'uglifier', '~> 4.2'
+gem 'webpacker', '~> 5.4.4'
 
 # Add net-http gem to resolve this issue: https://github.com/ruby/net-imap/issues/16
 gem "net-http"
 
-gem 'blacklight', '7.33.1'
-gem 'blacklight_advanced_search', '>= 7.0.0', '< 8'
-gem 'blacklight-marc'
-gem 'blacklight_range_limit', '>= 7', '< 8'
-# gem 'view_component', '= 2.82.0' # 3.0.0 required by blacklight does not work.
+gem 'blacklight', '7.37.0'
+gem 'blacklight_advanced_search', '~> 8.0.0.alpha'
+gem 'blacklight-marc', '~> 8.0'
+gem 'blacklight_range_limit', '8.1.0' # Something breaks in the views with 8.2.0 through 8.5.0
+gem 'view_component', '>= 2.82.0', '< 4' # 4.x does not work as of 1/23/24
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'meta_request'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
+  gem 'web-console', '~> 4.2'
 end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara'
-  gem 'rspec-rails', '~> 4.0.0'
+  gem 'capybara', '~> 3'
+  gem 'rspec-rails', '~> 5.0'
   gem 'solr_wrapper', '>= 0.3'
+  gem 'rails-controller-testing'
 end

@@ -43,7 +43,7 @@
     "autotrack": "^2.4.1",
     "babel-jest": "^29.5.0",
     "babel-loader": "^8.0",
-    "blacklight-frontend": "^7.33.1",
+    "blacklight-frontend": "^7.37.0",
     "blacklight-marc": "https://github.com/projectblacklight/blacklight-marc.git",
     "bootstrap": "^4.4.1",
     "bootstrap-tourist": "^0.3.2",
