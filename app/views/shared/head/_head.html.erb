@@ -44,7 +44,6 @@
 
   <!-- Head scripts -->
   <%= javascript_packs_with_chunks_tag 'priority', 'data-turbolinks-track': 'reload', async: true %>
-  <%= javascript_packs_with_chunks_tag 'analytics', 'data-turbolinks-track': 'reload', async: true %>
   <script src="https://kit.fontawesome.com/5f309fc1bc.js" crossorigin="anonymous" async="async" data-mutate-approach="sync"></script>
 
   <%= content_for :head_scripts %>
@@ -54,4 +53,13 @@
 
   <%= csrf_meta_tags %>
   <%= content_for(:head) %>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials[Rails.env.to_sym][:google_analytics] %>"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', '<%= Rails.application.credentials[Rails.env.to_sym][:google_analytics] %>');
+  </script>
 </head>

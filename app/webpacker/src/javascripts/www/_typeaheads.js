@@ -2,7 +2,6 @@
 import $ from 'jquery';
 import 'corejs-typeahead/dist/typeahead.jquery';
 import Bloodhound from 'corejs-typeahead/dist/bloodhound';
-import { allowTracking } from '../_analytics';
 
 const has = Object.prototype.hasOwnProperty;
 
@@ -71,16 +70,7 @@ export default function sidebarTypeaheads() {
     })
       .on('typeahead:selected', (event, datum) => {
         const path = 'https://guides.library.unt.edu/sb.php?subject_id=';
-
-        if (allowTracking()) {
-          ga('send', 'event', 'link - typeahead', 'subjects', datum.name, {
-            hitCallback: window.libutils.actWithTimeOut(() => {
-              window.libutils.goToSubjectUrl(datum, path);
-            }),
-          });
-        } else {
-          window.libutils.goToSubjectUrl(datum, path);
-        }
+        window.libutils.goToSubjectUrl(datum, path);
       });
 
     // Setup typeahead for database subject listing.
@@ -100,16 +90,7 @@ export default function sidebarTypeaheads() {
     })
       .on('typeahead:selected', (event, datum) => {
         const path = 'https://guides.library.unt.edu/az.php?s=';
-
-        if (allowTracking()) {
-          ga('send', 'event', 'link - typeahead', 'subjects - databases', datum.name, {
-            hitCallback: window.libutils.actWithTimeOut(() => {
-              window.libutils.goToSubjectUrl(datum, path);
-            }),
-          });
-        } else {
-          window.libutils.goToSubjectUrl(datum, path);
-        }
+        window.libutils.goToSubjectUrl(datum, path);
       });
   }
   // End subject listings
@@ -224,15 +205,7 @@ export default function sidebarTypeaheads() {
         $(this).attr('placeholder', 'type for suggestions');
       })
       .on('typeahead:selected', (event, datum) => {
-        if (allowTracking()) {
-          ga('send', 'event', 'link - typeahead', 'database', datum.name, {
-            hitCallback: window.libutils.actWithTimeOut(() => {
-              window.libutils.goToUrl(datum);
-            }),
-          });
-        } else {
-          window.libutils.goToUrl(datum);
-        }
+        window.libutils.goToUrl(datum);
       });
 
     const $recentDBs = $('#recent-dbs');
@@ -326,15 +299,7 @@ export default function sidebarTypeaheads() {
       },
     })
       .on('typeahead:selected', (event, datum) => {
-        if (allowTracking()) {
-          ga('send', 'event', 'link - typeahead', 'courses', datum.name, {
-            hitCallback: window.libutils.actWithTimeOut(() => {
-              window.libutils.goToUrl(datum);
-            }),
-          });
-        } else {
-          window.libutils.goToUrl(datum);
-        }
+        window.libutils.goToUrl(datum);
       });
     // End student helper typeahead (has multiple bloodhound sources)
   }

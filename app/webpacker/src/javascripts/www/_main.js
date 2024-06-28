@@ -1,7 +1,6 @@
 // Modified for Discover from unt-jekyll-theme/_assets/_scripts/main.js
 import size from 'lodash/size';
 import words from 'lodash/words';
-import { allowTracking } from '../_analytics';
 
 window.libutils = {};
 
@@ -86,33 +85,4 @@ export default function initDOM() {
     // remove hashes in the URL.
     window.history.pushState('', document.title, window.location.pathname + window.location.search);
   });
-
-  // Search Form Analytics Tracking
-  const searchForms = document.querySelectorAll('form.search');
-  for (let i = 0; i < searchForms.length; i += 1) {
-    // eslint-disable-next-line no-loop-func
-    searchForms[i].addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      const $this = $(this);
-      const category = $this.data('ga-category') || 'form - search - untagged';
-      const action = $this.find('input.query').val() || 'empty';
-      const label = $this.data('ga-label') || document.location.href;
-      const value = size(words(action)) || 0;
-
-      function submitForm() {
-        e.currentTarget.submit();
-      }
-
-      if (allowTracking()) {
-        ga('send', 'event', category, action, label, value, {
-          hitCallback: window.libutils.actWithTimeOut(() => {
-            submitForm();
-          }),
-        });
-      } else {
-        submitForm();
-      }
-    });
-  }
 }

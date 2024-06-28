@@ -1,5 +1,4 @@
 import Tour from 'bootstrap-tourist';
-import { allowTracking } from './_analytics';
 
 const tourPromptTemplate = `<div class="popover" role="tooltip">
   <div class="arrow"></div>
@@ -155,11 +154,6 @@ function skipTour(tourName: string): void {
   const newSkips = parseInt(skips, 10) + 1;
   localStorage.setItem(`${tourName}_skips`, newSkips.toString());
   removeTourFromLinks();
-
-  if (allowTracking()) {
-    // @ts-ignore
-    window.ga('send', 'event', 'Tour', 'Tour Skipped', tourName);
-  }
 }
 
 function initTour(): void {
@@ -181,13 +175,6 @@ function initTour(): void {
     });
 
     searchResultsTour.restart();
-
-    if (allowTracking()) {
-      // @ts-ignore
-      window.ga('send', 'event', 'Tour', 'Tour Presented', 'searchResultsTour', {
-        nonInteraction: true,
-      });
-    }
 
     // Dismiss the tour and increment "skips" if they click somewhere other than tour intro
     document.body.addEventListener('click', function handleClick(e: MouseEvent) {
