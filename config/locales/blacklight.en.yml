@@ -16,7 +16,7 @@ en:
           including books, media, music, and more. Search for what is important to you, and then
           refine your results using <span class=\"d-none d-sm-inline\">the filters that appear to
           the left-hand side of the screen</span><span class=\"d-sm-none\">filters that appear when
-          tapping the \"Limit your search <i class=\"fas fa-bars\"></i>\" bar, above</span>.</p>
+          tapping the \"Filter your search <i class=\"fas fa-bars\"></i>\" bar, above</span>.</p>
         <p>Not sure where to begin? Start with a popular filter <span class=\"d-none d-sm-inline\">
           on the left</span>, or <a href=\"/?utf8=✓&q=&search_field=text&tour=true\">
           browse the rest of the options here</a>. Discover does not search inside books/journals;
@@ -130,7 +130,11 @@ en:
         previous: 'PREV'
         next: 'NEXT'
       documents:
+        aria:
+          limit_search: 'filter your search'
         counter: 'Result #%{counter}:'
+      facets:
+        title: 'Filter your search'
       zero_results:
         modify_search: "Try modifying your search"
         check_spelling: "Check the spelling of your query"
