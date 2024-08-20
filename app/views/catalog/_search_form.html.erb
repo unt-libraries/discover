@@ -37,7 +37,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row justify-content-between">
     <div id="searchBarTips" class="col order-first mt-3 d-none d-sm-block">
       <% t('blacklight.search.tips').shuffle.each_with_index do | item, index | %>
         <div class="search-tip text-muted font-italic <%= 'current-tip' if index == 0 %>"><strong>Tip:</strong> <%= item.html_safe %></div>
@@ -47,6 +47,11 @@
     <div class="col-auto order-last mt-3">
       <%# TODO: add existing search state to advanced search %>
       <%= link_to 'Advanced search', blacklight_advanced_search_engine.advanced_search_path, class: 'advanced_search'%>
+    </div>
+    <div class="col-auto order-last mt-3 d-sm-none d-inline">
+      <a class="" href="#facet-panel-collapse" data-toggle="collapse" aria-controls="facet-panel-collapse" aria-expanded="false" aria-label="Toggle filters">
+        Apply search filters
+      </a>
     </div>
   </div>
 
