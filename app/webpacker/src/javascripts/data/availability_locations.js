@@ -102,17 +102,17 @@ const locationData = {
     name: 'Frisco Landing The Spark',
     abbr: 'The Spark @ Frisco',
     linkText: 'The Spark @ Frisco Guide',
-    url: 'https://guides.library.unt.edu/c.php?g=421156&p=9378118',
+    url: 'https://guides.library.unt.edu/spark',
   },
   flind: {
     name: 'Frisco Landing Spark Technology Desk',
     linkText: 'The Spark @ Frisco Guide',
-    url: 'https://guides.library.unt.edu/c.php?g=421156&p=9378118',
+    url: 'https://guides.library.unt.edu/spark',
   },
   flix: {
     name: 'Frisco Landing Tech Desk 2 Week Laptops',
     linkText: 'The Spark @ Frisco Guide',
-    url: 'https://guides.library.unt.edu/c.php?g=421156&p=9378118',
+    url: 'https://guides.library.unt.edu/spark',
   },
   gwww: {
     name: 'Govt Online Resources', abbr: ' Govt Online', linkText: '', url: '',
@@ -212,17 +212,23 @@ const locationData = {
   rfbks: {
     name: 'Discovery Park Library Featured Books',
   },
+  rind: {
+    name: 'Discovery Park Spark Technology Desk',
+    abbr: 'The Spark @ DP',
+    linkText: 'The Spark @ Discovery Park Guide',
+    url: 'https://guides.library.unt.edu/spark',
+  },
   rmak: {
     name: 'The Spark @ Discovery Park',
     abbr: 'The Spark @ DP',
     linkText: 'The Spark @ Discovery Park Guide',
-    url: 'https://guides.library.unt.edu/c.php?g=421156&p=7182130',
+    url: 'https://guides.library.unt.edu/spark',
   },
   rmkme: {
     name: 'Discovery Park The Spark Mechanical Engineering',
     abbr: 'The Spark @ DP',
     linkText: 'The Spark @ Discovery Park Guide',
-    url: 'https://guides.library.unt.edu/c.php?g=421156&p=7182130',
+    url: 'https://guides.library.unt.edu/spark',
   },
   rst: {
     name: 'Discovery Park Library Storage',
@@ -428,7 +434,7 @@ const locationData = {
     name: 'The Spark @ Willis Library',
     abbr: 'The Spark',
     linkText: 'The Spark Guide',
-    url: 'https://guides.library.unt.edu/spark/overview',
+    url: 'https://guides.library.unt.edu/spark',
   },
   w1mdc: {
     name: 'Willis 1FL Monthly Display',
