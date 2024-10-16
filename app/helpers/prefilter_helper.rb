@@ -117,9 +117,7 @@ module PrefilterHelper
     url = link['url'] || ''
     params = link['params'] || {}
     label = link['label']
-    full_url = url.present? ? url : search_action_url(params)
-    puts "**** HEY LOOK HERE ****"
-    puts full_url
+    full_url = url.present? ? url : search_catalog_url(params)
 
     link_to full_url, class: "dropdown-item",
             'ga-on': 'click',

@@ -9,7 +9,7 @@
 
 <div class="limit_content range_limit <%= field_name %>-config blrl-plot-config current">
   <% if has_selected_range_limit?(field_name) %>
-    <%= link_to search_action_url(remove_range_param(field_name).except(:controller, :action)),
+    <%= link_to search_catalog_url(remove_range_param(field_name).except(:controller, :action)),
                 :class => "selected list-group-item list-group-item-action facet-values-item current",
                 :title => t('blacklight.range_limit.remove_limit') do %>
       <span class="selected facet-label">
@@ -72,7 +72,7 @@
 
     <% unless request.xhr? %>
       <% if (stats = stats_for_field(field_name)) && stats["missing"] > 0 %>
-        <%= link_to search_action_url(add_range_missing(field_name).except(:controller, :action)),
+        <%= link_to search_catalog_url(add_range_missing(field_name).except(:controller, :action)),
                     class: 'list-group-item list-group-item-action facet-values-item',
                     'ga-on': 'click',
                     'ga-event-category': 'facet selected - sidebar',
