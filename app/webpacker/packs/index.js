@@ -1,22 +1,28 @@
+// import "blacklight-frontend/app/assets/javascripts/blacklight/blacklight";
+import BlacklightRangeLimit from 'blacklight-range-limit/app/assets/javascripts/blacklight_range_limit/blacklight_range_limit.esm';
+import 'blacklight-range-limit/vendor/assets/javascripts/bootstrap-slider';
+// jquery.canvaswrapper must come before the rest of Flot.
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.canvaswrapper';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.colorhelpers';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.event.drag';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot.browser';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot.drawSeries';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot.hover';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot.saturated';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot.selection';
+import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot.uiConstants';
+import 'bootstrap/js/dist/collapse';
 import { checkAvailability } from '../src/javascripts/_availability_buttons';
 import { setDocHistory, getDocHistory } from '../src/javascripts/_history';
 import { rotateSearchTips, searchSelector, initFilters } from '../src/javascripts/_search';
 import { initTour } from '../src/javascripts/_tour';
 import { replaceBookCovers } from '../src/javascripts/_ui';
-import 'flot/source/jquery.canvaswrapper';
-import 'flot/source/jquery.colorhelpers';
-import 'flot/lib/jquery.event.drag';
-import 'flot/source/jquery.flot';
-import 'flot/source/jquery.flot.browser';
-import 'flot/source/jquery.flot.saturated';
-import 'flot/source/jquery.flot.drawSeries';
-import 'flot/source/jquery.flot.hover';
-import 'flot/source/jquery.flot.uiConstants';
-import 'flot/source/jquery.flot.selection';
-import '../src/javascripts/vendor/bootstrap-slider';
-import '../src/javascripts/blacklight_range_limit/range_limit_distro_facets';
-import '../src/javascripts/blacklight_range_limit/range_limit_shared';
-import '../src/javascripts/blacklight_range_limit/range_limit_slider';
+
+Blacklight.onLoad(() => {
+  const modalSelector = Blacklight.modal?.modalSelector || Blacklight.Modal.modalSelector;
+  BlacklightRangeLimit.initialize(modalSelector);
+});
 
 document.addEventListener('turbolinks:load', () => {
   checkAvailability();

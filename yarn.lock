@@ -2813,10 +2813,10 @@ bl@^4.0.3:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-blacklight-frontend@^7.33.1:
-  version "7.33.1"
-  resolved "https://registry.yarnpkg.com/blacklight-frontend/-/blacklight-frontend-7.33.1.tgz#fd1728f7635b2fccd9be8623d56432f576abcc30"
-  integrity sha512-lYEg5Rr9QfcBwMdyAhnr8yFx86mSPp77oSRB4DpgXWyk4njfAhllkWNQOqodfk0IRMqsOBV0odTAYOcjUXNOFg==
+blacklight-frontend@^7.37.0:
+  version "7.38.0"
+  resolved "https://registry.yarnpkg.com/blacklight-frontend/-/blacklight-frontend-7.38.0.tgz#0dce6531602c7bb3a0e3c5f99cea788158d19401"
+  integrity sha512-zsX+cMgeuUuKxwx1FydE4H1XzkTJoywmwGOznllyVYCatIlG2xCVM8IFbuv+VB9Qwoss9z0MjH87l2nMnSPKIA==
   dependencies:
     bootstrap ">=4.3.1 <6.0.0"
     jquery "^3.5.1"
@@ -2825,6 +2825,11 @@ blacklight-frontend@^7.33.1:
 "blacklight-marc@https://github.com/projectblacklight/blacklight-marc.git":
   version "0.0.0"
   resolved "https://github.com/projectblacklight/blacklight-marc.git#2b9da5dfb0f58fc13aed5557a87b27813ad302b4"
+
+blacklight-range-limit@8.5.0:
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/blacklight-range-limit/-/blacklight-range-limit-8.5.0.tgz#91980e8e88a921b4703b2de23dded8653bfcdc71"
+  integrity sha512-SOiHzdQ5HUJQqZHH9Wzhzbn6wgDpVZ8kGZUkF1J1PadSWTnAANQbxHZtazLgTU1SMFC3gYcty4tGrMYecTJ+gA==
 
 bluebird@^3.5.5:
   version "3.7.2"
@@ -5114,11 +5119,6 @@ flatten@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
-
-flot@^4.2.1:
-  version "4.2.6"
-  resolved "https://registry.yarnpkg.com/flot/-/flot-4.2.6.tgz#f2ea48270099567a6ccf8b5ab1ef18a5b65f356d"
-  integrity sha512-Iz4HCet1ZBQnjGwECz4jseD1zMnh7m2XJIMI6A62l8h2SeceLYOEmYGNQto1XhkSM9fUmqzyKhWwJ+RolWLydg==
 
 flush-write-stream@^1.0.0:
   version "1.1.1"
