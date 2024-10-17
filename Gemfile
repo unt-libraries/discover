@@ -25,7 +25,7 @@ gem 'webpacker', '~> 5.4.4'
 gem "net-http"
 
 gem 'blacklight', '7.37.0'
-gem 'blacklight_advanced_search', '~> 8.0.0.alpha'
+gem 'blacklight_advanced_search', '~> 7.0'
 gem 'blacklight-marc', '~> 8.0'
 gem 'blacklight_range_limit', '8.1.0' # Something breaks in the views with 8.2.0 through 8.5.0
 gem 'view_component', '>= 2.82.0', '< 4' # 4.x does not work as of 1/23/24
