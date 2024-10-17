@@ -75,7 +75,9 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   config.hosts = [
-    "localhost",
-    "local.library.unt.edu",
+    IPAddr.new("0.0.0.0/0"),        # All IPv4 addresses.
+    IPAddr.new("::/0"),             # All IPv6 addresses.
+    "localhost",                    # The localhost reserved domain.
+    *Rails.application.credentials[Rails.env.to_sym][:RAILS_DEVELOPMENT_HOSTS].split(",")  # Additional comma-separated hosts for development.
   ]
 end
