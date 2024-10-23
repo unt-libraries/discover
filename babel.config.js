@@ -33,7 +33,7 @@ module.exports = function (api) {
       (isProductionEnv || isDevelopmentEnv) && [
         require('@babel/preset-env'),
         {
-          debug: true,
+          debug: isDevelopmentEnv,
           modules: false,
           useBuiltIns: 'usage',
           corejs: {
