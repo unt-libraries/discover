@@ -48,6 +48,7 @@
     "blacklight-range-limit": "8.5.0",
     "bootstrap": "^4.4.1",
     "bootstrap-tourist": "https://github.com/unt-libraries/bootstrap-tourist.git#7984374",
+    "brotli-webpack-plugin": "^1.1.0",
     "browser-update": "^3.3.40",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^6.1.2",
