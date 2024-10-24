@@ -24,7 +24,7 @@ gem 'webpacker', '~> 5.4.4'
 # Add net-http gem to resolve this issue: https://github.com/ruby/net-imap/issues/16
 gem "net-http"
 
-gem 'blacklight', '7.37.0'
+gem 'blacklight', '7.38.0'
 gem 'blacklight_advanced_search', '~> 7.0'
 gem 'blacklight-marc', '~> 8.0'
 gem 'blacklight_range_limit', '8.1.0' # Something breaks in the views with 8.2.0 through 8.5.0
