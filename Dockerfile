@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
   shared-mime-info
 
 ENV NODE_OPTIONS=--openssl-legacy-provider
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 RUN apt-get update && apt-get install -y nodejs
 RUN corepack enable
 
@@ -47,7 +48,8 @@ RUN apt-get update && apt-get install -y \
   build-essential
 
 ENV NODE_OPTIONS=--openssl-legacy-provider
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+ENV COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 RUN apt-get update && apt-get install -y nodejs
 RUN corepack enable
 

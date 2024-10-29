@@ -1,7 +1,8 @@
 const { environment } = require('@rails/webpacker');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
-const BrotliPlugin = require('brotli-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+const zlib = require("zlib");
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path = require('path');
 
@@ -49,7 +50,16 @@ environment.plugins.append('CleanWebpack', new CleanWebpackPlugin());
 // Strip all locales except 'en' from Moment.js
 environment.plugins.append('MomentLocales', new MomentLocalesPlugin());
 
-environment.plugins.append('BrotliPlugin', new BrotliPlugin());
+environment.plugins.append('CompressionPlugin', new CompressionPlugin({
+  filename: "[path][base].br",
+  algorithm: 'brotliCompress',
+  test: /\.(js|css|html|svg)$/,
+  compressionOptions: {
+    params: {
+      [zlib.constants.BROTLI_PARAM_QUALITY]: 9,
+    },
+  },
+}));
 
 environment.plugins.append(
   'ForkTsCheckerWebpackPlugin',
