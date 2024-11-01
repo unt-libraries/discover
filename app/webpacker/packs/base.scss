@@ -66,13 +66,6 @@
 @import '../src/stylesheets/blacklight/blacklight_range_limit';
 @import '../src/stylesheets/blacklight/blacklight_range_limit_slider';
 
-// Bootstrap tourist
-@import '~bootstrap-tourist/bootstrap-tourist';
-
-// Utilities
-@import '../src/stylesheets/utilities/responsive-positions';
-@import '../src/stylesheets/utilities/responsive-widths';
-
 // UNT library
 @import '../src/stylesheets/unt/buttons';
 @import '../src/stylesheets/unt/content';
@@ -108,4 +101,3 @@
 @import '../src/stylesheets/discover/sidebar';
 @import '../src/stylesheets/discover/thumbnail';
 @import '../src/stylesheets/discover/tooltips';
-@import '../src/stylesheets/discover/tour';
