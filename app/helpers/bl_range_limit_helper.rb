@@ -1,7 +1,7 @@
 # Would prefer to override BlacklightRangeLimit::RangeLimitHelper, but the way it is
 # implemented does not allow to do that easily.
 module BlRangeLimitHelper
-  include BlacklightRangeLimit::RangeLimitHelper
+  include RangeLimitHelper
   include Blacklight::FacetsHelperBehavior
 
   # type is 'min' or 'max'

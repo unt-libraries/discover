@@ -9,10 +9,7 @@ Bundler.require(*Rails.groups)
 module Discover
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 5.2
-    # TODO: This is necessary to load Zeitwerk. Can remove when load_defaults version >= 6.0
-    # TODO: look into zeitwork, things like range limit don't seem to be loading correctly with it enabled
-    # config.autoloader = :zeitwerk
+    config.load_defaults 6.1
 
     # This tells Rails to use our routes for error handling instead of static error pages
     config.exceptions_app = routes
