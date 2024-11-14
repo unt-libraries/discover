@@ -580,10 +580,11 @@ const locationData = {
     name: 'Willis 4FL Special Collections Reference',
   },
   'wex*': {
-    name: 'Willis Exhibition',
-    abbr: 'Willis Exhibition',
-    linkText: 'Willis Library 1st Floor Directory',
-    url: 'https://library.unt.edu/willis/first-floor/#directory',
+    name: 'Library Temporary Event',
+    abbr: 'Library Temporary Event',
+    modalText: 'This item is available but currently in use for an event. '
+      + 'Please use the Request Pickup button to have the item pulled and delivered to your '
+      + 'preferred pickup location. Please see a library services desk for more information.',
     btnClass: 'willis',
   },
   wgrc: {

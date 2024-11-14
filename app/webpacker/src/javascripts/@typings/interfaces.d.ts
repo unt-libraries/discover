@@ -14,6 +14,7 @@ interface LocationData {
     url?: string;
     btnClass?: string;
     statusText?: string;
+    modalText?: string;
   };
 }
 

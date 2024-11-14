@@ -11,7 +11,6 @@ import {
   updateAeonRequestUrl,
 } from './_availability_util';
 
-
 /**
  * FUNCTIONS FOR `SHOW` VIEWS
  */
@@ -31,10 +30,43 @@ function createLocationLink(itemLocation) {
     newEl.href = locationData.url;
     newEl.title = linkText;
     newEl.target = '_blank';
-    newEl.setAttribute('ga-on', 'click');
-    newEl.setAttribute('ga-event-category', 'Bib Record');
-    newEl.setAttribute('ga-event-action', 'Availability location link click');
-    newEl.setAttribute('ga-event-label', locationText);
+    return newEl;
+  }
+
+  if (locationData && locationData.modalText) {
+    const newEl = document.createElement('a');
+    const elIcon = document.createElement('i');
+    const modalId = `modal${Math.floor(Math.random() * 1000)}`;
+    newEl.textContent = locationText;
+    newEl.href = '#';
+    newEl.setAttribute('data-toggle', 'modal');
+    newEl.setAttribute('data-target', `#${modalId}`);
+    elIcon.classList.add('icon', 'fal', `fa-info-circle`);
+    elIcon.style.marginRight = '0.25em';
+    newEl.prepend(elIcon);
+
+    const modal = document.createElement('div');
+    modal.classList.add('modal', 'fade');
+    modal.id = modalId;
+    modal.setAttribute('tabindex', '-1');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-labelledby', `${modalId}Label`);
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="${modalId}Label">${linkText}</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">${locationData.modalText}</div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
     return newEl;
   }
   const newEl = document.createElement('span');

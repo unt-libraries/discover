@@ -105,8 +105,16 @@ function updateStatusElement(itemEl: HTMLElement, item: ApiEntry | null = null):
       availabilityBtn?.setAttribute('ga-event-label', availabilityBtn.innerText);
 
       // Check for location tooltip that would override status tooltip
-      if (locationData.statusText && availabilityBtn) {
-        availabilityBtn.dataset.title = locationData.statusText;
+      if ((locationData.statusText || locationData.modalText) && availabilityBtn) {
+        if (locationData.modalText) {
+          availabilityBtn.dataset.title = locationData.modalText;
+          const elIcon = document.createElement('i');
+          elIcon.classList.add('icon', 'fal', `fa-info-circle`);
+          elIcon.style.marginLeft = '0.25em';
+          availabilityBtn?.append(elIcon);
+        } else {
+          availabilityBtn.dataset.title = locationData.statusText;
+        }
       }
       if (locationData.btnClass) availabilityBtn?.classList.add(`location-${locationData.btnClass}`);
     }
