@@ -1,0 +1,73 @@
+<%# Main navigation bar: Dropdowns, mega menu, desktop, mobile %>
+<%
+  html_classes = load_yaml_data('www/html_classes')['navbars']['main']
+  navigation = load_yaml_data('www/navigation')
+%>
+
+<% main_navbar_icon = capture do  %>
+  <%= render partial: 'shared/www/utils/svg', locals: {
+    use: "svg-caret-down",
+    viewBox: "0 0 320 512",
+    decorative: true,
+    classes: html_classes['dropdown_svg'],
+  } %>
+<% end %>
+
+<nav id="primary-navigation"
+     class="<%= html_classes['container'] %>"
+     aria-label="Gateway pages to library services">
+  <div id="desktop-links"
+       class="<%= html_classes['navbar'] %>">
+    <div class="<%= html_classes['inner_container'] %>"
+         id="desktop-links-inner">
+      <nav id="main-navbar"
+           class="<%= html_classes['nav'] %>"
+           aria-label="Main Navigation">
+        <div class="<%= html_classes['shim'] %>"></div>
+        <div class="<%= html_classes['nav_inner'] %>"
+             id="main-navbar-nav">
+          <% navigation['main_bar'].each_with_index do | entry, index | %>
+            <% if entry['type'] == 'link' %>
+              <%# Regular link %>
+              <a id="main-bar-item-<%= index %>"
+                 class="<%= html_classes['nav_link'] %> <%= entry['classes'] %>"
+                 href="<%= entry['url'] %>">
+                <%= entry['text'] %>
+              </a>
+            <% end %>
+            <% if entry['type'] == 'dropdown' %>
+              <%# Dropdown link %>
+              <div class="<%= html_classes['dropdown_wrapper'] %>"
+                   id="main-bar-item-<%= index %>-dropdown">
+                <a href="<%= entry['url'] %>"
+                   id="main-bar-item-<%= index %>"
+                   class="<%= html_classes['nav_link'] %> <%= entry['classes'] %>"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false"
+                   role="button">
+                  <%= entry['text'] %>
+                  <%= main_navbar_icon %>
+                </a>
+              </div>
+            <% end %>
+            <% if entry['type'] == 'mega-menu' %>
+              <%# Mega menus link %>
+              <div class="<%= html_classes['mega_menu_wrapper'] %>"
+                   id="main-bar-item-<%= index %>-dropdown">
+                <a href="<%= entry['url'] %>"
+                   id="main-bar-item-<%= index %>-caret"
+                   class="<%= html_classes['nav_link'] %> <%= entry['classes'] %>"
+                   data-bs-toggle="dropdown"
+                   aria-expanded="false"
+                   role="button">
+                  <%= entry['text'] %>
+                  <%= main_navbar_icon %>
+                </a>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </nav>
+    </div>
+  </div>
+</nav>

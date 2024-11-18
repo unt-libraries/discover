@@ -3,24 +3,16 @@
 <%# TODO: www renders common SVG symbols here for performance %>
 <%= render partial: 'shared/head/head' %>
 <body data-blacklight-context="<%= action_name %>" class="<%= render_body_class %>">
-  <%= render '/shared/chat-widget' %>
-
-  <!--[if lte IE 10]>
-  <p class="browser-upgrade">Your browser is <strong>outdated</strong>. This site will not function in it. Please <a href="https://browsehappy.com/">upgrade</a> to improve your experience and security.</p>
-  <![endif]-->
-
-  <nav id="skip-link" role="navigation" aria-label="<%= t('blacklight.skip_links.label') %>">
-    <%= link_to t('blacklight.skip_links.search_field'), '#q', class: 'sr-only sr-only-focusable skip-link rounded-bottom py-2 px-3', data: { turbolinks: 'false' } %>
-    <%= link_to t('blacklight.skip_links.main_content'), '#main-container', class: 'sr-only sr-only-focusable skip-link rounded-bottom py-2 px-3', data: { turbolinks: 'false' } %>
-    <%= content_for(:skip_links) %>
-  </nav>
-
-  <%= render partial: 'shared/header/header' %>
-
-  <%# Temporary banner to display on the site %>
+  <%= render 'shared/www/utils/svg-symbols' %>
+  <%= render 'shared/www/offcanvas/search' %>
+  <%= render 'shared/www/header/skip-links' %>
   <% if Rails.env.production? or Rails.env.development? %>
-    <%= render 'shared/announcement_banner' %>
+    <%= render 'shared/www/header/global-alert' %>
   <% end %>
+  <%= render 'shared/www/header/top-bar' %>
+  <%= render 'shared/www/header/header' %>
+  <%= render 'shared/www/header/navbar-primary' %>
+  <%= render 'shared/www/header/navbar-secondary' %>
 
   <%= render partial: 'shared/flash_msg', layout: 'shared/flash_messages' %>
 
@@ -32,15 +24,9 @@
     </div>
   </div>
 
-  <%= render partial: 'shared/drawer/unt' %>
-  <%= render partial: 'shared/drawer/libraries' %>
-  <%= render partial: 'shared/drawer/common' %>
-  <%= render partial: 'shared/drawer/search' %>
-  <%= render partial: 'shared/drawer/main-menu-scrolled-mobile' %>
-  <%= render partial: 'shared/footer/social' %>
-  <%= render partial: 'shared/footer/footer' %>
-  <%= render partial: 'shared/footer/colophon' %>
-  <%= render partial: 'shared/footer/scripts' %>
-  <%= render partial: 'shared/modal' %>
+  <%= render 'shared/www/footer/footer' %>
+  <%= render 'shared/www/offcanvas/chat' %>
+
+  <%= render 'shared/footer/scripts' %>
 </body>
 </html>

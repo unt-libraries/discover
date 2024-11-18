@@ -1,0 +1,78 @@
+<%# Topmost navigation bar %>
+<%
+  html_classes = load_yaml_data('www/html_classes')['top_bar']
+  top_bar = load_yaml_data('www/navigation')['top_bar']
+  site = load_yaml_data('www/config')
+  ask_us_url = "https://library.unt.edu/ask-us/"
+%>
+
+<nav class="<%= html_classes['container'] %>"
+     id="topbar-wrapper"
+     aria-label="UNT Shared Links and Top Level Menus">
+  <div class="<%= html_classes['inner_container'] %>"
+       id="topbar-wrapper-inner">
+    <a href="<%= site['institution_url'] %>"
+       class="<%= html_classes['brand_link'] %>">
+      <%= render partial: 'shared/www/utils/svg', locals: {
+        use: "svg-up-left-arrow-box",
+        viewBox: "0 0 512 512",
+        classes: html_classes['brand_svg'],
+      } %>
+      <%= site['institution_long'] %>
+    </a>
+    <div class="<%= html_classes['nav_wrapper'] %>"
+         id="top-bar-lg">
+      <% top_bar.each_with_index do |entry, index| %>
+        <% if entry['type'] == "link" %>
+          <a id="top-bar-item-<%= index %>"
+             class="<%= html_classes['link'] %> <%= entry['classes'] %>"
+             href="<%= entry['url'] %>"><% if entry['icon_classes'] %>
+            <span class="fa-fw <%= entry['icon_classes'] %>"></span>
+            <% end %><%= entry['text'] %></a>
+        <% end %>
+        <% if entry['type'] == "dropdown" %>
+          <div class="<%= html_classes['dropdown_wrapper'] %>"
+               id="top-bar-item-<%= index %>-dropdown">
+            <a href="<%= entry['url'] || "#" %>"
+               id="top-bar-item-<%= index %>"
+               class="<%= html_classes['btn'] %> dropdown-toggle <%= entry['classes'] %>"
+               data-bs-toggle="dropdown"
+               aria-expanded="false"><% if entry['icon_classes'] %>
+              <span class="fa-fw <%= entry['icon_classes'] %>"></span>
+              <% end %>
+              <%= entry['text'] %>
+            </a>
+          </div>
+        <% end %>
+      <% end %>
+      <a href="<%= ask_us_url %>"
+        id="top-bar-item-<%= top_bar.size + 1 %>"
+        class="<%= html_classes['btn'] %> me-2">
+        <%= render partial: 'shared/www/utils/svg', locals: {
+          use: "svg-comments-questions",
+          viewBox: "0 0 640 512",
+          classes: "svg-inline--fa fa-fw",
+        } %>
+        Ask Us
+      </a>
+      <button
+        id="top-bar-item-<%= top_bar.size + 2 %>"
+        class="<%= html_classes['btn'] %>"
+        data-bs-toggle="collapse"
+        data-bs-target="#offcanvas-search"
+        aria-controls="offcanvas-search"
+        type="button">
+        <%= render partial: 'shared/www/utils/svg', locals: {
+          use: "svg-magnifying-glass",
+          viewBox: "0 0 512 512",
+          decorative: true,
+          classes: "svg-inline--fa fa-fw",
+        } %>
+        Search
+        <kbd class="bg-secondary-subtle"
+             data-bs-toggle="tooltip"
+             data-bs-title="search shortcut key '/'">/</kbd>
+      </button>
+    </div>
+  </div>
+</nav>

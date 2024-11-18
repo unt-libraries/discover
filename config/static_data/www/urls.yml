@@ -1,0 +1,65 @@
+
+
+# unt
+unt:
+  home: https://unt.edu
+  search: https://search.unt.edu/s/search.html
+  ams: https://ams.untsystem.edu
+
+# www links
+library:
+  home: https://library.unt.edu
+  search: https://library.unt.edu/search
+  gov_info: https://library.unt.edu/government-information/
+  rss: https://library.unt.edu/news/rss/
+
+# summon
+summon:
+  home: https://untexas.summon.serialssolutions.com
+  search: https://untexas.summon.serialssolutions.com/#!/search
+
+# finding aids
+finding_aids:
+  home: https://findingaids.library.unt.edu
+  search: https://archives.library.unt.edu/search
+
+# digital library
+digital_collections:
+  digital2_home: https://digital2.library.unt.edu
+  digital2_search: https://digital2.library.unt.edu/search/
+
+# discover
+discover:
+  home: https://discover.library.unt.edu
+  empty_search_result: https://discover.library.unt.edu/?utf8=%E2%9C%93&search_field=text
+
+# libguides
+libguides:
+  home: https://guides.library.unt.edu
+  az: https://guides.library.unt.edu/az.php
+  search: https://guides.library.unt.edu/srch.php
+
+# libanswers
+libanswers:
+  standalone_general_chat: https://unt.libanswers.com/chat/widget/9279f20504044072454e342f7472f5d665421500906281355ba7d5cffe62aa0a
+
+# libcal
+calendar:
+  hours: https://calendar.library.unt.edu/hours
+
+# iii links
+iii:
+  home: https://iii.library.unt.edu
+  search_reserves_code: https://iii.library.unt.edu/search/r
+  search_reserves_instructor: https://iii.library.unt.edu/search/p
+
+# bento links
+bento:
+  default: https://library.unt.edu/search
+  args:
+    boxes:
+      reserves: "courses,guides,librarian,booksAndMore,articles,referenceWorks"
+
+# other
+misc:
+  state_of_texas: https://texas.gov

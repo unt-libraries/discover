@@ -1,0 +1,91 @@
+<%# Breadcrumbs and Dropdown %>
+<%
+  html_classes = {}
+  html_classes['secondary'] = load_yaml_data('www/html_classes')['navbars']['secondary']
+  html_classes['breadcrumbs'] = load_yaml_data('www/html_classes')['breadcrumbs']
+  html_classes['hours'] = load_yaml_data('www/html_classes')['hours']
+  site = load_yaml_data('www/config')
+  urls = load_yaml_data('www/urls')
+%>
+
+<nav aria-label="breadcrumbs and hours"
+     class="<%= html_classes['secondary']['container'] %>">
+  <div class="<%= html_classes['secondary']['inner_container'] %>">
+    <ol class="<%= html_classes['breadcrumbs']['list'] %>">
+      <li class="<%= html_classes['breadcrumbs']['item'] %>">
+        <a class="<%= html_classes['breadcrumbs']['link'] %>"
+           href="<%= site['parent_url'] %>">
+          <%= site['subtitle'] %>
+        </a>
+      </li>
+
+      <li class="<%= html_classes['breadcrumbs']['item'] %>">
+        <a class="<%= html_classes['breadcrumbs']['link'] %>"
+           href="/">
+          Home
+        </a>
+      </li>
+
+      <% if current_search_session && controller_name != 'advanced' %>
+        <li class="<%= html_classes['breadcrumbs']['item'] %>">
+          <%= link_back_to_catalog label: 'Results',
+                                   class: html_classes['breadcrumbs']['link'] %>
+        </li>
+        <% if action_name == 'show' %>
+          <% if @search_context %>
+            <li class="<%= html_classes['breadcrumbs']['item'] %>">
+              <%= link_to_document @document, item_page_entry_info,
+                                   class: html_classes['breadcrumbs']['link'],
+                                   :counter => search_session['counter'] %>
+            </li>
+            <% if @search_context[:prev] || @search_context[:next] %>
+              <li class="<%= html_classes['breadcrumbs']['item'] %>">
+                <div class="page-links">
+                  <%= link_to_previous_document @search_context[:prev] %>
+                  |
+                  <%= link_to_next_document @search_context[:next] %>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% if action_name == 'show' %>
+          <li class="<%= html_classes['breadcrumbs']['current_item'] %>">
+            <%= link_to_document @document, "This #{@document.resource_type_name}",
+                                 class: html_classes['breadcrumbs']['link_current'] %>
+          </li>
+        <% end %>
+      <% end %>
+
+      <% if controller_name == 'advanced' %>
+        <li class="<%= html_classes['breadcrumbs']['item'] %>">
+          <%= link_to 'Advanced search', blacklight_advanced_search_engine.advanced_search_path,
+                      class: html_classes['breadcrumbs']['link'] %>
+        </li>
+      <% end %>
+    </ol>
+
+    <div class="<%= html_classes['hours']['wrapper'] %>"
+         id="breadcrumb-hours-item-1-dropdown">
+      <a href="<%= urls['calendar']['hours'] %>"
+         id="breadcrumb-hours-item-1"
+         class="<%= html_classes['hours']['btn'] %>"
+         data-bs-toggle="dropdown">
+        <%= render partial: 'shared/www/utils/svg', locals: {
+          use: "svg-clock",
+          viewBox: "0 0 512 512",
+          decorative: true,
+        } %>
+        <span class="d-none d-lg-inline">
+          Willis:
+        </span>
+        <span id="todays-date"
+              class="d-none d-xl-inline">
+        </span>
+        <span class="live-hours d-none d-lg-inline"
+              data-untl-hours-id="12207"></span>
+      </a>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,92 @@
+<%
+  html_classes = load_yaml_data('www/html_classes')['header']
+  site = load_yaml_data('www/config')
+%>
+
+<header id="top"
+        class="<%= html_classes['header_container'] %>"
+        aria-label="Site Header">
+  <div class="<%= html_classes['inner_container'] %>"
+       id="hd-container">
+    <section class="<%= html_classes['navbar'] %>"
+             id="hd-section">
+      <%# ###### UNT BRAND ####### %>
+      <a href="https://www.unt.edu/"
+         aria-label="Home"
+         id="hd-brand"
+         class="<%= html_classes['brand_link'] %>">
+        <%# ###### DESKTOP IMAGE ####### %>
+        <%= render partial: 'shared/www/utils/svg', locals: {
+          use: "svg-unt-lettermark-eagle-combo",
+          classes: html_classes['desktop_svg'],
+          viewBox: "0 0 96.8 37.8",
+          title: "University of North Texas",
+          desc: "UNT Lettermark and Diving Eagle."
+        } %>
+        <%# ###### MOBILE IMAGE ####### %>
+        <%= render partial: 'shared/www/utils/svg', locals: {
+          use: "svg-unt-wordmark-eagle-combo",
+          classes: html_classes['mobile_svg'],
+          viewBox: "0 0 60 11",
+          title: "University of North Texas",
+          description: "UNT Wordmark and Diving Eagle."
+        } %>
+      </a>
+      <%# ###### MOBILE MENU EXPAND BUTTON ####### %>
+      <div class="<%= html_classes['navbar_mobile_controls'] %>">
+        <button id="top-bar-item-8"
+                class="<%= html_classes['navbar_search'] %>"
+                data-bs-toggle="collapse"
+                data-bs-target="#offcanvas-search"
+                aria-controls="offcanvas-search"
+                type="button">
+          <%= render partial: 'shared/www/utils/svg', locals: {
+            use: "svg-magnifying-glass",
+            viewBox: "0 0 512 512",
+            decorative: "true",
+            title: "Search",
+            classes: "svg-inline--fa fa-fw"
+          } %>
+          <span class="visually-hidden">
+                        Search
+                       </span>
+
+        </button>
+        <button class="<%= html_classes['navbar_toggler'] %>"
+                id="main-navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#main-navbar"
+                aria-controls="main-navbar"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+          <%= render partial: 'shared/www/utils/svg', locals: {
+            use: "svg-bars",
+            viewBox: "0 0 512 512",
+            decorative: "true",
+            title: "Menu"
+          } %>
+          <span class="visually-hidden">
+                        Menu
+                       </span>
+        </button>
+      </div>
+      <%# ###### SITE TITLE(S) ####### %>
+      <div id="hd-titles"
+           class="<%= html_classes['title_wrapper'] %>">
+
+        <a href="<%= site['parent_url'] %>"
+           id="hd-subtitle"
+           class="<%= html_classes['subtitle_link'] %>">
+          <%= site['subtitle'] %></a>
+
+        <h1 class="<%= html_classes['title_heading'] %>">
+          <a href="/app/assets/config"
+             id="hd-title"
+             class="<%= html_classes['title_link'] %>">
+            <%= site['title'] %></a>
+        </h1>
+      </div><%# #hd-titles %>
+    </section><%# #hd-section %>
+  </div><%# #hd-container %>
+</header><%# #top %>

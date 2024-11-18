@@ -26,13 +26,6 @@ module Blacklight
     end
 
     ##
-    # # Classes added to a document's show breadcrumb and search div
-    # @return [String]
-    def show_breadcrumb_search_classes
-      "show-breadcrumb-search"
-    end
-
-    ##
     # Classes added to a document's show content div
     # @return [String]
     def show_content_classes

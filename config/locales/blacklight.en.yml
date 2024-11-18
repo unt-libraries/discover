@@ -149,42 +149,6 @@ en:
     home: "https://library.unt.edu"
     gitlab_repo: "https://content.library.unt.edu/discover/discover"
     feedback_email: 'ui.library@unt.edu'
-  gitlab:
-    url: "content.library.unt.edu"
-    project_path: "/discover/discover"
-    issues_path: "/issues"
-    new_endpoint: "/new"
-  social:
-    - name: facebook
-      url: "https://www.facebook.com/"
-      id: "unt.libraries"
-      label: "The UNT Libraries are on Facebook"
-      icon: "fab fa-facebook-f"
-    - name: twitter
-      url: "https://twitter.com/"
-      id: "unt_libraries"
-      label: "Follow the UNT Libraries on Twitter"
-      icon: "fab fa-twitter"
-    - name: instagram
-      url: "https://www.instagram.com/"
-      id: "unt_libraries"
-      label: "UNT Libraries on Instagram"
-      icon: "fab fa-instagram"
-    - name: github
-      url: "https://github.com/"
-      id: "unt-libraries"
-      label: "UNT Libraries on Github"
-      icon: "fab fa-github-alt"
-    - name: youtube
-      url: "https://www.youtube.com/channel/"
-      id: "UCcbS9fXWKE1SpUTpl1sNB6Q"
-      label: "UNT Libraries Youtube Channel"
-      icon: "fab fa-youtube"
-    - name: rss
-      url: "https://library.unt.edu/news/rss/"
-      id: ""
-      label: "UNT Libraries News RSS feed"
-      icon: "fas fa-rss fw"
   blacklight_advanced_search:
     all: all
     any: any

@@ -2,6 +2,16 @@ module ApplicationHelper
   include Blacklight::BlacklightHelperBehavior
 
   ##
+  # Load static yaml data from config directory
+  #
+  # @param [String] file - The name of the file to load
+  # @return [Hash] The data from the yaml file
+  def load_yaml_data(file)
+    YAML.load_file(Rails.root.join('config', 'static_data', "#{file}.yml"))
+  end
+
+
+  ##
   # Get the name of this application from an i18n string
   # key: blacklight.application_name
   # Try first in the current locale, then the default locale

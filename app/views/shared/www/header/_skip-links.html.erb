@@ -1,0 +1,13 @@
+<%# Accessibility skip links %>
+<%
+  html_classes = load_yaml_data('www/html_classes')['skip']
+%>
+
+<nav class="<%= html_classes['nav'] %>"
+     id="site-skip-links"
+     aria-label="Page skip links">
+  <div class="<%= html_classes['container'] %>">
+    <%= link_to t('blacklight.skip_links.search_field'), '#q', class: html_classes['link'], data: { turbolinks: 'false' } %>
+    <%= link_to t('blacklight.skip_links.main_content'), '#main-container', class: html_classes['link'], data: { turbolinks: 'false' } %>
+  </div>
+</nav>

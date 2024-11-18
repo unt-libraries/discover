@@ -1,0 +1,160 @@
+<%
+  html_classes = load_yaml_data('www/html_classes')['footer']
+  site = load_yaml_data('www/config')
+  footer_spaces = load_yaml_data('www/navigation')['footer']['locations']
+%>
+
+<footer aria-label="University Branding and links, Partner Links, and Contact Information"
+        class="<%= html_classes['footer_element'] %>">
+  <div class="<%= html_classes['eagle_background'] %>"></div>
+  <div id="main-footer" class="<%= html_classes['container'] %>">
+    <div class="<%= html_classes['inner_container'] %>">
+      <div class="<%= html_classes['row'] %>">
+        <!-- First Column -->
+        <div class="<%= html_classes['eagle_col'] %>" id="footer-col-1">
+          <a href="<%= site['institution_url'] %>"
+             class="<%= html_classes['eagle_link'] %>"
+             aria-label="UNT Home Site">
+            <%= render partial: 'shared/www/utils/svg', locals: {
+              use: 'svg-unt-diving-eagle',
+              viewBox: '0 0 11 12.104',
+              decorative: false,
+              title: 'Diving Eagle Logo',
+              classes: html_classes['eagle_svg'] } %>
+          </a>
+        </div>
+
+        <!-- Second Column -->
+        <div class="<%= html_classes['center_col'] %>" id="footer-col-2">
+          <h2 class="<%= html_classes['heading'] %>">
+            <a href="<%= site['url'] %>"
+               class="<%= html_classes['link'] %>">
+              <%= site['title'] %>
+            </a>
+          </h2>
+          <div class="<%= html_classes['address_container'] %>">
+            <div class="<%= html_classes['address'] %>" id="footer-address-physical">
+              <%= render partial: 'shared/www/utils/svg', locals: {
+                use: 'svg-location-dot',
+                viewBox: '0 0 512 512',
+                decorative: true,
+                title: 'Map Location Dot',
+                classes: html_classes['address_icon'] } %>
+              <div class="<%= html_classes['address_info'] %>" id="footer-address-info-links">
+                <% footer_spaces.each_with_index do |space, index| %>
+                  <a href="<%= space['url'] %>"
+                     class="<%= html_classes['space_link'] %>">
+                    <%= space['name'] %>
+                  </a><% unless index == footer_spaces.size - 1 %> | <% end %>
+                <% end %>
+              </div>
+            </div>
+            <!-- Address, Email, and Phone Sections -->
+            <div class="<%= html_classes['address'] %>" id="footer-address-mailing">
+              <div id="footer-mail-svg-wrapper">
+                <%= render partial: 'shared/www/utils/svg', locals: {
+                  use: 'svg-envelope',
+                  viewBox: '0 0 512 512',
+                  decorative: true,
+                  title: 'Envelope',
+                  classes: html_classes['address_icon'] } %>
+              </div>
+              <div id="footer-address-mail">
+                <%= site['mailing_address'] %>
+                  <div>
+                    <%= site['city'] %>, <%= site['state'] %> <%= site['postal_code'] %>
+                  </div>
+              </div>
+            </div>
+            <div class="<%= html_classes['address'] %>" id="footer-address-email">
+              <%= render partial: 'shared/www/utils/svg', locals: {
+                use: 'svg-paper-plane',
+                viewBox: '0 0 512 512',
+                decorative: true,
+                title: 'Paper Plane Icon',
+                classes: html_classes['address_icon'] } %>
+              <a href="mailto:<%= site['email'] %>"
+                 class="<%= html_classes['space_link'] %>">
+                <%= site['email'] %>
+              </a>
+            </div>
+            <div class="<%= html_classes['address'] %>" id="footer-address-phone">
+              <div id="footer-telephone-svg-wrapper">
+                <%= render partial: 'shared/www/utils/svg', locals: {
+                  use: 'svg-telephone',
+                  viewBox: '0 0 512 512',
+                  decorative: true,
+                  title: 'Telephone Icon',
+                  classes: html_classes['address_icon'] } %>
+              </div>
+              <a href="tel:<%= site['phone'] %>"
+                 class="<%= html_classes['space_link'] %>">
+                <%= site['phone'].remove("+1-") %>
+              </a>
+            </div>
+            <div class="<%= html_classes['address'] %>" id="footer-address-tollfree">
+              <div id="footer-tollfree-svg-wrapper">
+                <%= render partial: 'shared/www/utils/svg', locals: {
+                  use: 'svg-phone-square',
+                  viewBox: '0 0 512 512',
+                  decorative: true,
+                  title: 'Paper Plane Icon',
+                  classes: html_classes['address_icon'] } %>
+              </div>
+              <a href="tel:<%= site['toll-free'] %>"
+                 class="<%= html_classes['space_link'] %>">
+                Toll Free: <%= site['toll-free'].remove("+1-") %>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Third Column -->
+        <div class="<%= html_classes['last_col'] %>" id="footer-col-3">
+          <h2 class="<%= html_classes['heading'] %>">Follow Us</h2>
+          <nav class="<%= html_classes['social_nav'] %>" aria-label="Footer Social Media Links">
+            <% site['social'].each do |item| %>
+              <a aria-label="Follow us on <%= item['name'] %> %>"
+                 href="<%= item['url'].concat(item['id']) %>/app/assets/config"
+                 class="<%= html_classes['social_icon'] %>"
+                 data-bs-toggle="tooltip"
+                 data-bs-title="<%= item['name'] %>">
+                <span aria-hidden="true" class="fab fw fa-<%= item['icon'] %>"></span>
+              </a>
+            <% end %>
+            <a aria-label="RSS feed"
+               href="https://library.unt.edu/news/rss/"
+               class="<%= html_classes['social_icon'] %>"
+               data-bs-toggle="tooltip"
+               data-bs-title="RSS">
+              <span aria-hidden="true" class="fas fw fa-rss"></span>
+            </a>
+          </nav>
+          <h2 class="<%= html_classes['heading'] %>">
+            Partnerships
+          </h2>
+          <div class="<%= html_classes['depository_container'] %>">
+            <a id="footer-fdl"
+               class="<%= html_classes['link'] %> <%= html_classes['gov_link'] %>"
+               href="https://www.fdlp.gov/">
+              <%= render partial: 'shared/www/utils/svg', locals: {
+                use: 'svg-federal-depository',
+                viewBox: '0 0 442 394',
+                decorative: false,
+                title: 'Federal Depository Logo',
+                classes: html_classes['depository_svg'] } %>
+            </a>
+            <div class="<%= html_classes['depository_text'] %>">
+              The University Libraries are a designated
+              <a href="https://library.unt.edu/government-information/"
+                 class="<%= html_classes['space_link'] %>">
+                 Federal Depository Library.</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= render 'shared/www/footer/colophon' %>
+</footer>

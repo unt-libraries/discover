@@ -8,11 +8,6 @@
 
 <div class="card ">
   <div class="card-body">
-    <div class="row">
-      <div class="col-12 <%= show_breadcrumb_search_classes %>">
-        <%= render partial: 'shared/content/breadcrumbs' %>
-      </div>
-    </div>
     <%= tag.div id: "document", class: "document #{render_document_class}",
                 data: {
                     doc_id: @document.id.to_s.parameterize

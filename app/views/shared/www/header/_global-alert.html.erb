@@ -1,3 +1,9 @@
+<%# Alerts %>
+<%
+  html_classes = load_yaml_data('www/html_classes')['alerts']
+%>
+
+<%# TODO: This needs work to be compatible with omni site %>
 <div class="col px-0">
   <div id="site-messages">
     <% t('announcement').each do | announcement | %>

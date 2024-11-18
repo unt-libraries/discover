@@ -1,0 +1,53 @@
+<%#
+####################
+Reusable SVG partial
+####################
+
+Variables (locals passed in when rendering this partial):
+
+- `classes`    : String  : optional. HTML classes to add to svg. Defaults to "svg-inline--fa" if not provided.
+- `decorative` : Boolean : optional. If true, image is decorative and hidden from assistive technology.
+- `viewBox`    : String  : required. 4 space-separated values to define the viewbox (e.g., "0 0 512 512").
+- `width`      : Integer : optional. Width value for the SVG element.
+- `height`     : Integer : optional. Height value for the SVG element.
+- `style`      : String  : optional. Inline CSS styles for the SVG element.
+- `title`      : String  : optional. Accessible descriptive text.
+- `desc`       : String  : optional. Additional descriptive text.
+- `use`        : String  : required. Reference ID (without hash) of the SVG symbol to use.
+
+Example Usage:
+    <%= render partial: 'utils/svg', locals: {
+      use: 'svg-up-left-arrow-box',
+      decorative: false,
+      viewBox: '0 0 512 512',
+      width: 50,
+      height: 50,
+      title: 'accessible title',
+      desc: 'accessible description as needed',
+      classes: 'svg-inline--fa fa-flip-horizontal'
+    } %>
+
+<%
+  # Define local variables with defaults where optional, to avoid `undefined variable` errors.
+  classes    = local_assigns.fetch(:classes, 'svg-inline--fa')
+  decorative = local_assigns.fetch(:decorative, false)
+  viewBox    = local_assigns.fetch(:viewBox)
+  width      = local_assigns.fetch(:width, nil)
+  height     = local_assigns.fetch(:height, nil)
+  style      = local_assigns.fetch(:style, nil)
+  title      = local_assigns.fetch(:title, nil)
+  desc       = local_assigns.fetch(:desc, nil)
+  use        = local_assigns.fetch(:use)
+%>
+
+<svg class="<%= classes %>"
+     <% if decorative %> aria-hidden="true" <% else %> role="img" <% end %>
+     xmlns="http://www.w3.org/2000/svg"
+     viewBox="<%= viewBox %>"
+     <% if style %> style="<%= style %>" <% end %>
+     <% if width %> width="<%= width %>" <% end %>
+     <% if height %> height="<%= height %>" <% end %>>
+  <% if title %><title><%= title %></title><% end %>
+  <% if desc %><desc><%= desc %></desc><% end %>
+  <use href="#<%= use %>"></use>
+</svg>
