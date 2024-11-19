@@ -1,0 +1,29 @@
+.grow {
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+}
+
+.reveal-init {
+  .reveal-target-block,
+  .reveal-target-flex {
+    display: none;
+  }
+
+  // Grouping hover, focus, active, and target pseudo-classes
+  &:hover,
+  &:focus,
+  &.active,
+  &:active,
+  &:target {
+    .reveal-target-block {
+      display: block;
+    }
+    .reveal-target-flex {
+      display: flex;
+    }
+  }
+}

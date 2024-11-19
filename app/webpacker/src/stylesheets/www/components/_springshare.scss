@@ -1,0 +1,55 @@
+// new widget styles
+
+/**
+.lcs_slide_out-b {
+  @include media-breakpoint-down(sm) {
+    display: none !important;
+  }
+
+  border: 1px solid $unt-green !important;
+  right: 20px !important;
+
+  &.open{
+    height: 50% !important;
+    iframe {
+      height: 100% !important;
+    }
+  }
+
+  div.lcs_header a {
+    right: 0px !important;
+    left: unset !important;
+    border-width: unset;
+    border-color: transparent !important;
+    border-width: unset !important;
+    border-top-left-radius: var(--bs-border-radius-lg) !important;
+    border-top-right-radius: var(--bs-border-radius-lg) !important;
+    text-decoration: none;
+    padding: 4px 16px !important;
+    bottom: -1px !important;
+  }
+}
+**/
+/**
+ * button text: <i class="fas fa-message-dots"></i> Chat
+ * Slide out, bottom
+ * background color: #007B3B
+ * Look and feel custom css:
+ * .s-la-widget {
+  padding: 15px !important;
+  font-size: 1rem;
+  border-top: 2px solid #007B3B;
+  border-right: 2px solid #007B3B;
+  border-left: 2px solid #007B3B;
+}
+#s-lch-post-input {
+  font-size: 1rem;
+}
+**/
+
+.lci_chat_load {
+  background-color: #ffffff7a !important;
+  iframe {
+    background-color: transparent !important;
+  }
+}

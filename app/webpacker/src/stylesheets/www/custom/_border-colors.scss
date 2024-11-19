@@ -1,0 +1,14 @@
+// Focusable selectors map
+$border-props: (
+  border-start: "border-left",
+  border-end: "border-right",
+  border-top: "border-top",
+  border-bottom: "border-bottom",
+);
+
+// transparent borders.
+@each $classname, $value in $border-props {
+  .#{$classname}-transparent {
+    #{$value}-color: transparent !important;
+  }
+}

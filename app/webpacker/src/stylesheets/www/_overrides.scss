@@ -1,0 +1,144 @@
+//
+// UNT Branded Colors
+//
+$lime:              #72B844;
+$dark-green:        #005326;  // #006A31;
+$beige:             #E5DBAE;
+$light-brown:       #887A68;
+$dark-brown:        #52301B;
+$blue:              #84B1CD;
+$aqua:              #008265;
+$mellow-yellow:     #C1D22D;
+$mellow-limey:      #C0DB37;
+
+//
+// UNT Libraries Colors
+//
+$dark-charcoal:     #333333; //#3E3935;
+$light-charcoal:    #53544A;
+$warm-gray:         #7B6E66;
+$light-teal:        #00B5CC;
+$dark-teal:         #31657a;
+$light-blue:        #7FB3CE;
+$lime-green:        #C1D82F;
+$light-green:       #7AC143;
+$unt-green:         #007B3B;
+$forest-green:      #254A33;
+
+// ==========================================================================
+// Variable Overrides for Bootstrap defaults.
+// ==========================================================================
+
+// Fonts
+$font-size-base: 1.125rem;
+$font-family-sans-serif:      -apple-system, BlinkMacSystemFont, "Open Sans", "Segoe UI", Roboto, "Helvetica Neue", Verdana, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$headings-font-family:        "Oswald","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+// Links
+$link-color: $dark-green;
+
+// Navbar, remove focus blur
+$nav-link-focus-box-shadow: 0;
+$navbar-brand-font-size: 1rem;
+
+$dropdown-border-radius: 0;
+
+$utilities: (
+  "width": (
+    property: width,
+    responsive: true,
+    class: w,
+    values: (
+      10: 10%,
+      25: 25%,
+      33: 33%,
+      50: 50%,
+      66: 66%,
+      75: 75%,
+      90: 90%,
+      95: 95%,
+      100: 100%,
+      auto: auto
+    )
+  ),
+  "max-width": (
+    property: max-width,
+    responsive: true,
+    class: mw,
+    values: (
+      10: 10%,
+      25: 25%,
+      33: 33%,
+      50: 50%,
+      66: 66%,
+      75: 75%,
+      100: 100%,
+      auto: auto
+    )
+  ),
+  "height": (
+    property: height,
+    responsive: true,
+    class: h,
+    values: (
+      10: 10%,
+      25: 25%,
+      33: 33%,
+      50: 50%,
+      66: 66%,
+      75: 75%,
+      90: 90%,
+      95: 95%,
+      100: 100%,
+      auto: auto
+    )
+  ),
+  "bg-opacity": (
+    css-var: true,
+    class: bg-opacity,
+    values: (
+      5:  .05,
+      10: .1,
+      20: .2,
+      25: .25,
+      30: .3,
+      40: .4,
+      50: .5,
+      60: .6,
+      70: .7,
+      75: .75,
+      80: .8,
+      90: .9,
+      95: .95,
+      98: .98,
+      100: 1
+    )
+  ),
+);
+
+$enable-negative-margins: true;
+$enable-shadows: true;
+
+$breadcrumb-divider-color:          #fff;
+$breadcrumb-active-color:           #fff;
+
+
+// scss-docs-start grid-breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  3xl: 1880px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px,
+  xxl: 1320px,
+  3xl: 1800px
+);

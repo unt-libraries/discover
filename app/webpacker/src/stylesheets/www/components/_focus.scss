@@ -1,0 +1,37 @@
+// Focusable selectors map
+$focusable-elements: (
+  a: "a",
+  button: "button",
+  nav-link: ".nav-link",
+);
+// Focusable Inside selectors map
+$focusable-within-elements: (
+  form-floating: ".form-floating"
+);
+.dashed-focus {
+  outline: 2px dashed !important;
+  outline-color: $black !important;
+  //outline-offset: 0.25rem !important;
+}
+
+.dashed-focus-inverted:focus {
+  outline: 2px dashed !important;
+  outline-color: $white !important;
+  //outline-offset: 0.40rem !important;
+  box-shadow: none !important;
+}
+
+// custom focus behaviors.
+@each $element, $selector in $focusable-elements {
+  #{$selector}:focus,
+  #{$selector}:focus-visible {
+    @extend .dashed-focus;
+  }
+}
+
+// custom focus within behaviors.
+@each $element, $selector in $focusable-within-elements {
+  #{$selector}:focus-within {
+    @extend .dashed-focus;
+  }
+}

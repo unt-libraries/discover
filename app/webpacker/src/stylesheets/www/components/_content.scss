@@ -1,0 +1,96 @@
+.content {
+
+  h2 {
+    //text-transform: uppercase;
+  }
+
+  h2[id],
+  h3[id],
+  h4[id],
+  h5[id],
+  h6[id] {
+    &:target {
+      color: $light-green;
+      //padding-top: 50px;
+    }
+    .anchor-link {
+      display: none;
+    }
+    // on hover not .no-toc
+    &:not(.no-toc):hover .anchor-link {
+      display: inline;
+    }
+  }
+
+
+  .section-nav {
+    //text-transform: uppercase;
+  }
+  .roman .section-nav {
+    counter-reset: h2;
+    @include list-unstyled;
+
+    & li {
+      margin-bottom: .25rem;
+
+      a {
+        text-decoration: none;
+      }
+    }
+
+    & li:not(.toc-h3) >  a:before {
+        content: counter(h2, upper-roman) ". ";
+        counter-increment: h2;
+        font-weight: bold;
+        color: $black;
+    }
+
+    & ul {
+      @include list-unstyled;
+      padding-left: 1.25rem;
+      counter-reset: ul;
+
+      a:before {
+          content: counter(ul, upper-alpha) ". ";
+          counter-increment: ul;
+          font-weight: bold;
+          color: $black;
+      }
+
+    }
+  }
+
+  .numbered-list-roman {
+      counter-reset: h2;
+
+      & h2 {
+        counter-reset: h3;
+        //text-transform: uppercase;
+      }
+      & h3 {
+        counter-reset: h4;
+        //text-transform: uppercase;
+      }
+      & h4 {
+        counter-reset: h5;
+        //text-transform: uppercase;
+      }
+      & h5 {
+        counter-reset: h6;
+        //text-transform: uppercase;
+      }
+
+      & h2:not(.no-toc):before {
+          content: counter(h2, upper-roman) ". ";
+          counter-increment: h2;
+          font-size: 3rem;
+          color: $gray-600;
+      }
+      & h3:not(.no-toc):before {
+          content: counter(h3, upper-alpha) ". ";
+          counter-increment: h3;
+          font-size: 2.25rem;
+          color: $gray-500;
+      }
+  }
+}

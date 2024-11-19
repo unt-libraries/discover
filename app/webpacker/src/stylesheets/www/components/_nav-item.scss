@@ -1,0 +1,59 @@
+.main-navbar-shim {
+	width:180px;
+}
+.nav-link-decoration,
+.nav-link-decoration.active,
+.nav-link-decoration-hover:hover,
+.nav-link-decoration-hover:active,
+.nav-link-decoration-hover.active {
+	text-decoration: underline !important;
+	text-underline-offset: .25em !important;
+	text-decoration-color: #c4d600 !important;
+	text-decoration-thickness: 3px !important;
+}
+
+.nav-link-small {
+	font-size: .75em !important;
+}
+
+.nav-link {
+	&.show {
+		@extend .dashed-focus;
+	}
+}
+
+.main-navbar-nav {
+	.nav-link {
+		@include media-breakpoint-down(lg) {
+			font-size: $h6-font-size !important;
+			background-color: $unt-green;
+			color: $white;
+			text-transform: uppercase;
+			@media (hover: none) {
+				&:hover,
+				&:active,
+				&.active{
+					text-decoration: none !important;
+					text-iunderline-offset: 0 !important;
+				}
+			}
+			svg {
+				float: right;
+				color: $white !important;
+				opacity: 1 !important;
+			}
+		}
+	}
+}
+
+.sidebar-link {
+	border-left: 3px solid transparent;
+	&:hover,
+	&:active,
+	&.active,
+	&:focus {
+		border-left-color: $unt-green;
+		font-weight: bold;
+		color: $black;
+	}
+}

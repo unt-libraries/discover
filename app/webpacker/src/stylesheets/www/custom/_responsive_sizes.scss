@@ -1,0 +1,77 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+
+$utilities: map-merge(
+  $utilities, (
+    "width": map-merge(
+      map-get($utilities, "width"),
+      ( responsive: true ),
+    ),
+  )
+);
+
+$utilities: map-merge(
+  $utilities, (
+    "height": map-merge(
+      map-get($utilities, "height"),
+      ( responsive: true ),
+    ),
+  )
+);
+
+$utilities: map-merge(
+  $utilities, (
+    "overflow": map-merge(
+      map-get($utilities, "overflow"),
+      ( responsive: true ),
+    ),
+  )
+);
+
+// Override the font-size utility
+$utilities: map-merge(
+  $utilities,
+  (
+    "font-size": map-merge(
+      map-get($utilities, "font-size"),
+      (
+        responsive: true,
+        values: map-get(map-get($utilities, "font-size"), "values"),
+        property: font-size,
+        class: fs,
+        important: false  // Disable !important
+      )
+    ),
+  )
+);
+
+$custom_max_height: (
+  10: 10vh,
+  25: 25vh,
+  33: 33vh,
+  50: 50vh,
+  66: 66vh,
+  75: 75vh,
+  unset: unset,
+);
+
+$utilities: map-merge(
+  $utilities,
+  (
+    "viewport-height": map-merge(
+      map-get($utilities, "viewport-height"),
+      (
+        values: map-merge(
+          map-get(map-get($utilities, "viewport-height"), "values"),
+          $custom_max_height,
+        ),
+        responsive: true,
+      ),
+    ),
+  ),
+);
+
+@import "~bootstrap/scss/utilities/api";
