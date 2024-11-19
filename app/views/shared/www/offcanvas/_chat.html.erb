@@ -3,27 +3,27 @@
   chat_id = load_yaml_data('www/utils')['springshare']['libanswers']['widget_id']
 %>
 
-<div class="<%= html_classes[:wrapper] %>"
+<div class="<%= html_classes['wrapper'] %>"
      id="chat-offcanvas"
      data-bs-scroll="true"
      tabindex="-1"
      aria-labelledby="offcanvas-chat-title">
-  <div class="<%= html_classes[:header] %>">
+  <div class="<%= html_classes['header'] %>">
     <h5 id="offcanvas-chat-title"
-        class="<%= html_classes[:title] %>" >
+        class="<%= html_classes['title'] %>" >
       Chat with Us
     </h5>
     <button type="button"
-            class="<%= html_classes[:close_btn] %>"
+            class="<%= html_classes['close_btn'] %>"
             data-bs-dismiss="offcanvas">
     </button>
   </div>
-  <div class="<%= html_classes[:body] %>">
+  <div class="<%= html_classes['body'] %>">
     <div id="<%= chat_id %>"></div>
     <div id="offcanvas-ask-us"></div>
   </div>
 </div>
-<button class="<%= html_classes[:trigger_btn] %> d-none"
+<button class="<%= html_classes['trigger_btn'] %> d-none"
         id="global-chat-btn"
         type="button"
         data-bs-toggle="offcanvas"

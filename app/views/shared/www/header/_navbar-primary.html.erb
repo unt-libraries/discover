@@ -26,7 +26,7 @@
         <div class="<%= html_classes['shim'] %>"></div>
         <div class="<%= html_classes['nav_inner'] %>"
              id="main-navbar-nav">
-          <% navigation['main_bar'].each_with_index do | entry, index | %>
+          <% navigation['main_bar'].each.with_index(1) do | entry, index | %>
             <% if entry['type'] == 'link' %>
               <%# Regular link %>
               <a id="main-bar-item-<%= index %>"

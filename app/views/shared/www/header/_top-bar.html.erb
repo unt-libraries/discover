@@ -22,7 +22,7 @@
     </a>
     <div class="<%= html_classes['nav_wrapper'] %>"
          id="top-bar-lg">
-      <% top_bar.each_with_index do |entry, index| %>
+      <% top_bar.each.with_index(1) do |entry, index| %>
         <% if entry['type'] == "link" %>
           <a id="top-bar-item-<%= index %>"
              class="<%= html_classes['link'] %> <%= entry['classes'] %>"
