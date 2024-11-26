@@ -4,12 +4,12 @@
 
     cursor: default;
     color: $badge-color;
-    padding-right: $badge-pill-padding-x;
-    padding-left: $badge-pill-padding-x;
-    border-radius: $badge-pill-border-radius;
+    padding-right: $badge-padding-x;
+    padding-left: $badge-padding-x;
+    border-radius: $badge-border-radius;
 
     &.blacklight-date_added {
-      background-color: theme-color("dark-teal");
+      background-color: $dark-teal;
     }
   }
 

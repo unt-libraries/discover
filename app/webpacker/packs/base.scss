@@ -1,34 +1,50 @@
-// Discover overrides
+// Bootstrap functions
 @import '~bootstrap/scss/functions';
-@import '../src/stylesheets/unt/variables';
+
+// Custom variable overrides
+@import '../src/stylesheets/www/overrides';
 @import '../src/stylesheets/discover/variables';
 
-// Bootstrap
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/root";
+// Legacy Bootstrap 4 mixins removed in Bootstrap 5
+@import '../src/stylesheets/legacy/mixins';
+
+// Bootstrap variables
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/variables-dark';
+
+// Color map overrides
+@import '../src/stylesheets/www/custom/colors';
+@import '../src/stylesheets/discover/colors';
+
+// Bootstrap required
+@import '~bootstrap/scss/maps';
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/root';
+
+// Bootstrap optional components
+@import '~bootstrap/scss/utilities';
 @import "~bootstrap/scss/reboot";
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/images";
-@import "~bootstrap/scss/code";
+@import "~bootstrap/scss/containers";
 @import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/helpers";
+
 @import "~bootstrap/scss/tables";
 @import "~bootstrap/scss/forms";
 @import "~bootstrap/scss/buttons";
 @import "~bootstrap/scss/transitions";
 @import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/button-group";
-@import "~bootstrap/scss/input-group";
-@import "~bootstrap/scss/custom-forms";
 @import "~bootstrap/scss/nav";
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/card";
+@import "~bootstrap/scss/accordion";
 @import "~bootstrap/scss/breadcrumb";
 @import "~bootstrap/scss/pagination";
 @import "~bootstrap/scss/badge";
 @import "~bootstrap/scss/alert";
 @import "~bootstrap/scss/progress";
-@import "~bootstrap/scss/media";
 @import "~bootstrap/scss/list-group";
 @import "~bootstrap/scss/close";
 @import "~bootstrap/scss/toasts";
@@ -37,8 +53,11 @@
 @import "~bootstrap/scss/popover";
 @import "~bootstrap/scss/carousel";
 @import "~bootstrap/scss/spinners";
-@import "~bootstrap/scss/utilities";
-@import "~bootstrap/scss/print";
+@import "~bootstrap/scss/offcanvas";
+@import "~bootstrap/scss/placeholders";
+
+// Utilities API
+@import "~bootstrap/scss/utilities/api";
 
 // Blacklight
 //@import "~blacklight-frontend/app/assets/stylesheets/blacklight/mixins";
@@ -66,15 +85,24 @@
 @import '../src/stylesheets/blacklight/blacklight_range_limit';
 @import '../src/stylesheets/blacklight/blacklight_range_limit_slider';
 
-// UNT library
-@import '../src/stylesheets/unt/buttons';
-@import '../src/stylesheets/unt/content';
-@import '../src/stylesheets/unt/drawer';
-@import '../src/stylesheets/unt/footer';
-@import '../src/stylesheets/unt/header';
-@import '../src/stylesheets/unt/nav';
-@import '../src/stylesheets/unt/typeahead';
-@import '../src/stylesheets/unt/wrappers';
+// UNT Library www branding
+// misc overrides to HTML elements
+@import "../src/stylesheets/www/components/brand.scss";
+@import "../src/stylesheets/www/components/hero.scss";
+@import "../src/stylesheets/www/components/interactions.scss";
+@import "../src/stylesheets/www/components/springshare.scss";
+@import "../src/stylesheets/www/components/focus";
+@import "../src/stylesheets/www/components/search-input";
+@import "../src/stylesheets/www/components/nav-item";
+@import "../src/stylesheets/www/components/content";
+
+// modify various utilities
+@import "../src/stylesheets/www/custom/animations";
+@import "../src/stylesheets/www/custom/responsive-backgrounds";
+@import "../src/stylesheets/www/custom/responsive_borders";
+@import "../src/stylesheets/www/custom/responsive_sizes";
+@import "../src/stylesheets/www/custom/fonts";
+@import "../src/stylesheets/www/custom/border-colors";
 
 // Discover
 @import '../src/stylesheets/discover/advanced_search';

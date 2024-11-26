@@ -51,6 +51,7 @@
 
       // Buttons used for availability status buttons
       .blacklight-availability {
+        @extend .d-grid;
         margin-top: 0;
 
         .availability-text {
@@ -61,7 +62,6 @@
         .availability-btn {
           @extend .btn;
           @extend .btn-sm;
-          @extend .btn-block;
 
           overflow: hidden;
           white-space: nowrap;
@@ -70,9 +70,9 @@
           padding: 0.15rem 0.5rem;
 
           &.disabled {
-            color: theme-color('gray-light');
+            color: $gray-light;
             background-color: white;
-            border-color: theme-color('gray-light');
+            border-color: $gray-light;
           }
 
           &.location-sycamore {
@@ -161,25 +161,25 @@
 
           &.online {
             color: white;
-            background-color: theme-color('primary');
-            border-color: theme-color('primary');
+            background-color: $primary;
+            border-color: $primary;
 
             &:active,
             &:hover,
             &:focus {
-              background-color: darken(theme-color('primary'), 5%);
+              background-color: darken($primary, 5%);
             }
           }
 
           &.unavailable {
             color: white;
-            background-color: theme-color('gray-light');
-            border-color: theme-color('gray-light');
+            background-color: $gray-light;
+            border-color: $gray-light;
 
             &:active,
             &:hover,
             &:focus {
-              background-color: darken(theme-color('gray-light'), 5%);
+              background-color: darken($gray-light, 5%);
             }
           }
         }
@@ -194,7 +194,6 @@
       .check-availability {
         @extend .btn;
         @extend .btn-sm;
-        @extend .btn-block;
         @extend .btn-outline-primary;
 
         padding: 0.15rem 0.5rem;

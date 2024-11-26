@@ -1,0 +1,24 @@
+<%#
+  This file is stored in the footer for consistency with the www project, but it is loaded in the
+  head of the document to prevent issues with Turbolinks.
+%>
+
+<%# TODO: Sort out icons and move this to head %>
+<script src="https://demo.library.unt.edu/assets/omni/vendor/fontawesome/js/brands.min.js?v=6.5.2"></script>
+<script src="https://demo.library.unt.edu/assets/omni/vendor/fontawesome/js/duotone.min.js?v=6.5.2"></script>
+<script src="https://demo.library.unt.edu/assets/omni/vendor/fontawesome/js/solid.min.js?v=6.5.2"></script>
+<!--  <script src="https://demo.library.unt.edu/assets/omni/vendor/fontawesome/js/custom-icons.min.js?v=6.5.2"></script>-->
+<!--  <script src="https://demo.library.unt.edu/assets/omni/vendor/fontawesome/js/fontawesome.min.js?v=6.5.2" data-auto-add-css="false"></script>-->
+
+<script>
+  // JS variables attached to window
+  window.wwwJsShims = window.wwwJsShims || {};
+  window.wwwJsShims = {
+    hours: <%= load_yaml_data('www/js_configs')['hours'].to_json.html_safe %>,
+    events: <%= load_yaml_data('www/js_configs')['events'].to_json.html_safe %>,
+    chat: {
+      ask_us_text: '<%= load_yaml_data('www/info')['ask_us'].delete("\n").html_safe %>',
+    },
+    searchDropdowns: <%= load_yaml_data('www/utils')['search_dropdowns'].to_json.html_safe %>
+  };
+</script>

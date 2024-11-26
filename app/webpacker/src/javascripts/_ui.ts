@@ -1,6 +1,3 @@
-import 'bootstrap/js/dist/tooltip';
-import 'bootstrap/js/dist/popover';
-
 type IdTypes = Record<string, string>;
 const idTypes: IdTypes = {
   isbn: 'isbnNumbers',
@@ -115,26 +112,6 @@ function replaceBookCovers() {
   scriptElement.src = `https://books.google.com/books?bibkeys=${bibkeyQueryString}&jscmd=viewapi&callback=${booksCallback}`;
   scriptElement.type = 'text/javascript';
   document.head.appendChild(scriptElement);
-}
-
-/**
- * Initializes tooltips already in the DOM, as well as dynamically added tooltips.
- */
-function initTooltips() {
-  $(document).tooltip({
-    selector: '[data-toggle="tooltip"]',
-    // @ts-ignore
-    boundary: 'window',
-  });
-}
-
-/**
- * Initializes popovers already in the DOM, as well as dynamically added popovers.
- */
-function initPopovers() {
-  $(document).popover({
-    selector: '[data-toggle="popover"]',
-  });
 }
 
 /**
@@ -260,8 +237,6 @@ export {
   animateSearchIcon,
   bindDismissBannerCookie,
   bindShowAvailMoreField,
-  initPopovers,
-  initTooltips,
   linkify,
   replaceBookCovers,
   hoverHierarchicalLinks,

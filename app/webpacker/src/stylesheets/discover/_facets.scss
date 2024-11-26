@@ -1,13 +1,13 @@
 .facet-extended-list {
   .facet-label {
-    color: theme-color("dark-teal");
+    color: $dark-teal;
   }
 }
 
 .sidenav {
   .navbar {
     z-index: 1;
-    background-color: theme-color("gray-darker");
+    background-color: $gray-darker;
     border-radius: $card-border-radius;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 0.5rem;
@@ -28,43 +28,43 @@
 
     &-priority {
       .facet-limit:first-child {
-        border-top-color: theme-color("unt-green");
+        border-top-color: $unt-green;
       }
     }
 
     &-location {
       .facet-limit:first-child {
-        border-top-color: theme-color("light-green");
+        border-top-color: $light-green;
       }
     }
 
     &-date {
       .facet-limit:first-child {
-        border-top-color: theme-color("lime-green");
+        border-top-color: $lime-green;
       }
     }
 
     &-language {
       .facet-limit:first-child {
-        border-top-color: theme-color("light-blue");
+        border-top-color: $light-blue;
       }
     }
 
     &-publication {
       .facet-limit:first-child {
-        border-top-color: theme-color("dark-teal");
+        border-top-color: $dark-teal;
       }
     }
 
     &-subjects {
       .facet-limit:first-child {
-        border-top-color: theme-color("light-teal");
+        border-top-color: $light-teal;
       }
     }
 
     &-game {
       .facet-limit:first-child {
-        border-top-color: theme-color("aqua");
+        border-top-color: $aqua;
       }
     }
   }
@@ -173,22 +173,22 @@
     }
 
     &-active {
-      border-color: theme-color("dark-teal") !important;
+      border-color: $dark-teal !important;
 
       .card-header {
-        background-color: theme-color("dark-teal") !important;
+        background-color: $dark-teal !important;
       }
 
       .selected {
-        //color: theme-color("dark-teal") !important;
+        //color: $dark-teal !important;
       }
 
       .remove {
-        color: theme-color("danger");
+        color: $danger;
 
         &:hover,
         &:focus {
-          color: theme-color-level("danger", 2);
+          color: color-level("danger", 2);
         }
       }
 
@@ -198,12 +198,12 @@
     }
 
     .facet-label {
-      color: theme-color("dark-teal");
+      color: $dark-teal;
       padding-bottom: 0;
       padding-right: 0;
 
       .icon {
-        color: theme-color("gray-darker");
+        color: $gray-darker;
         display: inline-block;
         width: 1.25em;
       }

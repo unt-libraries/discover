@@ -1,5 +1,5 @@
 module.exports = {
-  test: /\.tsx?$/,
+  test: /\.m?[jt]sx?$/,
   exclude: /node_modules/,
   use: [{
     loader: 'babel-loader',

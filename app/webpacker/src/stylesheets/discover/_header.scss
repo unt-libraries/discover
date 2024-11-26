@@ -7,7 +7,7 @@
     }
   }
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     &__title {
       &--subtitle {
         display: none;

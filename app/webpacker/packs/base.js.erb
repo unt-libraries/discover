@@ -2,36 +2,39 @@
 import 'intersection-observer';
 import Rails from '@rails/ujs';
 import Turbolinks from 'turbolinks';
-import 'bootstrap/js/dist/alert';
-import 'bootstrap/js/dist/button';
-import 'bootstrap/js/dist/dropdown';
-import 'bootstrap/js/dist/scrollspy';
+import * as bootstrap from 'bootstrap';
 import runBrowserUpdate from '../src/javascripts/_browser-update';
-import { animateSearchIcon, bindDismissBannerCookie, initTooltips, initPopovers, linkify } from "../src/javascripts/_ui";
+import { animateSearchIcon, bindDismissBannerCookie, linkify } from "../src/javascripts/_ui";
 import './base.scss';
 
+// Javascript inherited from www
+import '../src/javascripts/www/main'; // This is the main entry point for the www pack
+import '../src/javascripts/www/alerts';
+import '../src/javascripts/www/utils.search';
+import '../src/javascripts/www/utils.chat';
+import '../src/javascripts/www/search-input-enhancements';
+import '../src/javascripts/www/search-dropdowns.js';
+
+document.addEventListener('turbolinks:load', () => {
+  // Initialize search dropdowns using window object
+  new SearchDropdown('bento-offcanvas-other-search-options', 'bento-offcanvas-q', window.wwwJsShims.searchDropdowns['default_bento']);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   Rails.start();
   Turbolinks.start();
 });
 
-// Modal manually imported, otherwise isn't available for blacklight modal
-import 'bootstrap/js/dist/modal';
+// Blacklight Frontend javascript
 import 'blacklight-frontend/app/javascript/blacklight/core';
 import 'blacklight-frontend/app/javascript/blacklight/modal';
 import 'blacklight-frontend/app/javascript/blacklight/button_focus';
-// Import overridden search_context for google analytics
-import '../src/javascripts/override/search_context';
-
+import 'blacklight-frontend/app/javascript/blacklight/search_context';
+import SearchDropdown from '../src/javascripts/www/search-dropdowns';
 
 document.addEventListener('turbolinks:load', () => {
   animateSearchIcon();
-  initTooltips();
-  initPopovers();
   linkify();
   bindDismissBannerCookie();
-  Blacklight.modal.setupModal();
-  Blacklight.doSearchContextBehavior();
   runBrowserUpdate();
 });

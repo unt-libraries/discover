@@ -34,7 +34,7 @@
   }
 
   .icon {
-    color: theme-color("gray-lighter");
+    color: $gray-lighter;
     margin: auto;
     width: 150px;
     height: 150px;
@@ -46,7 +46,7 @@
         transform: scale(1.05);
 
         & svg {
-          color: theme-color-level("gray-light");
+          color: color-level("gray-light");
         }
       }
     }

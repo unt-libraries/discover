@@ -41,6 +41,8 @@ module.exports = function (api) {
             proposals: true,
           },
           shippedProposals: true,
+          // Explicit include required prior to ES2022
+          include: ['@babel/plugin-transform-class-properties'],
         },
       ],
       require('@babel/preset-typescript'),

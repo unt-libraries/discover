@@ -2,7 +2,7 @@
 .document,
 .show-document {
   .result__label {
-    color: theme-color("gray-darker");
+    color: $gray-darker;
     font-weight: $font-weight-bold;
     font-size: $font-size-sm;
     display: inline;
@@ -37,7 +37,7 @@
     &:hover {
       .hover-counter {
         background: $white;
-        border: 1px solid theme-color("gray-lighter");
+        border: 1px solid $gray-lighter;
         border-radius: 3px;
         display: inline-block;
         font-size: 0.875rem;
@@ -55,7 +55,7 @@
 
     &.seen {
       .document-title-heading a {
-        color: theme-color("indigo");
+        color: $indigo;
       }
     }
 
@@ -65,19 +65,19 @@
       padding-right: 15px;
       width: 100%;
 
-      @include media-breakpoint-down(md) {
+      @include media-breakpoint-down(lg) {
         border-left: none;
       }
     }
 
     .result__label {
-      color: theme-color("gray-darker");
+      color: $gray-darker;
       font-weight: $font-weight-bold;
       display: inline;
       text-align: left;
 
       &.muted {
-        @extend .text-muted;
+        @extend .text-body-secondary;
 
         font-size: $font-size-sm;
         font-weight: $font-weight-normal;
@@ -88,8 +88,8 @@
       display: inline;
 
       &.muted {
-        @extend .text-muted;
-        @extend .font-italic;
+        @extend .text-body-secondary;
+        @extend .fst-italic;
 
         font-size: $font-size-sm;
         font-weight: $font-weight-normal;
@@ -132,7 +132,7 @@
 
     .blacklight-creator-contrib {
       .more {
-        @extend .text-muted;
+        @extend .text-body-secondary;
 
         display: inline-block;
         font-size: $font-size-sm;

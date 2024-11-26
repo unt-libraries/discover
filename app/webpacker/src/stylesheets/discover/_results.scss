@@ -24,7 +24,7 @@
 }
 
 .sort-pagination {
-  background-color: theme-color-level("lime", -10);
+  background-color: color-level("lime", -10);
   padding: $pagination-padding-y  $pagination-padding-x;
   margin: 0 !important;
   border: 1px solid transparent;

@@ -11,12 +11,12 @@
 .applied-filter {
   &.btn {
     color: $white;
-    background-color: theme-color("dark-teal");
-    border-color: theme-color("dark-teal");
+    background-color: $dark-teal;
+    border-color: $dark-teal;
 
     &:hover {
       color: $white;
-      background-color: theme-color-level("dark-teal", 2);
+      background-color: color-level("dark-teal", 2);
     }
 
     &:focus {

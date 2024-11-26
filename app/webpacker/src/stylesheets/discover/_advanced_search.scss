@@ -12,7 +12,7 @@
       }
 
       .selected {
-        color: theme-color("dark-teal") !important;
+        color: $dark-teal !important;
         display: inline-block;
         margin-bottom: 0.5rem;
       }
@@ -62,7 +62,7 @@
     padding-left: 0.5rem;
     padding-right: 0;
 
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       padding-left: 0;
     }
   }
@@ -73,11 +73,11 @@
     cursor: pointer;
 
     &-active {
-      border-color: theme-color("dark-teal") !important;
+      border-color: $dark-teal !important;
 
       .card-header {
         border-radius: 0 !important;
-        background-color: theme-color("dark-teal") !important;
+        background-color: $dark-teal !important;
 
         &.collapsed {
           border-radius: 0 !important;
@@ -127,7 +127,7 @@
     }
 
     .facet-label {
-      color: theme-color("dark-teal");
+      color: $dark-teal;
     }
   }
 

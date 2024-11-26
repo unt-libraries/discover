@@ -1,0 +1,52 @@
+# Changes from source noted below with "EDITED"
+_documentation: |
+  global_alert:       # The primary alert object
+    enabled:          # {boolean}; if true, the alert will display
+    dismissible:      # {boolean}; if true, the alert can be dismissed with a close button
+    bg_classes:       # {str};     CSS classes to apply to the background of the alert wrapper; ex: "text-bg-lime-green fs-4"
+    alert_classes:    # {str};     CSS classes to apply to the background of the alert;         ex: "alert-lime-green"
+    icon_classes:     # {str};     CSS classes for font-icon;                                   ex: "fa-duotone fa-hammer fa-2x me-2"
+    text: >-
+                      # {markdown} Text to display in alert. paragraph tags are stripped.
+
+global_alert:
+  enabled: false
+  dismissible: true
+  days_to_expire: 3
+  bg_classes: "text-bg-lime-green fw-bolder"
+  alert_classes: "alert-lime-green"
+  icon_classes: "fa-duotone fa-hammer"
+  text: >-
+    The library catalog will be unavailable on 02/23/1977 for scheduled maintenenance.
+
+
+reserves:
+  related_items:
+    - title: "Subject & Course Guides"
+      url: https://guides.library.unt.edu
+    - title: "Space Reservations"
+      url: https://calendar.library.unt.edu/allspaces
+    - title: "Laptops"
+      url: /services/laptop-checkout/
+    - title: "Reserves info"
+      url: /services/course-reserves/
+
+# EDITED to use HTML instead of markdown
+ask_us: |
+
+  <p class="mt-2"><a href="https://unt.libanswers.com/chat/widget/9279f20504044072454e342f7472f5d665421500906281355ba7d5cffe62aa0a" target="_blank" class="link-dark">Start a new chat in fullscreen</a>.
+  When chat is unavailable you can:</p>
+  
+  <h3 class="h5" id="call-us">Call Us</h3>
+  
+  <ul>
+  <li><a href="tel:9405653245" class="link-dark">Phone: (940) 565-3245</a></li>
+  <li><a href="tel:18778720264" class="link-dark">Toll-free: (877) 872-0264</a></li>
+  </ul>
+  
+  <h3 class="h5" id="email-us">Email Us</h3>
+  
+  <p>Messages to <a href="mailto:AskUs@unt.edu" class="link-dark">AskUs@unt.edu</a> are answered within 48 hours. For
+  subject specific questions, please contact a <a href="https://library.unt.edu/subject-librarians/" class="link-dark">Subject
+  Librarian</a>.</p>
+

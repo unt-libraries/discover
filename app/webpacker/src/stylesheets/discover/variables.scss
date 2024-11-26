@@ -5,77 +5,33 @@
 // Color system
 
 $white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #6c757d !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
 $black:    #000 !default;
 
 //
 // Secondary Colors
 //
 
-$yellow:            #ffc107;
+$green:             #00853e;
 $indigo:            #1a237e;
 
 $brand-greyscale:           #2d2c2c;  // official (dark) grey of UNT
 
 // set bootstrap color variables to defined colors
 
-$gray-base:              shade($brand-greyscale, 20%);
+$gray-base:              shade-color($brand-greyscale, 20%);
 $gray-darker:            $brand-greyscale;
-$gray-dark:              tint($brand-greyscale, 20%);
-$gray:                   tint($brand-greyscale, 40%);
-$gray-light:             tint($brand-greyscale, 60%);
-$gray-lighter:           tint($brand-greyscale, 80%);
-
-//
-// Library Colors
-//
-$dark-charcoal:     #3e3935;
-$light-charcoal:    #53544a;
-$warm-gray:         #7b6e66;
-$light-teal:        #00b5cc;
-$dark-teal:         #00788a;
-$light-blue:        #7fb3ce;
-$lime-green:        #c1d82f;
-$light-green:       #7ac143;
-$mint-green:        #cfffe5;
-$unt-green:         #007b3b;
-$forest-green:      #254a33;
+$gray-dark:              tint-color($brand-greyscale, 20%);
+$gray:                   tint-color($brand-greyscale, 40%);
+$gray-light:             tint-color($brand-greyscale, 60%);
+$gray-lighter:           tint-color($brand-greyscale, 80%);
 
 $clearcoat:             #fff;
 
 // Breadcrumbs
 $breadcrumb-margin-bottom:  1rem;
 
-// Extends theme colors with custom ones for use in alerts, buttons, backgrounds, etc.
-$theme-colors: (
-  "primary":        $unt-green,
-  "warning":        $yellow,
-  "light-teal":     $light-teal,
-  "dark-teal":      $dark-teal,
-  "lime-green":     $lime-green,
-  "light-green":    $light-green,
-  "green":          $green,
-  "forest-green":   $forest-green,
-  "aqua":           $aqua,
-  "lime":           $lime,
-  "mint-green":     $mint-green,
-  "gray-base":      mix(black, $brand-greyscale, 20%),
-  "gray-darker":    $brand-greyscale,
-  "gray-dark":      mix(white, $brand-greyscale, 20%),
-  "gray":           mix(white, $brand-greyscale, 40%),
-  "gray-light":     mix(white, $brand-greyscale, 60%),
-  "gray-lighter":   mix(white, $brand-greyscale, 80%),
-  "indigo":         $indigo,
-  "unt-green":      $unt-green,
-);
+// Override colors in the default color map
+$primary:           $unt-green;
 
 // Set a specific jump point for requesting color jumps
 $theme-color-interval:      8%;
@@ -91,12 +47,13 @@ $enable-rounded: false;
 // Settings for the `<body>` element.
 
 $body-bg:                   #f9f9f9;
-$body-color:                theme-color("gray-dark");
+$body-color:                $gray-dark;
 
 // Links
 //
 // Style anchor elements.
 
+$link-color:                $green;
 $link-hover-color:          darken($link-color, 15%) !default;
 
 // Components
@@ -109,16 +66,13 @@ $border-width:                1px !default;
 //
 // Font, line-height, and color for body text, headings, and more.
 
-$font-size-base:              1rem;
-
 $h1-font-size:                $font-size-base * 1.8;
 $h2-font-size:                $font-size-base * 1.728;
 $h3-font-size:                $font-size-base * 1.44;
 $h4-font-size:                $font-size-base * 1.2;
 $h5-font-size:                $font-size-base;
-$h6-font-size:                $font-size-base * 0.85;
 
-$headings-color:              theme-color("gray-dark");
+$headings-color:              $gray-dark;
 
 // Buttons + Forms
 //
@@ -128,37 +82,27 @@ $input-btn-border-width:      $border-width !default;
 
 // Forms
 
-//$input-color:                           theme-color-level(gray-darker, -98);
-$input-bg:                              theme-color-level(gray-darker, -12.25);
-$input-border-color:                    theme-color-level(gray-darker, -11);
+$input-color:                           color-level(gray-darker, -98);
+$input-bg:                              color-level(gray-darker, -12.25);
+$input-border-color:                    color-level(gray-darker, -11);
 $input-border-width:                    $input-btn-border-width !default;
 $input-box-shadow:                      inset 0 1px 1px rgba($black, 0.075) !default;
 
-$input-focus-bg:                        theme-color-level(dark-teal, -12);
-$input-focus-border-color:              theme-color-level(dark-teal, -6);
-//$input-focus-color:                     $input-color !default;
-//$input-focus-width:                     $input-btn-focus-width !default;
+$input-focus-bg:                        color-level(dark-teal, -12);
+$input-focus-border-color:              color-level(dark-teal, -6);
 $input-focus-box-shadow:                inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 
 // Cards
 
 $card-spacer-y:                     0.75rem !default;
 $card-spacer-x:                     1.25rem !default;
-$card-border-width:                 $border-width !default;
 $card-border-radius:                0.25rem;
 $card-border-color:                 rgba($black, 0.125) !default;
-$card-inner-border-radius:          subtract($card-border-radius, $card-border-width) !default;
 $card-cap-bg:                       rgba($black, 0.03) !default;
-$card-cap-color:                    null !default;
-$card-height:                       null !default;
-$card-color:                        null !default;
 $card-bg:                           $white !default;
 
 // Badges
 
-$badge-font-size:                   .75em !default;
 $badge-font-weight:                 700 !default;
-$badge-color:                       $white !default;
-$badge-padding-y:                   .35em !default;
-$badge-padding-x:                   .65em !default;
-$badge-border-radius:               .375rem !default;
+$badge-padding-x:                   .6em !default;
+$badge-border-radius:               10rem !default;
