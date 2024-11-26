@@ -17,7 +17,7 @@
         <span class="remove">
           <i class="fa fa-times-circle remove-icon" data-bs-toggle="tooltip" data-bs-title="Remove facet"></i>
         </span>
-        <span class="sr-only">[<%= t('blacklight.range_limit.remove_limit') %>]</span>
+        <span class="visually-hidden">[<%= t('blacklight.range_limit.remove_limit') %>]</span>
       </span>
       <span class="selected facet-count badge"><%= number_with_delimiter(@response.total) %></span>
     <% end %>
@@ -27,13 +27,9 @@
     <%= render Blacklight::HiddenSearchStateComponent.new(params: search_state.params_for_search.except(:page)) %>
     <div class="input-group input-group-sm flex-nowrap range-limit-input-group">
       <%= render_range_input(field_name, :begin, input_label_range_begin, maxlength) %>
-      <div class="input-group-append">
-        <span class="range-limit-input-divider input-group-text">-</span>
-      </div>
+      <span class="range-limit-input-divider input-group-text">-</span>
       <%= render_range_input(field_name, :end, input_label_range_end, maxlength) %>
-      <div class="input-group-append">
-        <%= submit_tag t('blacklight.range_limit.submit_limit'), class: BlacklightRangeLimit.classes[:submit] %>
-      </div>
+      <%= submit_tag t('blacklight.range_limit.submit_limit'), class: BlacklightRangeLimit.classes[:submit] %>
     </div>
   <% end %>
 

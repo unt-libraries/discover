@@ -1,5 +1,5 @@
 <div class="sort-buttons">
-  <div class="row form-group mb-4">
+  <div class="row mb-4">
     <%= label_tag(:sort, t('blacklight_advanced_search.form.sort_label'), :class => "control-label col-md-3 col-form-label text-md-right") %>
     <div class="col">
       <%- sort_fields = active_sort_fields.values.map { |field_config| [sort_field_label(field_config.key), field_config.key] } %>
@@ -15,6 +15,6 @@
 
     <%= link_to "<i class='fal fa-undo icon'></i> #{t('blacklight_advanced_search.form.start_over')}".html_safe,
                 blacklight_advanced_search_engine.advanced_search_path,
-                :class =>"btn btn-outline-secondary ml-4 advanced-search-start-over" %>
+                :class =>"btn btn-outline-secondary ms-4 advanced-search-start-over" %>
   </div>
 </div>

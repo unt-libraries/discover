@@ -91,9 +91,9 @@ module UrlHelper
 
   def link_to_request_refworks(document)
     url = "https://export2refworks.library.unt.edu/processor_a.php?bib=#{document[:id]}"
-    content_tag(:span, document[:full_title], class: 'sr-only')
+    content_tag(:span, document[:full_title], class: 'visually-hidden')
     text = "Add #{content_tag(:span,
-                              document[:full_title], class: 'sr-only')} to Refworks".html_safe
+                              document[:full_title], class: 'visually-hidden')} to Refworks".html_safe
     link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
                        'ga-on': 'click',
                        'ga-event-category': 'Bib Record',
@@ -142,8 +142,8 @@ module UrlHelper
 
   def link_to_request_illiad(document)
     url = construct_illiad_url(document)
-    content_tag(:span, document[:full_title], class: 'sr-only')
-    text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')}" \
+    content_tag(:span, document[:full_title], class: 'visually-hidden')
+    text = "Request #{content_tag(:span, document[:full_title], class: 'visually-hidden')}" \
       "through ILL".html_safe
     link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
                        'data-bs-toggle': 'tooltip',

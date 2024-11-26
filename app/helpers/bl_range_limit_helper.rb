@@ -43,7 +43,7 @@ module BlRangeLimitHelper
       :class => "form-control text-center range_#{type}",
     }
     html = text_field_tag("range[#{solr_field}][#{type}]", default, options)
-    html += label_tag("range[#{solr_field}][#{type}]", input_label, class: 'sr-only') if input_label.present?
+    html += label_tag("range[#{solr_field}][#{type}]", input_label, class: 'visually-hidden') if input_label.present?
     html
   end
 end

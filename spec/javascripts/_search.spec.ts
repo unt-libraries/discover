@@ -13,7 +13,6 @@ describe('searchSelector', () => {
       <div class="search-query-form">
         <div class="input-group">
           <input type="text" name="q" id="q">
-          <div class="input-group-append">
             <div class="dropdown d-none d-sm-block" id="searchFieldDropdownGroup">
               <button class="btn dropdown-toggle search__btn" type="button" id="search-fields" data-bs-toggle="dropdown">
                 " Look in: "
@@ -32,7 +31,6 @@ describe('searchSelector', () => {
               </div>
             </div>
             <input type="hidden" name="search_field" id="search_field" value="text">
-          </div>
         </div>
       </div>
     `;

@@ -3,14 +3,14 @@
 <dl class="dl-invert">
   <%# Creator and Contributor fields, combined %>
   <div class="result__field">
-    <dt class="blacklight-creator-contrib result__label sr-only">Creators & Contributors:</dt>
+    <dt class="blacklight-creator-contrib result__label visually-hidden">Creators & Contributors:</dt>
     <dd class="blacklight-creator-contrib result__value"><%= index_creator_contrib_field document %></dd>
   </div>
 
   <%# Priority fields %>
   <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field, field_presenter| -%>
     <div class="result__field">
-      <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> sr-only<% end %>">
+      <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> visually-hidden<% end %>">
         <%= render Blacklight::MetadataFieldComponent.new(field: field) %>
       </dt>
       <dd class="blacklight-<%= field_name.parameterize %> result__value muted"><%= field_presenter.render %></dd>
@@ -20,7 +20,7 @@
   <%# Resource type field %>
   <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :resource_type }.each do |field_name, field, field_presenter| -%>
     <div class="result__field">
-      <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> sr-only<% end %>">
+      <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> visually-hidden<% end %>">
         <%= render Blacklight::MetadataFieldComponent.new(field: field) %>
       </dt>
       <dd class="blacklight-<%= field_name.parameterize %> result__value muted">
@@ -33,7 +33,7 @@
   <% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :pub_statements } -%>
     <% pub_field_name, pub_field, pub_field_presenter = doc_presenter.fields_to_render.select { |name, f| f[:display] == :pub_statements }.first %>
     <div class="result__field">
-      <dt class="blacklight-<%= pub_field_name.parameterize %> result__label muted<% if pub_field[:no_label] %> sr-only<% end %>">
+      <dt class="blacklight-<%= pub_field_name.parameterize %> result__label muted<% if pub_field[:no_label] %> visually-hidden<% end %>">
         <%= render Blacklight::MetadataFieldComponent.new(field: pub_field) %>
       </dt>
       <dd class="blacklight-<%= pub_field_name.parameterize %> result__value muted"><%= pub_field_presenter.render %></dd>
@@ -44,7 +44,7 @@
   <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :control_numbers }.each do |field_name, field, field_presenter| -%>
     <% if display_control_number? params, field_name %>
       <div class="result__field">
-        <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> sr-only<% end %>">
+        <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> visually-hidden<% end %>">
           <%= render Blacklight::MetadataFieldComponent.new(field: field) %>
         </dt>
         <dd class="blacklight-<%= field_name.parameterize %> result__value muted fw-bold"><%= field_presenter.render %></dd>
@@ -55,7 +55,7 @@
   <%# Fields with no display value, but set to render in catalog_controller.rb %>
   <% doc_presenter.fields_to_render.select { |name, f| f[:display].blank? }.each do |field_name, field, field_presenter| -%>
     <div class="result__field">
-      <dt class="blacklight-<%= field_name.parameterize %> result__label muted <% if field[:no_label] %>sr-only<% end %>">
+      <dt class="blacklight-<%= field_name.parameterize %> result__label muted<% if field[:no_label] %> visually-hidden<% end %>">
         <%= render Blacklight::MetadataFieldComponent.new(field: field) %>
       </dt>
       <dd class="blacklight-<%= field_name.parameterize %> result__value muted"><%= field_presenter.render %></dd>

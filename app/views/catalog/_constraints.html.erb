@@ -3,10 +3,10 @@
     Applied Search Filters:
   </div>
   <div id="appliedParams" class="clearfix constraints-container">
-    <h2 class="sr-only"><%= t('blacklight.search.search_constraints_header') %></h2>
+    <h2 class="visually-hidden"><%= t('blacklight.search.search_constraints_header') %></h2>
 
     <%= render 'start_over' %>
-    <span class="constraints-label sr-only"><%= t('blacklight.search.filters.title') %></span>
+    <span class="constraints-label visually-hidden"><%= t('blacklight.search.filters.title') %></span>
     <%= render_constraints(params) %>
   </div>
 <% end %>

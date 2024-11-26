@@ -18,7 +18,7 @@ module ThumbnailHelper
           tabindex: -1,
         }) do
           concat(content_tag(:i, '', class: "#{icon}-icon icon fal fa-#{icon} img-fluid"))
-          concat(content_tag(:span, document[:full_title], class: 'sr-only item-title'))
+          concat(content_tag(:span, document[:full_title], class: 'visually-hidden item-title'))
         end
       else
         image_tag('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==',
