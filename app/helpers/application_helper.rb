@@ -244,7 +244,7 @@ module ApplicationHelper
             :standard_number => i['sn'],
           }.compact
           link_data = {
-            "data-toggle" => "tooltip",
+            "data-bs-toggle" => "tooltip",
             'ga-on': 'click',
             'ga-event-category': 'Bib Record',
             'ga-event-action': label,
@@ -287,8 +287,8 @@ module ApplicationHelper
 
     link_to(display, "/?#{author_facet}f[#{facet}][]=#{CGI.escape(value)}",
             class: "",
-            "data-toggle" => "tooltip",
-            title: "Search: #{value.split('!', 2).last}",
+            "data-bs-toggle" => "tooltip",
+            "data-bs-title": "Search: #{value.split('!', 2).last}",
             'ga-on': 'click',
             'ga-event-category': ga_category,
             'ga-event-action': "#{facet}",

@@ -26,7 +26,7 @@
         </a>
       </li>
 
-      <% if current_search_session && controller_name != 'advanced' %>
+      <% if defined?(current_search_session) && current_search_session && controller_name != 'advanced' %>
         <li class="<%= html_classes['breadcrumbs']['item'] %>">
           <%= link_back_to_catalog label: 'Results',
                                    class: html_classes['breadcrumbs']['link'] %>

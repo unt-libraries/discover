@@ -39,8 +39,8 @@ function createLocationLink(itemLocation) {
     const modalId = `modal${Math.floor(Math.random() * 1000)}`;
     newEl.textContent = locationText;
     newEl.href = '#';
-    newEl.setAttribute('data-toggle', 'modal');
-    newEl.setAttribute('data-target', `#${modalId}`);
+    newEl.setAttribute('data-bs-toggle', 'modal');
+    newEl.setAttribute('data-bs-target', `#${modalId}`);
     elIcon.classList.add('icon', 'fal', `fa-info-circle`);
     elIcon.style.marginRight = '0.25em';
     newEl.prepend(elIcon);
@@ -94,8 +94,8 @@ function createStatusElement(itemStatus, holdCount) {
   if (onHold) {
     holdEl.classList.add('hold-text', 'tooltip-nolink');
     holdEl.textContent = `On Hold (${holdCount} ${holdCount > 1 ? 'Holds' : 'Hold'})`;
-    holdEl.dataset.title = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} queued to check it out before it becomes available.`;
-    holdEl.dataset.toggle = 'tooltip';
+    holdEl.dataset.bsTitle = `${holdCount} other patron${holdCount > 1 ? 's have' : ' has'} requested this item and ${holdCount > 1 ? 'are' : ' is'} queued to check it out before it becomes available.`;
+    holdEl.dataset.bsToggle = 'tooltip';
     newEl.append(holdEl);
 
     // If the item status is available and not checked out, return the hold message
@@ -124,8 +124,8 @@ function createStatusElement(itemStatus, holdCount) {
   // Add a tooltip for the status description if present
   if (statusData && statusData.desc) {
     statusEl.classList.add('tooltip-nolink');
-    statusEl.dataset.title = statusData.desc;
-    statusEl.dataset.toggle = 'tooltip';
+    statusEl.dataset.bsTitle = statusData.desc;
+    statusEl.dataset.bsToggle = 'tooltip';
   }
 
   return newEl;

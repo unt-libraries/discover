@@ -96,8 +96,8 @@ module AvailabilityHelper
                          "text-center tooltip-nolink",
                   data: {
                     "item-call-number": item['c'],
-                    toggle: "tooltip",
-                    title: "The call number of this item",
+                    "bs-toggle": "tooltip",
+                    "bs-title": "The call number of this item",
                   },
                 })
   end

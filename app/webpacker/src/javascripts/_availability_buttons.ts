@@ -82,8 +82,8 @@ function updateStatusElement(itemEl: HTMLElement, item: ApiEntry | null = null):
 
     if (statusDesc && !statusDueDate && availabilityBtn) {
       availabilityBtn.innerText = statusDisplay;
-      availabilityBtn.dataset.toggle = 'tooltip';
-      availabilityBtn.dataset.title = statusDesc;
+      availabilityBtn.dataset.bsToggle = 'tooltip';
+      availabilityBtn.dataset.bsTitle = statusDesc;
       availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
     }
   } else {

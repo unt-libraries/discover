@@ -7,7 +7,7 @@
     <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field, field_presenter| -%>
       <div class="row result__field">
         <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label">
-          <span <%= raw("data-toggle=\"tooltip\" data-title=\"#{field.tooltip}\" data-placement=\"left\" class=\"tooltip-nolink\"") if field.tooltip %>>
+          <span <%= raw("data-bs-toggle=\"tooltip\" data-bs-title=\"#{field.tooltip}\" data-bs-placement=\"left\" class=\"tooltip-nolink\"") if field.tooltip %>>
             <%= render_document_show_field_label document, label: field_presenter.label, field: field_name %>
           </span>
         </dt>

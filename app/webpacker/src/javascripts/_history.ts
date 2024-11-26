@@ -25,8 +25,8 @@ function getDocHistory(): void {
     const { docId } = thisDoc.dataset as { docId: string };
     const seen = document.createElement('i');
     seen.className = 'fas fa-check';
-    seen.title = 'Previously viewed this session.';
-    seen.dataset.toggle = 'tooltip';
+    seen.dataset.bsTitle = 'Previously viewed this session.';
+    seen.dataset.bsToggle = 'tooltip';
 
     if (sessionStorage.getItem(`doc-history-${docId}`)) {
       const docTitle = thisDoc.querySelector('.document-title-heading');

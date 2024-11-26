@@ -15,7 +15,7 @@ describe('searchSelector', () => {
           <input type="text" name="q" id="q">
           <div class="input-group-append">
             <div class="dropdown d-none d-sm-block" id="searchFieldDropdownGroup">
-              <button class="btn dropdown-toggle search__btn" type="button" id="search-fields" data-toggle="dropdown">
+              <button class="btn dropdown-toggle search__btn" type="button" id="search-fields" data-bs-toggle="dropdown">
                 " Look in: "
                 <span class="selected">All Fields</span>
               </button>
@@ -273,7 +273,7 @@ describe('initFilters', () => {
       <div class="filter-container">
         <div class="filter">
           <div class="filter-header">
-            <button class="btn btn-link filter-toggle" data-toggle="collapse" data-target="#filter-1" aria-expanded="true" aria-controls="filter-1">
+            <button class="btn btn-link filter-toggle" data-bs-toggle="collapse" data-bs-target="#filter-1" aria-expanded="true" aria-controls="filter-1">
               <span class="filter-title">Filter 1</span>
               <span class="filter-count">1</span>
             </button>
@@ -293,7 +293,7 @@ describe('initFilters', () => {
         </div>
         <div class="filter">
           <div class="filter-header">
-            <button class="btn btn-link filter-toggle" data-toggle="collapse" data-target="#filter-2" aria-expanded="true" aria-controls="filter-2">
+            <button class="btn btn-link filter-toggle" data-bs-toggle="collapse" data-bs-target="#filter-2" aria-expanded="true" aria-controls="filter-2">
               <span class="filter-title">Filter 2</span>
               <span class="filter-count">1</span>
             </button>

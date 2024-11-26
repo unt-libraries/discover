@@ -43,7 +43,7 @@ module Blacklight
     # Classes used for sizing the sidebar content of a Blacklight page
     # @return [String]
     def sidebar_classes
-      'page-sidebar col-12 col-md-4 col-xl-3 order-1 hidden-print'
+      'page-sidebar col-12 col-md-4 col-xl-3 order-1 d-print-none'
     end
 
     ##

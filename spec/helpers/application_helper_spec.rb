@@ -163,13 +163,13 @@ describe ApplicationHelper do
 
     context 'when extra options are provided' do
       it 'renders select tag with extra options' do
-        result = helper.bootstrap_select_tag('example', '<option value="1">Option 1</option>'.html_safe, class: 'custom-class', data: { toggle: 'dropdown' })
+        result = helper.bootstrap_select_tag('example', '<option value="1">Option 1</option>'.html_safe, class: 'custom-class', data: { 'bs-toggle': 'dropdown' })
         parsed_result = Nokogiri::HTML.fragment(result)
 
         expect(parsed_result.at_css('div')['name']).to eq 'example'
         expect(parsed_result.at_css('div')['id']).to eq 'example'
         expect(parsed_result.at_css('div')['class']).to include 'custom-class'
-        expect(parsed_result.at_css('div')['data-toggle']).to eq 'dropdown'
+        expect(parsed_result.at_css('div')['data-bs-toggle']).to eq 'dropdown'
         expect(parsed_result.at_css('div option')['value']).to eq '1'
         expect(parsed_result.at_css('div option').text).to eq 'Option 1'
       end

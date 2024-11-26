@@ -93,7 +93,7 @@ module FacetsHelper
       # Remove icon
       concat(content_tag(:span, class: "remove") do
         content_tag(:i, '', class: "fa fa-times-circle remove-icon",
-                            "data-toggle" => "tooltip", "data-title" => "Remove facet")
+                            "data-bs-toggle" => "tooltip", "data-bs-title" => "Remove facet")
       end)
     end + render_facet_count(item.hits, classes: ["selected"])
     {

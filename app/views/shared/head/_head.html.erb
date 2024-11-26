@@ -58,4 +58,7 @@
 
     gtag('config', '<%= Rails.application.credentials[Rails.env.to_sym][:google_analytics] %>');
   </script>
+
+  <!-- Additional scripts -->
+  <%= render 'shared/www/footer/scripts' %>
 </head>

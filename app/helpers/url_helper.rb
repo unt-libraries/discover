@@ -146,8 +146,8 @@ module UrlHelper
     text = "Request #{content_tag(:span, document[:full_title], class: 'sr-only')}" \
       "through ILL".html_safe
     link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
-                       'data-toggle': 'tooltip',
-                       'data-title': 'Request through Interlibrary Loan',
+                       'data-bs-toggle': 'tooltip',
+                       'data-bs-title': 'Request through Interlibrary Loan',
                        'ga-on': 'click',
                        'ga-event-category': 'Bib Record',
                        'ga-event-action': 'Tools link click',
@@ -250,26 +250,26 @@ module UrlHelper
       data['bib-title'] = "#{document[:title_display]}#{" / #{document[:responsibility_display]}" if document[:responsibility_display].present?}"
       data['aeon-url'] = construct_aeon_url(document)
       data['illiad-url'] = construct_illiad_url(document)
-      data['toggle'] = 'tooltip'
-      data['title'] = 'Place a request to have this item delivered to a pickup location when it becomes available.'
+      data['bs-toggle'] = 'tooltip'
+      data['bs-title'] = 'Place a request to have this item delivered to a pickup location when it becomes available.'
     when 'jlf'
       url = construct_illiad_url(document, item: item)
       text = "<i class='fal fa-fw fa-warehouse-alt'></i> Request from JLF Remote"
       el_class = "request-illiad"
-      data['toggle'] = 'tooltip'
-      data['title'] = 'This item is located at the Joint Library Facility Remote Storage location. Request it through ILLiad.'
+      data['bs-toggle'] = 'tooltip'
+      data['bs-title'] = 'This item is located at the Joint Library Facility Remote Storage location. Request it through ILLiad.'
     when 'aeon'
       url = construct_aeon_url(document, item: item)
       text = "<i class='fal fa-fw fa-archive'></i> Request on-site use"
       el_class = "request-aeon"
-      data['toggle'] = 'tooltip'
-      data['title'] = 'Reading Room Use Only. Place a request through Aeon to use this item at the library.'
+      data['bs-toggle'] = 'tooltip'
+      data['bs-title'] = 'Reading Room Use Only. Place a request through Aeon to use this item at the library.'
     when 'finding_aid'
       url = construct_finding_aid_url(document)
       text = "<i class='fal fa-fw fa-archive'></i> Request on-site use"
       el_class = "request-finding-aid"
-      data['toggle'] = 'tooltip'
-      data['title'] = 'Reading Room Use Only. Place a request through the finding aid to use this item at the library.'
+      data['bs-toggle'] = 'tooltip'
+      data['bs-title'] = 'Reading Room Use Only. Place a request through the finding aid to use this item at the library.'
     else
       return 'Cannot request this item'
     end
