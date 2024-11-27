@@ -17,9 +17,9 @@
   <div class="row advanced-search-field mb-4">
     <%= label_tag pub_date, "#{pub_date.label}", :class => "col-3 control-label col-form-label text-md-right" %>
     <div class="col-md-8 range_limit">
-      <label for="range_pub_date_start_sort_begin" class="visually-hidden">Publication date range (starting year)</label>
+      <label for="form-label range_pub_date_start_sort_begin" class="visually-hidden">Publication date range (starting year)</label>
       <%= render_range_input(pub_date.field, :begin) %> –
-      <label for="range_pub_date_start_sort_end" class="visually-hidden">Publication date range (ending year)</label>
+      <label for="form-label range_pub_date_start_sort_end" class="visually-hidden">Publication date range (ending year)</label>
       <%= render_range_input(pub_date.field, :end) %>
     </div>
   </div>
