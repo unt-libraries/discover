@@ -124,6 +124,7 @@ test:
         echo RAILS_SERVE_STATIC_FILES=$RAILS_SERVE_STATIC_FILES >> .env &&
         echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .env &&
         echo RAILS_MASTER_KEY=$RAILS_MASTER_KEY >> .env &&
+        echo WEB_CONCURRENCY=$WEB_CONCURRENCY >> .env &&
         docker compose pull &&
         docker compose up -d &&
         docker compose exec -T web rails assets:precompile &&
@@ -141,6 +142,7 @@ deploy:alpha:
     RAILS_PORT: 3000
     RAILS_ENV: development
     RAILS_SERVE_STATIC_FILES: "false"
+    WEB_CONCURRENCY: 1
 
 deploy:beta:
   extends: .deploy
@@ -152,6 +154,7 @@ deploy:beta:
     RAILS_PORT: 3100
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
+    WEB_CONCURRENCY: 1
 
 deploy:production:
   extends: .deploy
@@ -163,3 +166,4 @@ deploy:production:
     RAILS_PORT: 3200
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
+    WEB_CONCURRENCY: 4
