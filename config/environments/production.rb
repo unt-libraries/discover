@@ -75,7 +75,8 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   # Silence deprecation notices in production
-  config.active_support.deprecation = :silence
+  config.active_support.deprecation = :log
+  Deprecation.default_deprecation_behavior = :silence
 
   # Log disallowed deprecations.
   config.active_support.disallowed_deprecation = :log
