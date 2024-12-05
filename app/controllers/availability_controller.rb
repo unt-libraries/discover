@@ -66,6 +66,7 @@ class AvailabilityController < ApplicationController
 
   def get_items
     options = bearer_headers
+    options[:timeout] = 5 # seconds
     uri = "https://iii.library.unt.edu/iii/sierra-api/v5/items/?"
     bib_ids = "id=#{@bib_id_string}"
     fields = "fields=location,status,holdCount"
