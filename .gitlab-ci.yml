@@ -166,4 +166,4 @@ deploy:production:
     RAILS_PORT: 3200
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
-    WEB_CONCURRENCY: 4
+    WEB_CONCURRENCY: 8
