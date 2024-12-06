@@ -1,6 +1,7 @@
 stages:
   - build-container
   - test
+  - release
   - deploy
 
 variables:
@@ -8,6 +9,8 @@ variables:
   SSH_PRIVATE_KEY: $LIBWEBRUNNER_PRIVATE_KEY
   SSH_USER: $SSH_DEPLOY_USER
   SSH_SERVER: $SSH_DEPLOY_SERVER
+  FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  PROD_IMAGE_NAME: $CI_REGISTRY_IMAGE:latest
 
 # Include before_script to download utilities repo & run scripts
 include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitlab-ci/.before-script-utils-repo.yml'
@@ -17,12 +20,10 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
 # Build container stage
 ########################
 
-.build-container:
+build-container:
   stage: build-container
   tags:
     - dind
-  variables:
-    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
@@ -46,29 +47,6 @@ include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitla
     - when: manual
       allow_failure: true
 
-build-container:alpha:
-  extends: .build-container
-  variables:
-    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/alpha:latest
-    RAILS_PORT: 3000
-    RAILS_ENV: development
-    RAILS_SERVE_STATIC_FILES: "false"
-
-build-container:beta:
-  extends: .build-container
-  variables:
-    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/beta:latest
-    RAILS_PORT: 3100
-    RAILS_ENV: production
-    RAILS_SERVE_STATIC_FILES: "true"
-
-build-container:production:
-  extends: .build-container
-  variables:
-    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/production:latest
-    RAILS_PORT: 3200
-    RAILS_ENV: production
-    RAILS_SERVE_STATIC_FILES: "true"
 
 #############
 # Test stage
@@ -97,6 +75,20 @@ test:
   when: manual
 
 
+################
+# Release stage
+################
+
+release-image:
+  stage: release
+  script:
+    - docker pull $FULL_IMAGE_NAME
+    - docker tag $FULL_IMAGE_NAME $PROD_IMAGE_NAME
+    - docker push $PROD_IMAGE_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: manual
+
 ###############
 # Deploy stage
 ###############
@@ -108,7 +100,6 @@ test:
     GIT_SUBMODULE_STRATEGY: none
     GIT_BRANCH: master
     SITE_DEST_DIR: /var/www/html/$CI_ENVIRONMENT_URL
-    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_NAME:latest
   before_script:
     - source /app/prepare_ssh.sh
   script:
@@ -138,7 +129,6 @@ deploy:alpha:
     name: alpha
     url: alpha.discover.library.unt.edu
   variables:
-    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/alpha:latest
     RAILS_PORT: 3000
     RAILS_ENV: development
     RAILS_SERVE_STATIC_FILES: "false"
@@ -150,7 +140,6 @@ deploy:beta:
     name: beta
     url: beta.discover.library.unt.edu
   variables:
-    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/beta:latest
     RAILS_PORT: 3100
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
@@ -162,8 +151,11 @@ deploy:production:
     name: production
     url: discover.library.unt.edu
   variables:
-    FULL_IMAGE_NAME: $CI_REGISTRY_IMAGE/production:latest
+    FULL_IMAGE_NAME: $PROD_IMAGE_NAME
     RAILS_PORT: 3200
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
     WEB_CONCURRENCY: 8
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: manual
