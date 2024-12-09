@@ -2,6 +2,7 @@
   html_classes = load_yaml_data('www/html_classes')['footer']
   site = load_yaml_data('www/config')
   footer_spaces = load_yaml_data('www/navigation')['footer']['locations']
+  footer_social_media = load_yaml_data('www/urls')['social_media'].select { |item| item['department'] == 'all' }
 %>
 
 <footer aria-label="University Branding and links, Partner Links, and Contact Information"
@@ -87,9 +88,9 @@
                   title: 'Telephone Icon',
                   classes: html_classes['address_icon'] } %>
               </div>
-              <a href="tel:<%= site['phone'] %>"
+              <a href="tel:<%= site['phone'].remove('+1-').remove('-').remove('.') %>"
                  class="<%= html_classes['space_link'] %>">
-                <%= site['phone'].remove("+1-") %>
+                <%= site['phone'] %>
               </a>
             </div>
             <div class="<%= html_classes['address'] %>" id="footer-address-tollfree">
@@ -101,7 +102,7 @@
                   title: 'Paper Plane Icon',
                   classes: html_classes['address_icon'] } %>
               </div>
-              <a href="tel:<%= site['toll-free'] %>"
+              <a href="tel:<%= site['toll-free'].remove('-').remove('.') %>"
                  class="<%= html_classes['space_link'] %>">
                 Toll Free: <%= site['toll-free'].remove("+1-") %>
               </a>
@@ -112,24 +113,19 @@
         <!-- Third Column -->
         <div class="<%= html_classes['last_col'] %>" id="footer-col-3">
           <h2 class="<%= html_classes['heading'] %>">Follow Us</h2>
+          <% if footer_social_media %>
           <nav class="<%= html_classes['social_nav'] %>" aria-label="Footer Social Media Links">
-            <% site['social'].each do |item| %>
-              <a aria-label="Follow us on <%= item['name'] %> %>"
-                 href="<%= item['url'].concat(item['id']) %>/app/assets/config"
+            <% footer_social_media.each do |item| %>
+              <a aria-label="<%= item['name'] %>"
+                 href="<%= item['url'] %>"
                  class="<%= html_classes['social_icon'] %>"
                  data-bs-toggle="tooltip"
-                 data-bs-title="<%= item['name'] %>">
-                <span aria-hidden="true" class="fab fw fa-<%= item['icon'] %>"></span>
+                 data-bs-title="<%= item['title'] %>">
+                <span aria-hidden="true" class="<%= item['icon_class'] %>"></span>
               </a>
             <% end %>
-            <a aria-label="RSS feed"
-               href="https://library.unt.edu/news/rss/"
-               class="<%= html_classes['social_icon'] %>"
-               data-bs-toggle="tooltip"
-               data-bs-title="RSS">
-              <span aria-hidden="true" class="fas fw fa-rss"></span>
-            </a>
           </nav>
+          <% end %>
           <h2 class="<%= html_classes['heading'] %>">
             Partnerships
           </h2>

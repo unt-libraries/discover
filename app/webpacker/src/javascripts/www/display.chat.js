@@ -6,52 +6,56 @@ import { setWithExpiry, getWithExpiry } from './utils.js';
  * Check against sprinshare's api to see if chat is online and
  * store value for 15 minutes before checking again.
  */
-class chatManager {
+export class ChatManager {
   /**
    * Constructor.
    */
   constructor() {
-    this.storageKey = `unt_lib.v2.chatActive`;
-    this.now = new Date();
+    this.storageKey = window.wwwJsShims.chat.storageKey; // EDITED to use config on window object
     this.expireTime = (5 * 60000); // 5 minutes
-    this.apiUrl = "https://api2.libanswers.com/1.0/chat/widgets/status/26930"; // no cors errors on local.
-    // this.apiUrl = "https://unt.libanswers.com/api/1.0/chat/widgets/status/26930"; // cors errors on local.
-    this.widgetUrl = "https://unt.libanswers.com/load_chat.php?hash=9279f20504044072454e342f7472f5d665421500906281355ba7d5cffe62aa0a";
+    this.apiUrl = window.wwwJsShims.chat.chat_config.apiURL.concat(window.wwwJsShims.chat.chat_config.endpoint); // EDITED to use config on window object
+    this.widgetUrl = window.wwwJsShims.chat.chat_config.widgetUrl; // EDITED to use config on window object
     this.chatBtn = document.querySelector('#global-chat-btn');
     this.chatBtnText = document.querySelector('#global-chat-btn-text');
     this.offCanvasAsUs = document.querySelector('#offcanvas-ask-us');
+    this.currentVersion = 'v1.0'; // Update this version as needed to force resets
     // autorun
-    this.init();
+    if (document.readyState !== 'loading') {
+      this.init();
+    } else {
+      document.addEventListener('DOMContentLoaded', () => {
+        this.init();
+      });
+    }
   }
 
   /**
    * Initializes on content load.
    */
   init() {
-    document.addEventListener('DOMContentLoaded', () => {
-      // append fallback text to offCanvasAsUs no matter the circumstances.
-      this.offCanvasAsUs.innerHTML = this.getFallbackText();
-      // check storage
-      const chatStatus = this.checkStorage();
-      if (chatStatus === null) {
-        // status doesn't exist; it has expired or never existed. Check status.
-        this.fetchChatStatus();
+    // exit early if no chat button or off canvas element
+    if (!this.chatBtn || !this.offCanvasAsUs) return;
+    // append fallback text to offCanvasAsUs no matter the circumstances.
+    this.offCanvasAsUs.innerHTML = this.getFallbackText();
+    // check storage
+    const chatStatus = this.checkStorage();
+    if (chatStatus === null) {
+      // status doesn't exist; it has expired or never existed. Check status.
+      this.fetchChatStatus();
+    } else {
+      if (chatStatus) {
+        // chat is available, load the widget
+        this.loadChat();
+        this.showBtn();
       } else {
-        if (chatStatus) {
-          // chat is available, load the widget
-          this.loadChat();
-          this.showBtn();
-        } else {
-          // chat is not avaialable, do nothing.
-          // 'false' state will expire within 15 min.
-          // and a re-checxxk will result in null
-          //this.loadChat(); // testing.
-          this.offlineStatus();
-          this.showBtn();
-        }
+        // chat is not avaialable, do nothing.
+        // 'false' state will expire within 15 min.
+        // and a re-checxxk will result in null
+        //this.loadChat(); // testing.
+        this.offlineStatus();
+        this.showBtn();
       }
-
-    });
+    }
   }
 
   /**
@@ -109,21 +113,16 @@ class chatManager {
    *
    */
   getFallbackText() {
-    const askUsText = window.wwwJsShims.chat.ask_us_text; // EDITED to use config on window object
-    // create html from askUsText ready to insert in the dom
-    //const parser = new DOMParser();
-   // const parsedHtml = parser.parseFromString(askUsText, 'text/html');
-    // return the parsed html
-    return askUsText;
+    return window.wwwJsShims.chat.ask_us_text; // EDITED to use config on window object
   }
 
   /**
-   * Set storage with current chat status and a 15 minute expirary.
+   * Set storage with current chat status and a 5 minute expirary.
    * @param {boolean} active - true if chat is active, false if not.
    * @returns {boolean} - true if chat is active, false if not.
    */
   setStorage(active) {
-    setWithExpiry(this.storageKey, active, this.expireTime, true);
+    setWithExpiry(this.storageKey, active, this.expireTime, this.currentVersion, true);
   }
 
   /**
@@ -131,12 +130,10 @@ class chatManager {
    * @returns {boolean | null} - true if chat is active, null if not.
    */
   checkStorage() {
-    const storageVal = getWithExpiry(this.storageKey, true);
+    const storageVal = getWithExpiry(this.storageKey, this.currentVersion, true);
     return storageVal;
   }
-
-
 }
 
-// Create an instance of chatManager when the script is loaded
-new chatManager();
+// Usage example:
+// new ChatManager();

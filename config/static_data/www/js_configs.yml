@@ -1,3 +1,7 @@
+# window JS namespace for inline scripts
+namespace: window.untLib
+
+# event related config
 events:
   apiURL: https://calendar.library.unt.edu/1.0/events
   apiArgs:
@@ -6,7 +10,7 @@ events:
     key: 8fb13b2978ace62120c2afa1721b54dc
     days: 30
     #date: '2024-04-01'
-    limit: 60
+    limit: 100
   storageKey: 'unt_lib.v2.todaysEvents'
   categories:
     spark:
@@ -82,3 +86,16 @@ hours:
 shortcuts:
   storageKey: 'unt_lib.v2.shortcuts'
   expires: 15638400 # expires in 6 months
+
+
+chat:
+  storageKey: 'unt_lib.v2.chatActive'
+  apiURL: 'https://api2.libanswers.com'
+  endpoint: '/1.0/chat/widgets/status/26930'
+  widgetUrl: 'https://unt.libanswers.com/load_chat.php?hash=9279f20504044072454e342f7472f5d665421500906281355ba7d5cffe62aa0a'
+
+heros:
+  storageKey: 'unt_lib.v2.heros'
+
+global_alert:
+  storageKey: 'unt_lib.v2.global_alerts'

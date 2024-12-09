@@ -9,11 +9,8 @@ import './base.scss';
 
 // Javascript inherited from www
 import '../src/javascripts/www/main'; // This is the main entry point for the www pack
-import '../src/javascripts/www/alerts';
-import '../src/javascripts/www/utils.search';
-import '../src/javascripts/www/utils.chat';
-import '../src/javascripts/www/search-input-enhancements';
-import '../src/javascripts/www/search-dropdowns.js';
+import '../src/javascripts/www/display.alerts';
+import SearchDropdown from '../src/javascripts/www/search-dropdowns.js';
 
 document.addEventListener('turbolinks:load', () => {
   // Initialize search dropdowns using window object
@@ -30,7 +27,6 @@ import 'blacklight-frontend/app/javascript/blacklight/core';
 import 'blacklight-frontend/app/javascript/blacklight/modal';
 import 'blacklight-frontend/app/javascript/blacklight/button_focus';
 import 'blacklight-frontend/app/javascript/blacklight/search_context';
-import SearchDropdown from '../src/javascripts/www/search-dropdowns';
 
 document.addEventListener('turbolinks:load', () => {
   animateSearchIcon();

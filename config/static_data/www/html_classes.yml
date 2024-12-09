@@ -21,7 +21,7 @@ skip:
 alerts:
   global:
     button: "btn btn-link border-1 border-light alert-link btn-sm link-underline-opacity-0 align-self-start"
-    base_background: "container-fluid alert alert-dismissible fade show mb-0 py-4 rounded-0" # see site.data.info.global_alert for added styles
+    base_background: "container-fluid alert alert-dismissible fade show mb-0 py-4 rounded-0" # see site.data.global_alert for added styles
     base_alert: " container-3xl d-flex align-items-center justify-content-between" # see site.data.info.global_alert for added styles
     text_wrapper: "px-3"
 
@@ -41,6 +41,19 @@ top_bar:
   dropdown_wrapper: "dropdown nav-link-decoration-hover pe-2 focus-ring focus-ring-dark"
   link: "top-bar-item link-body-emphasis nav-link nav-link-small px-2 nav-link-decoration-hover"
   btn: "top-bar-item link-dark-green nav-link nav-link-small bg-white border-white text-uppercase fw-bold icon-link rounded-3 p-1 px-2"
+
+##############
+# Dropdowns
+##############
+dropdowns:
+  dropdown_menu: dropdown-menu dropdown-menu-end border-start border-end pb-0 border-light-subtle border-0 mt-n1 me-n1 ff-normal shadow-lg
+  dropdown_last_item: border-bottom border-light-green border-3
+  mega_menu: border-0 border-3 border-bottom border-light-green dropdown-menu ff-normal me-n1 mt-n1 w-100 vh-50 vh-lg-unset overflow-auto shadow-lg
+  mega_headings: border-1 border-bottom border-lime-green h6 text-dark-green text-uppercase
+  mega_heading_links: link-dark-green link-underline-opacity-0
+  mega_links: text-secondary link-success link-underline-opacity-0 link-underline-opacity-100-hover d-block
+  mega_icon_links: link-success link-underline-opacity-0 link-underline-opacity-0-hover
+  mega_link_annotation: annotation d-none d-md-block border-bottom border-1 border-light-subtle small py-2 text-light-emphasis fw-normal fst-italic
 
 ##############
 # Header
@@ -71,14 +84,14 @@ navbars:
     navbar: "navbar navbar-expand-lg pb-0 pb-lg-2 px-lg-2 py-0"
     nav: "collapse navbar-collapse justify-content-start"
     shim: "d-none d-xxl-inline-block me-lg-3 ms-lg-4 main-navbar-shim"
-    nav_inner: "main-navbar-nav navbar-nav ml-4"
+    nav_inner: "main-navbar-nav navbar-nav"
     nav_link: "nav-link nav-link-decoration-hover px-1 mx-1 mb-0 mb-xl-1 h5 fs-6 fs-xl-5"
     dropdown_wrapper: "dropdown"
     dropdown_svg: "svg-inline--fa fa-xs text-light-charcoal opacity-50"
     mega_menu_wrapper: "mega-menu"
   secondary:
     container: "container-fluid bg-black p-3 border-top border-5 border-unt-green mt-lg-2"
-    inner_container: "container-3xl d-flex justify-content-between flex-wrap-reverse"
+    inner_container: "container-3xl d-flex justify-content-between flex-wrap-reverse p-0"
 
 ##############
 # Breadcrumbs
@@ -95,13 +108,12 @@ breadcrumbs:
 ##############
 title:
   title_outer: "position-relative"
-  title_wrapper: "title-header container-fluid text-bg-dark-green text-white"
-  title_container: "container-3xl"
-  title: "h1 py-2 py-lg-5 fs-4 fs-md-2 fs-lg-1 mb-0 text-truncate"
-  title_with_summary: "h1 pt-2 pb-2 pb-md-auto pt-md-3 pt-lg-5 fs-4 fs-md-2 fs-lg-1 mb-0 text-truncate"
-  summary_text: "small text-white pb-2 pb-md-3 pb-lg-5 mt-2 mt-lg-auto d-md-flex justify-content-md-between"
-  summary_text_inner: "d-none d-md-block"
-  summary_btn: "btn btn-outline-light-green text-white btn-sm lh-1 position-relative z-1"
+  title_wrapper: "title-header container-fluid text-bg-dark-green text-white p-0"
+  title_container: "container-3xl py-2 py-lg-5"
+  inner: "d-lg-flex justify-content-lg-between"
+  title: "h1 fs-4 fs-md-2 fs-lg-1 mb-2 mb-lg-0 text-truncate"
+  summary_text: "small text-white mt-2 mt-lg-auto d-md-flex justify-content-md-between"
+  summary_btn: "btn btn-outline-light-green text-white position-relative z-1"
 
 ##############
 # MAIN
@@ -111,14 +123,15 @@ main:
   inner_container: "container-3xl g-0 g-lg-4"
   section_aside_wrapper: "row"
   section_single: "content py-4"
-  section_double: "content p-4 col-md-8 col-lg-9 col-xxl-10 order-1 order-md-2"
-  content_inner: "markdown-content"
+  section_double: "content p-4 col-md-8 col-lg-9 order-1 order-md-2"
+  content_inner: "markdown-content breathing-room"
+  raw_class: "content"
 
 ##############
 # Sidebar
 ##############
 sidebar:
-  wrapper: "sidebar sidebar--left col-md-4 col-lg-3 col-xxl-2 order-2 order-md-1 py-4"
+  wrapper: "sidebar sidebar--left col-md-4 col-lg-3 order-2 order-md-1 py-4"
   section: "border-end"
   intro: "small"
   heading: "h5 text-uppercase"
@@ -299,7 +312,7 @@ footer:
   last_col_row: "row"
   social_nav: "mb-4"
   space_link: "link-lime text-white link-underline-opacity-10 link-underline-opacity-100-hover"
-  social_icon: "btn btn-outline-lime rounded-pill text-white border-white border border-2 p-2 me-1"
+  social_icon: "btn btn-outline-lime rounded-circle text-white border-white border border-2 px-2 me-1"
   depository_container: "d-flex justify-content-start"
   depository_svg: "svg-inline--fa img-fluid me-4"
   depository_text: "fs-5"

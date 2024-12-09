@@ -18,7 +18,15 @@
     events: <%= load_yaml_data('www/js_configs')['events'].to_json.html_safe %>,
     chat: {
       ask_us_text: '<%= load_yaml_data('www/info')['ask_us'].delete("\n").html_safe %>',
+      chat_config: <%= load_yaml_data('www/js_configs')['chat'].to_json.html_safe %>
     },
-    searchDropdowns: <%= load_yaml_data('www/utils')['search_dropdowns'].to_json.html_safe %>
+    searchDropdowns: <%= load_yaml_data('www/utils')['search_dropdowns'].to_json.html_safe %>,
+    alerts: {
+      js_config: <%= load_yaml_data('www/js_configs')['global_alert'].to_json.html_safe %>,
+      alerts: <%= load_yaml_data('www/alerts')['global_alert'].to_json.html_safe %>,
+    },
+    dropdowns: {
+      classes: <%= load_yaml_data('www/html_classes')['dropdowns'].to_json.html_safe %>,
+    },
   };
 </script>

@@ -30,8 +30,8 @@ institution_url          : "https://www.unt.edu"
 ##############################
 organization             : "libraries"
 email                    : "askus@unt.edu"
-phone                    : "+1-940-565-2411"
-toll-free                : "+1-877-872-0264"
+phone                    : "940.565.2411"
+toll-free                : "1.877.872.0264"
 physical_address         : "1506 W Highland St"
 mailing_address          : "1155 Union Circle #305190"
 city                     : "Denton"
@@ -42,42 +42,50 @@ latitude                 : "33.2100684"
 longitude                : "-97.1489542"
 
 ##############################
-# Social Media and other links that are typically the main entry for the site/parent url.
+# NOTE Social Media links here are depricated and moved to site.data.urls.social_media
+# leaving these here for now on the off chance that I've missed a template dependency
 ##############################
 social:
   - name                 : facebook
     url                  : "https://www.facebook.com/"
     id                   : "unt.libraries"
     label                : "The UNT Libraries are on Facebook"
-    icon                 : facebook-f
+    icon                 : fab fa-facebook-f
+    depricated           : true
   - name                 : x
     url                  : "https://x.com/"
     id                   : "unt_libraries"
-    label                : "Follow the UNT Libraries on Twitter"
-    icon                 : x-twitter
-  - name                 : instagram
-    url                  : "https://www.instagram.com/"
-    id                   : "unt_libraries"
-    label                : "UNT Libraries on Instagram"
-    icon                 : instagram
-  - name                 : github
-    url                  : "https://github.com/"
-    id                   : "unt-libraries"
-    label                : "UNT Libraries on Github"
-    icon                 : github-alt
+    label                : "Follow the UNT Libraries on X"
+    icon                 : fab fa-x-twitter
+    depricated           : true
   - name                 : youtube
     url                  : "https://www.youtube.com/channel/"
     id                   : "UCcbS9fXWKE1SpUTpl1sNB6Q"
     label                : "UNT Libraries Youtube Channel"
-    icon                 : youtube
+    icon                 : fab fa-youtube
+    depricated           : true
+  - name                 : instagram
+    url                  : "https://www.instagram.com/"
+    id                   : "unt_libraries"
+    label                : "UNT Libraries on Instagram"
+    icon                 : fab fa-instagram
+    depricated           : true
+  - name                 : github
+    url                  : "https://github.com/"
+    id                   : "unt-libraries"
+    label                : "UNT Libraries on Github"
+    icon                 : fab fa-github-alt
+    depricated           : true
 
 associated_urls:
   - name                  : newsletter
     url                   : "https://eepurl.com/Qrv_r"
-    icon                  : envelope
+    icon                  : fas fa-envelope
+    depricated           : true
   - name                  : wikipedia
     url                   : "https://en.wikipedia.org/wiki/University_of_North_Texas_Libraries"
-    icon                  : wikipedia-w
+    icon                  : fab fa-wikipedia-w
+    depricated           : true
 
 # Icons and images used by facebook, twitter, and browswers
 social_img:

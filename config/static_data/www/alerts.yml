@@ -1,0 +1,25 @@
+_documentation: |
+  global_alert:            # The primary alert object
+    enabled:               # {boolean}; if true, alert code is present on page.
+    dismissible:           # {boolean}; if true, the alert can be dismissed with a close button
+    days_expire_dismiss    # {int}, number of days until a dismissed alert will re-appear after closed.
+    publish_on             # {date-timne}, only render after this date/time, e.g. `2024-12-06 11:45:49`
+    hide_on                # {date-timne}, hide after this date/time, e.g. `2024-12-06 11:45:49`
+    bg_classes:            # {str};     CSS classes to apply to the background of the alert wrapper; ex: "text-bg-lime-green fs-4"
+    alert_classes:         # {str};     CSS classes to apply to the background of the alert;         ex: "alert-lime-green"
+    icon_classes:          # {str};     CSS classes for font-icon;                                   ex: "fa-duotone fa-hammer fa-2x me-2"
+    text: >-
+                      # {markdown} Text to display in alert. paragraph tags are stripped.
+
+global_alert:
+  enabled: false
+  dismissible: true
+  days_expire_dismiss: 3
+  publish_on: 2024-12-06 14:34:00 -0600    # must include UTC offset, dst not supported, use -0500
+  hide_on: 2024-12-06 14:35:00 -0600       # must include UTC offset, dst not supported, use -0500
+  bg_classes: "text-bg-lime-green fw-bolder bg-opacity-75"
+  alert_classes: "alert-lime-green"
+  icon_classes: "fa-duotone fa-hammer"
+  version: "1.0"
+  text: >-
+    This site will unavailable due to maintenance on 12/24/2024 from approx. 1PM-3PM.

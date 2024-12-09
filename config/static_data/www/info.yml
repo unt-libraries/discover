@@ -1,25 +1,4 @@
 # Changes from source noted below with "EDITED"
-_documentation: |
-  global_alert:       # The primary alert object
-    enabled:          # {boolean}; if true, the alert will display
-    dismissible:      # {boolean}; if true, the alert can be dismissed with a close button
-    bg_classes:       # {str};     CSS classes to apply to the background of the alert wrapper; ex: "text-bg-lime-green fs-4"
-    alert_classes:    # {str};     CSS classes to apply to the background of the alert;         ex: "alert-lime-green"
-    icon_classes:     # {str};     CSS classes for font-icon;                                   ex: "fa-duotone fa-hammer fa-2x me-2"
-    text: >-
-                      # {markdown} Text to display in alert. paragraph tags are stripped.
-
-global_alert:
-  enabled: false
-  dismissible: true
-  days_to_expire: 3
-  bg_classes: "text-bg-lime-green fw-bolder"
-  alert_classes: "alert-lime-green"
-  icon_classes: "fa-duotone fa-hammer"
-  text: >-
-    The library catalog will be unavailable on 02/23/1977 for scheduled maintenenance.
-
-
 reserves:
   related_items:
     - title: "Subject & Course Guides"

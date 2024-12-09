@@ -3,39 +3,21 @@
 import { fetchData, setWithExpiry, getWithExpiry } from './utils.js';
 import dayjs from 'dayjs'; // EDITED to import dayjs
 import advancedFormat from 'dayjs/plugin/advancedFormat'; // EDITED to import advancedFormat
-
 dayjs.extend(advancedFormat); // EDITED to extend advancedFormat
-
 
 export class EventManager {
   constructor() {
       this.config = window.wwwJsShims.events; // EDITED to use config on window object
       this.now = dayjs();
-      this.init();
+      this.currentVersion = 'v1.0'; // Update this version as needed to force resets
+      if (document.readyState !== 'loading') {
+        this.init();
+      } else {
+        document.addEventListener('DOMContentLoaded', () => {
+          this.init();
+        });
+      }
   }
-
-  /**
-   * Format Dates for display using day.js advanced plugin
-   */
-  formatEventDate = (startDate, endDate) => {
-    const startDay = dayjs(startDate);
-    const endDay = dayjs(endDate);
-
-    const dateOptions = 'ddd, MMM D, h:mm A'; // Custom format
-    let startFormatted = startDay.format(dateOptions);
-    let endFormatted;
-
-    if (startDay.isSame(endDay, 'day')) {
-      // If the start and end dates are the same day, format only the time for the end date
-      endFormatted = endDay.format('h:mm A');
-    } else {
-      // If the start and end dates are on different days, format the full date and time
-      endFormatted = endDay.format(dateOptions);
-    }
-
-    return `${startFormatted} – ${endFormatted}`;
-  }
-
 
   formatTimeStr = (start, end, allday) => {
     if (allday) {
@@ -102,7 +84,6 @@ export class EventManager {
    * Filter events based on the provided criteria
    */
   filterEventsByCriteria(events, {campuses = [], categories = []}) {
-
     return events.filter(event => {
       const campusCondition = campuses.length === 0 || campuses.includes(event.campus);
       const categoryCondition = categories.length === 0 || categories.includes(event.category);
@@ -124,60 +105,10 @@ export class EventManager {
     }, {});
   }
 
-  makeCounter(filteredEvents) {
-    console.log(filteredEvents);
-
-
-    // remove duplicate items in filteredEvents that have the same title and reoccurs_future is true.
-    filteredEvents = filteredEvents.filter((event, index, self) =>
-      index === self.findIndex((t) => (
-        t.title === event.title
-      ))
-    );
-
-    console.log(filteredEvents);
-
-    // Utility function to count events based on dayjs comparison
-    const countEvents = (period, unit, when) => {
-      return filteredEvents.filter(event => {
-        const end = dayjs(event.end);
-        const targetTime = this.now.add(period, unit);
-
-        if (when === 'same') {
-          return end.isSame(targetTime, 'day'); // checks only the day part
-        }
-        if (when === 'before') {
-          return end.isBefore(targetTime); // checks up to the exact time
-        }
-      }).length;
-    };
-
-    // Get counts for different periods
-    // "before" means up to the start of the target period, not including it
-    const todaysCount = countEvents(1, 'day', 'before'); // events before the end of today
-    const tomorrowsCount = countEvents(2, 'day', 'before'); // events before the end of tomorrow
-    const nextWeekCount = countEvents(7, 'day', 'before'); // events before the end of the next 7 days
-    const nextMonthCount = countEvents(1, 'month', 'before'); // events before the end of the next month
-    const nextThreeMonthCount = countEvents(3, 'month', 'before'); // events before the end of the next three months
-
-    console.log("today's count", todaysCount);
-    console.log("tomorrow's count", tomorrowsCount);
-    console.log("next week count", nextWeekCount);
-    console.log("next month count", nextMonthCount);
-    console.log("next 3 month count", nextThreeMonthCount);
-
-
-    const itemCount = document.createElement('div');
-    itemCount.classList.add('text-center');
-    itemCount.textContent = `${todaysCount} ${tomorrowsCount} ${nextWeekCount} ${nextMonthCount} ${nextThreeMonthCount}`;
-
-    return itemCount;
-  }
-
-  makeDay(group, date) {
-
-    console.log(group)
-
+  /**
+   * genereate events for a single day
+   */
+  makeDay(group, date, isLastItem) {
     const dateParts = date.split('-');
     const month = dateParts[1];
     // get the 3 letter version of the month
@@ -185,6 +116,7 @@ export class EventManager {
     const day = dateParts[2];
     const items = group[date];
 
+    // calendar icon
     const calendarIcon = (month, day) => {
       return `
         <div class="text-center">
@@ -198,7 +130,7 @@ export class EventManager {
         </div>`;
     }
 
-
+    // shorten titles, cause some of these things are looooong.
     const makeShortTitle = (title) => {
       let shortTitle = title;
       // check if the title contains a colon
@@ -216,12 +148,8 @@ export class EventManager {
       return shortTitle;
     }
 
-    const getTimeOnly = (date) => {
-      return dayjs(date).hour() * 60 + dayjs(date).minute();  // Convert time to minutes since midnight
-    };
-
+    // a single list item in the day.
     const makeItem = (item) => {
-
       const rangeStr = this.formatTimeStr(item.start, item.end, item.allday);
       const shortTitle = makeShortTitle(item.title);
       // first letter of each word in campus
@@ -236,7 +164,6 @@ export class EventManager {
         </li>`;
     }
 
-
     // make an unordered list of titles from items.
     const makeList = (items) => {
       const list = document.createElement('ul');
@@ -250,30 +177,39 @@ export class EventManager {
       return list;
     }
 
-
     // create a div
     const eventElement = document.createElement('div');
     eventElement.className = 'd-flex py-2 border-bottom border-secondary position-relative';
 
+    // if last item remove the border classes
+    if (isLastItem) {
+      eventElement.classList.remove('border-bottom');
+    }
+    // make an icon
     const icon = calendarIcon(month, day);
-
+    // make and return the element
     eventElement.innerHTML = icon;
     eventElement.appendChild(makeList(items));
     return eventElement;
   }
 
 
-  getDomElements(events) {
+  /**
+   * Build event DOM eleements using configs set on DOM data- attributes.
+   */
+  insertEventsToDom(events) {
+    // gather all the event wrapper elements
     const eventWrappers = document.querySelectorAll('.event-wrapper');
     eventWrappers.forEach(wrapper => {
+      // get parse details for each dom element which will control which events show in this element
       const campuses = wrapper.getAttribute('data-untl-event-campuses');
       const categories = wrapper.getAttribute('data-untl-event-categories');
       const kind = wrapper.getAttribute('data-untl-event-kind') || 'standard';
       let max = wrapper.getAttribute('data-untl-event-max');
       let maxDays = wrapper.getAttribute('data-untl-event-max-days') || 30;
-
       const eventBody = wrapper.querySelector(".card-body");
 
+      // filter lists, categories and caompuses
       let campusFilter = campuses ? campuses.split(',').map(item => item.trim()) : [];
       let categoryFilter = categories ? categories.split(',').map(item => item.trim()) : [];
 
@@ -281,72 +217,54 @@ export class EventManager {
           campuses: campusFilter,
           categories: categoryFilter
       });
-      // reduce filteredEvents to max length
-      //filteredEvents = filteredEvents.slice(0, max);
+      // max items filter
       if (max) {
         max = parseInt(max, 10);
         filteredEvents = filteredEvents.slice(0, max);
       }
+      // max days filter
       if (maxDays){
         maxDays = parseInt(maxDays, 10);
         const maxDate = this.now.add(maxDays, 'day');
         filteredEvents = filteredEvents.filter(event => dayjs(event.start).isBefore(maxDate));
       }
-      // filter out events that have an end date before now
+      // filter out events in the past
       filteredEvents = filteredEvents.filter(event => dayjs(event.end).isAfter(this.now));
 
+      // for now everythign is a standard display. TODO support other kinds in the future.
+      if (kind === 'standard') {
+        let groupedEvents = this.groupEventsByDate(filteredEvents);
+        let eventDates = Object.keys(groupedEvents);
+        eventDates.map((date, index) => {
+          if (groupedEvents[date].length > 0) {
+            // Determine if this is the last item in the array
+            const isLastItem = index === eventDates.length - 1;
+            // Pass isLastItem as the third argument to this.makeDay
+            const makeDay = this.makeDay(groupedEvents, date, isLastItem);
+            eventBody.appendChild(makeDay);
+          }
+        });
+        // test to see if groupedEvents is falsy. Append no events message if so.
+        if (groupedEvents.length === 0 || groupedEvents === undefined) {
+          const noEvents = document.createElement('div');
+          noEvents.textContent = 'No upcoming events.';
+          eventBody.appendChild(noEvents);
 
-
-
-        if (kind === 'count') {
-          let counter = this.makeCounter(filteredEvents);
-          eventBody.appendChild(counter);
         }
-        if (kind === 'standard') {
-          let groupedEvents = this.groupEventsByDate(filteredEvents);
-          let eventDates = Object.keys(groupedEvents).map(date => {
-            if (groupedEvents[date].length > 0) {
-              const makeDay = this.makeDay(groupedEvents, date);
-              eventBody.appendChild(makeDay);
-            }
-          });
-        }
-
-
-
-
-
-      // make a comma seperated list of all titles from groupedEvents
-//      let eventTitles = Object.keys(groupedEvents).map(date => {
-//        let events = groupedEvents[date];
-//        let titles = events.map(event => event.title);
-//        return `${date}: ${titles.join(', ')}`;
-//      }).join('\n');
-      // insert the eventTitles into the wrapper
-
-      //eventBody.innerHTML = eventTitles;
-
-
-      // Replace console.log with actual DOM manipulation logic
-      //console.log(groupedEvents);
+      }
     });
   }
 
-  loadEvents = async () => {
-    let events = getWithExpiry(this.config.storageKey, true);
-    if (!events) {
-      events = await this.fetchAndProcessEvents();
-      setWithExpiry(this.config.storageKey, events, 30 * 60000, true);
-    }
-    this.getDomElements(events);
-  };
-
   async init() {
-    if (document.readyState === 'loading') {  // Loading hasn't finished yet
-      document.addEventListener('DOMContentLoaded', this.loadEvents);
-    } else {  // `DOMContentLoaded` has already fired
-      this.loadEvents();
+    // get existing events from storage
+    let events = getWithExpiry(this.config.storageKey, this.currentVersion, true);
+    if (!events) {
+      // no events fetch fress events from libcal
+      events = await this.fetchAndProcessEvents();
+      // refresh every 30 minutes or when script version change.
+      setWithExpiry(this.config.storageKey, events, 30 * 60000, this.currentVersion, true);
     }
-  }
-
+    // build the display
+    this.insertEventsToDom(events);
+  };
 }

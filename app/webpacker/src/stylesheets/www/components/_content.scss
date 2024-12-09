@@ -35,14 +35,22 @@
 
       a {
         text-decoration: none;
+        display: flex;
+        align-items: flex-start;
+        color: $light-green;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
     & li:not(.toc-h3) >  a:before {
-        content: counter(h2, upper-roman) ". ";
-        counter-increment: h2;
-        font-weight: bold;
-        color: $black;
+      content: counter(h2, upper-roman) ". ";
+      counter-increment: h2;
+      font-weight: bold;
+      color: $black;
+      min-width: 3rem;
     }
 
     & ul {
@@ -51,46 +59,71 @@
       counter-reset: ul;
 
       a:before {
-          content: counter(ul, upper-alpha) ". ";
-          counter-increment: ul;
-          font-weight: bold;
-          color: $black;
+        content: counter(ul, upper-alpha) ". ";
+        counter-increment: ul;
+        font-weight: bold;
+        color: $black;
       }
 
     }
   }
 
   .numbered-list-roman {
-      counter-reset: h2;
+    counter-reset: h2;
 
-      & h2 {
-        counter-reset: h3;
-        //text-transform: uppercase;
-      }
-      & h3 {
-        counter-reset: h4;
-        //text-transform: uppercase;
-      }
-      & h4 {
-        counter-reset: h5;
-        //text-transform: uppercase;
-      }
-      & h5 {
-        counter-reset: h6;
-        //text-transform: uppercase;
-      }
+    & h2 {
+      counter-reset: h3;
+      //text-transform: uppercase;
+    }
+    & h3 {
+      counter-reset: h4;
+      //text-transform: uppercase;
+    }
+    & h4 {
+      counter-reset: h5;
+      //text-transform: uppercase;
+    }
+    & h5 {
+      counter-reset: h6;
+      //text-transform: uppercase;
+    }
 
-      & h2:not(.no-toc):before {
-          content: counter(h2, upper-roman) ". ";
-          counter-increment: h2;
-          font-size: 3rem;
-          color: $gray-600;
-      }
-      & h3:not(.no-toc):before {
-          content: counter(h3, upper-alpha) ". ";
-          counter-increment: h3;
-          font-size: 2.25rem;
-          color: $gray-500;
-      }
+    & h2:not(.no-toc):before {
+      content: counter(h2, upper-roman) ". ";
+      counter-increment: h2;
+      font-size: 3rem;
+      color: $gray-600;
+    }
+    & h3:not(.no-toc):before {
+      content: counter(h3, upper-alpha) ". ";
+      counter-increment: h3;
+      font-size: 2.25rem;
+      color: $gray-500;
+    }
   }
+}
+
+#content {
+  p, li {
+    font-size: 1.3rem;
+  }
+}
+.breathing-room {
+  h2,
+  h3,
+  p,
+  ul,
+  ol,
+  table,
+  blockquoate,
+  pre {
+    margin-bottom: 1.5rem;
+  }
+  li {
+    margin-bottom: .25rem;
+  }
+}
+
+.xtra-sm {
+  font-size: .75rem;
 }

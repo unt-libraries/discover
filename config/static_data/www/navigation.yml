@@ -2,7 +2,54 @@
 # Navigation Trees for the site
 ##########################################
 
+#############################################
+# Dropdown Menu appearing on library homepage
+# as last tab, providing direct links to
+# misc system search engines.
+#############################################
+home_search_dropdown:
+  - text: Other Searches
+    type: dropdown
+    icon_classes:
+    classes:
+    url: /search/
+    min_width: 370
+    items:
+      - text: >-
+          You can submit a search in the following systems from the 'refine'
+          button, on the 'start searching' tab or jump to a system directly here:
+        type: text
+        classes: small text-secondary-subtle pt-2 fst-italic
+      - text:
+        type: divider
+        classes:
+      - text: "Online Articles"
+        type: link
+        url: https://untexas.summon.serialssolutions.com/
+      - text: "Cataloged Books & More"
+        type: link
+        url: https://discover.library.unt.edu/
+      - text: "UNT Digital Collections"
+        type: link
+        url: https://digital2.library.unt.edu/search/
+      - text: "Finding Aids"
+        type: link
+        url: https://archives.library.unt.edu/search/
+      - text: Subject & Course Guides
+        type: link
+        url: https://guides.library.unt.edu/srch.php
+      - text: This Website
+        type: link
+        url: https://search.unt.edu/s/search.html?query=&f.Tabs%7Cuni-nt-web=Website&collection=uni-nt-search&scope=library.unt.edu,-guides.library.unt.edu,-blogs.library.unt.edu,-guides.library.unt.edu,-archives.library.unt.edu,-hoc.library.unt.edu,-journals.library.unt.edu,-openbooks.library.unt.edu,-omeka.library.unt.edu
 
+
+################################################
+# Menu appearing at the top-most position in the
+# page template. Mostly Standard UNT links.
+# Custom Library dropdowns for system logins,
+# and 'for audience' type links.
+# Note: Search toggle is hard coded to template
+################################################
 top_bar:
   - text: MyUNT
     type: link
@@ -109,14 +156,13 @@ top_bar:
         url:  /services/persons-with-disabilities/
 
 
-
 ##########################################
-# Navigation Tree for Main Nav Bar in V2 skin
+# Main Navbar Mega Menu.
 ##########################################
 main_bar:
   - text: Home
     type: link
-    classes: "d-block d-lg-none d-xl-inline"
+    classes:
     url: /
   - text: Ask Us
     type: link
@@ -134,9 +180,7 @@ main_bar:
             classes:
             items:
               - text: "Online Articles"
-                annotation: >-
-                  Search full text, scholarly, and peer reviewed
-                  articles from multiple sources.
+                #annotation: >-
                 type: link
                 url: https://untexas.summon.serialssolutions.com/
                 caret_icon: "fad fa-magnifying-glass fa-sm fa-fw"
@@ -144,10 +188,8 @@ main_bar:
                   - icon_classes: "fad fa-magnifying-glass-plus fa-fw"
                     text: "Advanced Search"
                     url: https://untexas.summon.serialssolutions.com/#!/advanced
-              - text: "Discover Catalog"
-                annotation: >-
-                  Search titles, authors, etc. for print & e-books
-                  music, media, journals, etc.
+              - text: "Cataloged Books & More"
+                #annotation: >-
                 type: link
                 url: https://discover.library.unt.edu/
                 caret_icon: "fad fa-magnifying-glass fa-sm fa-fw"
@@ -155,9 +197,8 @@ main_bar:
                   - icon_classes: "fad fa-magnifying-glass-plus fa-fw"
                     text: "Advanced Search"
                     url: https://discover.library.unt.edu/advanced/
-              - text: "Databases & Electronic Resources"
-                annotation: >-
-                  600+ subscriptions to research across a range of topics.
+              - text: "Databases & E-Resources"
+                #annotation: >-
                 type: link
                 url: https://guides.library.unt.edu/az.php?
                 caret_icon: "fad fa-magnifying-glass fa-sm fa-fw"
@@ -165,20 +206,26 @@ main_bar:
                   - icon_classes: "fad fa-magnifying-glass-plus fa-fw"
                     text: "Other Online Materials: e-books, journals, etc."
                     url: https://discover.library.unt.edu/?f%5Baccess_facet%5D%5B%5D=Online
-              - text: "Special Collections Finding Aids"
-                annotation: >-
-                  Locate unique physical archival materials held by UNT.
+              - text: "Finding Aids"
+                #annotation: >-
                 type: link
                 url: https://archives.library.unt.edu/
                 caret_icon: "fad fa-magnifying-glass fa-sm fa-fw"
               - text: "UNT Digital Collections"
-                annotation: >-
-                  Sourced from the unique scholarly/creative output of the UNT
-                  Community as well as primary sources from/about Texas
-                  and Oklahoma.
+                #annotation: >-
                 type: link
                 url: https://digital2.library.unt.edu/search/
                 caret_icon: "fad fa-magnifying-glass fa-sm fa-fw"
+                icons:
+                  - icon_classes: "fak fa-unt-eagle fa-fw"
+                    text: "UNT Digital Library"
+                    url: https://digital.library.unt.edu
+                  - icon_classes: "fak fa-pth-mark fa-fw text-danger"
+                    text: "The Portal to Texas History"
+                    url: https://texashistory.unt.edu
+                  - icon_classes: "fak fa-ok-mark fa-fw text-warning-emphasis"
+                    text: "The Gateway to Oklahoma History"
+                    url: https://gateway.okhistory.org
       - classes: "col-lg-4"
         groups:
           - heading: Getting Started
@@ -201,6 +248,10 @@ main_bar:
                 type: link
                 classes:
                 url: https://guides.library.unt.edu/datasets
+              - text: Government Information Connection
+                type: link
+                classes: stretched-link
+                url: /government-information/
               - text: Literature Review Process
                 type: link
                 classes:
@@ -209,37 +260,6 @@ main_bar:
                 type: link
                 classes:
                 url: https://guides.library.unt.edu/rmss
-          - heading: Special Formats
-            url:
-            classes:
-            items:
-              - text: Media Library
-                type: link
-                classes:
-                icons:
-                  - icon_classes: "fas fa-users fa-fw"
-                    text: "Includes Contacts"
-                url: /media/
-              - text: Music
-                type: link
-                classes: stretched-link
-                url: /music/
-                icons:
-                  - icon_classes: "fas fa-users fa-fw"
-                    text: "Includes Contacts"
-              - text: Special Collections
-                type: link
-                classes: stretched-link
-                icons:
-                  - icon_classes: "fas fa-users fa-fw"
-                    text: "Includes Contacts"
-                url: /special-collections/
-              - text: Government Information Connection
-                type: link
-                classes: stretched-link
-                url: /government-information/
-
-
       - classes: "col-lg-4"
         groups:
           - heading: Advanced Research Support
@@ -277,11 +297,10 @@ main_bar:
                 type: link
                 url: /research-fellowships/
                 classes:
-
   - text: Borrowing
     type: mega-menu
     classes:
-    url: #
+    url: /services/borrowing/
     columns:
       - classes: "col-lg-4"
         groups:
@@ -313,7 +332,6 @@ main_bar:
                 type: link
                 url: /policies/#borrowing
                 classes:
-
       - classes: "col-lg-4"
         groups:
           - heading: Delivery Services
@@ -340,8 +358,6 @@ main_bar:
                 type: link
                 url: /services/ill-document-delivery/
                 classes:
-
-
       - classes: "col-lg-4"
         groups:
           - heading: Equipment
@@ -367,12 +383,10 @@ main_bar:
               - text: All Services
                 type: link
                 url: /services/
-
-
   - text: Getting Help
     type: mega-menu
     classes:
-    url: "#"
+    url: https://guides.library.unt.edu
     columns:
       - classes: "col-lg-4"
         groups:
@@ -406,9 +420,6 @@ main_bar:
                   - icon_classes: "fas fa-users fa-fw"
                     text: "Includes Contacts"
                 url: /research-support-services/
-                annotation: >-
-                  Primarily supports graduate students and faculty.
-
           - heading: Scholarly/Professional Help
             url:
             classes:
@@ -425,7 +436,6 @@ main_bar:
                 type: link
                 classes:
                 url: /services/instruction/
-
       - classes: "col-lg-4"
         groups:
           - heading: Help with Borrowed Items
@@ -467,8 +477,6 @@ main_bar:
                 type: link
                 classes: stretched-link
                 url:  /services/persons-with-disabilities/
-
-
       - classes: "col-lg-4"
         groups:
           - heading: Help with Technology & Printing
@@ -503,8 +511,6 @@ main_bar:
                     text: "External Link: UNT Student Affairs"
                 classes: stretched-link
                 url: https://studentaffairs.unt.edu/wellbeing-and-safety
-
-
   - text: Teaching & Learning
     type: mega-menu
     classes:
@@ -535,8 +541,6 @@ main_bar:
               - text:  Tutoring
                 type: link
                 url: /services/tutoring/
-
-
       - classes: "col-lg-4"
         groups:
           - heading: Writing, Citing, and More
@@ -563,11 +567,9 @@ main_bar:
                 type: link
                 classes:
                 url: https://guides.library.unt.edu/dissertation-thesis-proposal
-
-
       - classes: "col-lg-4"
         groups:
-          - heading: Educational Support for Faculty
+          - heading: For Faculty
             url:
             classes:
             items:
@@ -589,19 +591,15 @@ main_bar:
                 icons:
                   - icon_classes: "fas fa-users fa-fw"
                     text: "Includes Contacts"
-                url: //collection-development
+                url: /collection-development
               - text: Click to Count
                 type: link
                 classes:
                 url: /click2count/
-                annotation: >-
-                  Usage rates inform subscription choices. Learn how to link articles in Canvas.
-
-
   - text: Spaces & Technology
     type: mega-menu
     classes:
-    url: "#"
+    url: /spaces/
     columns:
       - classes: "col-lg-4"
         groups:
@@ -662,7 +660,6 @@ main_bar:
                   - icon_classes: "fas fa-arrow-up-right-from-square"
                     text: "External Link: UNT Health Science Library"
                 classes: stretched-link
-
       - classes: "col-lg-4"
         groups:
           - heading: Technololgy
@@ -756,16 +753,11 @@ main_bar:
                 type: link
                 classes:
                 url: /policies/#libraries-use
-
-
-
-
-
   - text: News & Events
     type: dropdown
     classes:
     dropdown_classes: dropdown-menu-end
-    url: "#"
+    url: /news/
     items:
       - text: Calendar of Events (All)
         type: link
@@ -806,10 +798,10 @@ main_bar:
         type: link
         classes:
         url: /lecture-series/
-      - text: Social Media & Video
+      - text: Social Media, Videos, Podcasts, Etc.
         type: link
         classes:
-        url: "#"
+        url: "/social/"
       - text:
         type: divider
         classes:
@@ -825,13 +817,10 @@ main_bar:
         type: link
         classes:
         url: https://digital2.library.unt.edu/search/?q=&t=fulltext&sort=added_d&fq=
-
-
-
   - text: About
     type: mega-menu
     classes:
-    url: "#"
+    url: /about/
     columns:
       - classes: "col-lg-4"
         groups:
@@ -881,7 +870,6 @@ main_bar:
                 type: link
                 url: https://calendar.library.unt.edu/calendar?cid=-1&t=g&d=0000-00-00&cal=-1&inc=0
                 classes:
-
       - classes: "col-lg-4"
         groups:
           - heading: Administrative
@@ -1003,6 +991,10 @@ main_bar:
                 classes:
 
 
+###################################
+# Hours dropdown appedaring on the
+# right side of the breadcrumb bar.
+###################################
 breadcrumb_hours:
   - text: Hours
     type: dropdown
@@ -1095,8 +1087,8 @@ breadcrumb_hours:
       - text: Frisco Landing
         type: hour
         cid: 20469
-        url:
-        class: /frisco/
+        url: /frisco/
+        class:
         icon_classes: fad fa-diagram-nested fa-fw fa-sm text-secondary
       - text: Spark @ Frisco
         type: hour
@@ -1120,38 +1112,11 @@ breadcrumb_hours:
         icon_classes: fad fa-calendar-clock fa-fw fa-sm text-secondary
 
 
-##########################################
-# footer link trees
-##########################################
+###################
+# footer link lists
+###################
 footer:
-  social_media:
-    items:
-      - name           :   facebook
-        url            :   "https://www.facebook.com/unt.libraries"
-        label          :   "The UNT Libraries are on Facebook"
-        icon_class     :   "fab facebook-f"
-      - name           :   twitter
-        url            :   "https://twitter.com/unt_libraries"
-        label          :   "Follow the UNT Libraries on Twitter"
-        icon_class     :   "fab x-twitter"
-      - name           :   instagram
-        url            :   "https://www.instagram.com/unt_libraries"
-        label          :   "UNT Libraries on Instagram"
-        icon_class     :   "fab instagram"
-      - name           :   github
-        url            :   "https://github.com/unt-libraries"
-        label          :   "UNT Libraries on Github"
-        icon_class     :   "fab github-alt"
-      - name           :   youtube
-        url            :   "https://www.youtube.com/channel/UCcbS9fXWKE1SpUTpl1sNB6Q"
-        label          :   "UNT Libraries Youtube Channel"
-        icon_class     :   "fab youtube"
-      - name           :   newsletter
-        url            :   "https://eepurl.com/Qrv_r"
-        icon_class     :   "fas envelope"
-      - name           :   wikipedia
-        url            :   "https://en.wikipedia.org/wiki/University_of_North_Texas_Libraries"
-        icon_class     :   "fab wikipedia-w"
+  # Social media links found in urls.yaml
   locations:
     - name: Willis
       url: /willis/
@@ -1163,14 +1128,10 @@ footer:
       url: /frisco/
 
 
-
-
-
-
-
-##########################################
+##########
 # Colophon
-##########################################
+# Links appearing in the bottom most link lists of the system
+##########
 colophon:
   - row: one
     classes: fw-bold
@@ -1226,73 +1187,3 @@ colophon:
         type: link
         classes:
         url: https://www.unt.edu/
-
-
-##########################################
-# Standard Sidebar Nav Trees
-##########################################
-
-sidebar:
-
-  about:
-    - heading: About the Libraries
-      ally_suffix: U N T Libraries
-      list:
-        - title: About
-          url: '/about/'
-          action: library
-        - title: Our Locations
-          url: '/about/#our-library-locations'
-          action: library
-        - title: Communications
-          url: '/about/#communications'
-          action: library
-        - title: Support, Donations, Online Giving
-          url: '/about/#support-donations-online-giving'
-          action: library
-        - title: Community, Partnerships, & Strategic Initiatives
-          url: '/about/#community-partnerships--strategic-initiatives'
-          action: library
-        - title: Operations & Business
-          url: '/about/#operations-and-business'
-          action: library
-        - title: Statements
-          url: '/about/statements/'
-          action: library
-    - heading: More
-      ally_suffix: U N T Libraries
-      list:
-        - title: Research Fellowships
-          url: /research-fellowships/
-          action: library
-        - title: Work for the Libraries
-          url: /jobs/
-          action: library
-
-
-  access-services:
-    - heading: About
-      url: /access-services/
-      ally_suffix: Access Services Department
-      list:
-        - title: Access Services
-          url: /access-services/
-          action: library
-        - title: Borrowing Policies
-          url: /policies/#borrowing
-          action: library
-        - title: Course Reserves
-          url: /services/course-reserves/
-          action: library
-        - title: Online Holds
-          url: /services/online-holds/
-          action: library
-        - title: Distance Learning Services
-          url: /services/distance-learning/
-          action: library
-        - title: Willis Library Services Desk
-          url: /willis/service-desk/
-          action: library
-        - title: Get a Library Card
-          url: /services/courtesy-cards/
-          action: library
