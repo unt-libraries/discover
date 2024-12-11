@@ -8,9 +8,11 @@
 
 <% url_feedback = 'https://unt.az1.qualtrics.com/jfe/form/SV_1BRQnARsgKm8YUS' %>
 
-<div id="colophon" class="<%= html_classes['container'] %>">
-  <div class="<%= html_classes['flag_divider'] %>" id="flag-divider">
-    <hr class="<%= html_classes['hr_class'] %>">
+<div id="colophon"
+     class="<%= html_classes['container'] %>">
+  <div class="<%= html_classes['flag_divider'] %>"
+       id="flag-divider">
+    <hr class="<%= html_classes['hr'] %>">
     <a href="<%= urls['misc']['state_of_texas'] %>" class="<%= html_classes['flag_link'] %>">
       <%= render partial: 'shared/www/utils/svg', locals: {
         use: 'svg-unt-flag',
@@ -21,11 +23,11 @@
         width: 47.3,
         height: 26 } %>
     </a>
-  </div>
-
+  </div><%# end flag-divider %>
   <div class="<%= html_classes['row'] %>">
     <div class="<%= html_classes['wordmark_wrapper'] %>">
-      <a href="<%= site['institution_url'] %>" class="<%= html_classes['unt_brand_classes'] %>">
+      <a href="<%= site['institution_url'] %>"
+         class="<%= html_classes['unt_brand_classes'] %>">
         <%= render partial: 'shared/www/utils/svg', locals: {
           use: 'svg-unt-wordmark',
           viewBox: '0 0 411.381 86.706',
@@ -37,18 +39,17 @@
           style: 'max-width:300px;' } %>
       </a>
     </div>
-
     <div class="<%= html_classes['links_outer_column'] %>">
       <% colophon.each do |row| %>
         <div class="<%= html_classes['links_row'] %> <%= row['classes'] %>">
           <% row['items'].each do |item| %>
-            <a class="<%= html_classes['nav_link_classes'] %> <%= item['classes'] %>" href="<%= item['url'] %>">
+            <a class="<%= html_classes['nav_link_classes'] %> <%= item['classes'] %>"
+               href="<%= item['url'] %>">
               <%= item['text'] %>
             </a>
           <% end %>
         </div>
       <% end %>
-
       <div class="<%= html_classes['copyright'] %>">
         <!--noindex-->
         <%= link_to '&copy;'.html_safe, url_feedback, target:'_blank',
@@ -60,7 +61,7 @@
                     } %>
         <!--/noindex-->
         <%= Time.now.year %> <%= site['institution_long'] %>. All Rights Reserved.
-      </div>
-    </div>
-  </div>
-</div>
+      </div><%# end copyright %>
+    </div><%# end col %>
+  </div><%# end row %>
+</div><%# end colophon %>
