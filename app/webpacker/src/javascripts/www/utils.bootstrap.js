@@ -32,14 +32,18 @@ export class BootstrapOptIns {
 	 * Opt in to bootrap tooltips
 	 */
 	optInTooltips() {
-		const tooltipTriggerList = document.querySelectorAll(this.selectors.tooltip);
-		const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+		new bootstrap.Tooltip('body', {
+			selector: this.selectors.tooltip,
+		});
 	}
 	/**
-	 * Opt in to bootrap tooltips
+	 * Opt in to bootrap tooltips,
+	 * bind to wrapper element allowing for dynamic
+	 * content insertion.
 	 */
 	optInPopovers() {
-		const popoverTriggerList = document.querySelectorAll(this.selectors.popover);
-		const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+		new bootstrap.Popover('#main-container', {
+			selector: this.selectors.popover,
+		});
 	}
 }

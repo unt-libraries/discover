@@ -62,18 +62,6 @@ $link-hover-color:          darken($link-color, 15%) !default;
 
 $border-width:                1px !default;
 
-// Typography
-//
-// Font, line-height, and color for body text, headings, and more.
-
-$h1-font-size:                $font-size-base * 1.8;
-$h2-font-size:                $font-size-base * 1.728;
-$h3-font-size:                $font-size-base * 1.44;
-$h4-font-size:                $font-size-base * 1.2;
-$h5-font-size:                $font-size-base;
-
-$headings-color:              $gray-dark;
-
 // Buttons + Forms
 //
 // Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
