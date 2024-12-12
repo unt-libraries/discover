@@ -67,6 +67,7 @@ header:
   mobile_svg: "d-inline d-lg-none logo hd-lg-logo"
   title_wrapper: "bg-lg-white bg-secondary-subtle border-lg-3 border-lg-success border-start-lg ms-lg-3 ps-lg-3 w-100 w-lg-auto"
   title_heading: "m-0 p-2 p-lg-0 lh-1 h3"
+  title_descriptor: "fs-5"
   subtitle_link: "text-uppercase link-dark-green link-underline-opacity-0 link-underline-opacity-100-hover m-0 px-2 px-lg-0 pt-1 pt-lg-0 d-block"
   title_link: "text-uppercase link-dark-green link-underline-opacity-0 link-underline-opacity-100-hover"
   navbar_mobile_controls: "btn-group me-2"

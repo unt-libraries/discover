@@ -9,6 +9,7 @@
 # Metadata
 ##############################
 title                     : "Discover" # Use "University Libraries" if this project is the main subdomain, else the project's name
+title_descriptor          : "Catalog of Books & More" # Follows the main title in a smaller font size if present
 subtitle                  : "University Libraries" # or comment out for main library subdomain.
 #description              : Replace with site description.
 url                      : "https://discover.library.unt.edu" # Current site's URL. Can match parent_url if this is the parent site. Include trailing slash.

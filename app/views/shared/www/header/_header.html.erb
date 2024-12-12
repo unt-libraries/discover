@@ -81,10 +81,14 @@
           <%= site['subtitle'] %></a>
 
         <h1 class="<%= html_classes['title_heading'] %>">
-          <a href="/app/assets/config"
+          <a href="/"
              id="hd-title"
              class="<%= html_classes['title_link'] %>">
-            <%= site['title'] %></a>
+            <%= site['title'] %><% if site['title_descriptor'].present? %>:
+              <span class="<%= html_classes['title_descriptor'] %>" style="text-transform: none">
+                <%= site['title_descriptor'] %>
+              </span>
+            <% end %></a>
         </h1>
       </div><%# #hd-titles %>
     </section><%# #hd-section %>
