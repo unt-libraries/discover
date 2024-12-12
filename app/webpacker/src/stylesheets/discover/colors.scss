@@ -1,6 +1,0 @@
-// Extends theme colors with custom ones for use in alerts, buttons, backgrounds, etc.
-$custom-colors: (
-    "green":      $green,
-);
-
-$theme-colors: map-merge($theme-colors, $custom-colors);

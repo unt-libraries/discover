@@ -2,7 +2,6 @@
 .document,
 .show-document {
   .result__label {
-    color: $gray-darker;
     font-weight: $font-weight-bold;
     font-size: $font-size-sm;
     display: inline;
@@ -36,8 +35,8 @@
 
     &:hover {
       .hover-counter {
+        @extend .border, .border-secondary-subtle;
         background: $white;
-        border: 1px solid $gray-lighter;
         border-radius: 3px;
         display: inline-block;
         font-size: 0.875rem;
@@ -45,6 +44,7 @@
         padding: 0 3px;
         position: absolute;
         left: 100%;
+        width: auto;
       }
     }
 
@@ -71,7 +71,6 @@
     }
 
     .result__label {
-      color: $gray-darker;
       font-weight: $font-weight-bold;
       display: inline;
       text-align: left;

@@ -54,3 +54,10 @@
     cursor: auto;
   }
 }
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: $unt-green;
+  border-color: $unt-green;
+}

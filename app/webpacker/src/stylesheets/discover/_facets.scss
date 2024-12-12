@@ -6,8 +6,8 @@
 
 .sidenav {
   .navbar {
+    @extend .text-bg-dark;
     z-index: 1;
-    background-color: $gray-darker;
     border-radius: $card-border-radius;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     margin-bottom: 0.5rem;
@@ -203,7 +203,7 @@
       padding-right: 0;
 
       .icon {
-        color: $gray-darker;
+        @extend .text-dark-emphasis;
         display: inline-block;
         width: 1.25em;
       }
@@ -215,6 +215,7 @@
   }
 
   .facet-count.badge {
+    @extend .text-secondary-emphasis;
     font-size: 80%;
   }
 }

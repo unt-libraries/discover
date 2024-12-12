@@ -71,7 +71,7 @@ module PrefilterHelper
       :gaming => {
         'icon' => 'gamepad',
         'label' => 'Gaming',
-        'color' => 'green',
+        'color' => 'unt-green',
         'links' => [
           { 'label' => 'Any', 'params' => { 'f[resource_type_facet][]' => 'games' } },
           { 'label' => 'Systems & Peripherals', 'url' => '',

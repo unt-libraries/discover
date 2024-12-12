@@ -34,7 +34,7 @@
   }
 
   .icon {
-    color: $gray-lighter;
+    @extend .text-body-tertiary;
     margin: auto;
     width: 150px;
     height: 150px;

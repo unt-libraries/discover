@@ -1,8 +1,9 @@
 const { environment } = require('@rails/webpacker');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const zlib = require("zlib");
+const zlib = require('zlib');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const path = require('path');
 
@@ -33,10 +34,18 @@ environment.splitChunks((config) => ({
         },
       },
     },
+    minimize: true, // enable CssMinimizerPlugin in development mode
+    minimizer: [
+      new CssMinimizerPlugin({
+        test: /\.s?css$/,
+        sourceMap: true,
+      }),
+    ],
   },
 }));
 
 environment.plugins.append('Provide', new webpack.ProvidePlugin({
+  // TODO: Remove jQuery once we remove all jQuery references
   $: 'jquery',
   jQuery: 'jquery',
   jquery: 'jquery',
@@ -51,7 +60,7 @@ environment.plugins.append('CleanWebpack', new CleanWebpackPlugin());
 environment.plugins.append('MomentLocales', new MomentLocalesPlugin());
 
 environment.plugins.append('CompressionPlugin', new CompressionPlugin({
-  filename: "[path][base].br",
+  filename: '[path][base].br',
   algorithm: 'brotliCompress',
   test: /\.(js|css|html|svg)$/,
   compressionOptions: {

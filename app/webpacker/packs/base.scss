@@ -3,7 +3,6 @@
 
 // Custom variable overrides
 @import '../src/stylesheets/www/overrides';
-@import '../src/stylesheets/discover/variables';
 
 // Legacy Bootstrap 4 mixins removed in Bootstrap 5
 @import '../src/stylesheets/legacy/mixins';
@@ -14,7 +13,6 @@
 
 // Color map overrides
 @import '../src/stylesheets/www/custom/colors';
-@import '../src/stylesheets/discover/colors';
 
 // Bootstrap required
 @import '~bootstrap/scss/maps';
