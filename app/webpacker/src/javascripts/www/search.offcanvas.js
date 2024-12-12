@@ -1,15 +1,14 @@
+import { onDomReady } from './utils.js';
+
 export class OffCanvasSearch {
   constructor() {
     this.offCanvasSearch = document.querySelector('#offcanvas-search');
     this.offCanvasSearchInput = document.querySelector("#bento-offcanvas-q");
     this.offCanvasSearchTrigger = document.querySelector('button.top-bar-item[data-bs-target="#offcanvas-search"]');
-    if (document.readyState !== 'loading') {
+    // autorun
+    onDomReady(() => {
       this.init();
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.init();
-      });
-    }
+    });
   }
 
   init() {

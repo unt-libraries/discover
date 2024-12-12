@@ -1,4 +1,6 @@
-class ListFilterDirectory {
+import { onDomReady } from './utils.js';
+
+export class ListFilterDirectory {
   constructor(listId, options, searchInputId, filterControlsSelector) {
     if (typeof List === "undefined") {
       console.error("List.js is not loaded.");
@@ -10,13 +12,9 @@ class ListFilterDirectory {
     this.filterControlsSelector = filterControlsSelector;
     this.directoryList = new List(this.listId, this.options);
     // autorun
-    if (document.readyState !== 'loading') {
+    onDomReady(() => {
       this.init();
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.init();
-      });
-    }
+    });
 
   }
 
@@ -33,6 +31,11 @@ class ListFilterDirectory {
     searchEl.addEventListener('keyup', event => this.handleSearch(event));
     searchEl.addEventListener('focus', event => this.handleFocus(event));
     searchEl.addEventListener('focus', event => this.scrollToTop(event));
+    searchEl.addEventListener('keydown', event => {
+      if (event.key === 'Enter') {
+        this.scrollToList();
+      }
+    });
     document.querySelectorAll(this.filterControlsSelector).forEach(select => {
       select.addEventListener('change', event => this.handleFilterChange(event));
     });
@@ -46,21 +49,21 @@ class ListFilterDirectory {
     const urlParams = new URLSearchParams(window.location.search);
     const query = urlParams.get('q');
     const category = urlParams.get('cat');
+    this.isQueryParameterSearch = false; // Reset flag
+
     if (query) {
-      // Set the search input field with the query parameter value
+      this.isQueryParameterSearch = true; // Set flag
       const searchEl = document.getElementById(this.searchInputId);
-      //searchEl.focus();
       searchEl.value = query;
-      // place cursor at the end of the input
       searchEl.setSelectionRange(searchEl.value.length, searchEl.value.length);
-      // trigger the search with by keyup after brief pause.
       setTimeout(() => {
         const event = new KeyboardEvent('keyup', { bubbles: true });
         searchEl.dispatchEvent(event);
       }, 500);
     }
+
     if (category) {
-      // Set the first element matching filterControlsSelector
+      this.isQueryParameterSearch = true; // Set flag
       const categorySelect = document.querySelector(this.filterControlsSelector);
       categorySelect.value = category;
       setTimeout(() => {
@@ -70,10 +73,18 @@ class ListFilterDirectory {
     }
   }
 
+
   scrollToTop(event) {
     const input = event.target;
     if (!input) return;
     input.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  scrollToList() {
+    const listEl = document.getElementById(this.listId);
+    if (listEl) {
+      listEl.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 
   handleSearch(event) {
@@ -84,6 +95,11 @@ class ListFilterDirectory {
   }
 
   handleFocus(event) {
+    if (this.isQueryParameterSearch) {
+      // Reset the flag and skip clearing logic
+      this.isQueryParameterSearch = false;
+      return;
+    }
     const filterControls = document.querySelectorAll(this.filterControlsSelector);
     document.getElementById(this.searchInputId).value = '';
     filterControls.forEach(select => select.value = '');
@@ -189,6 +205,7 @@ class ListFilterDirectory {
     } else {
       this.directoryList.search(searchString, [which]);
     }
+    this.scrollToList();
   }
 
   calculateMatchCount(item, currentSearchTerm) {

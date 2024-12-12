@@ -1,5 +1,5 @@
 // Changes from source noted below with "EDITED"
-import { setWithExpiry, getWithExpiry } from './utils.js';
+import { onDomReady, setWithExpiry, getWithExpiry } from './utils.js';
 
 /**
  * Manages the display and loading of the chat widget.
@@ -20,13 +20,9 @@ export class ChatManager {
     this.offCanvasAsUs = document.querySelector('#offcanvas-ask-us');
     this.currentVersion = 'v1.0'; // Update this version as needed to force resets
     // autorun
-    if (document.readyState !== 'loading') {
+    onDomReady(() => {
       this.init();
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.init();
-      });
-    }
+    });
   }
 
   /**

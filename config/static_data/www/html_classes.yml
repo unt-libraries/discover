@@ -156,7 +156,7 @@ hours:
 # Heros
 ##############
 heros:
-  container: "hero-blur container-fluid hero hero-window position-relative bg-dark p-0 d-none d-md-block"
+  container: "hero-blur container-fluid hero hero-window position-relative bg-dark p-0 d-none d-lg-block"
   #blur_wrapper: "hero-blur hero-background z-1 position-absolute top-0 bottom-0 start-0 end-0"
   #blur: "hero-blur-overlay position-absolute top-0 bottom-0 start-0 end-0"
   #backdrop: "hero-backdrop h-100 w-100"

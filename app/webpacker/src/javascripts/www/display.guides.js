@@ -1,13 +1,15 @@
-class GuideManager {
+import { onDomReady } from './utils.js';
+
+export class GuideManager {
     constructor(url) {
         this.url = url;
-        if (document.readyState !== 'loading') {
+        this.inject = document.querySelector('#libguides.inject');
+        this.guideNavLink = document.querySelector(".guides-link");
+        this.guidesWrapper = document.querySelector(".guides-wrapper");
+        // autorun
+        onDomReady(() => {
             this.init();
-        } else {
-            document.addEventListener('DOMContentLoaded', () => {
-                this.init();
-            });
-        }
+        });
     }
 
     async init() {
@@ -19,13 +21,12 @@ class GuideManager {
                 const courseGuides = data.filter(this.isCourseGuide);
                 const otherGuides = data.filter(this.isOtherGuide);
 
-                const container = document.querySelector('#libguides.inject');
-                container.innerHTML = ''; // Clear the container
+                this.inject.innerHTML = ''; // Clear the container
 
                 const accordion = document.createElement('div');
                 accordion.id = 'guidesAccordion';
-                accordion.classList.add('accordion');
-                container.appendChild(accordion);
+                accordion.classList.add('accordion', 'accordiant-flush');
+                this.inject.appendChild(accordion);
 
                 if (subjectGuides.length !== 0) {
                     this.addAccordionItem(accordion, 'Subject Guides', subjectGuides, this.buildStandardList.bind(this));
@@ -36,9 +37,42 @@ class GuideManager {
                 if (courseGuides.length !== 0) {
                     this.addAccordionItem(accordion, 'Course Guides', courseGuides, this.buildCourseList.bind(this));
                 }
+                // Add a listener for the accordion shown event
+                accordion.addEventListener('shown.bs.collapse', (event) => {
+                    const expandedElement = event.target; // The element that was just shown
+                    const headerElement = expandedElement.previousElementSibling; // Find the corresponding header
+                    if (headerElement) {
+                        headerElement.scrollIntoView({ behavior: 'instant', block: 'start' });
+                    }
+                });
+            } else {
+                // hide the guide header if there are 0 guides
+                this.guideNavLink?.classList.add("d-none");
+                this.guidesWrapper?.classList.add("d-none");
             }
         } catch (error) {
             console.error('Failed to fetch guides:', error);
+            // Construct the fallback URL
+            let fallbackUrl = 'https://guides.library.unt.edu'; // Default URL
+            const urlParams = new URL(this.url).searchParams;
+            const subjectIds = urlParams.get('subject_ids');
+
+            if (subjectIds) {
+                if (subjectIds.includes(',')) {
+                    fallbackUrl = 'https://guides.library.unt.edu'; // Default URL if multiple IDs are present
+                } else {
+                    fallbackUrl = `https://guides.library.unt.edu/sb.php?subject_id=${subjectIds}`;
+                }
+            }
+
+            // Create and append the fallback link
+            const link = document.createElement('a');
+            link.href = fallbackUrl;
+            link.textContent = 'View Our Guides';
+            link.classList.add('btn', 'btn-link', 'mt-3');
+            this.inject.innerHTML = ''; // Clear the container
+            this.inject.appendChild(link);
+
         }
     }
 
@@ -74,7 +108,7 @@ class GuideManager {
         accordionCollapse.dataset.bsParent = '#guidesAccordion';
 
         const accordionBody = document.createElement('div');
-        accordionBody.classList.add('accordion-body');
+        accordionBody.classList.add('accordion-body', 'px-0');
 
         // Use the provided build function to populate the accordion body
         buildContent(guides, title, accordionBody);
@@ -98,7 +132,7 @@ class GuideManager {
 
     buildStandardList(guides, title, container) {
         const list = document.createElement('div');
-        list.classList.add('row', 'row-cols-lg-2', 'row-cols-xl-3');
+        list.classList.add('row', 'row-cols-1', 'row-cols-lg-2', 'row-cols-xl-3');
         guides.forEach(guide => {
             let path = guide.redirect_url || guide.friendly_url || guide.url;
             path += `${path.includes('?') ? '&' : '?'}utm_source=www&utm_medium=staff_profile`;
@@ -126,7 +160,6 @@ class GuideManager {
             card.appendChild(cardFooter);
             list.appendChild(item);
         });
-
         container.appendChild(list);
     }
 

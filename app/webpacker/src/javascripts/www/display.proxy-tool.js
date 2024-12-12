@@ -1,3 +1,5 @@
+import { onDomReady } from './utils.js';
+
 class ProxyFormHandler {
   constructor() {
     this.startsHTTP = new RegExp('^https?://', 'i');
@@ -12,15 +14,10 @@ class ProxyFormHandler {
     this.form = document.querySelector('#proxy-form');
     this.updateButton = document.querySelector('#update-url');
     this.testButton = document.querySelector('#test-me');
-
     // autorun
-    if (document.readyState !== 'loading') {
+    onDomReady(() => {
       this.init();
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.init();
-      });
-    }
+    });
 
   }
 
@@ -93,3 +90,4 @@ class ProxyFormHandler {
 }
 
 const doProxyTool = new ProxyFormHandler();
+

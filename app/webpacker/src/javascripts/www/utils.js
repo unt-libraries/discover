@@ -107,3 +107,45 @@ export function togglePasswordVisibility() {
     });
   });
 }
+/**
+ * Utility function to wait for DOM ready.
+ * Executes the callback when the DOM is fully loaded.
+ * @param {Function} callback
+ */
+export function onDomReady(callback) {
+  if (document.readyState !== 'loading') {
+    callback();
+  } else {
+    document.addEventListener('DOMContentLoaded', callback);
+  }
+}
+
+/**
+ * Opt-in for Bootstrap tooltips.
+ * Binds to a wrapper element, allowing for dynamic content insertion.
+ * @param {string} selector - The CSS selector for tooltips.
+ */
+export function optInTooltips(selector = '[data-bs-toggle="tooltip"]') {
+  if (typeof bootstrap === 'undefined') {
+    console.warn('Bootstrap is not defined.');
+    return;
+  }
+  new bootstrap.Tooltip('body', { selector });
+}
+
+/**
+ * Opt-in for Bootstrap popovers.
+ * Binds to a wrapper element, allowing for dynamic content insertion.
+ * @param {string} container - The container selector for popovers.
+ * @param {string} selector - The CSS selector for popovers.
+ */
+export function optInPopovers(
+  container = '#main-container',
+  selector = '[data-bs-toggle="popover"]'
+) {
+  if (typeof bootstrap === 'undefined') {
+    console.warn('Bootstrap is not defined.');
+    return;
+  }
+  new bootstrap.Popover(container, { selector });
+}

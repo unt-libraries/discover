@@ -10,3 +10,13 @@ export function actWithTimeOut(callback: () => void, optTimeout?: number) {
   setTimeout(fn, optTimeout ?? 1000);
   return fn;
 }
+
+/**
+ * This function overrides the same function from upstream www/utils.js
+ * Utility function to wait for DOM ready.
+ * Executes the callback when the DOM is fully loaded.
+ * @param {Function} callback
+ */
+export function onDomReady(callback: () => void) {
+  document.addEventListener('turbolinks:load', callback);
+}

@@ -1,3 +1,5 @@
+import { onDomReady } from './utils.js';
+
 export class IdentifierHelper {
   constructor() {
     this.doiRegex = /10.\d{4,9}\/[-._;()\/:A-Z0-9]+/ig;
@@ -69,13 +71,10 @@ export class IdentifierHelper {
         externalLinkText: 'opens in a new tab',
       },
     }
-    if (document.readyState !== 'loading') {
+    // autorun
+    onDomReady(() => {
       this.init();
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.init();
-      });
-    }
+    });
   }
   buildModal(prxyStr, prxyTyp) {
     const existingModal = document.querySelector('#proxyable-modal');

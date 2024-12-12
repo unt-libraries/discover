@@ -102,7 +102,7 @@ export class DropdownManager {
 			return;
 		}
 		insertion_point.insertAdjacentHTML('beforeend', rendered);
-		this.initNewTooltip(insertion_point);
+		//this.initNewTooltip(insertion_point);
 	}
 
 	initNewTooltip(element) {

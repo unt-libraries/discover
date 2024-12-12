@@ -8,3 +8,12 @@
     background-color: $green-100;
   }
 }
+
+.sorting {
+  .shortcut-card-wrapper {
+    cursor: grab;
+  }
+  .shortcut-card-wrapper:active {
+    cursor: grabbing;
+  }
+}

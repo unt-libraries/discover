@@ -1,6 +1,6 @@
 // Changes from source noted below with "EDITED"
 // alert.js
-import { setWithExpiry, getWithExpiry } from './utils.js';
+import { onDomReady, setWithExpiry, getWithExpiry } from './utils.js';
 import dayjs from 'dayjs'; // EDITED
 import utc from 'dayjs/plugin/utc'; // EDITED
 
@@ -22,16 +22,10 @@ class AlertManager {
     this.currentVersion = window.wwwJsShims.alerts.alerts.version; // EDITED to use window object
     this.alertElement = document.querySelector('#global-alert');
     this.dismissBtn = document.querySelector('#global-alert-dismiss');
-
     // autorun
-    if (document.readyState !== 'loading') {
+    onDomReady(() => {
       this.init();
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.init();
-      });
-    }
-
+    });
   }
 
   /**
@@ -60,8 +54,8 @@ class AlertManager {
 
     // Check if the alert should be shown based on date conditions
     const isWithinDateRange =
-      (!publishDate || now.isAfter(publishDate, 'minute') || now.isSame(publishDate, 'minute')) &&
-      (!hideDate || now.isBefore(hideDate, 'minute') || now.isSame(hideDate, 'minute'));
+      (!publishDate || now.isAfter(publishDate) || now.isSame(publishDate)) &&
+      (!hideDate || now.isBefore(hideDate) || now.isSame(hideDate));
 
     if (!globalAlert && isWithinDateRange) {
       this.showAlert();

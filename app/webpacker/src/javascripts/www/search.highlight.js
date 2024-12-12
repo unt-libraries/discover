@@ -1,16 +1,15 @@
+import { onDomReady } from './utils.js';
+
 export class HighlightSearchTermMatch {
   constructor() {
     this.contentArea = document.querySelector('#content');
     this.urlParams = new URLSearchParams(window.location.search);
     this.searchText = this.urlParams.get('h');
     // autorun
-    if (document.readyState !== 'loading') {
+    onDomReady(() => {
       this.init(this.searchText);
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.init(this.searchText);
-      });
-    }
+    });
+
   }
 
   init(text) {

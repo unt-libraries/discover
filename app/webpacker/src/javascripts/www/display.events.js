@@ -1,6 +1,6 @@
 // Changes from source noted below with "EDITED"
 // utils.js imports
-import { fetchData, setWithExpiry, getWithExpiry } from './utils.js';
+import { onDomReady, fetchData, setWithExpiry, getWithExpiry } from './utils.js';
 import dayjs from 'dayjs'; // EDITED to import dayjs
 import advancedFormat from 'dayjs/plugin/advancedFormat'; // EDITED to import advancedFormat
 dayjs.extend(advancedFormat); // EDITED to extend advancedFormat
@@ -10,13 +10,10 @@ export class EventManager {
       this.config = window.wwwJsShims.events; // EDITED to use config on window object
       this.now = dayjs();
       this.currentVersion = 'v1.0'; // Update this version as needed to force resets
-      if (document.readyState !== 'loading') {
+      // autorun
+      onDomReady(() => {
         this.init();
-      } else {
-        document.addEventListener('DOMContentLoaded', () => {
-          this.init();
-        });
-      }
+      });
   }
 
   formatTimeStr = (start, end, allday) => {

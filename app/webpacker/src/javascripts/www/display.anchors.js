@@ -1,13 +1,12 @@
+import { onDomReady } from './utils.js';
+
 export class AnchorUtility {
     constructor() {
         this.selectors = '.content h2, .content h3, .content h4, .content h5, .content h6, .content .anchored';
-        if (document.readyState !== 'loading') {
+        // autorun
+        onDomReady(() => {
             this.init();
-        } else {
-            document.addEventListener('DOMContentLoaded', () => {
-                this.init();
-            });
-        }
+        });
     }
 
     init() {

@@ -1,15 +1,14 @@
+import { onDomReady } from './utils.js';
+
 export class SearchOverride {
   constructor(config) {
     this.inputElement = document.querySelector(config.inputId); // e.g., '#search-input'
     this.overrideUrl = config.overrideUrl; // e.g., 'https://example.com/search?q={query}'
     this.placeholder = config.placeholder; // e.g., 'Search'
-    if (document.readyState !== 'loading') {
+    // autorun
+    onDomReady(() => {
       this.init();
-    } else {
-      document.addEventListener('DOMContentLoaded', () => {
-        this.init();
-      });
-    }
+    });
   }
 
   sanitizeInput(query) {
