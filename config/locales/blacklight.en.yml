@@ -71,7 +71,7 @@ en:
         img_alt: 'Woman on stage at UNT graduation ceremony'
       - title: 'Archival Collections'
         summary: "Search finding aids for archival holdings within the UNT Libraries."
-        link_url: 'https://findingaids.library.unt.edu/'
+        link_url: 'https://archives.library.unt.edu/'
         img_src: 'media/images/home/featured-archival-collections.jpg'
         lq_img_src: 'media/images/home/featured-archival-collections@0.1x.jpg'
         webp_img_src: 'media/images/home/featured-archival-collections.webp'
