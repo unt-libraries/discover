@@ -16,7 +16,7 @@
       <%= link_to_request_item document, item: item, item_index: item_index %>
     <% end %>
   </td>
-  <% if items_have_notes?(items) %>
+  <% if items_have_notes %>
     <td class="blacklight-notes result__value">
       <% unless item['n'].blank? %>
         <% item['n'].each do |note| %>

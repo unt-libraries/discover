@@ -217,9 +217,8 @@
       }
 
       td {
+        @extend .py-2;
         display: table-cell;
-        padding-top: 0;
-        padding-bottom: 0.5rem;
         padding-right: 0;
 
         &:first-child {
@@ -229,21 +228,6 @@
 
       .more-less {
         background-color: #fff !important;
-      }
-
-      tbody.more-max {
-        tr:nth-of-type(odd) {
-          background-color: #fff;
-        }
-
-        tr:nth-of-type(even) {
-          background-color: $table-accent-bg;
-        }
-
-        tr:hover {
-          color: $table-hover-color;
-          background-color: $table-hover-bg;
-        }
       }
     }
   }

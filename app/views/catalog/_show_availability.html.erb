@@ -4,6 +4,7 @@
    item_limit = 1000 # Prevent records with too many items slowing the page down
    items = json_str_to_array(document[:items_json])
    more_items = document[:more_items_json].nil? ? nil : json_str_to_array(document[:more_items_json]).first(item_limit)
+   items_have_notes = items_have_notes?(items)
 %>
 <div class="card item-availability">
   <div class="card-body">
@@ -24,21 +25,22 @@
           </th>
           <th scope="col" class="blacklight-availability result__label">Availability</th>
           <th scope="col" class="blacklight-request result__label d-none">Request</th>
-          <% if items_have_notes?(items) %>
+          <% if items_have_notes %>
             <th scope="col" class="blacklight-notes result__label">Notes</th>
           <% end %>
         </tr>
         </thead>
         <tbody id="primaryItems">
         <% items.each_with_index do |item, index| %>
-          <%= render partial: 'show_availability_item', locals: { document: document, items: items, item: item, item_index: index } %>
+          <%= render partial: 'show_availability_item', locals: { document: document, items_have_notes: items_have_notes, item: item, item_index: index } %>
         <% end %>
         </tbody>
 
         <% if more_items %>
           <tbody id="moreItems" class="more-max d-none">
+          <tr class="d-none"></tr>
           <% more_items.each_with_index do |item, index| %>
-            <%= render partial: 'show_availability_item', locals: { document: document, items: more_items, item: item, item_index: index + 3, hidden: true } %>
+            <%= render partial: 'show_availability_item', locals: { document: document, items_have_notes: items_have_notes, item: item, item_index: index + 3, hidden: true } %>
           <% end %>
           </tbody>
 

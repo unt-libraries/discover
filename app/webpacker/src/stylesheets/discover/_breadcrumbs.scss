@@ -1,0 +1,13 @@
+nav {
+  .breadcrumb {
+    .page-links {
+      .inactive {
+        color: var(--bs-breadcrumb-item-active-color);
+        opacity: 0.5;
+      }
+      .breadcrumbs-pages-divider {
+        color: var(--bs-breadcrumb-divider-color);
+      }
+    }
+  }
+}

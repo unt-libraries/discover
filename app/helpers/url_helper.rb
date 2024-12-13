@@ -12,7 +12,7 @@ module UrlHelper
     link_to_unless previous_document.nil?,
                    raw(t('blacklight.search.entry_pagination_info.previous')),
                    url_for_document(previous_document), link_opts do
-      content_tag :span, raw(t('blacklight.search.entry_pagination_info.previous')), class: 'previous'
+      content_tag :span, raw(t('blacklight.search.entry_pagination_info.previous')), class: 'previous inactive'
     end
   end
 
@@ -23,7 +23,7 @@ module UrlHelper
       merge(class: "next", rel: 'next').
       merge(opts)
     link_to_unless next_document.nil?, raw(t('blacklight.search.entry_pagination_info.next')), url_for_document(next_document), link_opts do
-      content_tag :span, raw(t('blacklight.search.entry_pagination_info.next')), class: 'next'
+      content_tag :span, raw(t('blacklight.search.entry_pagination_info.next')), class: 'next inactive'
     end
   end
 

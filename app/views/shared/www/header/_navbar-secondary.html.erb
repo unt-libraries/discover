@@ -15,14 +15,14 @@
       <li class="<%= html_classes['breadcrumbs']['item'] %>">
         <a class="<%= html_classes['breadcrumbs']['link'] %>"
            href="<%= site['parent_url'] %>">
-          <%= site['subtitle'] %>
+          Home
         </a>
       </li>
 
       <li class="<%= html_classes['breadcrumbs']['item'] %>">
         <a class="<%= html_classes['breadcrumbs']['link'] %>"
            href="/">
-          Home
+          <%= site['title'] %>
         </a>
       </li>
 
@@ -41,9 +41,9 @@
             <% if @search_context[:prev] || @search_context[:next] %>
               <li class="<%= html_classes['breadcrumbs']['item'] %>">
                 <div class="page-links">
-                  <%= link_to_previous_document @search_context[:prev] %>
-                  |
-                  <%= link_to_next_document @search_context[:next] %>
+                  <%= link_to_previous_document @search_context[:prev], class: html_classes['breadcrumbs']['link'] %>
+                  <span class="breadcrumbs-pages-divider">|</span>
+                  <%= link_to_next_document @search_context[:next], class: html_classes['breadcrumbs']['link'] %>
                 </div>
               </li>
             <% end %>

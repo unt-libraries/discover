@@ -104,7 +104,7 @@
 }
 
 #content {
-  p, li {
+  p, li, dt, dl {
     font-size: 1.3rem;
   }
 }
@@ -115,8 +115,9 @@
   ul,
   ol,
   table,
-  blockquoate,
-  pre {
+  blockquote,
+  pre,
+  dd:last-of-type {
     margin-bottom: 1.5rem;
   }
   li {
