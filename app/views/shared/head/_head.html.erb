@@ -23,17 +23,21 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,800;1,400&family=Oswald:wght@300;400&subset=latin-ext&display=swap">
   </noscript>
 
-  <!-- Font icons -->
-  <%# TODO: Consider inlining critical SVG like new www does %>
-  <script src="https://kit.fontawesome.com/261a22fc18.js" crossorigin="anonymous" async="async" data-mutate-approach="sync"></script>
+  <!-- Priority font icons -->
+  <style>
+    <%= render '/shared/www/head/head.styles.fontawesome.css' %>
+  </style>
+  <script>
+    FontAwesomeConfig = {
+      mutateApproach: 'sync'
+    }
+  </script>
 
   <!-- CSS -->
   <%= stylesheet_packs_with_chunks_tag "priority", "base", media: "all", 'data-turbolinks-track': 'reload' %>
 
   <!-- Head scripts -->
-  <%= javascript_packs_with_chunks_tag 'priority', 'data-turbolinks-track': 'reload', async: true %>
-
-  <%# TODO: Include www scripts necessary for header and footer. Might just be utils & alerts %>
+  <%= javascript_packs_with_chunks_tag 'priority', 'icons', 'data-turbolinks-track': 'reload', async: true %>
 
   <%= content_for :head_scripts %>
   <% content_for(:head_scripts) do %>
