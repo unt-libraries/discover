@@ -15,7 +15,7 @@ dayjs.extend(timezone); // EDITED to extend timezone
 export class LibraryHours {
     constructor(dropdownManager) {
       this.config = window.wwwJsShims.hours; // EDITED to use config on window object
-      this.currentVersion = 'v1.0'; // Update this version as needed to force resets
+      this.currentVersion = 'v1.1'; // Update this version as needed to force resets
       dropdownManager.ready.then(() => this.init());
     }
 
@@ -58,8 +58,7 @@ export class LibraryHours {
     const url = `${this.config.calendarUrl}${this.config.endPoint}${spacesArray.join(',')}`;
     const today = dayjs().tz('America/Chicago');
     const nextWeek = today.add(7, 'days').format('YYYY-MM-DD');
-    //const hoursData = await fetchData(`${url}&to=${nextWeek}`, 30000); // 30-second timeout
-    const hoursData = await fetchData(`${url}?to=${nextWeek}`, 30000); // 30-second timeout // with proxy!
+    const hoursData = await fetchData(`${url}?to=${nextWeek}`, { timeout: 30000, retries: 3, retryDelay: 500 }); // 30-second timeout // with proxy!
 
     if (!hoursData) {
       console.error('Failed to fetch library hours');

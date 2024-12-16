@@ -40,6 +40,27 @@ events:
     - 7548  # frisco "campus"
     - 5950  # sycamore "campus"
     - 5949  # willis "campus"
+  ignore:
+    - hold
+    - maintenance
+    - placeholder
+    - presenter time
+    - private
+    - room maintenance
+    - setup
+    - set up
+    - taco test
+    - tear down
+    - teardown
+    - test event
+    - site walk
+    - inspection
+    - internal
+    - libtaco
+    - libcal
+    - libapps
+    - pac meet
+    - facilities
 
 hours:
   storageKey: 'unt_lib.v2.hours'

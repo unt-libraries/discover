@@ -9,7 +9,7 @@ export class EventManager {
   constructor() {
       this.config = window.wwwJsShims.events; // EDITED to use config on window object
       this.now = dayjs();
-      this.currentVersion = 'v1.0'; // Update this version as needed to force resets
+      this.currentVersion = 'v1.2'; // Update this version as needed to force resets
       // autorun
       onDomReady(() => {
         this.init();
@@ -31,7 +31,7 @@ export class EventManager {
    */
   fetchAndProcessEvents = async () => {
     const apiURL = `${this.config.apiURL}?${new URLSearchParams(this.config.apiArgs)}`;
-    const data = await fetchData(apiURL, 5000);
+    const data = await fetchData(apiURL, { timeout: 5000, retries: 3, retryDelay: 500 });
     return data.events
       .filter(
         event => this.isValidEvent(event) && this.isCampusIncluded(event.campus.id)
@@ -56,7 +56,26 @@ export class EventManager {
    * valid events must have a title, public url and not include 'private' in the title
    */
   isValidEvent = (event) => {
-    return event.title && event.url && event.url.public && !event.title.toLowerCase().includes('private');
+    // Check that the event has the minimal requirements
+    if (!event.title || !event.url || !event.url.public) {
+      return false;
+    }
+    // Check these fields for ignored words
+    const fieldsToCheck = [
+      event.title,
+      event.description || '',
+      event.presenter || ''
+    ];
+    const combinedText = fieldsToCheck.join(' ').toLowerCase();
+    const ignoreList = this.config.ignore || [];
+    // Check if any of the ignore terms appear in the combined text
+    for (const term of ignoreList) {
+      if (combinedText.includes(term.toLowerCase().trim())) {
+        return false; // Found an ignored term, so this event is not valid.
+      }
+    }
+    // If we get here, no ignored terms were found
+    return true;
   }
 
   /**
@@ -220,9 +239,10 @@ export class EventManager {
         filteredEvents = filteredEvents.slice(0, max);
       }
       // max days filter
+      let maxDate = null;
       if (maxDays){
         maxDays = parseInt(maxDays, 10);
-        const maxDate = this.now.add(maxDays, 'day');
+        maxDate = this.now.add(maxDays, 'day');
         filteredEvents = filteredEvents.filter(event => dayjs(event.start).isBefore(maxDate));
       }
       // filter out events in the past
@@ -241,10 +261,16 @@ export class EventManager {
             eventBody.appendChild(makeDay);
           }
         });
-        // test to see if groupedEvents is falsy. Append no events message if so.
-        if (groupedEvents.length === 0 || groupedEvents === undefined) {
-          const noEvents = document.createElement('div');
-          noEvents.textContent = 'No upcoming events.';
+        // test to see if groupedEvents is false. Append no events message if so.
+        if (Object.keys(groupedEvents).length === 0) {
+          const noEvents = document.createElement('p');
+
+          const upcomingFragment = maxDays ? `There are no events scheduled between now and ${maxDate.format('MMMM D, YYYY')}` : 'There are no upcoming events.';
+
+          const noEventsMessage = `
+            ${upcomingFragment}. <a href="{{ site.data.urls.calendar.events }}">See our complete calendar for future events.</a>
+            `;
+          noEvents.innerHTML = noEventsMessage;
           eventBody.appendChild(noEvents);
 
         }

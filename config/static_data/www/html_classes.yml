@@ -46,9 +46,9 @@ top_bar:
 # Dropdowns
 ##############
 dropdowns:
-  dropdown_menu: dropdown-menu dropdown-menu-end border-start border-end pb-0 border-light-subtle border-0 mt-n1 me-n1 ff-normal shadow-lg
+  dropdown_menu: dropdown-menu dropdown-menu-end border-start border-end pb-0 border-light-subtle border-0 mt-n1 ff-normal shadow-lg
   dropdown_last_item: border-bottom border-light-green border-3
-  mega_menu: border-0 border-3 border-bottom border-light-green dropdown-menu ff-normal me-n1 mt-n1 w-100 vh-50 vh-lg-unset overflow-auto shadow-lg
+  mega_menu: border-0 border-3 border-bottom border-light-green dropdown-menu ff-normal mt-n1 w-100 vh-50 vh-lg-unset overflow-auto shadow-lg
   mega_headings: border-1 border-bottom border-lime-green h6 text-dark-green text-uppercase
   mega_heading_links: link-dark-green link-underline-opacity-0
   mega_links: text-secondary link-success link-underline-opacity-0 link-underline-opacity-100-hover d-block
@@ -157,18 +157,20 @@ hours:
 # Heros
 ##############
 heros:
-  container: "hero-blur container-fluid hero hero-window position-relative bg-dark p-0 d-none d-lg-block"
+  container: "hero-blur container-fluid hero hero-window position-relative bg-dark p-0 d-none d-sm-block"
+
   #blur_wrapper: "hero-blur hero-background z-1 position-absolute top-0 bottom-0 start-0 end-0"
   #blur: "hero-blur-overlay position-absolute top-0 bottom-0 start-0 end-0"
   #backdrop: "hero-backdrop h-100 w-100"
-  copy_wrapper: "copy-wrapper position-absolute top-50 start-50 translate-middle z-3 w-100 w-md-95 w-lg-75"
+  copy_wrapper: "copy-wrapper position-absolute top-50 start-50 translate-middle z-3  w-sm-75"
   tabs: "nav nav-pills bg-transparent mb-2 d-none d-lg-flex"
   tab_item: "nav-item me-1"
   tab_btn: "search-tab btn btn-dark btn-outline-light-green"
   tab_pane: "tab-pane fade"
-  copy: "hero-copy tab-content p-5 text-bg-dark border border-1 border-black bg-opacity-90"
+  copy: "hero-copy tab-content p-lg-5 p-sm-4 text-bg-dark border border-1 border-black bg-opacity-90"
+
   blurb: "hero-blurb fs-5 d-none d-lg-block"
-  dyk_wrapper: "mt-4 small lead fs-6"
+  dyk_wrapper: "mt-4 small lead fs-6 d-none d-lg-block"
   dyk_link: "link-underline-opacity-0 link-offset-3-hover link-underline-opacity-50-hover link-light"
   dky_refresh_btn: "btn btn-sm btn-link link-lime-green link-underline-opacity-0"
 
@@ -176,9 +178,9 @@ heros:
     wrapper: "carousel slide carousel-fade container-3xl end-0 position-absolute start-0 top-0 z-2 p-0"
     inner: "carousel-inner hero-window"
     item: "hero-background carousel-item z-1 h-100"
-    btn_group: "hero-btn-group position-absolute bottom-0 end-0 mb-2 me-2 z-3 mw-50 text-truncate text-nowrap d-none d-lg-inline-block"
-    btn: "btn btn-sm btn-dark-teal position-absolute bottom-0 end-0 mb-2 me-2 z-3 mw-50 text-truncate text-nowrap d-none d-lg-inline-block"
-    toggle_btn: "toggle-plain btn btn-sm btn-outline-light ms-1 position-absolute bottom-0 start-0 mb-2 ms-2 z-3 mw-50 d-none d-lg-inline-block"
+    btn_group: "hero-btn-group position-absolute bottom-0 end-0 mb-2 me-2 z-3 mw-50 text-truncate text-nowrap d-none d-sm-inline-block"
+    btn: "btn btn-sm btn-dark-teal position-absolute bottom-0 end-0 mb-2 me-2 z-3 mw-50 text-truncate text-nowrap d-none d-sm-inline-block"
+    toggle_btn: "toggle-plain btn btn-sm btn-outline-light ms-1 position-absolute bottom-0 start-0 mb-2 ms-2 z-3 mw-50 d-none d-sm-inline-block"
     prev: "carousel-control carousel-control-prev dashed-focus-inverted d-none"
     next: "carousel-control carousel-control-next dashed-focus-inverted d-none"
 

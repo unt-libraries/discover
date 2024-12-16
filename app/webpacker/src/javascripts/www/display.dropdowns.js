@@ -25,7 +25,7 @@ export class DropdownManager {
 	}
 
 	async init() {
-		const data = await fetchData(this.config.dataSrc, 5000);
+		const data = await fetchData(this.config.dataSrc, { timeout: 5000, retries: 3, retryDelay: 500 });
 		// break if data fetch fails
 		if (!data) {
 			console.error('Initialization failed due to fetch error.');

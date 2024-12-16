@@ -1,13 +1,7 @@
 .hero {
 	&-window {
-
-		height: 40vh;
-		max-height: 40vw;
-
-		@include media-breakpoint-up(lg) {
-			height: 56vh;
-			max-height: 56vw;
-		}
+		height: 56vh;
+		max-height: 56vw;
 	}
 	&-background {
 		background-repeat: no-repeat;
@@ -21,17 +15,16 @@
 	}
 	&-blur {
 		background-repeat: no-repeat;
-    	background-position: center;
-    	background-size: cover;
+		background-position: center;
+		background-size: cover;
 
-    	&::before {
+		&::before {
 			content: "";
-		    width: 100%;
-		    height: 100%;
-		    backdrop-filter: blur(10px);
-		    position: absolute;
-    	}
-
+			width: 100%;
+			height: 100%;
+			backdrop-filter: blur(10px);
+			position: absolute;
+		}
 	}
 	&-backdrop {
 		backdrop-filter: blur(10px);
@@ -41,11 +34,6 @@
 .short-carousel-pager {
 	height: calc(100% - 4.5rem)
 }
-
-
-/**
- * position-absolute top-50 start-50 translate-middle z-3 w-95 w-lg-75
- */
 
 .copy-wrapper {
 	@include media-breakpoint-up(lg) {

@@ -7,6 +7,8 @@ unt:
   home: https://unt.edu
   search: https://search.unt.edu/s/search.html
   ams: https://ams.untsystem.edu
+  transportation: https://transportation.unt.edu/
+  parking_map: https://experience.arcgis.com/experience/5b6f7d38a75b4f6e84c81eae31216267/?draft=true
 
 # www links
 library:

@@ -44,27 +44,55 @@ export function getWithExpiry(key, version, useSessionStorage = false) {
 }
 
 /**
- * Fetch data from a specified source with error handling and timeout.
+ * Fetch data from a specified source with error handling, timeout, and retry logic.
  * @param {string} url - The URL to fetch data from.
- * @param {number} timeout - Timeout in milliseconds.
- * @returns {Promise<object[]|false>} - Promise resolving to an array of items or false if an error occurs.
+ * @param {object} [options={}] - Configuration options
+ * @param {number} [options.timeout=5000] - Timeout in milliseconds.
+ * @param {number} [options.retries=0] - Number of retry attempts before giving up.
+ * @param {number} [options.retryDelay=500] - Initial delay between retries in milliseconds (will use exponential backoff).
+ * @returns {Promise<object[]|false>} - Promise resolving to parsed JSON or false if all attempts fail.
  */
-export async function fetchData(url, timeout = 5000) {
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
-  try {
-    const response = await fetch(url, { signal: controller.signal });
-    clearTimeout(timeoutId); // clear the timeout upon successful fetch
-    if (!response.ok) {
-      console.error(`HTTP error! Status: ${response.status}`);
-      return false;
+export async function fetchData(url, { timeout = 5000, retries = 0, retryDelay = 500 } = {}) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    let controller = new AbortController();
+    let timeoutId = setTimeout(() => controller.abort(), timeout);
+    let shouldRetry = attempt < retries; // Determine if we can attempt another retry after this one
+
+    try {
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        console.error(`HTTP error! Status: ${response.status}`);
+        if (shouldRetry) {
+          await delay(retryDelay * (2 ** attempt)); // Exponential backoff
+          continue; // Retry the fetch
+        } else {
+          return false;
+        }
+      }
+
+      return await response.json();
+    } catch (error) {
+      clearTimeout(timeoutId);
+      console.error('Fetch error:', error.message);
+
+      // If this was our last attempt, return false
+      if (!shouldRetry) {
+        return false;
+      }
+
+      // Otherwise, wait before retrying
+      await delay(retryDelay * (2 ** attempt));
     }
-    return await response.json();
-  } catch (error) {
-    clearTimeout(timeoutId);
-    console.error('Fetch error:', error.message);
-    return false;
   }
+
+  // If we exit the loop without returning, something unexpected happened
+  return false;
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
