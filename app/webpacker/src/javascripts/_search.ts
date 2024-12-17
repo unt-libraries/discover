@@ -65,7 +65,7 @@ function rotateSearchTips(): void {
 
 function initPrefilters(): void {
   const prefilterLinks = document.querySelectorAll('.pre-filter-btn-group .dropdown-item') as NodeListOf<HTMLElement>;
-  const queryField = document.querySelector('#q') as HTMLInputElement;
+  const queryField = document.getElementById('q') as HTMLInputElement;
   prefilterLinks.forEach((link: HTMLElement) => {
     link.addEventListener('click', (e: Event) => {
       e.preventDefault();
@@ -76,13 +76,12 @@ function initPrefilters(): void {
       if (query.length > 0 && currentUrl.host === urlObj.host) {
         const paramString = href.split('?')[1];
         const params = new URLSearchParams(paramString);
-        const searchField = document.querySelector('#search_field') as HTMLInputElement;
+        const searchField = document.getElementById('search_field') as HTMLInputElement;
         const searchFieldVal = searchField.value;
         params.set('utf8', '✓');
         params.set('q', query);
         params.set('search_field', searchFieldVal);
         const newParams = params.toString();
-        link.setAttribute('ga-event-value', '1');
 
         window.location.assign(`/?${newParams}`);
       } else {

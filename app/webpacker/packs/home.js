@@ -5,6 +5,5 @@ import {
 document.addEventListener('turbolinks:load', () => {
   searchSelector();
   rotateSearchTips();
-  initPrefilters();
   initFilters();
 });

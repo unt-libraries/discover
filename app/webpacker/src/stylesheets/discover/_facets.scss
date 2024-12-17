@@ -2,6 +2,12 @@
   .facet-label {
     color: $dark-teal;
   }
+
+  .facet-count.badge {
+    @extend .text-secondary-emphasis;
+    @extend .float-end;
+    font-size: 80%;
+  }
 }
 
 .sidenav {

@@ -6,8 +6,8 @@
 <div class="modal-body">
   <%= render partial: 'facet_index_navigation' if @facet.index_range && @display_facet.index? %>
 
-  <div class="facet-extended-list">
-    <%= render_facet_limit(@display_facet, layout: false) %>
+  <div class="facet-extended-list list-group list-group-flush">
+    <%= render_facet_limit(@display_facet, layout: false, class: 'list-group-item-action') %>
   </div>
 </div>
 

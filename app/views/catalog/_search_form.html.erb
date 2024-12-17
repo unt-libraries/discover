@@ -4,7 +4,7 @@
 
 <div class="<%= html_classes['title_outer'] %>">
   <div class="<%= html_classes['title_wrapper'] %>">
-    <div class="<%= html_classes['title_container'] %> w-lg-66">
+    <div class="<%= html_classes['title_container'] %> w-xxl-66">
       <div class="<%#= html_classes['inner'] %> d-lg-flex justify-content-center">
         <div class="position-relative z-2 align-self-center flex-grow-1">
           <%= form_tag search_catalog_url, method: :get, class: 'search-query-form  search__form d-flex mb-4', role: 'search', 'aria-label' => t('blacklight.search.form.submit') do %>
@@ -45,8 +45,8 @@
               </button>
           <% end %>
 
-          <div class="btn-group btn-group-lg d-flex flex-wrap rounded bg-dark-charcoal" role="group" data-bs-theme="dark" aria-label="Additional search options">
-            <%= link_to blacklight_advanced_search_engine.advanced_search_path, class: 'advanced_search btn' do %>
+          <div class="pre-filter-btn-group btn-group btn-group-lg d-flex flex-wrap rounded bg-dark-charcoal" role="group" data-bs-theme="dark" aria-label="Additional search options">
+            <%= link_to blacklight_advanced_search_engine.advanced_search_path, class: 'advanced_search btn fs-6' do %>
               <i class="icon fal fa-search"></i>
               Advanced Search
             <% end %>
