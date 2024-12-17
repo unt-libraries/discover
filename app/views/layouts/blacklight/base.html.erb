@@ -16,6 +16,8 @@
 
   <%= render partial: 'shared/flash_msg', layout: 'shared/flash_messages' %>
 
+  <%= render_search_bar %>
+
   <div id="main-container" class="<%= container_classes %> main-container">
     <div class="row">
       <%= content_for(:container_header) %>

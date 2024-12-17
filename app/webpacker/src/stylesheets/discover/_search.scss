@@ -19,26 +19,9 @@
     font-size: $font-size-base * 0.9;
   }
 
-  &__input {
-    background-color: $input-bg;
-    box-shadow: none;
-
-    &:focus {
-      background-color: $input-focus-bg;
-    }
-  }
-
   &__btn {
     background-color: $input-bg;
-    border-top: 1px solid $input-border-color;
-    border-right: 1px solid transparent;
-    border-bottom: 1px solid $input-border-color;
-    border-left: 1px solid $input-border-color;
-
-    &:focus {
-      border-color: #66afec;
-      background-color: $input-focus-bg;
-      box-shadow: $input-focus-box-shadow;
-    }
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
   }
 }

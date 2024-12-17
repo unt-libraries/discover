@@ -44,7 +44,7 @@ $transition-speed: 0.3s; // Define a variable for transition speed
 
 .ft-eagle-mobile {
   display: block;
-  mask: url('/assets/omni/vendor/fontawesome/svgs/custom-icons/unt-eagle.svg') no-repeat center;
+  mask: url('../vendor/fontawesome/svgs/custom-icons/unt-eagle.svg') no-repeat center;
   mask-size: contain;
   background-color:  $primary-color;
   opacity: 0.3;
@@ -65,7 +65,7 @@ $transition-speed: 0.3s; // Define a variable for transition speed
 
 .title-header {
   &::before {
-    background-image: url(/assets/omni/images/features/permanent/plain.jpg);
+    background-image: url(../images/www/features/permanent/plain.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

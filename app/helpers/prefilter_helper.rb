@@ -13,7 +13,6 @@ module PrefilterHelper
       :books => {
         'icon' => 'book',
         'label' => 'Books',
-        'color' => 'light-teal',
         'links' => [
           { 'label' => 'Any', 'params' => { 'f[resource_type_facet][]' => 'books' } },
           { 'label' => 'New',
@@ -31,7 +30,6 @@ module PrefilterHelper
       :journals => {
         'icon' => 'book-alt',
         'label' => 'Journals & Periodicals',
-        'color' => 'dark-teal',
         'links' => [
           { 'label' => 'Any', 'params' => { 'f[resource_type_facet][]' => 'journals_periodicals' } },
           { 'label' => 'e-Journals', 'params' => { 'f[access_facet][]' => 'Online', 'f[resource_type_facet][]' => 'journals_periodicals' } },
@@ -45,7 +43,6 @@ module PrefilterHelper
       :music => {
         'icon' => 'music',
         'label' => 'Music',
-        'color' => 'lime-green',
         'links' => [
           { 'label' => 'Any', 'params' => { 'f[collection_facet][]' => 'Music Library'} },
           { 'label' => 'Scores', 'params' => { 'f[resource_type_facet][]' => 'music_scores'} },
@@ -58,7 +55,6 @@ module PrefilterHelper
       :film => {
         'icon' => 'film',
         'label' => 'Film & Video',
-        'color' => 'light-green',
         'links' => [
           { 'label' => 'Any', 'params' => { 'f[resource_type_facet][]' => 'video_film'} },
           { 'label' => 'New',
@@ -71,7 +67,6 @@ module PrefilterHelper
       :gaming => {
         'icon' => 'gamepad',
         'label' => 'Gaming',
-        'color' => 'unt-green',
         'links' => [
           { 'label' => 'Any', 'params' => { 'f[resource_type_facet][]' => 'games' } },
           { 'label' => 'Systems & Peripherals', 'url' => '',
@@ -81,33 +76,20 @@ module PrefilterHelper
           { 'label' => 'Tabletop', 'params' => { 'f[media_type_facet][]' => 'Tabletop Games' } },
         ],
       },
-      :makers => {
-        'icon' => 'cube',
-        'label' => 'Makers',
-        'color' => 'aqua',
+      :other => {
+        'icon' => 'archive',
+        'label' => 'Other',
         'links' => [
-          { 'label' => 'Equipment & Tools', 'params' => { 'f[collection_facet][]' => 'The Spark (Makerspace)' } },
-          { 'label' => 'A/V Equipment', 'url' => 'https://guides.library.unt.edu/spark/av' },
-        ],
-      },
-      :reference => {
-        'icon' => 'database',
-        'label' => 'Reference',
-        'color' => 'lime',
-        'links' => [
+          { 'label' => 'Government Documents', 'params' => { 'f[collection_facet][]' => 'Government Documents' } },
+          { 'label' => 'Printed Government Documents', 'params' => { 'f[access_facet][]' => 'At the Library', 'f[collection_facet][]' => 'Government Documents' } },
+          { 'label' => 'Online Government Documents', 'params' => { 'f[access_facet][]' => 'Online', 'f[collection_facet][]' => 'Government Documents' } },
+          { 'divider' => true },
+          { 'label' => 'Makerspace Equipment & Tools', 'params' => { 'f[collection_facet][]' => 'The Spark (Makerspace)' } },
+          { 'label' => 'Makerspace A/V Equipment', 'url' => 'https://guides.library.unt.edu/spark/av' },
+          { 'divider' => true },
           { 'label' => 'Style Manuals', 'params' => { 'f[genre_heading_facet][]' => 'style-manuals' } },
           { 'label' => 'Encyclopedias and Dictionaries', 'params' => { 'f[genre_facet][]' => 'encyclopedias-and-dictionaries!Encyclopedias and dictionaries' } },
           { 'label' => 'Online Databases', 'params' => { 'f[resource_type_facet][]' => 'online_databases' } },
-        ],
-      },
-      :gov_docs => {
-        'icon' => 'archive',
-        'label' => 'Government Docs',
-        'color' => 'forest-green',
-        'links' => [
-          { 'label' => 'Any', 'params' => { 'f[collection_facet][]' => 'Government Documents' } },
-          { 'label' => 'Print Documents', 'params' => { 'f[access_facet][]' => 'At the Library', 'f[collection_facet][]' => 'Government Documents' } },
-          { 'label' => 'Online Documents', 'params' => { 'f[access_facet][]' => 'Online', 'f[collection_facet][]' => 'Government Documents' } },
         ],
       },
     }
@@ -119,12 +101,7 @@ module PrefilterHelper
     label = link['label']
     full_url = url.present? ? url : search_catalog_url(params)
 
-    link_to full_url, class: "dropdown-item",
-            'ga-on': 'click',
-            'ga-event-category': 'Pre-filter',
-            'ga-event-action': button_label || label,
-            'ga-event-label': label,
-            'ga-event-value': '0' do
+    link_to full_url, class: "dropdown-item" do
       label
     end
   end
