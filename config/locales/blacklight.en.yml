@@ -111,7 +111,7 @@ en:
           label: 'Look in: '
         search:
           label: 'Your Search Terms:'
-          placeholder: ''
+          placeholder: 'Enter search terms'
       tips:
         - 'Use <strong>OR</strong>, <strong>AND</strong>, and <strong>NOT</strong> to create
         complex searches. <a href="/?utf8=✓&q=Hamlet+OR+Macbeth&search_field=text">Example</a>'

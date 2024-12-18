@@ -72,7 +72,8 @@
           &.disabled {
             color: $gray-500;
             background-color: white;
-            border-color: $gray-500;
+            border: none;
+            padding: 0;
           }
 
           &.location-sycamore {
@@ -161,13 +162,13 @@
 
           &.online {
             color: white;
-            background-color: $primary;
-            border-color: $primary;
+            background-color: $unt-green;
+            border-color: $unt-green;
 
             &:active,
             &:hover,
             &:focus {
-              background-color: darken($primary, 5%);
+              background-color: darken($unt-green, 5%);
             }
           }
 
@@ -194,7 +195,7 @@
       .check-availability {
         @extend .btn;
         @extend .btn-sm;
-        @extend .btn-outline-primary;
+        @extend .btn-outline-unt-green;
 
         padding: 0.15rem 0.5rem;
       }

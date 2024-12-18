@@ -4,7 +4,7 @@
 
 <div class="<%= html_classes['title_outer'] %>">
   <div class="<%= html_classes['title_wrapper'] %>">
-    <div class="<%= html_classes['title_container'] %> w-xxl-66">
+    <div class="<%= html_classes['title_container'] %> w-xl-90">
       <div class="<%#= html_classes['inner'] %> d-lg-flex justify-content-center">
         <div class="position-relative z-2 align-self-center flex-grow-1">
           <%= form_tag search_catalog_url, method: :get, class: 'search-query-form  search__form d-flex mb-4', role: 'search', 'aria-label' => t('blacklight.search.form.submit') do %>
@@ -12,8 +12,11 @@
 
             <div class="input-group">
               <label for="q" class="form-label search__label visually-hidden"><%= t('blacklight.search.form.search.label') %></label>
-              <%= text_field_tag :q, params[:q], placeholder: t('blacklight.search.form.search.placeholder'),
-                                 class: "search-q q form-control form-control-lg flex-grow-1 rounded-start dashed-focus-inverted", id: "q", autofocus: presenter.autofocus?,
+              <%= text_field_tag :q, params[:q],
+                                 placeholder: t('blacklight.search.form.search.placeholder'),
+                                 class: "search-q q form-control form-control-lg flex-grow-1 rounded-start dashed-focus-inverted",
+                                 id: "q",
+                                 autofocus: presenter.autofocus?,
                                  data: { autocomplete_enabled: presenter.autocomplete_enabled?,
                                          autocomplete_path: search_action_path(action: :suggest) }  %>
 
@@ -39,7 +42,7 @@
                 <%= hidden_field_tag :search_field, search_fields.first.last %>
               <% end %>
             </div>
-              <button type="submit" class="btn btn-lg btn-primary search-btn d-flex align-items-center" id="search">
+              <button type="submit" class="btn btn-lg btn-unt-green search-btn d-flex align-items-center" id="search">
                 <i class="fas fa-search me-2"></i>
                 <span class="submit-search-text d-none d-sm-inline"><%= t('blacklight.search.form.submit') %></span>
               </button>

@@ -1,4 +1,4 @@
-<div class="modal-header">
+<div class="modal-header border-bottom-0">
   <h1 class="modal-title"><%= facet_field_label(@facet.key) %></h1>
   <button type="button" class="blacklight-modal-close btn-close" data-bs-dismiss="modal" aria-label="<%= t('blacklight.modal.close') %>"></button>
 </div>
@@ -11,8 +11,8 @@
   </div>
 </div>
 
-<div class="modal-footer">
-  <div class="facet-pagination bottom row justify-content-between">
+<div class="modal-footer border-top-0">
+  <div class="facet-pagination w-100 d-flex justify-content-between">
     <%= render :partial=>'facet_pagination' %>
   </div>
 </div>
