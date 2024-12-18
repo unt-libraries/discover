@@ -81,8 +81,8 @@ export class GuideManager {
         const accordionItem = document.createElement('div');
         accordionItem.classList.add('accordion-item', 'border-0', 'border-2', 'border-bottom', 'border-mellow-limey', 'rounded-0');
 
-        const accordionHeader = document.createElement('h2');
-        accordionHeader.classList.add('accordion-header');
+        const accordionHeader = document.createElement('h3');
+        accordionHeader.classList.add('accordion-header', 'no-toc');
         accordionHeader.id = `${id}-header`;
 
         const accordionButton = document.createElement('button');
@@ -174,7 +174,8 @@ export class GuideManager {
         for (const [section, items] of Object.entries(groupedGuides)) {
             const sectionDiv = document.createElement('div');
             sectionDiv.className = 'mb-4';
-            const sectionHeading = document.createElement('h3');
+            const sectionHeading = document.createElement('h4');
+            sectionHeading.classList.add('no-toc');
             sectionHeading.textContent = section;
             sectionDiv.appendChild(sectionHeading);
 
@@ -185,9 +186,16 @@ export class GuideManager {
                 path += `${path.includes('?') ? '&' : '?'}utm_source=www&utm_medium=staff_profile`;
                 const li = document.createElement('li');
                 li.classList.add('mb-2');
+                const iconOuter = document.createElement('span');
+                iconOuter.classList.add('fa-li');
+                const icon = document.createElement('span');
+                icon.classList.add('fas', 'fa-chalkboard-user');
+                icon.setAttribute('aria-hidden', 'true');
+                iconOuter.appendChild(icon);
                 const link = document.createElement('a');
                 link.href = path;
                 link.textContent = guide.name;
+                li.appendChild(iconOuter);
                 li.appendChild(link);
                 ul.appendChild(li);
             });

@@ -11,6 +11,9 @@ import { IdentifierHelper } from './search.identifiers.js';
 import { ChatManager } from './display.chat.js';
 import { DisplayBasics } from './display.basics.js';
 // import { DidYouKnowRenderer } from './display.dyk.js'; // EDITED to remove display.dyk.js
+
+import { InsertToTopButtons } from './display.to-top.js';
+
 import { optInTooltips, optInPopovers } from './utils.js'; // EDITED to not import onDomReady
 import { onDomReady } from '../_utils.ts'; // EDITED to override onDomReady function
 
@@ -23,6 +26,7 @@ onDomReady(() => {
   optInPopovers();
 });
 
+const insertToTopButtons = new InsertToTopButtons();
 const offCanvasSearchUtil = new OffCanvasSearch();
 const dropdownManager = new DropdownManager({ // EDITED to change base URL and data source URL
   baseURL: untlBase,

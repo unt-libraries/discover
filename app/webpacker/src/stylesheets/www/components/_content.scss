@@ -121,9 +121,16 @@
   dd:last-of-type {
     margin-bottom: 1.5rem;
   }
-  li {
+
+  li,
+  dt {
     margin-bottom: .25rem;
   }
+
+  td, th {
+    padding: 1rem;
+  }
+
 }
 
 .xtra-sm {

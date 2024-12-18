@@ -63,7 +63,7 @@ top_bar:
     type: link
     classes:
     url:  https://eagleconnect.unt.edu/
-  - text: Unt Directory
+  - text: UNT Directory
     type: link
     classes: me-4
     url:  https://www.unt.edu/find-people-departments.html
@@ -354,7 +354,7 @@ main_bar:
                 type: link
                 url: /services/media-courier/
                 classes:
-          - heading: From Other Libaries
+          - heading: From Other Libraries
             url:
             classes:
             items:
@@ -495,7 +495,7 @@ main_bar:
                 type: link
                 classes:
                 url: https://guides.library.unt.edu/spark/Computing
-              - text: On/Off Campus Access, Wifi, etc.
+              - text: On/Off Campus Access, Wi-Fi, etc.
                 type: link
                 classes:
                 url: /services/on-off-campus-access/
@@ -650,7 +650,7 @@ main_bar:
               - text:
                 type: divider
                 classes:
-              - text: UNT Dallas Libary
+              - text: UNT Dallas Library
                 type: link
                 url: https://library.untdallas.edu/home
                 icons:
@@ -666,7 +666,7 @@ main_bar:
                 classes: stretched-link
       - classes: "col-lg-4"
         groups:
-          - heading: Technololgy
+          - heading: Technology
             url:
             classes:
             items:
@@ -864,7 +864,7 @@ main_bar:
                 classes:
               - text: University Library Committee
                 type: link
-                url: https://facultysenate.unt.edu/university-library-committee
+                url: https://facultysenate.unt.edu/standing-committees/university-library-committee
                 classes:
               - text: Research Fellowships
                 type: link
@@ -906,7 +906,14 @@ main_bar:
                 icons:
                   - icon_classes: "fas fa-users fa-fw"
                     text: "Includes Contacts"
-                url: /facilities-systems/
+                url: /facilities-operations/
+                classes: stretched-link
+              - text: IT Services
+                type: link
+                icons:
+                  - icon_classes: "fas fa-users fa-fw"
+                    text: "Includes Contacts"
+                url: /it-services/
                 classes: stretched-link
               - text: Public Services
                 type: link
