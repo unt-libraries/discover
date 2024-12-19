@@ -17,8 +17,8 @@ import { InsertToTopButtons } from './display.to-top.js';
 import { optInTooltips, optInPopovers } from './utils.js'; // EDITED to not import onDomReady
 import { onDomReady } from '../_utils.ts'; // EDITED to override onDomReady function
 
-const untlBase = "https://demo.library.unt.edu" // EDITED to change base URL
-const dataSrc = "https://demo.library.unt.edu/assets/omni/data/dropdowns.json" // EDITED to change data source URL
+const untlBase = "https://library.unt.edu" // EDITED to change base URL
+const dataSrc = "https://library.unt.edu/assets/omni/data/dropdowns.json" // EDITED to change data source URL
 
 // Initialize tooltips and popovers if needed
 onDomReady(() => {
