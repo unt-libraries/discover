@@ -508,13 +508,13 @@ main_bar:
                 type: link
                 classes:
                 url: https://guides.library.unt.edu/helpyourself
-              - text: Wellbeing & Safety
-                type: link
-                icons:
-                  - icon_classes: "fas fa-arrow-up-right-from-square"
-                    text: "External Link: UNT Student Affairs"
-                classes: stretched-link
-                url: https://studentaffairs.unt.edu/wellbeing-and-safety
+              #- text: Wellbeing & Safety
+              #  type: link
+              #  icons:
+              #    - icon_classes: "fas fa-arrow-up-right-from-square"
+              #      text: "External Link: UNT Student Affairs"
+              #  classes: stretched-link
+              #  url: https://studentaffairs.unt.edu/wellbeing-and-safety
   - text: Teaching & Learning
     type: mega-menu
     classes:
@@ -720,7 +720,7 @@ main_bar:
                 type: link
                 classes:
                 icons:
-                url: https://guide.library.unt.edu/spark
+                url: https://guides.library.unt.edu/spark
               - text: OneButton Studios
                 type: link
                 classes:
@@ -781,7 +781,7 @@ main_bar:
         type: link
         classes:
         icon_classes: fas fa-diagram-nested ms-2 fa-sm
-        url: https://calendar.library.unt.edu/calendar?cid=-1&t=m&d=0000-00-00&cal=-1&ct=65847,70346,70348,48382&inc=0
+        url: https://calendar.library.unt.edu/calendar?cid=-1&t=d&d=0000-00-00&cal=-1&ct=53993,53994,53996,53995,64302&inc=0
       - text: Safety, Wellbeing, Etc.
         type: link
         classes:
@@ -957,7 +957,7 @@ main_bar:
                 classes:
               - text: Suggest a Purchase
                 type: link
-                url: /forms/new-purchase-requestrecommendation/
+                url: /forms/new-materials-request/
                 classes:
       - classes: "col-lg-4"
         groups:

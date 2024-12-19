@@ -133,8 +133,9 @@
                  href="<%= item['url'] %>"
                  class="<%= html_classes['social_icon'] %>"
                  data-bs-toggle="tooltip"
-                 data-bs-title="<%= item['title'] %>">
-                <span aria-hidden="true" class="<%= item['icon_class'] %>"></span>
+                 data-bs-title="<%= item['title'] %>"
+                 title="<%= item['title'] %>">
+                <span aria-hidden="true" class="<%= item['icon_class'] %>" title="<%= item['title'] %>"></span>
               </a>
             <% end %>
           </nav>

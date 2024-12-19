@@ -56,7 +56,7 @@ export class AnchorUtility {
         icon.className = 'fas fa-link text-secondary-subtle';
         icon.setAttribute('title', 'Update URL to this section');
         link.setAttribute('data-bs-toggle', 'tooltip');
-        link.setAttribute('data-bs-title', 'Update URL to this section');
+        link.setAttribute('data-bs-title', 'Link to this section');
         link.appendChild(icon);
         return link;
     }
