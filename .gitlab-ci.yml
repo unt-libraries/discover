@@ -84,7 +84,7 @@ release-image:
     - dind
   stage: release
   before_script:
-    - source /app/prepare_ssh.sh
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - docker pull $FULL_IMAGE_NAME
     - docker tag $FULL_IMAGE_NAME $PROD_IMAGE_NAME
