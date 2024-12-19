@@ -80,6 +80,8 @@ test:
 ################
 
 release-image:
+  tags:
+    - dind
   stage: release
   script:
     - docker pull $FULL_IMAGE_NAME
