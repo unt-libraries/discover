@@ -92,6 +92,9 @@ release-image:
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
       when: manual
+  needs:
+    - job: build-container
+      optional: true
 
 ###############
 # Deploy stage
@@ -100,10 +103,12 @@ release-image:
 .deploy:
   stage: deploy
   image: $CI_REGISTRY/www/utilities/deploy:latest
+  environment:
+    url: https://$SITE_DOMAIN
   variables:
     GIT_SUBMODULE_STRATEGY: none
     GIT_BRANCH: main
-    SITE_DEST_DIR: /var/www/html/$CI_ENVIRONMENT_URL
+    SITE_DEST_DIR: /var/www/html/$SITE_URL
   before_script:
     - source /app/prepare_ssh.sh
   script:
@@ -126,13 +131,18 @@ release-image:
         docker compose restart
         "
   when: manual
+  needs:
+    - job: build-container
+      optional: true
+    - job: release-image
+      optional: true
 
 deploy:alpha:
   extends: .deploy
   environment:
     name: alpha
-    url: alpha.discover.library.unt.edu
   variables:
+    SITE_DOMAIN: alpha.discover.library.unt.edu
     RAILS_PORT: 3000
     RAILS_ENV: development
     RAILS_SERVE_STATIC_FILES: "false"
@@ -142,8 +152,8 @@ deploy:beta:
   extends: .deploy
   environment:
     name: beta
-    url: beta.discover.library.unt.edu
   variables:
+    SITE_DOMAIN: beta.discover.library.unt.edu
     RAILS_PORT: 3100
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
@@ -153,8 +163,8 @@ deploy:production:
   extends: .deploy
   environment:
     name: production
-    url: discover.library.unt.edu
   variables:
+    SITE_DOMAIN: discover.library.unt.edu
     FULL_IMAGE_NAME: $PROD_IMAGE_NAME
     RAILS_PORT: 3200
     RAILS_ENV: production
