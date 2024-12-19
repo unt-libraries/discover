@@ -83,6 +83,8 @@ release-image:
   tags:
     - dind
   stage: release
+  before_script:
+    - source /app/prepare_ssh.sh
   script:
     - docker pull $FULL_IMAGE_NAME
     - docker tag $FULL_IMAGE_NAME $PROD_IMAGE_NAME
