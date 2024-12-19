@@ -108,7 +108,7 @@ release-image:
   variables:
     GIT_SUBMODULE_STRATEGY: none
     GIT_BRANCH: main
-    SITE_DEST_DIR: /var/www/html/$SITE_URL
+    SITE_DEST_DIR: /var/www/html/$SITE_DOMAIN
   before_script:
     - source /app/prepare_ssh.sh
   script:
