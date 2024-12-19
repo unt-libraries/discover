@@ -86,7 +86,7 @@ release-image:
     - docker tag $FULL_IMAGE_NAME $PROD_IMAGE_NAME
     - docker push $PROD_IMAGE_NAME
   rules:
-    - if: $CI_COMMIT_BRANCH == "master"
+    - if: $CI_COMMIT_BRANCH == "main"
       when: manual
 
 ###############
@@ -98,7 +98,7 @@ release-image:
   image: $CI_REGISTRY/www/utilities/deploy:latest
   variables:
     GIT_SUBMODULE_STRATEGY: none
-    GIT_BRANCH: master
+    GIT_BRANCH: main
     SITE_DEST_DIR: /var/www/html/$CI_ENVIRONMENT_URL
   before_script:
     - source /app/prepare_ssh.sh
@@ -157,5 +157,5 @@ deploy:production:
     RAILS_SERVE_STATIC_FILES: "true"
     WEB_CONCURRENCY: 8
   rules:
-    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_BRANCH == "main"'
       when: manual
