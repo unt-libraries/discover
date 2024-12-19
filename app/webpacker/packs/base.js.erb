@@ -4,7 +4,7 @@ import Rails from '@rails/ujs';
 import Turbolinks from 'turbolinks';
 import * as bootstrap from 'bootstrap';
 import runBrowserUpdate from '../src/javascripts/_browser-update';
-import { initPrefilters } from '../src/javascripts/_search';
+import { initPrefilters, searchSelector } from '../src/javascripts/_search';
 import { animateSearchIcon, bindDismissBannerCookie, linkify } from "../src/javascripts/_ui";
 import './base.scss';
 
@@ -32,6 +32,7 @@ import 'blacklight-frontend/app/javascript/blacklight/search_context';
 document.addEventListener('turbolinks:load', () => {
   animateSearchIcon();
   initPrefilters();
+  searchSelector();
   linkify();
   bindDismissBannerCookie();
   runBrowserUpdate();
