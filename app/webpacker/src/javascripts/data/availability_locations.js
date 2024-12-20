@@ -412,6 +412,9 @@ const locationData = {
   w1fdc: {
     name: 'Willis 1FL Featured Books',
   },
+  w1grn: {
+    name: 'Willis 1FL Graphic Novels',
+  },
   w1grs: {
     name: 'Willis 1FL Library Services Desk',
   },
