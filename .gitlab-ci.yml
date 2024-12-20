@@ -133,8 +133,10 @@ release-image:
   when: manual
   needs:
     - job: build-container
+      artifacts: false
       optional: true
     - job: release-image
+      artifacts: false
       optional: true
 
 deploy:alpha:
