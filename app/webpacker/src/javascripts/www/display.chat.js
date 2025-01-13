@@ -3,7 +3,7 @@ import { onDomReady, setWithExpiry, getWithExpiry } from './utils.js';
 
 /**
  * Manages the display and loading of the chat widget.
- * Check against sprinshare's api to see if chat is online and
+ * Check against springshare's api to see if chat is online and
  * store value for 15 minutes before checking again.
  */
 export class ChatManager {
@@ -44,9 +44,9 @@ export class ChatManager {
         this.loadChat();
         this.showBtn();
       } else {
-        // chat is not avaialable, do nothing.
+        // chat is not available, do nothing.
         // 'false' state will expire within 15 min.
-        // and a re-checxxk will result in null
+        // and a re-check will result in null
         //this.loadChat(); // testing.
         this.offlineStatus();
         this.showBtn();
@@ -81,7 +81,7 @@ export class ChatManager {
   }
 
   /**
-   * Note offlines status.
+   * Note offline status.
    */
   offlineStatus() {
     this.chatBtnText.innerHTML = "Chat is offline";
@@ -113,7 +113,7 @@ export class ChatManager {
   }
 
   /**
-   * Set storage with current chat status and a 5 minute expirary.
+   * Set storage with current chat status and a 5 minute expiry.
    * @param {boolean} active - true if chat is active, false if not.
    * @returns {boolean} - true if chat is active, false if not.
    */

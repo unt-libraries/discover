@@ -25,7 +25,7 @@ export class GuideManager {
 
                 const accordion = document.createElement('div');
                 accordion.id = 'guidesAccordion';
-                accordion.classList.add('accordion', 'accordiant-flush');
+                accordion.classList.add('accordion', 'accordion-flush');
                 this.inject.appendChild(accordion);
 
                 if (subjectGuides.length !== 0) {

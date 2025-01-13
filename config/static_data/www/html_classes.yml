@@ -154,9 +154,9 @@ hours:
   btn: "btn btn-sm btn-outline-lime-green dropdown-toggle"
 
 ##############
-# Heros
+# Heroes
 ##############
-heros:
+heroes:
   container: "hero-blur container-fluid hero hero-window position-relative bg-dark p-0 d-none d-sm-block"
 
   #blur_wrapper: "hero-blur hero-background z-1 position-absolute top-0 bottom-0 start-0 end-0"

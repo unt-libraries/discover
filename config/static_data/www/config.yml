@@ -43,7 +43,7 @@ latitude                 : "33.2100684"
 longitude                : "-97.1489542"
 
 ##############################
-# NOTE Social Media links here are depricated and moved to site.data.urls.social_media
+# NOTE Social Media links here are deprecated and moved to site.data.urls.social_media
 # leaving these here for now on the off chance that I've missed a template dependency
 ##############################
 social:
@@ -52,43 +52,43 @@ social:
     id                   : "unt.libraries"
     label                : "The UNT Libraries are on Facebook"
     icon                 : fab fa-facebook-f
-    depricated           : true
+    deprecated           : true
   - name                 : x
     url                  : "https://x.com/"
     id                   : "unt_libraries"
     label                : "Follow the UNT Libraries on X"
     icon                 : fab fa-x-twitter
-    depricated           : true
+    deprecated           : true
   - name                 : youtube
     url                  : "https://www.youtube.com/channel/"
     id                   : "UCcbS9fXWKE1SpUTpl1sNB6Q"
     label                : "UNT Libraries Youtube Channel"
     icon                 : fab fa-youtube
-    depricated           : true
+    deprecated           : true
   - name                 : instagram
     url                  : "https://www.instagram.com/"
     id                   : "unt_libraries"
     label                : "UNT Libraries on Instagram"
     icon                 : fab fa-instagram
-    depricated           : true
+    deprecated           : true
   - name                 : github
     url                  : "https://github.com/"
     id                   : "unt-libraries"
     label                : "UNT Libraries on Github"
     icon                 : fab fa-github-alt
-    depricated           : true
+    deprecated           : true
 
 associated_urls:
   - name                  : newsletter
     url                   : "https://eepurl.com/Qrv_r"
     icon                  : fas fa-envelope
-    depricated           : true
+    deprecated           : true
   - name                  : wikipedia
     url                   : "https://en.wikipedia.org/wiki/University_of_North_Texas_Libraries"
     icon                  : fab fa-wikipedia-w
-    depricated           : true
+    deprecated           : true
 
-# Icons and images used by facebook, twitter, and browswers
+# Icons and images used by facebook, twitter, and browsers
 social_img:
   path                   : "/assets/images/branding/share.jpg?v=XBzo7A65W4"
   alt                    : "University Libraries | UNT"

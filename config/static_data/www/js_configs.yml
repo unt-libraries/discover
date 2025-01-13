@@ -115,8 +115,8 @@ chat:
   endpoint: '/1.0/chat/widgets/status/26930'
   widgetUrl: 'https://unt.libanswers.com/load_chat.php?hash=9279f20504044072454e342f7472f5d665421500906281355ba7d5cffe62aa0a'
 
-heros:
-  storageKey: 'unt_lib.v2.heros'
+heroes:
+  storageKey: 'unt_lib.v2.heroes'
 
 global_alert:
   storageKey: 'unt_lib.v2.global_alerts'

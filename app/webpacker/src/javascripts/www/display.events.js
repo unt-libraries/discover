@@ -122,7 +122,7 @@ export class EventManager {
   }
 
   /**
-   * genereate events for a single day
+   * generate events for a single day
    */
   makeDay(group, date, isLastItem) {
     const dateParts = date.split('-');
@@ -157,7 +157,7 @@ export class EventManager {
       if (shortTitle.includes('/')) {
         shortTitle = shortTitle.replace(/\/([a-zA-Z0-9])/g, '/ $1');
       }
-      // truncate and add elipse to shorTitles longer than 50 characters.
+      // truncate and add ellipsis to shorTitles longer than 50 characters.
       if (shortTitle.length > 50) {
         shortTitle = shortTitle.substring(0, 50) + '...';
       }
@@ -211,7 +211,7 @@ export class EventManager {
 
 
   /**
-   * Build event DOM eleements using configs set on DOM data- attributes.
+   * Build event DOM elements using configs set on DOM data- attributes.
    */
   insertEventsToDom(events) {
     // gather all the event wrapper elements
@@ -225,7 +225,7 @@ export class EventManager {
       let maxDays = wrapper.getAttribute('data-untl-event-max-days') || 30;
       const eventBody = wrapper.querySelector(".card-body");
 
-      // filter lists, categories and caompuses
+      // filter lists, categories and campuses
       let campusFilter = campuses ? campuses.split(',').map(item => item.trim()) : [];
       let categoryFilter = categories ? categories.split(',').map(item => item.trim()) : [];
 
@@ -248,7 +248,7 @@ export class EventManager {
       // filter out events in the past
       filteredEvents = filteredEvents.filter(event => dayjs(event.end).isAfter(this.now));
 
-      // for now everythign is a standard display. TODO support other kinds in the future.
+      // for now everything is a standard display. TODO support other kinds in the future.
       if (kind === 'standard') {
         let groupedEvents = this.groupEventsByDate(filteredEvents);
         let eventDates = Object.keys(groupedEvents);
@@ -282,7 +282,7 @@ export class EventManager {
     // get existing events from storage
     let events = getWithExpiry(this.config.storageKey, this.currentVersion, true);
     if (!events) {
-      // no events fetch fress events from libcal
+      // no events fetch fresh events from libcal
       events = await this.fetchAndProcessEvents();
       // refresh every 30 minutes or when script version change.
       setWithExpiry(this.config.storageKey, events, 30 * 60000, this.currentVersion, true);

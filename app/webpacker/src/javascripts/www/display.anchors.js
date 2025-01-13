@@ -14,9 +14,9 @@ export class AnchorUtility {
         // create the anchor links
         this.makeAnchorLinks(headings);
         // attach the copy to clipboard event listener
-        this.copyToCLipBoardListender();
+        this.copyToClipBoardListener();
         // add a scroll to top behavior to top of page links
-        this.jumptToTopOfPage();
+        this.jumpToTopOfPage();
     }
 
     makeAnchorLinks(headings) {
@@ -30,7 +30,7 @@ export class AnchorUtility {
         });
     }
 
-    copyToCLipBoardListender() {
+    copyToClipBoardListener() {
         const links = document.querySelectorAll('.anchor-link');
         links.forEach(link => {
             link.addEventListener('click', (event) => {
@@ -61,7 +61,7 @@ export class AnchorUtility {
         return link;
     }
 
-    jumptToTopOfPage(){
+    jumpToTopOfPage(){
         const jumpButtons = document.querySelectorAll(".to-top-btn");
         // for each button add an event listener, prevent default behaviour and scroll to the top of the pages
         jumpButtons.forEach(button => {
