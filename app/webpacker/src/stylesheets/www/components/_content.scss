@@ -10,7 +10,7 @@
   h5[id],
   h6[id] {
     &:target {
-      color: $light-green;
+      color: $green;
       //padding-top: 50px;
     }
     .anchor-link {
@@ -37,7 +37,7 @@
         text-decoration: none;
         display: flex;
         align-items: flex-start;
-        color: $light-green;
+        color: $green;
         text-decoration: none;
         &:hover {
           text-decoration: underline;

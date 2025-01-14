@@ -122,23 +122,24 @@
 
         <div class="<%= html_classes['last_col'] %>"
              id="footer-col-3">
-          <h3 class="<%= html_classes['heading'] %>">
-            Follow Us
-          </h3>
           <% if footer_social_media %>
-          <nav class="<%= html_classes['social_nav'] %>"
-               aria-label="Footer Social Media Links">
-            <% footer_social_media.each do |item| %>
-              <a aria-label="<%= item['name'] %>"
-                 href="<%= item['url'] %>"
-                 class="<%= html_classes['social_icon'] %>"
-                 data-bs-toggle="tooltip"
-                 data-bs-title="<%= item['title'] %>"
-                 title="<%= item['title'] %>">
-                <span aria-hidden="true" class="<%= item['icon_class'] %>" title="<%= item['title'] %>"></span>
-              </a>
-            <% end %>
-          </nav>
+            <h3 class="<%= html_classes['heading'] %>">
+              Follow Us
+            </h3>
+            <p>Keep up with us on your favorite social media platform.</p>
+            <nav class="<%= html_classes['social_nav'] %>"
+                 aria-label="Footer Social Media Links">
+              <% footer_social_media.each do |item| %>
+                <a aria-label="<%= item['name'] %>"
+                   href="<%= item['url'] %>"
+                   class="<%= html_classes['social_icon'] %>"
+                   data-bs-toggle="tooltip"
+                   data-bs-title="<%= item['title'] %>"
+                   title="<%= item['title'] %>">
+                  <span aria-hidden="true" class="<%= item['icon_class'] %>" title="<%= item['title'] %>"></span>
+                </a>
+              <% end %>
+            </nav>
           <% end %>
           <h3 class="<%= html_classes['heading'] %>">
             Partnerships

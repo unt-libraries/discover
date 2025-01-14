@@ -189,7 +189,7 @@ search_dropdowns:
 
 
 strings:
-  bento_label: "Search multiple systems at once or refine to the one you need"
+  bento_label: "Search many systems at once or refine to just one. Got a DOI? Copy/Paste it here."
   search: "Search"
   refine: "Refine"
   paywall_url: "URL Found. If paywalled, view options."

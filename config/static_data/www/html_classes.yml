@@ -21,7 +21,7 @@ skip:
 alerts:
   global:
     button: "btn btn-link border-1 border-light alert-link btn-sm link-underline-opacity-0 align-self-start"
-    base_background: "container-fluid alert alert-dismissible fade show mb-0 py-4 rounded-0" # see site.data.global_alert for added styles
+    base_background: "container-fluid alert fade show mb-0 py-4 rounded-0" # see site.data.global_alert for added styles
     base_alert: " container-3xl d-flex align-items-center justify-content-between" # see site.data.info.global_alert for added styles
     text_wrapper: "px-3"
 
@@ -114,7 +114,7 @@ title:
   inner: "d-lg-flex justify-content-lg-between"
   title: "h1 fs-4 fs-md-2 fs-lg-1 mb-2 mb-lg-0"
   summary_text: "small text-white mt-2 mt-lg-auto d-md-flex justify-content-md-between"
-  summary_btn: "btn btn-outline-light-green text-white position-relative z-1"
+  summary_btn: "btn position-relative z-1"
 
 ##############
 # MAIN

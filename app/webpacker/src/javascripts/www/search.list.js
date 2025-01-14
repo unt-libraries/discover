@@ -136,7 +136,11 @@ export class ListFilterDirectory {
   updateHandlers() {
     //console.log(this.directoryList);
     const filterCountElement = document.getElementById('filter-count');
-    const visibleMetaItems = this.directoryList.matchingItems.length;
+    const filteredMatches = this.directoryList.matchingItems.filter(item => {
+      return item.elm.getAttribute('data-ignore') !== 'true';
+    });
+    const visibleMetaItems = filteredMatches.length;
+
 
     if (filterCountElement) {
       // Update the count of visible items
