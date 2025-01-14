@@ -346,11 +346,11 @@ main_bar:
                 type: link
                 url: /services/online-holds/
                 classes:
-              - text: Distance Learning Services
+              - text: Distance Learning
                 type: link
                 url: /services/distance-learning/
                 classes:
-              - text: Media Booking & Courier Service
+              - text: Media Booking & Courier
                 type: link
                 url: /services/media-courier/
                 classes:
@@ -358,7 +358,7 @@ main_bar:
             url:
             classes:
             items:
-              - text: Interlibrary Loan Borrowing and Document Delivery
+              - text: Interlibrary Loan (ILL) & Document Delivery
                 type: link
                 url: /services/ill-document-delivery/
                 classes:
@@ -935,30 +935,23 @@ main_bar:
                 icons:
                   - icon_classes: "fas fa-arrow-up-right-from-square"
                     text: "External Link: UNT Press"
-          - heading: Documentation & Forms
+          - heading: Find Us
             url:
             classes:
             items:
-              - text: Policies
+              - text: Locations & Floor Maps
                 type: link
-                url: /policies/
+                url: /spaces/
                 classes:
-              - text: Forms
+              - text: Hours of Operation
                 type: link
-                url: /forms/
+                url: https://calendar.library.unt.edu/hours
                 classes:
-              - text: Strategic Directions
+              - text: Tours
                 type: link
-                url: /administrative-office/strategic-directions/
+                url: /services/tours/
                 classes:
-              - text: Harmful Content and Other Statements
-                type: link
-                url: /about/statements/
-                classes:
-              - text: Suggest a Purchase
-                type: link
-                url: /forms/new-materials-request/
-                classes:
+
       - classes: "col-lg-4"
         groups:
           - heading: Contributing
@@ -984,21 +977,29 @@ main_bar:
                 type: link
                 url: /special-collections/keeper/
                 classes:
-          - heading: Find Us
+          - heading: Documentation & Forms
             url:
             classes:
             items:
-              - text: Locations & Floor Maps
+              - text: Policies
                 type: link
-                url: /spaces/
+                url: /policies/
                 classes:
-              - text: Hours of Operation
+              - text: Forms
                 type: link
-                url: https://calendar.library.unt.edu/hours
+                url: /forms/
                 classes:
-              - text: Tours
+              - text: Strategic Directions
                 type: link
-                url: /services/tours/
+                url: /administrative-office/strategic-directions/
+                classes:
+              - text: Harmful Content and Other Statements
+                type: link
+                url: /about/statements/
+                classes:
+              - text: Suggest a Purchase
+                type: link
+                url: /forms/new-materials-request/
                 classes:
 
 

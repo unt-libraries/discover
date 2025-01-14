@@ -15,6 +15,8 @@
        class="<%= html_classes['brand_link'] %>">
       <%= render partial: 'shared/www/utils/svg', locals: {
         use: "svg-up-left-arrow-box",
+        decorative: true,
+        title: "external link",
         viewBox: "0 0 512 512",
         classes: html_classes['brand_svg'],
       } %>
@@ -38,7 +40,9 @@
                class="<%= html_classes['btn'] %> dropdown-toggle <%= entry['classes'] %>"
                data-bs-toggle="dropdown"
                aria-expanded="false"><% if entry['icon_classes'] %>
-              <span class="fa-fw <%= entry['icon_classes'] %>"></span>
+              <span class="fa-fw <%= entry['icon_classes'] %>"
+                    aria-hidden="true"
+                    title="<%= entry['text'] %>"></span>
               <% end %>
               <%= entry['text'] %>
             </a>
@@ -49,6 +53,8 @@
         id="top-bar-item-<%= top_bar.size + 1 %>"
         class="<%= html_classes['btn'] %> me-2">
         <%= render partial: 'shared/www/utils/svg', locals: {
+          decorative: true,
+          title: "questions",
           use: "svg-comments-questions",
           viewBox: "0 0 640 512",
           classes: "svg-inline--fa fa-fw",
@@ -63,9 +69,10 @@
         aria-controls="offcanvas-search"
         type="button">
         <%= render partial: 'shared/www/utils/svg', locals: {
+          decorative: true,
+          title: "search",
           use: "svg-magnifying-glass",
           viewBox: "0 0 512 512",
-          decorative: true,
           classes: "svg-inline--fa fa-fw",
         } %>
         Search

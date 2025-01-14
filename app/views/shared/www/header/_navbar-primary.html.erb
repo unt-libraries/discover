@@ -6,9 +6,10 @@
 
 <% main_navbar_icon = capture do  %>
   <%= render partial: 'shared/www/utils/svg', locals: {
+    decorative: true,
+    title: "open dropdown",
     use: "svg-caret-down",
     viewBox: "0 0 320 512",
-    decorative: true,
     classes: html_classes['dropdown_svg'],
   } %>
 <% end %>

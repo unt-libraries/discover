@@ -98,7 +98,7 @@ navbars:
 # Breadcrumbs
 ##############
 breadcrumbs:
-  list: "breadcrumb justify-content-start p-0 m-0"
+  list: "breadcrumb justify-content-start p-0 m-0 text-white"
   item: "breadcrumb-item"
   current_item: "breadcrumb-item d-none d-lg-inline"
   link: "link-light link-underline-opacity-100 text-capitalize"
@@ -112,7 +112,7 @@ title:
   title_wrapper: "title-header container-fluid text-bg-dark-green text-white p-0"
   title_container: "container-3xl py-2 py-lg-5"
   inner: "d-lg-flex justify-content-lg-between"
-  title: "h1 fs-4 fs-md-2 fs-lg-1 mb-2 mb-lg-0 text-truncate"
+  title: "h1 fs-4 fs-md-2 fs-lg-1 mb-2 mb-lg-0"
   summary_text: "small text-white mt-2 mt-lg-auto d-md-flex justify-content-md-between"
   summary_btn: "btn btn-outline-light-green text-white position-relative z-1"
 
@@ -304,7 +304,7 @@ footer:
   eagle_link: "link-success link-underline-opacity-0"
   eagle_svg: "logo ft-logo"
   center_col: "col-lg-6 col-xl-4"
-  heading: ""
+  heading: "h2"
   link: "link-lime link-underline-success text-white"
   gov_link: "w-75 w-lg-33 w-md-50"
   address_container: "address list-unstyled fs-5"
