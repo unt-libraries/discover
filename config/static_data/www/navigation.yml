@@ -32,7 +32,7 @@ home_search_dropdown:
       - text: "UNT Digital Collections"
         type: link
         url: https://digital2.library.unt.edu/search/
-      - text: "Finding Aids"
+      - text: "Archival Finding Aids"
         type: link
         url: https://archives.library.unt.edu/search/
       - text: Subject & Course Guides
@@ -210,7 +210,7 @@ main_bar:
                   - icon_classes: "fad fa-magnifying-glass-plus fa-fw"
                     text: "Other Online Materials: e-books, journals, etc."
                     url: https://discover.library.unt.edu/?f%5Baccess_facet%5D%5B%5D=Online
-              - text: "Finding Aids"
+              - text: "Archival Finding Aids"
                 #annotation: >-
                 type: link
                 url: https://archives.library.unt.edu/
