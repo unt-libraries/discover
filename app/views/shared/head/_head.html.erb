@@ -39,6 +39,13 @@
   <!-- Head scripts -->
   <%= javascript_packs_with_chunks_tag 'priority', 'icons', 'data-turbolinks-track': 'reload', async: true %>
 
+  <script>
+    <%# Override the domain we use to reach the dropdowns.json before JS is loaded %>
+    window.untLib ??= {};
+    window.untLib.dropdownConfig ??= {
+      baseURL: "https://library.unt.edu",
+    };
+  </script>
   <%= content_for :head_scripts %>
   <% content_for(:head_scripts) do %>
     <%= javascript_packs_with_chunks_tag 'base', 'data-turbolinks-track': 'reload', defer: true %>

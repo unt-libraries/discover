@@ -17,21 +17,18 @@ import { InsertToTopButtons } from './display.to-top.js';
 import { optInTooltips, optInPopovers } from './utils.js'; // EDITED to not import onDomReady
 import { onDomReady } from '../_utils.ts'; // EDITED to override onDomReady function
 
-const untlBase = "https://library.unt.edu" // EDITED to change base URL
-const dataSrc = "https://library.unt.edu/assets/omni/data/dropdowns.json" // EDITED to change data source URL
-
 // Initialize tooltips and popovers if needed
 onDomReady(() => {
   optInTooltips();
   optInPopovers();
 });
 
+// Override dropdown configuration if it is set in the global window object
+const dropdownConfig = window.untLib?.dropdownConfig || {};
+
 const insertToTopButtons = new InsertToTopButtons();
 const offCanvasSearchUtil = new OffCanvasSearch();
-const dropdownManager = new DropdownManager({ // EDITED to change base URL and data source URL
-  baseURL: untlBase,
-  dataSrc: dataSrc,
-});
+const dropdownManager = new DropdownManager(dropdownConfig); // EDITED to use config on window object
 const libraryHours = new LibraryHours(dropdownManager);
 const eventManager = new EventManager();
 const anchorUtility = new AnchorUtility();
