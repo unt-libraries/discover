@@ -31,12 +31,6 @@ build-container:
     - docker build --cache-from $FULL_IMAGE_NAME -f Dockerfile -t $FULL_IMAGE_NAME .
     - docker push $FULL_IMAGE_NAME
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "web"'
-      when: always
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "trigger"'
-      when: never
     - changes:
         - Dockerfile*
         - .gitlab-ci.yml
@@ -133,10 +127,8 @@ release-image:
   when: manual
   needs:
     - job: build-container
-      artifacts: false
       optional: true
     - job: release-image
-      artifacts: false
       optional: true
 
 deploy:alpha:
