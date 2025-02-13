@@ -125,6 +125,8 @@ release-image:
         docker compose restart
         "
   when: manual
+  rules:
+    - when: manual
   needs:
     - job: build-container
       optional: true
