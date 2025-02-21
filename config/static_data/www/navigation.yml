@@ -1,3 +1,5 @@
+# Changes from source noted below with "EDITED"
+# Changes made to fix relative link URLs on top level and footer links
 ##########################################
 # Navigation Trees for the site
 ##########################################
@@ -71,7 +73,7 @@ top_bar:
     type: dropdown
     icon_classes: "fa-duotone fa-user-lock"
     classes:
-    url: /accounts-login/
+    url: https://library.unt.edu/accounts-login/ # EDITED
     min_width: 370
     items:
       - text: >-
@@ -84,7 +86,7 @@ top_bar:
       - text: Catalog
         type: link
         classes:
-        url: /accounts-login/
+        url: https://library.unt.edu/accounts-login/ # EDITED
       - text: >
           Renew items, check the status of holds, and review assessed fines.
         type: text
@@ -163,15 +165,15 @@ main_bar:
   - text: Home
     type: link
     classes:
-    url: /
+    url: https://library.unt.edu/ # EDITED
   - text: Accounts Login
     type: link
     classes: "d-inline d-lg-none"
-    url: /accounts-login/
+    url: https://library.unt.edu/accounts-login/ # EDITED
   - text: Ask Us
     type: link
     classes: "d-inline d-lg-none"
-    url: /ask-us/
+    url: https://library.unt.edu/ask-us/ # EDITED
   - text: Doing Research
     type: mega-menu
     classes:
@@ -1131,13 +1133,13 @@ footer:
   # Social media links found in urls.yaml
   locations:
     - name: Willis
-      url: /willis/
+      url: https://library.unt.edu/willis/ # EDITED
     - name: Sycamore
-      url: /sycamore/
+      url: https://library.unt.edu/sycamore/ # EDITED
     - name: Discovery Park
-      url: /discovery-park/
+      url: https://library.unt.edu/discovery-park/ # EDITED
     - name: Frisco
-      url: /frisco/
+      url: https://library.unt.edu/frisco/ # EDITED
 
 
 ##########
