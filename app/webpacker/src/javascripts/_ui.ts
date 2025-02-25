@@ -185,17 +185,20 @@ function linkify(): void {
   const linkifyFields: NodeListOf<HTMLElement> = document.querySelectorAll('.linkify-text');
 
   linkifyFields.forEach((field: HTMLElement) => {
-    const pattern: RegExp = /(https?:\/\/?[\da-z.-]+\.[a-z.]{2,6})\/?/gi; // match URLs that are not already in an href attribute or inside an HTML tag
-    const emailPattern: RegExp = /(\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b)/gi; // match email addresses
+    // Improved URL Regex (excludes trailing punctuation)
+    const urlPattern: RegExp = /(https?:\/\/[^\s"'<>]+?)(?=[.,;?!)]?\s|$)/gi;
+
+    // Email Regex (remains the same)
+    const emailPattern: RegExp = /([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,})/gi;
+
     let html: string = field.innerHTML;
 
-    // replace URLs
-    html = html.replace(pattern, '<a class="textLink" target="_blank" rel="noopener" href="$1">$1</a>');
+    // Replace URLs
+    html = html.replace(urlPattern, '<a class="textLink" target="_blank" rel="noopener" href="$1">$1</a>');
 
-    // replace email addresses
+    // Replace email addresses
     html = html.replace(emailPattern, '<a class="textLink emailLink" target="_blank" rel="noopener" href="mailto:$1">$1</a>');
 
-    // eslint-disable-next-line no-param-reassign
     field.innerHTML = html;
   });
 }

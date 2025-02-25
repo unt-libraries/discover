@@ -8,7 +8,7 @@ module Blacklight
     # Classes added to a document's sidebar div
     # @return [String]
     def show_sidebar_classes
-      "order-last col-md-3 order-md-first show-thumbnail-tools"
+      "order-last col-lg-3 order-lg-first show-thumbnail-tools"
     end
 
     ##
@@ -36,7 +36,7 @@ module Blacklight
     # Classes used for sizing the main content of a Blacklight page
     # @return [String]
     def main_content_classes
-      'content col order-2'
+      'content col-lg-9 order-2'
     end
 
     ##

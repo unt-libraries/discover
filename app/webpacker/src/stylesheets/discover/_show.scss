@@ -39,6 +39,8 @@
       padding: 0.5rem 1rem;
 
       .fa-fw {
+        @extend .d-lg-none;
+        @extend .d-xl-inline-block;
         width: 3em;
       }
 
@@ -121,6 +123,7 @@
     background: url(../images/catalog/find-it-round.png) no-repeat center;
     height: 20px;
     width: 87px;
+    vertical-align: middle;
   }
 }
 
