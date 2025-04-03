@@ -11,44 +11,43 @@
       role="search"
       aria-label="Search Multiple Library Sites"
       class="<%= html_classes['search_form'] %>">
-    <div class="<%= html_classes['input_group'] %>"
-         data-bs-theme="dark">
-        <input class="<%= html_classes['search_input'] %>"
-               id="bento-<%= placement %>-q"
-               name="q"
-               aria-label="<%= strings['bento_label'] %>"
-               type="search"
-               placeholder="<%= strings['bento_label'] %>">
-        <button type="button"
-                class="<%= html_classes['search_bonus_btn'] %> proxyable-icon d-none">
+  <div class="<%= html_classes['input_group'] %>"
+       data-bs-theme="dark">
+    <input class="<%= html_classes['search_input'] %>"
+           id="bento-<%= placement %>-q"
+           name="q"
+           aria-label="<%= strings['bento_label'] %>"
+           type="search"
+           placeholder="<%= strings['bento_label'] %>">
+    <button type="button"
+            class="<%= html_classes['search_bonus_btn'] %> proxyable-icon d-none">
       <span class="<%= html_classes['copy_icon'] %>"
             title="copy/paste icon"
             aria-hidden="true"></span>
-        </button>
-        <button type="button"
-                class="<%= html_classes['search_bonus_btn'] %> d-none">
+    </button>
+    <button type="button"
+            class="<%= html_classes['search_bonus_btn'] %> d-none">
       <span class="<%= html_classes['other_url_icon'] %>"
             aria-hidden="true"
             data-bs-toggle="tooltip"
             data-bs-title="<%= strings['paywall_url'] %>"></span>
-        </button>
-
-        <button type="submit"
-                class="<%= html_classes['search_submit_btn'] %>">
-            <%= render 'shared/www/head/search_icon' %>
-            <span class="d-none d-lg-inline">
-        <%= strings['search'] %>
-      </span>
-        </button>
-        <button type="button"
-                class="<%= html_classes['search_submit_btn'] %> <%= html_classes['dropdown_toggle_btn'] %>"
-                data-bs-toggle="dropdown"
-                aria-expanded="false">
+    </button>
+    <button type="button"
+            class="<%= html_classes['search_submit_btn'] %> <%= html_classes['dropdown_toggle_btn'] %>"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
       <span class="d-none d-lg-inline">
         <%= strings['refine'] %>
       </span>
-        </button>
-        <div class="<%= html_classes['dropdown_menu'] %>"
-             id="bento-<%= placement %>-other-search-options"></div>
-    </div>
+    </button>
+    <div class="<%= html_classes['dropdown_menu'] %>"
+         id="bento-<%= placement %>-other-search-options"></div>
+    <button type="submit"
+            class="<%= html_classes['search_submit_btn'] %>">
+      <%= render 'shared/www/head/search_icon' %>
+      <span class="d-none d-lg-inline">
+        <%= strings['search'] %>
+      </span>
+    </button>
+  </div>
 </form>
