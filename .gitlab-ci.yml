@@ -27,17 +27,22 @@ build-container:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker pull $FULL_IMAGE_NAME || true
+    - echo "Attempting to pull cache image $FULL_IMAGE_NAME"
+    - docker pull $FULL_IMAGE_NAME || echo "Cache image pull failed or image doesn't exist yet."
+    - echo "Building image $FULL_IMAGE_NAME"
     - docker build --cache-from $FULL_IMAGE_NAME -f Dockerfile -t $FULL_IMAGE_NAME .
+    - echo "Pushing image $FULL_IMAGE_NAME"
     - docker push $FULL_IMAGE_NAME
   rules:
-    - changes:
+    # Run automatically ONLY if dependency files change on any branch (except when manual is chosen)
+    - if: $CI_PIPELINE_SOURCE != 'schedule' && $CI_PIPELINE_SOURCE != 'api' # Avoid auto-runs for schedules/api unless intended
+      changes:
         - Dockerfile*
         - .gitlab-ci.yml
         - Gemfile*
         - package*.json
         - yarn.lock
-      when: always
+    # Allow manual trigger anytime
     - when: manual
       allow_failure: true
 
@@ -80,15 +85,19 @@ release-image:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
+    # This job only runs if build-container ran, so $FULL_IMAGE_NAME should exist from this pipeline
+    - echo "Pulling image built in this pipeline $FULL_IMAGE_NAME"
     - docker pull $FULL_IMAGE_NAME
+    - echo "Tagging $FULL_IMAGE_NAME as $PROD_IMAGE_NAME"
     - docker tag $FULL_IMAGE_NAME $PROD_IMAGE_NAME
+    - echo "Pushing production tag $PROD_IMAGE_NAME"
     - docker push $PROD_IMAGE_NAME
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-      when: manual
+      when: on_success
   needs:
     - job: build-container
-      optional: true
+      optional: false
 
 ###############
 # Deploy stage
@@ -106,10 +115,14 @@ release-image:
   before_script:
     - source /app/prepare_ssh.sh
   script:
+    - echo "Deploying commit $CI_COMMIT_SHA using image $FULL_IMAGE_NAME"
     - ssh $SSH_USER@$SSH_SERVER "
         cd $SITE_DEST_DIR &&
+        echo '--- Fetching latest code ---' &&
         git fetch --all &&
+        echo '--- Checking out specific commit $CI_COMMIT_SHA ---' &&
         git checkout -f $CI_COMMIT_SHA &&
+        echo '--- Creating .env file ---' &&
         rm -f .env &&
         echo APP_IMAGE_NAME=$FULL_IMAGE_NAME >> .env &&
         echo RAILS_PORT=$RAILS_PORT >> .env &&
@@ -119,10 +132,15 @@ release-image:
         echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .env &&
         echo RAILS_MASTER_KEY=$RAILS_MASTER_KEY >> .env &&
         echo WEB_CONCURRENCY=$WEB_CONCURRENCY >> .env &&
+        echo '--- Pulling required Docker image $FULL_IMAGE_NAME ---' &&
         docker compose pull &&
+        echo '--- Starting application containers ---' &&
         docker compose up -d &&
+        echo '--- Precompiling assets (if needed by entrypoint/runtime) ---' &&
         docker compose exec -T web rails assets:precompile &&
+        echo '--- Restarting web service to apply changes ---' &&
         docker compose restart
+        echo '--- Deployment complete ---'
         "
   when: manual
   rules:
