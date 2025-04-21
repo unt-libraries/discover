@@ -2,9 +2,8 @@
 
 ## About
 
-This is the University of North Texas Libraries' implementation
-of [Project Blacklight](http://projectblacklight.org/) as a faceted
-search interface for accessing the online catalog.
+This is the University of North Texas Libraries' implementation of [Project Blacklight](http://projectblacklight.org/) 
+as a faceted search interface for accessing the online catalog.
 
 ## Installation
 
