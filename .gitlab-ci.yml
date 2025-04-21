@@ -139,7 +139,7 @@ release-image:
         echo '--- Precompiling assets (if needed by entrypoint/runtime) ---' &&
         docker compose exec -T web rails assets:precompile &&
         echo '--- Restarting web service to apply changes ---' &&
-        docker compose restart
+        docker compose restart &&
         echo '--- Deployment complete ---'
         "
   when: manual
