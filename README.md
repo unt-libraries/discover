@@ -7,8 +7,6 @@ as a faceted search interface for accessing the online catalog.
 
 ## Installation
 
-### With Docker (preferred)
-
 #### Requirements
 
 * [Docker CE or EE](https://docs.docker.com/install/) for your operating system
@@ -124,109 +122,6 @@ You should now be able to go to `localhost:3000` in your browser to see the runn
 
 In the development environment, you can use Webpacker's live code reloading by 
 running `yarn web:assetServer` in a separate terminal.
-
-### Without Docker
-
-#### Requirements
-
-**Ruby**
-
-Blacklight requires Ruby >= 2.2. We recommend using [RVM](https://rvm.io/) or 
-[rbenv](https://github.com/rbenv/rbenv) to install
-and use a specific version for this project.
-
-```console
-$ ruby --version
-  ruby 2.5.3p105 (2018-10-18 revision 65156) [x86_64-linux]
-```
-
-To install a version of Ruby, follow the instructions for RVM or rbenv.
-
-You'll also need Ruby [Bundler](https://bundler.io/) version 2.0.
-
-Check version:
-
-```console
-$ bundle version
-  Bundler version 2.0.1 (2019-01-04 commit d7ad2192f)
-```
-
-Install Bundler:
-```console
-$ gem install bundler
-```
-
-**Rails**
-
-Blacklight requires [Ruby on Rails](https://rubyonrails.org/) 5.x.
-
-Check version:
-```console
-$ rails --version
-  Rails 5.2.3
-```
-
-Install Rails:
-```console
-$ gem install rails
-```
-
-**Java**
-
-Your JDK distribution may vary, but it should be version 1.8 (8) or higher.
-
-[Oracle](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
-
-[OpenJDK](https://openjdk.java.net/install/)
-
-```console
-$ java -version
-openjdk version "11.0.2" 2019-01-15
-OpenJDK Runtime Environment (build 11.0.2+9-Ubuntu-3ubuntu118.04.3)
-OpenJDK 64-Bit Server VM (build 11.0.2+9-Ubuntu-3ubuntu118.04.3, mixed mode, sharing)
-```
-
-The JDK can be obtained from [Oracle](https://www.oracle.com/technetwork/java/javase/downloads/index.html)
-or [OpenJDK](https://openjdk.java.net/install/)
-
-**Clone this repository**
-
-SSH:
-```console
-$ git clone git@github.com:unt-libraries/discover.git discover
-$ cd discover
-```
-
-or HTTPS:
-```console
-$ git clone https://github.com/unt-libraries/discover discover
-$ cd discover
-```
-
-**Install gems**
-
-```console
-$ bundle install
-```
-
-**Create the database**
-
-If no database exists, create one with:
-
-```console
-$ docker compose run web rake db:create
-```
-
-**Run database migrations**
-
-This will generate the sqlite database used by Rails.
-
-```console
-$ rake db:migrate
-```
-
-Like the secrets file, the sqlite3 database files are in `.gitignore` 
-and will not be committed to git.
 
 **Solr configuration**
 
