@@ -145,11 +145,6 @@ release-image:
   when: manual
   rules:
     - when: manual
-  needs:
-    - job: build-container
-      optional: true
-    - job: release-image
-      optional: true
 
 deploy:alpha:
   extends: .deploy
