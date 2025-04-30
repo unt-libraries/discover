@@ -24,6 +24,8 @@
 }
 
 .sort-pagination {
+  display: flex;
+  flex-wrap: wrap;
   background-color: color-level("lime", -10);
   padding: $pagination-padding-y  $pagination-padding-x;
   margin: 0 !important;
@@ -33,6 +35,14 @@
     &__current {
       font-weight: bold;
     }
+  }
+
+  .pagination {
+    display: flex;
+  }
+
+  .search-widgets {
+    display: flex;
   }
 }
 
@@ -48,8 +58,7 @@
   }
 
   .page-entries {
-    @extend .btn;
-    @extend .btn-sm;
+    font-size: 0.875em;
 
     cursor: auto;
   }

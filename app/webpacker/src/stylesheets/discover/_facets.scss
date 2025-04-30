@@ -1,80 +1,4 @@
-.facet-extended-list {
-  .facet-label {
-    color: $dark-teal;
-  }
-
-  .facet-count.badge {
-    @extend .text-secondary-emphasis;
-    @extend .float-end;
-    font-size: 80%;
-  }
-}
-
 .sidenav {
-  .navbar {
-    @extend .text-bg-dark;
-    z-index: 1;
-    border-radius: $card-border-radius;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-    margin-bottom: 0.5rem;
-  }
-
-  .facet-group {
-    margin-bottom: 0.5rem;
-    border-radius: $card-border-radius;
-
-    .facet-limit:first-child {
-      border-top: 2px solid;
-    }
-
-    .facet-limit:last-child .collapsed {
-      border-bottom-left-radius: $card-border-radius;
-      border-bottom-right-radius: $card-border-radius;
-    }
-
-    &-priority {
-      .facet-limit:first-child {
-        border-top-color: $unt-green;
-      }
-    }
-
-    &-location {
-      .facet-limit:first-child {
-        border-top-color: $light-green;
-      }
-    }
-
-    &-date {
-      .facet-limit:first-child {
-        border-top-color: $lime-green;
-      }
-    }
-
-    &-language {
-      .facet-limit:first-child {
-        border-top-color: $light-blue;
-      }
-    }
-
-    &-publication {
-      .facet-limit:first-child {
-        border-top-color: $dark-teal;
-      }
-    }
-
-    &-subjects {
-      .facet-limit:first-child {
-        border-top-color: $light-teal;
-      }
-    }
-
-    &-game {
-      .facet-limit:first-child {
-        border-top-color: $aqua;
-      }
-    }
-  }
-
   .navbar-toggler {
     border-color: $navbar-dark-toggler-border-color;
     color: $navbar-dark-active-color;
@@ -87,141 +11,268 @@
   .navbar-toggler-icon {
     background-image: $navbar-dark-toggler-icon-bg;
   }
+}
 
-  .facets-heading {
-    margin: 0;
-    color: $white;
+.facets-toggleable {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-up($next) {
+
+        // scss-lint:disable ImportantRule
+        .facets-collapse {
+          display: block !important;
+          width: 100%;
+        }
+        // scss-lint:enable ImportantRule
+
+        .navbar-toggler {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.no-js {
+  @include media-breakpoint-down(lg) {
+    #sidebar {
+      order: 6 !important;
+    }
   }
 
-  .facets-expand-collapse {
-    background-color: inherit;
-    border: 0;
-    color: $white;
-    padding: 0 4px 0 0;
-    transform: rotate(-90deg);
-    transition: transform 0.1s ease;
+  .facet-content.collapse {
+    display: block;
+  }
 
-    &[data-button-action="collapse"] {
-      transform: rotate(0deg);
-      transition: transform 0.1s ease;
+  .facet-toggle-handle {
+    display: none;
+  }
+
+  .pivot-facet.collapse {
+    display: block;
+  }
+
+  .facets-collapse.collapse {
+    display: block;
+  }
+}
+
+.facet-group {
+  margin-bottom: 0.5rem;
+  border-radius: $card-border-radius;
+
+  .facet-limit:first-child {
+    border-top: 2px solid;
+  }
+
+  .facet-limit:last-child .collapsed {
+    border-bottom-left-radius: $card-border-radius;
+    border-bottom-right-radius: $card-border-radius;
+  }
+
+  &-priority {
+    .facet-limit:first-child {
+      border-top-color: $unt-green;
     }
+  }
 
-    @include hover-focus {
-      box-shadow: none;
-      color: $navbar-dark-active-color;
+  &-location {
+    .facet-limit:first-child {
+      border-top-color: $light-green;
+    }
+  }
+
+  &-date {
+    .facet-limit:first-child {
+      border-top-color: $lime-green;
+    }
+  }
+
+  &-language {
+    .facet-limit:first-child {
+      border-top-color: $light-blue;
+    }
+  }
+
+  &-publication {
+    .facet-limit:first-child {
+      border-top-color: $dark-teal;
+    }
+  }
+
+  &-subjects {
+    .facet-limit:first-child {
+      border-top-color: $light-teal;
+    }
+  }
+
+  &-game {
+    .facet-limit:first-child {
+      border-top-color: $aqua;
+    }
+  }
+}
+
+.facets-heading {
+  @extend .h4;
+  margin: 0;
+  color: $white;
+  line-height: inherit;
+}
+
+.facet-limit {
+  margin-bottom: 0;
+  border-top: 0;
+
+  &:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  &:not(:last-child) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .card-header {
+    background-color: $white;
+
+    &.collapse-toggle {
+      margin-bottom: 0;
+
+      &::after {
+        content: none;
+      }
+
+      .expand-collapse-icon {
+        transform: rotate(0deg);
+        transition: transform 0.1s ease;
+      }
+
+      &.collapsed {
+        border-bottom: 0;
+
+        .expand-collapse-icon {
+          transform: rotate(-90deg);
+          transition: transform 0.1s ease;
+        }
+      }
+    }
+  }
+}
+
+.facet-limit-active {
+  border-color: $dark-teal !important;
+
+  .card-header {
+    background-color: $dark-teal !important;
+    border-radius: 0;
+
+    .btn {
+      @if function-exists(color-contrast) {
+        color: color-contrast($success);
+      }
     }
   }
 
   .facet-field-heading {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-    padding: 1rem 1rem;
-    font-size: 0.95rem;
-    cursor: pointer;
+    color: $white;
+  }
+}
+
+.facet-values {
+  margin-bottom: 0;
+  padding: 0.5rem 0;
+  font-size: 90%;
+  font-weight: 400;
+
+  .facet-count {
+    @extend .text-secondary-emphasis;
+    width: auto;
+    font-size: 80%;
   }
 
-  .facet-limit {
-    margin-bottom: 0;
-    border-top: 0;
+  .facet-values-item,
+  .more_facets {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 0;
+    padding: 0.5rem 1rem;
+  }
 
-    &:not(:first-child) {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
+  .remove {
+    padding-left: $spacer * .5;
+    color: $danger;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: color-level("danger", 2);
+      text-decoration: none;
     }
+  }
 
-    &:not(:last-child) {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
+  @mixin hyphens-auto {
+    overflow-wrap: break-word;
+    -webkit-hyphens: auto;
+    -o-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .facet-label {
+    color: $dark-teal;
+    text-indent: -15px;
+    padding-left: 15px;
+    padding-bottom: 0;
+    padding-right: 0;
+    @include hyphens-auto;
+
+    .icon {
+      @extend .text-dark-emphasis;
+      display: inline-block;
+      width: 1.25em;
     }
+  }
+}
 
-    .card-header {
-      background-color: $white;
-
-      &.collapse-toggle {
-        margin-bottom: 0;
-
-        &::after {
-          content: none;
-        }
-
-        .expand-collapse-icon {
-          transform: rotate(0deg);
-          transition: transform 0.1s ease;
-        }
-
-        &.collapsed {
-          border-bottom: 0;
-
-          .expand-collapse-icon {
-            transform: rotate(-90deg);
-            transition: transform 0.1s ease;
-          }
-        }
-      }
-    }
-
-    .facet-values {
-      padding: 0.5rem 0;
-      font-size: 90%;
-      font-weight: 400;
-
-      .facet-count {
-        width: auto;
-      }
-
-      .facet-values-item,
-      .more_facets {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border: 0;
-        padding: 0.5rem 1rem;
-      }
-    }
-
-    &-active {
-      border-color: $dark-teal !important;
-
-      .card-header {
-        background-color: $dark-teal !important;
-      }
-
-      .selected {
-        //color: $dark-teal !important;
-      }
-
-      .remove {
-        color: $danger;
-
-        &:hover,
-        &:focus {
-          color: color-level("danger", 2);
-        }
-      }
-
-      .facet-field-heading {
-        color: $white;
-      }
-    }
-
-    .facet-label {
-      color: $dark-teal;
-      padding-bottom: 0;
-      padding-right: 0;
-
-      .icon {
-        @extend .text-dark-emphasis;
-        display: inline-block;
-        width: 1.25em;
-      }
-
-      .remove {
-        text-indent: 0;
-      }
-    }
+// List of facets in modal, accessed by the "More" link
+.facet-extended-list {
+  .facet-label {
+    color: $dark-teal;
   }
 
   .facet-count.badge {
     @extend .text-secondary-emphasis;
+    @extend .float-end;
     font-size: 80%;
+  }
+}
+
+.facet-field-heading {
+  @extend .h6;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  padding: 1rem 1rem;
+  cursor: pointer;
+
+  a {
+    color: inherit;
+  }
+
+  /* This prevents the contained stretch link from covering the panel body */
+  position: relative
+}
+
+// Stuff in here needs to be removed
+.sidenav {
+  .navbar {
+    @extend .text-bg-dark;
+    z-index: 1;
+    border-radius: $card-border-radius;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 0.5rem;
   }
 }

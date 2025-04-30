@@ -4,8 +4,6 @@
     .inclusive_or {
       border: 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
 
       .facet-values {
         padding: 0;
@@ -20,115 +18,24 @@
   }
 }
 
-/* Search results constraints */
-.constraints-container {
-  .applied-filter {
-    .constraint-connector {
-      color: $gray-500 !important;
-    }
-  }
-}
-
+// Advanced Search Form
 .advanced-search-form {
-  .query-criteria-heading {
-    // seems neccesary to get select menu to align okay, not sure why.
-    vertical-align: bottom;
-    margin-top: 0;
-
-    select {
-      border-color: $input-border-color;
-      padding-left: 0.5rem;
-      padding-right: 0.5rem;
-    }
+  .query-criteria,
+  .limit-criteria,
+  .sort-submit-buttons {
+    margin-bottom: 1.5em;
   }
 
-  .advanced-search-start-over {
-    .icon {
-      display: inline-block;
-      width: 1.25em;
-    }
-  }
-
-  .constraints {
-    box-shadow: none;
-
-    .filter-name {
-      font-weight: 500;
-      padding-right: 0.5rem;
-    }
-  }
-
-  .panel-group {
+  // Form fields
+  select {
+    border-width: $form-select-border-width;
+    border-color: $input-border-color;
+    border-style: solid;
+    border-radius: $form-select-border-radius;
+    box-shadow: $form-select-box-shadow;
+    background-color: $form-select-bg;
     padding-left: 0.5rem;
-    padding-right: 0;
-
-    @include media-breakpoint-down(md) {
-      padding-left: 0;
-    }
-  }
-
-  .facet-limit {
-    border-radius: $card-border-radius;
-    box-shadow: none;
-    cursor: pointer;
-
-    &-active {
-      border-color: $dark-teal !important;
-
-      .card-header {
-        border-radius: 0 !important;
-        background-color: $dark-teal !important;
-
-        &.collapsed {
-          border-radius: 0 !important;
-        }
-      }
-
-      .facet-field-heading {
-        color: $white;
-      }
-    }
-
-    .card-header {
-      background-color: $white;
-      border-top-left-radius: $card-border-radius;
-      border-top-right-radius: $card-border-radius;
-      font-size: 0.95rem;
-      margin-bottom: 0;
-
-      &::after {
-        content: none;
-      }
-
-      .expand-collapse-icon {
-        transform: rotate(0deg);
-        transition: transform 0.1s ease;
-      }
-
-      &.collapsed {
-        border-bottom: 0;
-        border-radius: $card-border-radius;
-
-        .expand-collapse-icon {
-          transform: rotate(-90deg);
-          transition: transform 0.1s ease;
-        }
-      }
-    }
-
-    .facet-values {
-      .label-and-count label {
-        cursor: pointer;
-      }
-
-      .facet-count {
-        width: auto;
-      }
-    }
-
-    .facet-label {
-      color: $dark-teal;
-    }
+    padding-right: 0.5rem;
   }
 
   select.form-control.sort-select {
@@ -136,45 +43,70 @@
     display: inline-block;
   }
 
-  .query-criteria,
-  .limit-criteria,
-  .sort-submit-buttons {
-    margin-bottom: 1.5em;
-  }
-}
+  // Facets
+  .advanced-facet-limits {
+    .panel-group {
+      padding-left: 0.5rem;
+      padding-right: 0;
 
-.blacklight-advanced-facet-select {
-  // have to do some terribly complicated things with display:table and NESTED
-  // tables to add our checkbox and <label> element and still use display-table
-  // to align everything. sorry!
-  .facet-checkbox,
-  .label-and-count {
-    display: table-cell;
+      @include media-breakpoint-down(md) {
+        padding-left: 0;
+      }
+    }
+
+    .facet-limit {
+      border-radius: $card-border-radius !important;
+      border: $card-border-width solid $card-border-color !important;
+      margin-bottom: 1.5rem;
+      box-shadow: none;
+      cursor: pointer;
+
+      .card-header {
+        &.collapsed {
+          border-radius: $card-border-radius;
+        }
+      }
+
+      .facet-values {
+        padding: 1rem;
+        li {
+          display: flex;
+          align-items: center;
+        }
+
+        .label-and-count {
+          width: 100%;
+          font-size: 1rem;
+          padding-left: 1em;
+
+          label {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            cursor: pointer;
+          }
+        }
+      }
+    }
   }
 
-  .label-and-count {
-    width: 100%;
-    padding-left: 1em;
+  .range_limit input::placeholder {
+    @extend .text-black-50;
   }
 
-  .facet-label {
-    padding-left: 18px;
+  .blacklight-resource_type_facet {
+    .facet-label {
+      .icon {
+        display: none;
+      }
+    }
   }
 
-  label {
-    // a nested table, with existing from BL text and count as display:table-cell
-    // already. the "display:table-row" element is implicit and will be added
-    // by browser as a psuedo-element inside this label.
-    display: table;
-    width: 100%;
-    font-weight: normal;
-    margin: 0;
-    padding: 0;
-  }
-
-  .blacklight-resource_type_facet & {
+  // Form buttons
+  .advanced-search-start-over {
     .icon {
-      display: none;
+      display: inline-block;
+      width: 1.25em;
     }
   }
 }

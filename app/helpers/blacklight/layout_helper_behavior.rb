@@ -15,7 +15,7 @@ module Blacklight
     # Classes added to a right sidebar div
     # @return [String]
     def right_sidebar_classes
-      "col-lg-4 order-last"
+      "col-lg-3 order-last"
     end
 
     ##
