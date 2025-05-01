@@ -3539,10 +3539,6 @@ blacklight-frontend@^7.38.0:
     jquery "^3.5.1"
     typeahead.js "^0.11.1"
 
-"blacklight-marc@https://github.com/projectblacklight/blacklight-marc.git":
-  version "0.0.0"
-  resolved "https://github.com/projectblacklight/blacklight-marc.git#2b9da5dfb0f58fc13aed5557a87b27813ad302b4"
-
 blacklight-range-limit@8.5.0:
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/blacklight-range-limit/-/blacklight-range-limit-8.5.0.tgz#91980e8e88a921b4703b2de23dded8653bfcdc71"
