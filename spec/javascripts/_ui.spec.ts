@@ -4,8 +4,6 @@ import {
   animateSearchIcon,
   bindDismissBannerCookie,
   bindShowAvailMoreField,
-  initPopovers,
-  initTooltips,
   linkify,
   replaceBookCovers,
   hoverHierarchicalLinks,
