@@ -14,13 +14,12 @@ import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot.select
 import 'blacklight-range-limit/vendor/assets/javascripts/flot/jquery.flot.uiConstants';
 import { checkAvailability } from '../src/javascripts/_availability_buttons';
 import { setDocHistory, getDocHistory } from '../src/javascripts/_history';
-import { rotateSearchTips, initFilters } from '../src/javascripts/_search';
+import { initFilters } from '../src/javascripts/_search';
 import { replaceBookCovers } from '../src/javascripts/_ui';
 
 document.addEventListener('turbolinks:load', () => {
   checkAvailability();
   getDocHistory();
-  rotateSearchTips();
   replaceBookCovers();
   initFilters();
 });

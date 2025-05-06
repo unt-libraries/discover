@@ -35,34 +35,6 @@ function searchSelector(): void {
   callNumberOption!.parentNode!.insertBefore(dividerEl, callNumberOption);
 }
 
-function rotateSearchTips(): void {
-  const tipContainer = document.querySelector('#searchBarTips') as HTMLElementOrNull;
-  if (tipContainer === null) return;
-  const tipElements = tipContainer.querySelectorAll('.search-tip');
-  const firstTip = tipElements[0];
-
-  const rotator = setInterval(() => {
-    const visibleTip = tipContainer.querySelector('.current-tip') as HTMLElement;
-    const nextTip = (visibleTip.nextElementSibling as HTMLElement) || firstTip;
-    const transitionDur = 500;
-
-    setTimeout(() => {
-      visibleTip.classList.remove('current-tip');
-      nextTip.classList.add('current-tip');
-    }, transitionDur);
-  }, 7000);
-
-  tipContainer.addEventListener('mouseover', function pauseTips() {
-    clearInterval(rotator);
-    tipContainer.removeEventListener('mouseover', pauseTips);
-  });
-
-  tipContainer.addEventListener('mouseout', function resumeTips() {
-    rotateSearchTips();
-    tipContainer.removeEventListener('mouseout', resumeTips);
-  });
-}
-
 function initPrefilters(): void {
   const prefilterLinks = document.querySelectorAll('.pre-filter-btn-group .dropdown-item') as NodeListOf<HTMLElement>;
   const queryField = document.getElementById('q') as HTMLInputElement;
@@ -119,7 +91,6 @@ function initFilters(): void {
 }
 
 export {
-  rotateSearchTips,
   searchSelector,
   initPrefilters,
   initFilters,
