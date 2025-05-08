@@ -1,18 +1,16 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 2.7.8'
+ruby '~> 3.1.7'
 
 gem 'bootsnap', '>= 1.17.1', require: false
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
 gem 'httparty', '~> 0.17.3'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.11.5'
 # Use PostgreSQL as the database for Active Record
 gem 'pg', '~> 1.5.4'
 gem 'puma', '~> 6.0'
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 7.0.8'
 gem 'rsolr', '~> 2.5'
 gem 'rubocop-airbnb'
 # gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
