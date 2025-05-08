@@ -1,6 +1,5 @@
 import {
   searchSelector,
-  rotateSearchTips,
   initPrefilters,
   initFilters,
 } from '../../app/webpacker/src/javascripts/_search';
@@ -102,78 +101,6 @@ describe('searchSelector', () => {
 
     expect(container.querySelector('.selected')!.innerHTML).toBe(selectedText2);
     expect((container.querySelector('#search_field') as HTMLInputElement).value).toBe(scopeValue2);
-  });
-});
-
-describe('rotateSearchTips', () => {
-  let tipContainer: HTMLElement;
-  let tipElements: NodeListOf<Element>;
-
-  beforeEach(() => {
-    document.body.innerHTML = `
-      <div id="searchBarTips">
-        <div class="search-tip current-tip">Tip 1</div>
-        <div class="search-tip">Tip 2</div>
-        <div class="search-tip">Tip 3</div>
-      </div>
-    `;
-
-    tipContainer = document.querySelector('#searchBarTips') as HTMLElement;
-    tipElements = tipContainer.querySelectorAll('.search-tip');
-  });
-
-  afterEach(() => {
-    jest.useRealTimers();
-  });
-
-  it('should rotate tips periodically', () => {
-    jest.useFakeTimers();
-
-    rotateSearchTips();
-
-    expect(tipElements[0].classList.contains('current-tip')).toBe(true);
-    expect(tipElements[1].classList.contains('current-tip')).toBe(false);
-
-    jest.advanceTimersByTime(7000 + 500);
-
-    expect(tipElements[0].classList.contains('current-tip')).toBe(false);
-    expect(tipElements[1].classList.contains('current-tip')).toBe(true);
-
-    jest.advanceTimersByTime(7000 + 500);
-
-    expect(tipElements[1].classList.contains('current-tip')).toBe(false);
-    expect(tipElements[2].classList.contains('current-tip')).toBe(true);
-
-    jest.advanceTimersByTime(7000 + 500);
-
-    expect(tipElements[2].classList.contains('current-tip')).toBe(false);
-    expect(tipElements[0].classList.contains('current-tip')).toBe(true);
-  });
-
-  it('should pause tips rotation on mouseover and resume on mouseout', () => {
-    jest.useFakeTimers();
-
-    rotateSearchTips();
-
-    tipContainer.dispatchEvent(new MouseEvent('mouseover'));
-
-    jest.advanceTimersByTime(7000 + 500);
-
-    expect(tipElements[0].classList.contains('current-tip')).toBe(true);
-    expect(tipElements[1].classList.contains('current-tip')).toBe(false);
-
-    tipContainer.dispatchEvent(new MouseEvent('mouseout'));
-
-    jest.advanceTimersByTime(7000 + 500);
-
-    expect(tipElements[0].classList.contains('current-tip')).toBe(false);
-    expect(tipElements[1].classList.contains('current-tip')).toBe(true);
-  });
-
-  it('should not throw an error if the tip container is not present', () => {
-    document.body.innerHTML = '';
-
-    expect(() => rotateSearchTips()).not.toThrow();
   });
 });
 

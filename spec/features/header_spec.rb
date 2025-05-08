@@ -7,21 +7,20 @@ describe 'Header' do
     visit root_path
   end
 
-  it 'renders' do
-    within('div#head') do
-      expect(page).to have_css('header.header', :text => 'University Libraries')
-      expect(page).to have_link('University Libraries', :href => 'https://library.unt.edu')
+  it 'renders top bar' do
+    within('#topbar-wrapper') do
+      expect(page).to have_link('University of North Texas', :href => 'https://www.unt.edu')
+      expect(page).to have_link('MyUNT', :href => 'https://my.unt.edu/')
+      expect(page).to have_link('Canvas', :href => 'https://canvas.unt.edu/')
+      expect(page).to have_link('Student Email', :href => 'https://eagleconnect.unt.edu/')
+      expect(page).to have_link('UNT Directory', :href => 'https://www.unt.edu/find-people-departments.html')
     end
   end
 
-  it 'contains UNT navigation' do
-    expect(page).to have_css('nav#unt-desktop-links', :text => 'Home')
-  end
-
-  it 'has primary nav links' do
-    within('div#primary-navigation') do
-      expect(page).to have_link('Home', :href => 'https://library.unt.edu')
-      expect(page).to have_css('li.nav-item', :count => 9)
+  it 'renders primary nav links' do
+    within('#main-navbar-nav') do
+      expect(page).to have_link('Home', :href => 'https://library.unt.edu/')
+      expect(page).to have_css('div.mega-menu', :count => 6)
     end
   end
 end

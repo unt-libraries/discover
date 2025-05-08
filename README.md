@@ -232,23 +232,8 @@ $ docker compose run web rake secret
 ## Scripts
 
 Several convenience scripts exist in `package.json` that can be invoked with yarn (or npm).
-Example: `$ yarn start` to build the docker containers and start the web server.
-
-- `start`: Starts the Docker containers in the terminal
-- `build`: Builds the Docker containers, required before starting
-- `web:run`: Issue a command to the web container and then stop the containers
-- `web:assetServer`: Runs the webpack asset server in a separate terminal session
-- `rubyStyle`: Runs RuboCop style check
-- `test`: Run tests using Rails and Docker test configurations
-- `test:verbose`: Runs test with additional verbosity
-- `web:compileAssets`: Precompile assets with Rails
-- `web:dbCreate`: Create the database with Rails
-- `web:dbMigrate`: Migrate databases with Rails
-- `web:credentials`: Edit Rails credentials
-- `docker:stopAll`: Stop all currently running Docker containers
-- `docker:removeAll`: Remove all Docker containers
-- `docker:prune`: Prune Docker containers
-- `updateBrowserStats`: Update `browserslist-stats.json` for BrowsersList and Google Analytics integration
+Example: `$ yarn start` to build the docker containers and start the web server. Refer to the
+`package.json` file for a complete list of available scripts.
 
 ## Code style
 
@@ -269,5 +254,6 @@ environment, or run `yarn rubyStyle` to check style guide compliance.
 
 ## Testing
 
-Testing is done with RSpec, Capybara, and headless Chrome by running `$ yarn test`. Test files
-can be found in the `/spec` directory.
+Testing is done with RSpec, Capybara, and headless Chrome by running `$ yarn test:rspec`. Javascript
+tests are run with Jest by running `$ yarn test:jest`. Prior to running tests, you should run
+`$ yarn test:compileAssets` to compile assets for testing, which are separate from development assets.

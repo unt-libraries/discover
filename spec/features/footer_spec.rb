@@ -12,8 +12,8 @@ describe 'Footer' do
   end
 
   it 'contains contact information' do
-    within('.footer__contact') do
-      expect(page).to have_link('', :count => 5)
+    within('footer .address') do
+      expect(page).to have_link('', :count => 7)
     end
   end
 end

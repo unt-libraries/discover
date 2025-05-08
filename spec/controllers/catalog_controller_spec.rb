@@ -51,7 +51,7 @@ RSpec.describe CatalogController, type: :controller do
     end
 
     it 'renders the search bar' do
-      assert_template partial: 'shared/content/_search-bar'
+      assert_template partial: 'catalog/_search_form'
       expect(response.body).to have_selector('form.search-query-form')
       expect(response.body).to have_field('q', with: 'This is my search term')
     end

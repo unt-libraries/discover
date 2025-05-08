@@ -18,11 +18,12 @@ describe 'Facets' do
 
     it 'contain correct facets' do
       within('#facets') do
-        expect(page).to have_css('.facet-limit', count: 4)
+        expect(page).to have_css('.facet-limit', count: 5)
         expect(page).to have_css('.blacklight-access_facet', text: 'Access')
         expect(page).to have_css('.blacklight-resource_type_facet', text: 'Resource Type')
         expect(page).to have_css('.blacklight-media_type_facet', text: 'Format or Media Type')
         expect(page).to have_css('.blacklight-collection_facet', text: 'Collection')
+        expect(page).to have_css('.blacklight-newly_added_facet', text: 'Newly Added')
       end
     end
   end
@@ -42,7 +43,7 @@ describe 'Facets' do
 
     it 'contains all facets' do
       within('#facets') do
-        expect(page).to have_css('.facet-limit', count: 18)
+        expect(page).to have_css('.facet-limit', count: 19)
         expect(page).to have_css('.blacklight-access_facet', text: 'Access')
         expect(page).to have_css('.blacklight-resource_type_facet', text: 'Resource Type')
         expect(page).to have_css('.blacklight-media_type_facet', text: 'Format or Media Type')
@@ -50,6 +51,7 @@ describe 'Facets' do
         expect(page).to have_css('.blacklight-building_facet', text: 'Building Location')
         expect(page).to have_css('.blacklight-shelf_facet', text: 'Shelf Location')
         expect(page).to have_css('.blacklight-publication_year_range_facet', text: 'Date')
+        expect(page).to have_css('.blacklight-newly_added_facet', text: 'Newly Added')
         expect(page).to have_css('.blacklight-languages', text: 'Language')
         expect(page).to have_css('.blacklight-author_contributor_facet', text: 'Author or Contributor')
         expect(page).to have_css('.blacklight-meeting_facet', text: 'Meeting or Event')
