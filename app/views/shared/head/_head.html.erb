@@ -9,7 +9,7 @@
 
   <!-- Metadata -->
   <title><%= render_page_title %></title>
-  <%= render '/shared/head/meta_tags' %>
+  <%= render 'shared/head/meta_tags' %>
   <%= opensearch_description_tag application_name, opensearch_catalog_url(format: 'xml') %>
   <meta name="google" content="notranslate">
   <meta name="google-site-verification" content="OwynCvJj6eU9FfLBLGGhNEvTjTXLLzcSdsFSSzSacMA" />
@@ -25,7 +25,8 @@
 
   <!-- Priority font icons -->
   <style>
-    <%= render '/shared/www/head/head.styles.fontawesome.css' %>
+    <%# The inline css template name differs from www source because rails 7.0 disallows .'s in the name %>
+    <%= render partial: 'shared/www/head/head-styles-fontawesome', formats: :css %>
   </style>
   <script>
     FontAwesomeConfig = {
@@ -34,10 +35,10 @@
   </script>
 
   <!-- CSS -->
-  <%= stylesheet_packs_with_chunks_tag "priority", "base", media: "all", 'data-turbolinks-track': 'reload' %>
+  <%= vite_stylesheet_tag "priority.scss", "base.scss", media: "all", 'data-turbolinks-track': 'reload' %>
 
   <!-- Head scripts -->
-  <%= javascript_packs_with_chunks_tag 'priority', 'icons', 'data-turbolinks-track': 'reload', async: true %>
+  <%= vite_javascript_tag 'priority', 'icons', 'data-turbolinks-track': 'reload', async: true %>
 
   <script>
     <%# Override the domain we use to reach the dropdowns.json before JS is loaded %>
@@ -48,13 +49,13 @@
   </script>
   <%= content_for :head_scripts %>
   <% content_for(:head_scripts) do %>
-    <%= javascript_packs_with_chunks_tag 'base', 'data-turbolinks-track': 'reload', defer: true %>
+    <%= vite_javascript_tag 'base', 'data-turbolinks-track': 'reload', defer: true %>
   <% end %>
 
   <!-- Favicons -->
-  <%= favicon_pack_tag 'media/images/icons/favicon.ico', rel: 'icon', sizes: '16x16' %>
-  <%= favicon_pack_tag 'media/images/icons/favicon.svg', rel: 'icon', type: 'image/svg+xml' %>
-  <%= favicon_pack_tag 'media/images/icons/apple-touch-icon.png', rel: 'apple-touch-icon', sizes: '180x180' %>
+  <link rel="icon" href="<%= vite_asset_path 'images/icons/favicon.ico' %>" sizes="16x16" type="image/x-icon">
+  <link rel="icon" href="<%= vite_asset_path 'images/icons/favicon.svg' %>" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="<%= vite_asset_path 'images/icons/apple-touch-icon.png' %>" sizes="180x180">
 
   <%= csrf_meta_tags %>
 

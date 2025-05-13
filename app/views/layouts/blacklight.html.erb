@@ -1,5 +1,5 @@
 <% content_for?(:head_scripts) ? yield(:head_scripts) : content_for(:head_scripts) do %>
-  <%= javascript_packs_with_chunks_tag 'base', 'index', 'data-turbolinks-track': 'reload', defer: true %>
+  <%= vite_javascript_tag 'base', 'index', 'data-turbolinks-track': 'reload', defer: true %>
 <% end %>
 
 <% content_for(:content) do %>

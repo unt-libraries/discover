@@ -1,0 +1,137 @@
+.show-tools {
+  background-color: #fff;
+
+  .show-tools-heading {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .show-tools-values {
+    padding: 0;
+    font-size: 90%;
+    font-weight: 400;
+
+    li:first-of-type {
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+      padding-top: 1rem;
+    }
+
+    li:last-of-type {
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+      padding-bottom: 1rem;
+    }
+
+    li:nth-of-type(even) {
+      background: $table-accent-bg;
+    }
+
+    li:hover {
+      color: $table-hover-color;
+      background-color: $table-hover-bg;
+    }
+
+    .show-tools-item {
+      border: 0;
+      padding: 0.5rem 1rem;
+
+      .fa-fw {
+        @extend .d-lg-none;
+        @extend .d-xl-inline-block;
+        width: 3em;
+      }
+
+      .nav-link {
+        display: inline-block;
+        padding: 0;
+        border: 0;
+      }
+    }
+  }
+}
+
+.show-document {
+  .show-heading-container {
+    padding-bottom: 1.1rem;
+  }
+  .show-heading-title {
+    padding-top: 0;
+    margin-bottom: 0.5rem;
+
+    &__main {
+      font-size: 2rem;
+      padding-bottom: 0;
+
+      @include media-breakpoint-down(md) {
+        font-size: 1.8rem;
+      }
+    }
+
+    &__sub {
+      @extend .text-body-secondary;
+    }
+  }
+
+  .result__field {
+    border-left: 0;
+  }
+
+  .result__label {;
+    text-transform: none;
+    padding-bottom: 0.5rem;
+  }
+
+  .result__value {
+    &.blacklight-toc_notes {
+      line-height: 1.4rem;
+
+      .toc_container {
+        padding-left: 15px;
+      }
+
+      .toc_list {
+        margin-bottom: 0;
+        padding-inline-start: 0;
+      }
+    }
+
+    & .hover {
+      color: $link-hover-color;
+      text-decoration: underline;
+    }
+
+    .result__value__row {
+      padding-bottom: 0.25rem;
+    }
+  }
+}
+
+.link-media-item.fulltext {
+  display: inline-block;
+
+  span {
+    vertical-align: top;
+  }
+
+  .find-it-image {
+    display: inline-block;
+    content: '';
+    margin-right: 4px;
+    background: url(~/images/catalog/find-it-round.png) no-repeat center;
+    height: 20px;
+    width: 87px;
+    vertical-align: middle;
+  }
+}
+
+.anchor::before {
+  display: block;
+  content: " ";
+  margin-top: -50px;
+  height: 50px;
+  visibility: hidden;
+  pointer-events: none;
+}

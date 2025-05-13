@@ -1,28 +1,27 @@
 {
   "compilerOptions": {
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
+    "target": "ESNext",
+    "module": "ESNext",
     "noImplicitAny": true,
-    "module": "es2015",
-    "target": "esnext",
     "allowJs": true,
     "strict": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "isolatedModules": true,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "typeRoots": [
-      "./app/webpacker/src/javascripts/@typings",
+      "./app/frontend/src/javascripts/@typings",
       "node_modules/@types"
     ],
-    "allowSyntheticDefaultImports": true
   },
   "include": [
-    "app/webpacker/packs/**/*",
-    "app/webpacker/src/javascripts/**/*",
+    "app/frontend//**/*",
     "spec/javascripts/**/*"
   ],
   "exclude": [
     "node_modules",
+    "app/frontend/vendor/**/*",
     "**/*.spec.ts"
   ]
 }

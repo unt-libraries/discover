@@ -2,7 +2,7 @@ import {
   searchSelector,
   initPrefilters,
   initFilters,
-} from '../../app/webpacker/src/javascripts/_search';
+} from '../../app/frontend/src/javascripts/_search';
 
 describe('searchSelector', () => {
   let container: HTMLElement;

@@ -25,12 +25,12 @@
             <div class="featured-img-container">
               <picture>
                 <source type="image/webp"
-                        srcset="<%= asset_pack_path item[:lq_webp_img_src] if item[:lq_webp_img_src].present? %>"
-                        data-srcset="<%= asset_pack_path item[:webp_img_src] if item[:webp_img_src].present? %>">
-                <source type="image/jpeg" data-scrset="<%= asset_pack_path item[:img_src] %>">
+                        srcset="<%= vite_asset_path item[:lq_webp_img_src] if item[:lq_webp_img_src].present? %>"
+                        data-srcset="<%= vite_asset_path item[:webp_img_src] if item[:webp_img_src].present? %>">
+                <source type="image/jpeg" data-scrset="<%= vite_asset_path item[:img_src] %>">
                 <img class="img-fluid lazyload blur-up w-100 featured-img"
-                     src="<%= asset_pack_path item[:lq_img_src] if item[:lq_img_src].present? %>"
-                     data-src="<%= asset_pack_path item[:img_src] %>"
+                     src="<%= vite_asset_path item[:lq_img_src] if item[:lq_img_src].present? %>"
+                     data-src="<%= vite_asset_path item[:img_src] %>"
                      alt="<%= item[:img_alt] %>">
               </picture>
             </div>

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 3.1.7'
+ruby '~> 3.2.8'
 
 gem 'bootsnap', '>= 1.17.1', require: false
 gem 'httparty', '~> 0.17.3'
@@ -11,13 +11,12 @@ gem 'jbuilder', '~> 2.11.5'
 gem 'pg', '~> 1.5.4'
 gem 'puma', '~> 6.0'
 gem 'rails', '~> 7.0.8'
+gem 'vite_rails'
 gem 'rsolr', '~> 2.5'
 gem 'rubocop-airbnb'
 # gem 'twitter-typeahead-rails', '0.11.1.pre.corejavascript'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'uglifier', '~> 4.2'
-gem 'webpacker', '~> 5.4.4'
 
 # Add net-http gem to resolve this issue: https://github.com/ruby/net-imap/issues/16
 gem "net-http"
@@ -29,7 +28,7 @@ gem 'blacklight_range_limit', '8.1.0' # Something breaks in the views with 8.2.0
 gem 'view_component', '>= 2.82.0', '< 4' # 4.x does not work as of 1/23/24
 
 group :development do
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen', '~> 3.9'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '~> 4.2'
 end

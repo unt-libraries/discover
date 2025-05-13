@@ -1,6 +1,8 @@
-Blacklight::Rendering::Pipeline.operations = [
-  Blacklight::Rendering::HelperMethod,
-  Blacklight::Rendering::LinkToFacet,
-  Blacklight::Rendering::Microdata,
-  CustomJoin,
-]
+ActiveSupport::Reloader.to_prepare do
+  Blacklight::Rendering::Pipeline.operations = [
+    Blacklight::Rendering::HelperMethod,
+    Blacklight::Rendering::LinkToFacet,
+    Blacklight::Rendering::Microdata,
+    CustomJoin,
+  ]
+end

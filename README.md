@@ -38,6 +38,10 @@ RAILS_ENV=development
 RAILS_SERVE_STATIC_FILES=false
 RAILS_MASTER_KEY=#YOUR_RAILS_MASTER_KEY
 POSTGRES_PASSWORD=#YOUR_POSTGRES_PASSWORD
+# SOLR_URL in local .env to override dev value in credentials file for server
+SOLR_URL=SOLR_SERVER_URL
+# RAILS_DEVELOPMENT_HOSTS is used to determine if the request is coming from a host that should be allowed to access the application in development mode.
+RAILS_DEVELOPMENT_HOSTS=localhost
 
 # OR in the shell
 $ source RAILS_PORT=3000  # or port of your choice
@@ -78,6 +82,8 @@ test:
 
 production:
   <<: *default
+  # Enable DNS rebinding protection by defining allowed production hosts.
+  RAILS_PRODUCTION_HOSTS:
 
 secret_key_base: 
 ```
