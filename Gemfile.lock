@@ -117,6 +117,7 @@ GEM
     domain_name (0.6.20240107)
     dot-properties (0.1.4)
       bundler (>= 2.2.33)
+    drb (2.2.1)
     dry-cli (1.2.0)
     erubi (1.13.1)
     faraday (2.13.1)
@@ -401,6 +402,7 @@ DEPENDENCIES
   bootsnap (>= 1.18.4)
   byebug
   capybara (~> 3)
+  drb
   httparty (~> 0.23.1)
   jbuilder (~> 2.13.0)
   listen (~> 3.9)
@@ -417,7 +419,7 @@ DEPENDENCIES
   web-console (~> 4.2)
 
 RUBY VERSION
-   ruby 3.2.8p263
+   ruby 3.4.3p32
 
 BUNDLED WITH
    2.4.19

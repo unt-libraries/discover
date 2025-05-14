@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 3.2.8'
+ruby '~> 3.4.3'
 
 gem 'bootsnap', '>= 1.18.4', require: false
 gem 'httparty', '~> 0.23.1'
@@ -35,4 +35,6 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 7.1'
   gem 'solr_wrapper', '>= 0.3'
+  # drb removed from Ruby standard library in 3.4.0
+  gem 'drb'
 end

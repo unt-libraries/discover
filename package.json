@@ -4,7 +4,7 @@
   "scripts": {
     "start": "docker compose up",
     "stop": "docker compose down",
-    "build": "docker compose build",
+    "build": "COMPOSE_BAKE=true docker compose build",
     "web:run": "docker compose run --rm web",
     "rubyStyle": "docker compose run --rm web rubocop --require rubocop-airbnb",
     "javascriptStyle": "docker compose run --rm web node_modules/eslint/bin/eslint.js .",
