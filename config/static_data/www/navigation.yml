@@ -86,7 +86,7 @@ top_bar:
       - text: Catalog
         type: link
         classes:
-        url: https://library.unt.edu/accounts-login/ # EDITED
+        url: https://iii.library.unt.edu/patroninfo
       - text: >
           Renew items, check the status of holds, and review assessed fines.
         type: text
