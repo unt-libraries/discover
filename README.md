@@ -27,11 +27,12 @@ $ cd discover
 ```
 
 Environment variables should be set in a `.env` file in the root directory to make local development 
-easier. They can be overridden at runtime by specifying a different `.env*` file with the 
-`--env-file` option or passing environment variables in the shell.
+easier. This file is used by Docker Compose. They can be overridden at runtime by specifying a different `.env*` file with the 
+`--env-file` option, or they can be overridden at runtime by following Docker's 
+[order of precedence](https://docs.docker.com/compose/how-tos/environment-variables/envvars-precedence/) for environment variables.
 
-Recommended `.env` file:
-```console
+Recommended `.env` file for local development:
+```dotenv
 # .env file
 RAILS_PORT=3000
 RAILS_ENV=development
@@ -42,17 +43,9 @@ POSTGRES_PASSWORD=#YOUR_POSTGRES_PASSWORD
 SOLR_URL=SOLR_SERVER_URL
 # RAILS_DEVELOPMENT_HOSTS is used to determine if the request is coming from a host that should be allowed to access the application in development mode.
 RAILS_DEVELOPMENT_HOSTS=localhost
-
-# OR in the shell
-$ source RAILS_PORT=3000  # or port of your choice
+# Enable Vite HMR client in development
+ENABLE_VITE_HMR_CLIENT=true
 ```
-
-Find more information about how Docker Compose evaluates environment variables
-[here](https://docs.docker.com/compose/environment-variables/).
-
-To build locally, modify Docker and Docker Compose files, or run without an upstream image, you
-should modify the `image` value for the `web` app in `docker-compose.yml`, or replace it with
-`build: .` to build a container from the `Dockerfile`.
 
 Build the containers with:
 
@@ -88,33 +81,6 @@ production:
 secret_key_base: 
 ```
 
-If you do not already have a database for the app, create one with:
-
-```console
-$ docker compose run --rm web rake db:create
-
-# OR with Yarn
-$ yarn web:dbCreate
-```
-
-Run database migrations with:
-
-```console
-$ docker compose run --rm web rake db:migrate
-
-# OR with Yarn
-$ yarn web:dbMigrate
-```
-
-Prior to running the development environment, you'll need to precompile assets.
-
-```console
-$ docker compose run --rm web rails assets:precompile
-
-# OR with Yarn
-$ yarn web:compileAssets
-```
-
 Start the app and database with:
 
 ```console
@@ -125,9 +91,6 @@ $ yarn start
 ```
 
 You should now be able to go to `localhost:3000` in your browser to see the running app.
-
-In the development environment, you can use Webpacker's live code reloading by 
-running `yarn web:assetServer` in a separate terminal.
 
 **Solr configuration**
 
@@ -171,7 +134,7 @@ To edit secrets stored in `credentials.yml.enc`, use the following command:
 $ docker compose run web bash -c "EDITOR=vim rails credentials:edit"
 
 # OR with Yarn
-$ yarn web:credentials
+$ yarn credentials
 ```
 
 NOTE: If you're not using Docker, you only need the command in quotes
@@ -232,7 +195,7 @@ For this project, Rails should have generated a `secret_key_base` for you and yo
 If you find yourself needing to generate a new secret, you can so so with:
 
 ```console
-$ docker compose run web rake secret
+$ docker compose run --rm web rake secret
 ```
 
 ## Scripts
@@ -258,8 +221,49 @@ Configuration can be found in `.rubocop.yml` and `.rubocop_airbnb.yml`. `rubocop
 tests that have failed previously, but are ignored. You can use the integration with your development
 environment, or run `yarn rubyStyle` to check style guide compliance.
 
+## Production
+
+Production deployment is done with Docker and Docker Compose using Gitlab CI/CD. The production pipeline can be
+simulated locally.
+
+You must first adjust the following values in your `.env` file or otherwise pass them in as environment variables:
+```dotenv
+RAILS_ENV=production
+RAILS_SERVE_STATIC_FILES=true
+# APP_IMAGE_NAME can be anything, but it is recommended to use the same name as you'll use in production
+APP_IMAGE_NAME=IMAGE_NAME
+ENABLE_VITE_HMR_CLIENT=false
+```
+And set the `RAILS_MASTER_KEY` environment variable to the value of your production master key.
+```console
+export RAILS_MASTER_KEY=#YOUR_RAILS_MASTER_KEY
+```
+Rails master key must be set in the environment instead of the `.env` file for production builds because it uses Docker secrets.
+
+Then run the following command to build the production image:
+```console
+docker build --secret id=RAILS_MASTER_KEY \
+    --build-arg APP_BUILD_TYPE="production" \
+    --build-arg BUILD_TIME_RAILS_ENV="production" \
+    -t <APP_IMAGE_NAME from your .env file> .
+```
+
+Bring the containers up with:
+```console
+docker compose -f compose.deploy.yaml up --remove-orphans
+```
+
+In a separate terminal, copy the `public` directory from the container to your local machine:
+```console
+docker compose -f compose.deploy.yaml cp web:/app/public ./public
+```
+
 ## Testing
 
-Testing is done with RSpec, Capybara, and headless Chrome by running `$ yarn test:rspec`. Javascript
-tests are run with Jest by running `$ yarn test:jest`. Prior to running tests, you should run
-`$ yarn test:compileAssets` to compile assets for testing, which are separate from development assets.
+Tests can usually be run with the development environment. You can run the tests with:
+```console
+$ yarn test:jest
+$ yarn test:compileAssets
+$ yarn test:rspec
+```
+Compiling assets is required for the RSpec tests to run. You can also run the tests in a Docker container with:

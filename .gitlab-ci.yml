@@ -30,7 +30,12 @@ build-container:
     - echo "Attempting to pull cache image $FULL_IMAGE_NAME"
     - docker pull $FULL_IMAGE_NAME || echo "Cache image pull failed or image doesn't exist yet."
     - echo "Building image $FULL_IMAGE_NAME"
-    - docker build --cache-from $FULL_IMAGE_NAME -f Dockerfile -t $FULL_IMAGE_NAME .
+    - docker build \
+        --secret id=RAILS_MASTER_KEY \
+        --build-arg APP_BUILD_TYPE="production" \
+        --build-arg BUILD_TIME_RAILS_ENV="production" \
+        --cache-from $FULL_IMAGE_NAME \
+        -t $FULL_IMAGE_NAME .
     - echo "Pushing image $FULL_IMAGE_NAME"
     - docker push $FULL_IMAGE_NAME
   rules:
@@ -59,18 +64,37 @@ test:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
     ADD_PACKAGES: py-pip python-dev libffi-dev openssl-dev gcc libc-dev make docker-compose-plugin
-    RAILS_PORT: 3300
-    RAILS_ENV: test
-    RAILS_SERVE_STATIC_FILES: "true"
+    RAILS_PORTF_FOR_TEST: 3300
+    TEST_IMAGE_TAG: "$CI_REGISTRY_IMAGE/test:$CI_COMMIT_SHA"
   script:
     - "docker info"
-    - "echo \"$RAILS_MASTER_KEY\" >> .env"
-    - "docker compose build"
-    - "docker compose run --rm web rake db:create"
-    - "docker compose run --rm web rake db:migrate"
-    - "docker compose run --rm web rails assets:precompile"
-    - "docker compose run --rm web bundle exec rspec --format documentation"
-    - "docker compose down"
+
+    - echo "Creating .env file for test runtime..."
+    - rm -f .env
+    - echo "RAILS_MASTER_KEY=$RAILS_MASTER_KEY" >> .env
+    - echo "RAILS_ENV=test" >> .env
+    - echo "RAILS_PORT=$RAILS_PORT_FOR_TEST" >> .env
+    - echo "APP_IMAGE_NAME=$TEST_IMAGE_TAG" >> .env
+    - echo "RAILS_SERVE_STATIC_FILES=true" >> .env
+
+    - echo "Building test-specific Docker image $TEST_IMAGE_TAG..."
+    - docker build \
+      --secret id=RAILS_MASTER_KEY \
+      --build-arg APP_BUILD_TYPE="test" \
+      --build-arg BUILD_TIME_RAILS_ENV="test" \
+      -t "$TEST_IMAGE_TAG ."
+
+    - echo "Setting up test database..."
+    - docker compose -f compose.deploy.yaml run --rm web bundle exec rails db:setup
+
+    - echo "Running RSpec tests..."
+    - docker compose -f compose.deploy.yaml run --rm web bundle exec rspec --format documentation
+
+    - echo "Running Jest tests..."
+    - docker compose -f compose.deploy.yaml run --rm web yarn jest
+
+    - echo "Cleaning up test environment..."
+    - docker compose -f compose.deploy.yaml down --remove-orphans
   when: manual
 
 
@@ -115,12 +139,14 @@ release-image:
   before_script:
     - source /app/prepare_ssh.sh
   script:
-    - echo "Deploying commit $CI_COMMIT_SHA using image $FULL_IMAGE_NAME"
+    - echo "Deploying commit $CI_COMMIT_SHA using image $FULL_IMAGE_NAME for RAILS_ENV=$RAILS_ENV"
     - ssh $SSH_USER@$SSH_SERVER "
+        set -e; # Exit on error
+        echo '--- Ensuring deployment directory exists ---' &&
+        mkdir -p $SITE_DEST_DIR &&
         cd $SITE_DEST_DIR &&
-        echo '--- Fetching latest code ---' &&
+        echo '--- Fetching latest deployment configuration (compose.deploy.yaml) ---' &&
         git fetch --all &&
-        echo '--- Checking out specific commit $CI_COMMIT_SHA ---' &&
         git checkout -f $CI_COMMIT_SHA &&
         echo '--- Creating .env file ---' &&
         rm -f .env &&
@@ -132,14 +158,13 @@ release-image:
         echo POSTGRES_PASSWORD=$POSTGRES_PASSWORD >> .env &&
         echo RAILS_MASTER_KEY=$RAILS_MASTER_KEY >> .env &&
         echo WEB_CONCURRENCY=$WEB_CONCURRENCY >> .env &&
+        echo ENABLE_VITE_HMR_CLIENT=$ENABLE_VITE_HMR_CLIENT >> .env &&
         echo '--- Pulling required Docker image $FULL_IMAGE_NAME ---' &&
-        docker compose pull &&
+        docker compose -f compose.deploy.yaml pull &&
         echo '--- Starting application containers ---' &&
-        docker compose up -d &&
-        echo '--- Precompiling assets (if needed by entrypoint/runtime) ---' &&
-        docker compose exec -T web rails assets:precompile &&
-        echo '--- Restarting web service to apply changes ---' &&
-        docker compose restart &&
+        docker compose -f compose.deploy.yaml up -d --remove-orphans &&
+        echo '--- Copying assets to public directory on host ---' &&
+        docker compose -f compose.deploy.yaml cp web:/app/public $SITE_DEST_DIR &&
         echo '--- Deployment complete ---'
         "
   when: manual
@@ -156,6 +181,7 @@ deploy:alpha:
     RAILS_ENV: development
     RAILS_SERVE_STATIC_FILES: "false"
     WEB_CONCURRENCY: 1
+    ENABLE_VITE_HMR_CLIENT: "true"
 
 deploy:beta:
   extends: .deploy
@@ -167,6 +193,7 @@ deploy:beta:
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
     WEB_CONCURRENCY: 1
+    ENABLE_VITE_HMR_CLIENT: "false"
 
 deploy:production:
   extends: .deploy
@@ -179,6 +206,7 @@ deploy:production:
     RAILS_ENV: production
     RAILS_SERVE_STATIC_FILES: "true"
     WEB_CONCURRENCY: 8
+    ENABLE_VITE_HMR_CLIENT: "false"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
       when: manual
