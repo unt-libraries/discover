@@ -13,7 +13,7 @@ gem 'puma', '~> 6.6.0'
 gem 'rails', '~> 7.0.8'
 gem 'vite_rails'
 gem 'rsolr', '~> 2.6.0'
-gem 'rubocop-airbnb'
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
@@ -34,6 +34,7 @@ group :development, :test do
   gem 'capybara', '~> 3'
   gem 'rails-controller-testing'
   gem 'rspec-rails', '~> 7.1'
+  gem 'rubocop-airbnb'
   gem 'solr_wrapper', '>= 0.3'
   # drb removed from Ruby standard library in 3.4.0
   gem 'drb'

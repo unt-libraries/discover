@@ -2,16 +2,10 @@ inherit_from:
   - .rubocop_airbnb.yml
   - .rubocop_todo.yml
 
-
-Layout/ArgumentAlignment:
-  Exclude:
-    - 'bin/webpack'
-    - 'bin/webpack-dev-server'
-
 Layout/EmptyLineAfterMagicComment:
   Exclude:
     - 'db/migrate/*'
 
-Metrics/LineLength:
+Layout/LineLength:
   Exclude:
     - 'db/migrate/*'

@@ -21,7 +21,6 @@
   ],
   "exclude": [
     "node_modules",
-    "app/frontend/vendor/**/*",
-    "**/*.spec.ts"
+    "app/frontend/vendor/**/*"
   ]
 }
