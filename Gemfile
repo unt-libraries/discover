@@ -10,7 +10,7 @@ gem 'jbuilder', '~> 2.13.0'
 # Use PostgreSQL as the database for Active Record
 gem 'pg', '~> 1.5.9'
 gem 'puma', '~> 6.6.0'
-gem 'rails', '~> 7.0.8'
+gem 'rails', '~> 7.2.2.1'
 gem 'vite_rails'
 gem 'rsolr', '~> 2.6.0'
 
