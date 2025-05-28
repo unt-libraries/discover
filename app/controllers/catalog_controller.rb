@@ -14,6 +14,11 @@ class CatalogController < ApplicationController
     redirect_to '/', flash: { error: 'The start year must be before the end year.' }
   end
 
+  # Handle requests for documents that are not found
+  rescue_from Blacklight::Exceptions::RecordNotFound do
+    redirect_to '/404'
+  end
+
   configure_blacklight do |config|
     # default advanced config values
     config.advanced_search ||= Blacklight::OpenStructWithHashAccess.new

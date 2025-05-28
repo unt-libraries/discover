@@ -28,7 +28,7 @@ module UrlHelper
   end
 
   def construct_summon_search_url(document)
-    record_title = document[:title_display]
+    record_title = String.new(document[:title_display].to_s)
     record_title.downcase!
     record_title.gsub!(/[&:;,.'"\/\\\[\]()]/, '')
     record_title.gsub!(/(^|\s)((a|an|the|of|and|or|in|on|for|from|to|not|be|is|am|are)(\s|$))+/, ' ')
