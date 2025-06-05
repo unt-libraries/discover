@@ -88,6 +88,11 @@ const locationData = {
     url: 'https://library.unt.edu/frisco/',
     btnClass: 'frisco',
   },
+  flbs: {
+    name: 'Frisco Landing Library Best Sellers',
+    aabr: 'Frisco Landing Best Sellers',
+    linkText: 'Frisco Landing Library Best Sellers'
+  },
   flfdc: {
     name: 'Frisco Landing Library Featured Books',
     abbr: 'Frisco Landing Featured Books',
