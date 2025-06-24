@@ -262,7 +262,7 @@ docker compose -f compose.deploy.yaml cp web:/app/public ./public
 
 Tests can usually be run with the development environment. You can run the tests with:
 ```console
-$ yarn test:jest
+$ yarn test:vitest
 $ yarn test:compileAssets
 $ yarn test:rspec
 ```

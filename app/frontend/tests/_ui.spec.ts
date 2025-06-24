@@ -1,4 +1,3 @@
-import 'bootstrap/js/dist/alert';
 import '@testing-library/jest-dom';
 import {
   animateSearchIcon,
@@ -7,7 +6,7 @@ import {
   linkify,
   replaceBookCovers,
   hoverHierarchicalLinks,
-} from '../../app/frontend/src/javascripts/_ui';
+} from '../src/javascripts/_ui';
 
 describe('animateSearchIcon', () => {
   beforeEach(() => {
@@ -30,7 +29,6 @@ describe('animateSearchIcon', () => {
     const form = document.querySelector('.search-query-form');
     const buttonIcon = form?.querySelector('.fa-search');
 
-    // Trigger form submit
     form?.dispatchEvent(new Event('submit'));
 
     expect(buttonIcon).not.toHaveClass('fa-search');
@@ -40,7 +38,37 @@ describe('animateSearchIcon', () => {
 });
 
 describe('bindDismissBannerCookie', () => {
+  beforeEach(() => {
+    document.body.innerHTML = `
+      <div id="site-messages">
+        <div class="alert alert-dismissible fade show" data-alert-name="test-alert" data-alert-expiry="Thu, 31 Dec 2099 23:59:59 UTC" role="alert">
+          This is a dismissible banner.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+    `;
+  });
 
+  afterEach(() => {
+    document.body.innerHTML = '';
+
+    document.cookie.split(';').forEach(cookie => {
+      document.cookie = cookie.replace(/^ +/, '').replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`);
+    });
+  });
+
+  it('should set a cookie when the banner is dismissed', () => {
+    bindDismissBannerCookie();
+
+    const alert = document.querySelector('.alert-dismissible');
+    // Manually trigger the closed.bs.alert event since .click() won't do it
+    alert?.dispatchEvent(new CustomEvent('closed.bs.alert', { bubbles: true }));
+
+    const cookies = document.cookie.split('; ');
+    const dismissCookie = cookies.find(cookie => cookie.startsWith('banner_dismissed_test-alert='));
+
+    expect(dismissCookie).toBeDefined();
+  });
 });
 
 describe('bindShowAvailMoreField', () => {
@@ -66,14 +94,12 @@ describe('bindShowAvailMoreField', () => {
     const revealLessButton: HTMLElement | null | undefined = moreScope?.querySelector('.reveal-less');
     const moreMax: HTMLElement | null | undefined = moreScope?.querySelector('.more-max');
 
-    // Trigger click event on the .reveal-more button
     revealMoreButton?.click();
 
     expect(moreMax).not.toHaveClass('d-none');
     expect(revealMoreButton).toHaveClass('d-none');
     expect(revealLessButton).not.toHaveClass('d-none');
 
-    // Trigger click event on the .reveal-less button
     revealLessButton?.click();
 
     expect(moreMax).toHaveClass('d-none');
@@ -161,22 +187,18 @@ describe('hoverHierarchicalLinks', () => {
     const links = container.querySelectorAll('.hierarchical-link a');
 
     links.forEach((link) => {
-      // Trigger hover event
       const mouseEnterEvent = new MouseEvent('mouseenter', { bubbles: true });
       link.dispatchEvent(mouseEnterEvent);
 
-      // Check if the hover effect is applied to previous siblings
       let prevSibling = link.previousElementSibling;
       while (prevSibling) {
         expect(prevSibling.classList.contains('hover')).toBe(true);
         prevSibling = prevSibling.previousElementSibling;
       }
 
-      // Trigger mouseout event
       const mouseLeaveEvent = new MouseEvent('mouseleave', { bubbles: true });
       link.dispatchEvent(mouseLeaveEvent);
 
-      // Check if the hover effect is removed from previous siblings
       prevSibling = link.previousElementSibling;
       while (prevSibling) {
         expect(prevSibling.classList.contains('hover')).toBe(false);

@@ -1,18 +1,22 @@
-import { enableFetchMocks } from 'jest-fetch-mock';
+import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { serviceDeskData } from './__mocks__/service_desks';
 import { statusDescData } from './__mocks__/availability_statuses';
 import { locationData } from './__mocks__/availability_locations';
 
-enableFetchMocks();
-jest.mock('../../app/frontend/src/javascripts/data/service_desks', () => ({
+vi.mock('node-fetch', () => ({
+  default: vi.fn()
+}));
+
+vi.mock('../src/javascripts/data/service_desks', () => ({
   serviceDeskData,
 }));
-jest.mock('../../app/frontend/src/javascripts/data/availability_statuses', () => ({
+vi.mock('../src/javascripts/data/availability_statuses', () => ({
   statusDescData,
 }));
-jest.mock('../../app/frontend/src/javascripts/data/availability_locations', () => ({
+vi.mock('../src/javascripts/data/availability_locations', () => ({
   locationData,
 }));
+
 import {
   callSierraApi,
   findMissing,
@@ -23,18 +27,16 @@ import {
   getPlaceholderItemsElements,
   itemsFromPromises,
   updateAeonRequestUrl,
-} from '../../app/frontend/src/javascripts/_availability_util';
+} from '../src/javascripts/_availability_util';
 
-import mocked = jest.mocked;
+const fetchSpy = vi.spyOn(global, 'fetch');
 
-window.alert = jest.fn();
+window.alert = vi.fn();
 
 describe('callSierraApi', () => {
   beforeEach(() => {
-    // @ts-ignore
-    fetch.resetMocks();
+    fetchSpy.mockReset();
 
-    // Create a mock token element in the DOM
     const tokenEl = document.createElement('meta');
     tokenEl.name = 'csrf-token';
     tokenEl.content = 'mock-csrf-token';
@@ -42,7 +44,6 @@ describe('callSierraApi', () => {
   });
 
   afterEach(() => {
-    // Remove the mock token element from the DOM
     const tokenEl = document.querySelector('meta[name="csrf-token"]');
     if (tokenEl) {
       document.head.removeChild(tokenEl);
@@ -50,7 +51,6 @@ describe('callSierraApi', () => {
   });
 
   it('should return a successful response', async () => {
-    // Mock the fetch response
     const mockResponse = {
       total: 2,
       start: 0,
@@ -69,10 +69,12 @@ describe('callSierraApi', () => {
         },
       ],
     };
-    // @ts-ignore
-    fetch.mockResponseOnce(JSON.stringify(mockResponse));
 
-    // Call the function and check the response
+    fetchSpy.mockResolvedValueOnce({
+      ok: true,
+      json: async () => mockResponse,
+    } as Response);
+
     const response = await callSierraApi(['12345', '67890']);
     expect(response).toEqual(mockResponse);
   });
@@ -87,15 +89,14 @@ describe('callSierraApi', () => {
       ],
     };
 
-    // @ts-ignore
-    fetch.mockImplementationOnce(() => Promise.resolve({
+    fetchSpy.mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockedJsonData),
-    }));
+      json: async () => mockedJsonData,
+    } as Response);
 
     const result = await callSierraApi(itemBibs);
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(fetch).toHaveBeenCalledWith('/availability/items', {
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledWith('/availability/items', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -106,32 +107,30 @@ describe('callSierraApi', () => {
     expect(result).toEqual(mockedJsonData);
   });
 
-  it('should throw an error if the Sierra API returns an error', async () => {
+  it('should throw an error if the Sierra API returns a non-ok response', async () => {
     const itemBibs = ['12345', '67890'];
 
-    // @ts-ignore
-    fetch.mockImplementationOnce(() => Promise.resolve({
+    fetchSpy.mockResolvedValueOnce({
       ok: false,
       statusText: 'Mocked Error',
-      text: () => Promise.resolve('Error message from the API'),
-    }));
+      text: async () => 'Error message from the API',
+    } as Response);
 
+    // `rejects` and `toThrow` work similarly in Vitest.
     await expect(callSierraApi(itemBibs)).rejects.toThrow('Mocked Error');
   });
 
-  it('should throw an error if the Sierra API returns an httpStatus', async () => {
+  it('should throw an error if the Sierra API response contains an httpStatus', async () => {
     const itemBibs = ['12345', '67890'];
-
     const mockedJsonData = {
       httpStatus: 400,
       message: 'Bad Request',
     };
 
-    // @ts-ignore
-    fetch.mockImplementationOnce(() => Promise.resolve({
+    fetchSpy.mockResolvedValueOnce({
       ok: true,
-      json: () => Promise.resolve(mockedJsonData),
-    }));
+      json: async () => mockedJsonData,
+    } as Response);
 
     await expect(callSierraApi(itemBibs)).rejects.toEqual(mockedJsonData);
   });

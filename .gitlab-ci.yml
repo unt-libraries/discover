@@ -76,6 +76,7 @@ test:
     - echo "RAILS_PORT=$RAILS_PORT_FOR_TEST" >> .env
     - echo "APP_IMAGE_NAME=$TEST_IMAGE_TAG" >> .env
     - echo "RAILS_SERVE_STATIC_FILES=true" >> .env
+    - echo "NODE_ENV=test" >> .env
 
     - echo "Building test-specific Docker image $TEST_IMAGE_TAG..."
     - docker build \
@@ -90,8 +91,8 @@ test:
     - echo "Running RSpec tests..."
     - docker compose -f compose.deploy.yaml run --rm web bundle exec rspec --format documentation
 
-    - echo "Running Jest tests..."
-    - docker compose -f compose.deploy.yaml run --rm web yarn jest
+    - echo "Running Vitest tests..."
+    - docker compose -f compose.deploy.yaml run --rm web vitest run
 
     - echo "Cleaning up test environment..."
     - docker compose -f compose.deploy.yaml down --remove-orphans

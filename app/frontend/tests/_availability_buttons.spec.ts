@@ -1,22 +1,18 @@
-import { enableFetchMocks } from 'jest-fetch-mock';
 import { serviceDeskData } from './__mocks__/service_desks';
 import { statusDescData } from './__mocks__/availability_statuses';
 import { locationData } from './__mocks__/availability_locations';
 
-enableFetchMocks();
-jest.mock('../../app/frontend/src/javascripts/data/service_desks', () => ({
+vi.mock('../src/javascripts/data/service_desks', () => ({
   serviceDeskData,
 }));
-jest.mock('../../app/frontend/src/javascripts/data/availability_statuses', () => ({
+vi.mock('../src/javascripts/data/availability_statuses', () => ({
   statusDescData,
 }));
-jest.mock('../../app/frontend/src/javascripts/data/availability_locations', () => ({
+vi.mock('../src/javascripts/data/availability_locations', () => ({
   locationData,
 }));
 
-import { checkAvailability } from '../../app/frontend/src/javascripts/_availability_buttons';
-
-import mocked = jest.mocked;
+import { checkAvailability } from '../src/javascripts/_availability_buttons';
 
 describe('checkAvailability', () => {
   it('should remove duplicate buttons', async () => {
@@ -41,9 +37,11 @@ describe('checkAvailability', () => {
 
     const item1 = document.querySelector('[data-item-id="1"]');
     if (!item1) {
-      throw new Error('Item 1 not found');
+      throw new Error('Test setup failed: Item 1 not found in the DOM.');
     }
+
     const itemButtons = item1.querySelectorAll('.result__field');
+
     expect(itemButtons.length).toEqual(1);
   });
 });

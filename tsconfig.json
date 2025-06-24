@@ -12,12 +12,17 @@
     "skipLibCheck": true,
     "typeRoots": [
       "./app/frontend/src/javascripts/@typings",
-      "node_modules/@types"
+      "./node_modules/@types",
+      "./node_modules/"
     ],
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ]
   },
   "include": [
     "app/frontend//**/*",
-    "spec/javascripts/**/*"
+    "spec/javascripts/**/*",
   ],
   "exclude": [
     "node_modules",
