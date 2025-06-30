@@ -1,9 +1,9 @@
 en:
   announcement:
-    - active: true
-      dismissible: false
+    - active: false
+      dismissible: true
       class: ''
-      content: "Library websites will be unavailable due to maintenance beginning June 27th at 11:00PM and ending June 28th at 1:00AM CDT."
+      content: "The Eagle Commons Library will be known as <b>Sycamore Library</b> effective August 1st. You may encounter both names for the same location in Discover while we complete this transition."
     - active: false
       dismissible: false
       class: ''
