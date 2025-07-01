@@ -12,6 +12,7 @@ class SearchBuilder < Blacklight::SearchBuilder
     :advanced_query_page,
     :only_home_facets,
     :modify_numbers_field_query,
+    :limit_facet_fields_to_current_facet,
   ]
 
   # Fielded searches require defType=lucene, so we set it here and change it later if necessary
@@ -52,6 +53,31 @@ class SearchBuilder < Blacklight::SearchBuilder
     if matches.present? && matches[:query_type].present?
       solr_parameters[:q] = %Q(#{matches[:query_type]}"#{matches[:query].gsub!(/^["'‘’“”]*(.*?)["'‘’“”]*$/, '\1')}")
     end
+  end
+
+  # When on a facet "more" page, remove all other facet fields from the request
+  def limit_facet_fields_to_current_facet(solr_parameters)
+    return unless blacklight_params[:action] == 'facet'
+
+    current_facet_field = blacklight_params[:id]
+    return if current_facet_field.blank?
+
+    # Remove parameters for other facets - fixed implementation
+    solr_parameters.keys.each do |key|
+      if key.start_with?('f.') && !key.start_with?("f.#{current_facet_field}.")
+        solr_parameters.delete(key)
+      end
+    end
+
+    # Remove general facet parameters that are not needed
+    solr_parameters.delete('facet.field')
+    solr_parameters.delete('facet.query')
+    solr_parameters.delete('facet.pivot')
+    solr_parameters.delete('stats')
+    solr_parameters.delete('stats.field')
+
+    # Set the facet.field to only the current facet
+    solr_parameters['facet.field'] = [current_facet_field]
   end
 
   ##
