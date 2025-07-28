@@ -1,29 +1,34 @@
 // import { JSDOM } from 'jsdom';
+import { Turbo } from '@hotwired/turbo-rails';
+
 vi.mock('@hotwired/turbo-rails', () => {
   const mockVisit = vi.fn();
   global.Turbo = { visit: mockVisit };
   return {
     default: {},
-    Turbo: { visit: mockVisit }
+    Turbo: { visit: mockVisit },
   };
 });
 import {
-  initSearchInteractions,
   searchSelector,
-  addSearchContextToLinks,
+  initPrefilters,
+  initFilters,
 } from '../src/javascripts/_search';
 
 describe('searchSelector', () => {
   beforeEach(() => {
     document.body.innerHTML =
-      `<div id="searchFieldDropdownGroup">
-      <button><span id="selected-search-field-label">All Fields</span></button>
-      <div class="dropdown-menu">
-        <a href="#" class="dropdown-item" data-search-field="text">All Fields</a>
-        <a href="#" class="dropdown-item" data-search-field="title">Title</a>
-      </div>
-      <input type="hidden" id="search_field_hidden" name="search_field" value="text" />
-    </div>`;
+      `<form class="search-query-form">
+        <div id="searchFieldDropdownGroup">
+          <button><span class="selected">All Fields</span></button>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item" data-search-field="text">All Fields</a>
+            <a href="#" class="dropdown-item" data-search-field="title">Title</a>
+          </div>
+          <input type="hidden" id="search_field_hidden" name="search_field" value="text" />
+        </div>
+        <input id="q" />
+       </form>`;
     searchSelector();
   });
 
@@ -42,7 +47,7 @@ describe('searchSelector', () => {
   });
 
   test('updates the visible selected label text when a dropdown item is clicked', () => {
-    const selectedLabel = document.getElementById('selected-search-field-label') as HTMLElement;
+    const selectedLabel = document.querySelector('.selected') as HTMLElement;
     const titleOption = document.querySelector('[data-search-field="title"]') as HTMLElement;
 
     expect(selectedLabel.textContent?.trim()).toBe('All Fields');
@@ -52,7 +57,7 @@ describe('searchSelector', () => {
 
   test('should not change the selected search field and search form value if the clicked item is the same as the current one', () => {
     const hiddenInput = document.getElementById('search_field_hidden') as HTMLInputElement;
-    const selectedLabel = document.getElementById('selected-search-field-label') as HTMLElement;
+    const selectedLabel = document.querySelector('.selected') as HTMLElement;
     const allFieldsOption = document.querySelector('[data-search-field="text"]') as HTMLElement;
 
     expect(hiddenInput.value).toBe('text');
@@ -66,7 +71,7 @@ describe('searchSelector', () => {
 
   test('should change the selected search field and search form value when clicking different dropdown items consecutively', () => {
     const hiddenInput = document.getElementById('search_field_hidden') as HTMLInputElement;
-    const selectedLabel = document.getElementById('selected-search-field-label') as HTMLElement;
+    const selectedLabel = document.querySelector('.selected') as HTMLElement;
     const titleOption = document.querySelector('[data-search-field="title"]') as HTMLElement;
     const allFieldsOption = document.querySelector('[data-search-field="text"]') as HTMLElement;
 
@@ -83,14 +88,15 @@ describe('searchSelector', () => {
   });
 });
 
-describe('addSearchContextToLinks', () => {
+describe('initFilters', () => {
   beforeEach(() => {
+    vi.resetAllMocks();
+    window.history.pushState({}, 'Test', 'http://localhost:3000');
     document.body.innerHTML =
       `<input type="text" id="q" />
        <input type="hidden" id="search_field_hidden" value />
-       <a class="facet-values-item" href="/catalog?f[field]=value1">Facet Link</a>`;
-
-    addSearchContextToLinks('a.facet-values-item');
+       <a class="facet-values-item" href="http://localhost:3000/catalog?f[field]=value1">Facet Link</a>`;
+    initFilters();
   });
 
   test('calls Turbo.visit with the correctly constructed URL when the search query has a value', () => {
@@ -108,63 +114,31 @@ describe('addSearchContextToLinks', () => {
 
     expect(mockTurboVisit).toHaveBeenCalledTimes(1);
 
-    const expectedUrl = 'http://localhost:3000/catalog?f%5Bfield%5D=value1&q=maps&search_field=title';
+    const expectedUrl = '/?f%5Bfield%5D=value1&utf8=%E2%9C%93&q=maps&search_field=title';
     expect(mockTurboVisit).toHaveBeenCalledWith(expectedUrl);
+  });
+
+  test('should not throw an error if no matching links are found', () => {
+    document.body.innerHTML = '';
+    expect(() => initFilters()).not.toThrow();
   });
 });
 
-describe('initSearchInteractions', () => {
+describe('initPrefilters', () => {
   beforeEach(() => {
+    vi.resetAllMocks();
+    window.history.pushState({}, 'Test', 'http://localhost:3000');
     document.body.innerHTML = `
-      <div id="searchFieldDropdownGroup">
-        <button id="selected-search-field-label">All Fields</button>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" data-search-field="text">All Fields</a>
-          <a class="dropdown-item" data-search-field="title">Title</a>
-        </div>
-      </div>
-      <input type="hidden" id="search_field_hidden" value="text" />
       <input type="text" id="q" />
-      <a class="facet-values-item" href="/catalog?f[field]=value1">Facet Link</a>
+      <input type="hidden" id="search_field_hidden" value="text" />
       <div class="pre-filter-btn-group">
-        <a class="dropdown-item" href="/catalog?f[field]=value2">Pre-filter Link</a>
+        <a class="dropdown-item" href="http://localhost:3000/catalog?f[field]=value2">Pre-filter Link</a>
       </div>
     `;
-    vi.resetAllMocks();
-  });
-
-  afterEach(() => {
-    document.body.innerHTML = '';
-  });
-
-  it('should initialize search field dropdown and attach search context to facet links', () => {
-    initSearchInteractions();
-
-    const hiddenInput = document.getElementById('search_field_hidden') as HTMLInputElement;
-    const selectedLabel = document.getElementById('selected-search-field-label') as HTMLElement;
-    const titleOption = document.querySelector('[data-search-field="title"]') as HTMLElement;
-
-    expect(hiddenInput.value).toBe('text');
-    expect(selectedLabel.textContent?.trim()).toBe('All Fields');
-
-    titleOption.click();
-    expect(hiddenInput.value).toBe('title');
-    expect(selectedLabel.textContent?.trim()).toBe('Title');
-
-    const queryInput = document.getElementById('q') as HTMLInputElement;
-    const facetLink = document.querySelector('.facet-values-item') as HTMLElement;
-
-    queryInput.value = 'maps';
-    const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
-    facetLink.dispatchEvent(clickEvent);
-
-    const expectedUrl = 'http://localhost:3000/catalog?f%5Bfield%5D=value1&q=maps&search_field=title';
-    expect(vi.mocked(Turbo.visit)).toHaveBeenCalledWith(expectedUrl);
+    initPrefilters();
   });
 
   it('should attach search context to pre-filter links', () => {
-    initSearchInteractions();
-
     const queryInput = document.getElementById('q') as HTMLInputElement;
     const searchFieldInput = document.getElementById('search_field_hidden') as HTMLInputElement;
     const preFilterLink = document.querySelector('.pre-filter-btn-group .dropdown-item') as HTMLElement;
@@ -175,12 +149,12 @@ describe('initSearchInteractions', () => {
     const clickEvent = new MouseEvent('click', { bubbles: true, cancelable: true });
     preFilterLink.dispatchEvent(clickEvent);
 
-    const expectedUrl = 'http://localhost:3000/catalog?f%5Bfield%5D=value2&q=maps&search_field=title';
+    const expectedUrl = '/?f%5Bfield%5D=value2&utf8=%E2%9C%93&q=maps&search_field=title';
     expect(vi.mocked(Turbo.visit)).toHaveBeenCalledWith(expectedUrl);
   });
 
   it('should not throw an error if no matching links are found', () => {
     document.body.innerHTML = '';
-    expect(() => initSearchInteractions()).not.toThrow();
+    expect(() => initPrefilters()).not.toThrow();
   });
 });

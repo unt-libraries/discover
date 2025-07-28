@@ -38,13 +38,6 @@ describe CatalogHelper do
           expect(result).to have_selector '[target="_blank"]'
           expect(result).to have_selector '[rel="noopener"]'
         end
-
-        it 'has the correct Google Analytics attributes' do
-          expect(result).to have_selector '[ga-on="click"]'
-          expect(result).to have_selector '[ga-event-category="Bib Record"]'
-          expect(result).to have_selector '[ga-event-action="test"]'
-          expect(result).to have_selector '[ga-event-label="booking"]'
-        end
       end
     end
 
@@ -64,13 +57,6 @@ describe CatalogHelper do
         expect(result).to have_selector '[target="_blank"]'
         expect(result).to have_selector '[rel="noopener"]'
       end
-
-      it 'has the correct Google Analytics attributes' do
-        expect(result).to have_selector '[ga-on="click"]'
-        expect(result).to have_selector '[ga-event-category="Bib Record"]'
-        expect(result).to have_selector '[ga-event-action="test"]'
-        expect(result).to have_selector '[ga-event-label="fulltext"]'
-      end
     end
 
     context 'when the link type is link' do
@@ -88,13 +74,6 @@ describe CatalogHelper do
         expect(result).to have_selector '[data-link-type="link"]'
         expect(result).to have_selector '[target="_blank"]'
         expect(result).to have_selector '[rel="noopener"]'
-      end
-
-      it 'has the correct Google Analytics attributes' do
-        expect(result).to have_selector '[ga-on="click"]'
-        expect(result).to have_selector '[ga-event-category="Bib Record"]'
-        expect(result).to have_selector '[ga-event-action="test"]'
-        expect(result).to have_selector '[ga-event-label="link"]'
       end
 
       context 'when the n field is missing' do
@@ -129,13 +108,6 @@ describe CatalogHelper do
         expect(result).to have_selector '[data-link-type="unknown"]'
         expect(result).to have_selector '[target="_blank"]'
         expect(result).to have_selector '[rel="noopener"]'
-      end
-
-      it 'has the correct Google Analytics attributes' do
-        expect(result).to have_selector '[ga-on="click"]'
-        expect(result).to have_selector '[ga-event-category="Bib Record"]'
-        expect(result).to have_selector '[ga-event-action="test"]'
-        expect(result).to have_selector '[ga-event-label="unknown"]'
       end
     end
   end

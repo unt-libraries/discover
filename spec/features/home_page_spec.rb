@@ -16,7 +16,7 @@ describe 'Home page' do
       within('form.search-query-form') do
         expect(page).to have_field('q')
         expect(page).to have_field('search_field', :type => :hidden)
-        expect(page).to have_button('search-fields')
+        expect(page).to have_button('search-fields-toggle')
         expect(page).to have_button('search')
       end
     end
