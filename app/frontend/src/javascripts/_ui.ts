@@ -104,6 +104,7 @@ function docIDArray(): string[] {
 function replaceBookCovers() {
   const bibArray: string[] = docIDArray();
   const bibkeyQueryString = bibArray.join(',');
+
   if (bibkeyQueryString.length === 0) return;
   const booksCallback = 'replaceThumbs';
 
@@ -111,7 +112,7 @@ function replaceBookCovers() {
   scriptElement.id = 'jsonScript';
   scriptElement.src = `https://books.google.com/books?bibkeys=${bibkeyQueryString}&jscmd=viewapi&callback=${booksCallback}`;
   scriptElement.type = 'text/javascript';
-  document.head.appendChild(scriptElement);
+  document.body.appendChild(scriptElement);
 }
 
 /**

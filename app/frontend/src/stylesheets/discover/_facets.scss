@@ -189,19 +189,14 @@
   font-size: 90%;
   font-weight: 400;
 
+  &:has(+ .more_facets) {
+    padding-bottom: 0;
+  }
+
   .facet-count {
     @extend .text-secondary-emphasis;
     width: auto;
     font-size: 80%;
-  }
-
-  .facet-values-item,
-  .more_facets {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 0;
-    padding: 0.5rem 1rem;
   }
 
   .remove {
@@ -239,8 +234,34 @@
   }
 }
 
+.facet-values-item,
+.more_facets {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 0;
+  padding: 0.5rem 1rem;
+}
+
+.more_facets {
+  font-size: 90%;
+  margin-bottom: 0.5rem;
+
+  &:hover,
+  &:focus {
+    z-index: 1;
+    color: $list-group-action-hover-color;
+    text-decoration: none;
+    background-color: $list-group-hover-bg;
+  }
+}
+
 // List of facets in modal, accessed by the "More" link
 .facet-extended-list {
+  .facet-values-item {
+    border-bottom: $list-group-border-width solid $list-group-border-color;
+  }
+
   .facet-label {
     color: $dark-teal;
   }

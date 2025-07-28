@@ -74,7 +74,6 @@ function updateStatusElement(itemEl: HTMLElement, item: ApiEntry | null = null):
       const dueDate = dayjs(itemStatus.duedate).format('MMM DD, YYYY');
       availabilityBtn.innerText = 'Checked Out';
       availabilityText.innerText = `Due ${dueDate}`;
-      availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
       availabilityText.classList.remove('d-none');
       availabilityBtn.classList.remove('available');
       availabilityBtn.classList.add('checked-out');
@@ -84,13 +83,11 @@ function updateStatusElement(itemEl: HTMLElement, item: ApiEntry | null = null):
       availabilityBtn.innerText = statusDisplay;
       availabilityBtn.dataset.bsToggle = 'tooltip';
       availabilityBtn.dataset.bsTitle = statusDesc;
-      availabilityBtn.setAttribute('ga-event-label', availabilityBtn.innerText);
     }
   } else {
     // eslint-disable-next-line no-lonely-if
     if (availabilityBtn) {
       availabilityBtn.innerText = itemStatus.display;
-      availabilityBtn.setAttribute('ga-event-label', itemStatus.display);
     }
   }
 
@@ -102,7 +99,6 @@ function updateStatusElement(itemEl: HTMLElement, item: ApiEntry | null = null):
 
     if (locationText && !isOnlineItem) {
       availabilityBtn?.append(` - ${locationText}`);
-      availabilityBtn?.setAttribute('ga-event-label', availabilityBtn.innerText);
 
       // Check for location tooltip that would override status tooltip
       if ((locationData.statusText || locationData.modalText) && availabilityBtn) {
@@ -278,6 +274,11 @@ function revealButtonContainers(): void {
  * @returns {Promise<void>}
  */
 async function checkAvailability(): Promise<void> {
+  const documentsEl = document.getElementById('documents');
+  if (documentsEl === null) return;
+  const availabilityUpdated = documentsEl?.dataset.availabilityUpdated;
+  if (availabilityUpdated && availabilityUpdated === 'true') return;
+
   const chunkedItemBibs: string[][] = getItemsIDs();
   let allItemBibs: string[] = chunkedItemBibs.flat();
 
@@ -312,6 +313,7 @@ async function checkAvailability(): Promise<void> {
       checkForNoButtons();
       combineDuplicates();
       revealButtonContainers();
+      documentsEl!.dataset.availabilityUpdated = 'true';
     });
 }
 

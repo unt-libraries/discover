@@ -21,8 +21,7 @@
 // Advanced Search Form
 .advanced-search-form {
   .query-criteria,
-  .limit-criteria,
-  .sort-submit-buttons {
+  .limit-criteria {
     margin-bottom: 1.5em;
   }
 
@@ -45,7 +44,7 @@
 
   // Facets
   .advanced-facet-limits {
-    .panel-group {
+    .advanced-facet-cards {
       padding-left: 0.5rem;
       padding-right: 0;
 
@@ -90,8 +89,15 @@
     }
   }
 
-  .range_limit input::placeholder {
-    @extend .text-black-50;
+  .range_limit {
+    input::placeholder {
+      @extend .text-black-50;
+    }
+
+    input.range_begin, input.range_end {
+      display: inline-block;
+      width: 5em;
+    }
   }
 
   .blacklight-resource_type_facet {

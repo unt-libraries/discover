@@ -3,10 +3,10 @@
 function setDocHistory(): void {
   const bodyElement: HTMLElement | null = document.querySelector('body.blacklight-catalog-show');
   if (!bodyElement) return;
-
-  const docElement: HTMLElement | null = document.querySelector('#document');
+  const docElement: HTMLElement | null = document.getElementById('document');
   if (docElement) {
-    const { docId } = docElement.dataset as { docId: string };
+    const docId = docElement.dataset.documentId;
+    if (!docId) return;
     sessionStorage.setItem(`doc-history-${docId}`, docId);
   }
 }
@@ -15,14 +15,14 @@ function getDocHistory(): void {
   const indexBodyElement = document.querySelector('body.blacklight-catalog-index');
   if (!indexBodyElement) return;
 
-  const documentsEl = document.querySelector('#documents');
+  const documentsEl = document.getElementById('documents');
   if (!documentsEl) return;
 
   const documents: NodeListOf<HTMLElement> = documentsEl.querySelectorAll('.document');
   documents.forEach((thisDoc) => {
     if (thisDoc.classList.contains('seen')) return;
 
-    const { docId } = thisDoc.dataset as { docId: string };
+    const docId = thisDoc.dataset.documentId;
     const seen = document.createElement('i');
     seen.className = 'fas fa-check';
     seen.dataset.bsTitle = 'Previously viewed this session.';

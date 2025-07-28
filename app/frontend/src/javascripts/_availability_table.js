@@ -230,8 +230,8 @@ function addNoItemsMessage() {
 
 function checkMoreLink() {
   const availTable = document.querySelector('#availabilityTable');
-  const moreItemsTable = availTable.querySelector('tbody#moreItems');
-  if (moreItemsTable === null) return;
+  const moreItemsTable = availTable?.querySelector('tbody#moreItems');
+  if (!moreItemsTable) return;
   const moreLessButton = availTable.querySelector('tbody#moreLessButton');
 
   if (moreItemsTable.childElementCount === 0 && !moreLessButton.classList.contains('d-none')) {
@@ -397,9 +397,12 @@ function updateNoApiItems() {
  * @returns {Promise<void>}
  */
 async function checkAvailability() {
+  const availabilityTable = document.getElementById('availabilityTable');
+  const updated = availabilityTable?.dataset.updated;
+  if (updated) return;
+
   const chunkedItemBibs = getItemsIDs();
   let allItemBibs = chunkedItemBibs.flat();
-
   updateNoApiItems();
 
   // Create a map of chunked bib numbers that will return promises
@@ -429,6 +432,7 @@ async function checkAvailability() {
     }).finally(() => {
       checkMoreLink();
       checkEmptyTable();
+      availabilityTable.dataset.updated = 'true';
     });
 }
 

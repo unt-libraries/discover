@@ -15,41 +15,41 @@
         }
     </style>
 </head>
-    
+
 <body>
 <div class='wrapper'>
     <div class='pad1'>
         <h1><a href="index.html">All files</a> _availability_table.js</h1>
         <div class='clearfix'>
-            
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/365</span>
+                <span class='fraction'>0/369</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/1</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/1</span>
             </div>
-        
-            
+
+
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/365</span>
+                <span class='fraction'>0/369</span>
             </div>
-        
-            
+
+
         </div>
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
@@ -501,7 +501,11 @@
 <a name='L436'></a><a href='#L436'>436</a>
 <a name='L437'></a><a href='#L437'>437</a>
 <a name='L438'></a><a href='#L438'>438</a>
-<a name='L439'></a><a href='#L439'>439</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L439'></a><a href='#L439'>439</a>
+<a name='L440'></a><a href='#L440'>440</a>
+<a name='L441'></a><a href='#L441'>441</a>
+<a name='L442'></a><a href='#L442'>442</a>
+<a name='L443'></a><a href='#L443'>443</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -902,8 +906,11 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -927,6 +934,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1171,8 +1179,8 @@
 &nbsp;
 <span class="cstat-no" title="statement not covered" >function checkMoreLink() {</span>
 <span class="cstat-no" title="statement not covered" >  const availTable = document.querySelector('#availabilityTable');</span>
-<span class="cstat-no" title="statement not covered" >  const moreItemsTable = availTable.querySelector('tbody#moreItems');</span>
-<span class="cstat-no" title="statement not covered" >  if (moreItemsTable === null) return;</span>
+<span class="cstat-no" title="statement not covered" >  const moreItemsTable = availTable?.querySelector('tbody#moreItems');</span>
+<span class="cstat-no" title="statement not covered" >  if (!moreItemsTable) return;</span>
 <span class="cstat-no" title="statement not covered" >  const moreLessButton = availTable.querySelector('tbody#moreLessButton');</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (moreItemsTable.childElementCount === 0 &amp;&amp; !moreLessButton.classList.contains('d-none')) {</span>
@@ -1338,9 +1346,12 @@
 <span class="cstat-no" title="statement not covered" > * @returns {Promise&lt;void&gt;}</span>
 <span class="cstat-no" title="statement not covered" > */</span>
 <span class="cstat-no" title="statement not covered" >async function checkAvailability() {</span>
+<span class="cstat-no" title="statement not covered" >  const availabilityTable = document.getElementById('availabilityTable');</span>
+<span class="cstat-no" title="statement not covered" >  const updated = availabilityTable?.dataset.updated;</span>
+<span class="cstat-no" title="statement not covered" >  if (updated) return;</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  const chunkedItemBibs = getItemsIDs();</span>
 <span class="cstat-no" title="statement not covered" >  let allItemBibs = chunkedItemBibs.flat();</span>
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  updateNoApiItems();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  // Create a map of chunked bib numbers that will return promises</span>
@@ -1370,6 +1381,7 @@
 <span class="cstat-no" title="statement not covered" >    }).finally(() =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      checkMoreLink();</span>
 <span class="cstat-no" title="statement not covered" >      checkEmptyTable();</span>
+<span class="cstat-no" title="statement not covered" >      availabilityTable.dataset.updated = 'true';</span>
 <span class="cstat-no" title="statement not covered" >    });</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
@@ -1384,7 +1396,7 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-06-24T21:55:35.778Z
+                at 2025-07-28T16:40:43.616Z
             </div>
         <script src="prettify.js"></script>
         <script>
@@ -1396,4 +1408,3 @@ export {
         <script src="block-navigation.js"></script>
     </body>
 </html>
-    
