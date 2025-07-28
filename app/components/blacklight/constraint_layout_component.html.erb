@@ -1,0 +1,14 @@
+<%= link_to(@remove_path, class: "btn btn-sm applied-filter constraint #{ @classes }", role: 'button') do %>
+  <span class="constraint-value">
+    <% if @label.present? %>
+      <span class="filter-name"><%= @label %></span>
+    <% end %>
+    <% if @value.present? %>
+      <%= content_tag :span, @value, class: 'filter-value', title: strip_tags(@value) %>
+    <% end %>
+  </span>
+  <% if @remove_path.present? %>
+    <%= render Blacklight::Icons::RemoveComponent.new %>
+    <span class="sr-only visually-hidden"><%= remove_aria_label %></span>
+  <% end %>
+<% end %>

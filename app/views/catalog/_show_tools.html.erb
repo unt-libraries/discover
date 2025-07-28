@@ -11,11 +11,16 @@
 <%# if show_doc_actions? %>
   <div class="card show-tools">
     <ul class="card-body show-tools-values list-group list-group-flush list-group-hover list-group-striped">
-      <%= render_show_doc_actions @document do |config, inner| %>
-        <li class="list-group-item show-tools-item <%= config.key %>" data-tool-item="<%= config.key %>">
-          <%= inner %>
-        </li>
-      <% end %>
+      <%= render(Blacklight::Document::ActionsComponent.new(
+        document: @document, tag: 'ul', classes: 'list-group list-group-flush', wrapping_tag: 'li',
+        wrapping_classes: 'list-group-item', actions: document_actions(@document),
+        url_opts: Blacklight::Parameters.sanitize(params.to_unsafe_h))) %>
+      <%# TODO: translate render_show_doc_actions params to component above %>
+      <%#= render_show_doc_actions @document do |config, inner| %>
+<!--        <li class="list-group-item show-tools-item <%#= config.key %>" data-tool-item="<%#= config.key %>">-->
+          <%#= inner %>
+<!--        </li>-->
+      <%# end %>
 
       <% unless @document[:id].nil? -%>
         <li class="list-group-item show-tools-item refworks-tool" data-tool-item="refworks">

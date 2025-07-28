@@ -1,0 +1,19 @@
+<div class="row advanced-search-field mb-4">
+  <%= content_tag :span, "#{@facet_field.label}", :class => "col-3 col-form-label col-form-label" %>
+  <div class="col-md-8 range_limit">
+    <%= render Discover::RangeInputComponent.new(
+      input_name: begin_input_name,
+      input_value: begin_value_default,
+      label_text: t("blacklight.range_limit.range_begin_short"),
+      min_value: range_config[:min_value],
+      max_value: range_config[:max_value],
+      css_class: "range_begin") %> –
+    <%= render Discover::RangeInputComponent.new(
+      input_name: end_input_name,
+      input_value: end_value_default,
+      label_text: t("blacklight.range_limit.range_end_short"),
+      min_value: range_config[:min_value],
+      max_value: range_config[:max_value],
+      css_class: "range_end") %>
+  </div>
+</div>

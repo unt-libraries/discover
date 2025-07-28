@@ -1,0 +1,28 @@
+<div class="card facet-limit blacklight-<%= @facet_field.key.parameterize %> <%= 'facet-limit-active' if @facet_field.active? %>">
+  <h3 class="card-header <%= "collapsed" if @facet_field.collapsed? %> collapse-toggle facet-field-heading"
+      id="<%= header_html_id %>"
+      data-toggle="collapse"
+      data-bs-toggle="collapse"
+      data-target="#<%= html_id %>"
+      data-bs-target="#<%= html_id %>"
+      aria-expanded="<%= @facet_field.collapsed? ? 'false' : 'true' %>"
+      aria-controls="<%= html_id %>">
+    <%= link_to label, "##{ html_id }",
+                "onclick": "return false",
+                role: "button",
+                tabindex: "0" %>
+    <i class="expand-collapse-icon float-end fal fa-chevron-down"></i>
+  </h3>
+  <div id="<%= html_id %>" role="region" aria-labelledby="<%= header_html_id %>" class="facet-content collapse <%= "show" unless @facet_field.collapsed? %>">
+    <div class="card-body p-0">
+      <%= body %>
+
+      <% if @facet_field.modal_path %>
+        <%= link_to t("more_#{@facet_field.key}_html", scope: 'blacklight.search.facets', default: :more_html, field_name: @facet_field.label),
+                    @facet_field.modal_path,
+                    class: "more_facets list-group-item list-group-item-action",
+                    data: { blacklight_modal: 'trigger', turbo: false } %>
+      <% end %>
+    </div>
+  </div>
+</div>

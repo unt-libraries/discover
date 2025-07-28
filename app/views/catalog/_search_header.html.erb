@@ -1,17 +1,1 @@
-<div class="row mb-4">
-  <div class="col">
-    <%= render 'search_results_num_header' %>
-  </div>
-</div>
-
-<div class="row mb-2">
-  <div class="col">
-    <%= render 'constraints' %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <%= render 'sort_and_per_page' %>
-  </div>
-</div>
+<%= render blacklight_config.view_config(document_index_view_type).search_header_component.new %>

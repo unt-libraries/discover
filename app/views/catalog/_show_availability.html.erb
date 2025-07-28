@@ -1,6 +1,6 @@
 <% document ||= @document
    id = document[:id]
-   doc_presenter = show_presenter(document)
+   doc_presenter = document_presenter(document)
    item_limit = 1000 # Prevent records with too many items slowing the page down
    items = json_str_to_array(document[:items_json])
    more_items = document[:more_items_json].nil? ? nil : json_str_to_array(document[:more_items_json]).first(item_limit)

@@ -1,18 +1,24 @@
-<div class="modal-header border-bottom-0">
-  <h1 class="modal-title"><%= facet_field_label(@facet.key) %></h1>
-  <button type="button" class="blacklight-modal-close btn-close" data-bs-dismiss="modal" aria-label="<%= t('blacklight.modal.close') %>"></button>
-</div>
+<%= render Blacklight::System::ModalComponent.new do |component| %>
+  <% component.with_title { facet_field_label(@facet.key) } %>
 
-<div class="modal-body">
-  <%= render partial: 'facet_index_navigation' if @facet.index_range && @display_facet.index? %>
-
-  <div class="facet-extended-list list-group list-group-flush">
-    <%= render_facet_limit(@display_facet, layout: false, class: 'list-group-item-action') %>
+  <div class="facet-filters p-3">
+    <%= render Blacklight::Search::FacetSuggestInput.new(facet: @facet, presenter: @presenter) %>
+    <%= render partial: 'facet_index_navigation' if @facet.index_range && @display_facet.index? %>
   </div>
-</div>
 
-<div class="modal-footer border-top-0">
-  <div class="facet-pagination w-100 d-flex justify-content-between">
+  <div class="facet-pagination top d-flex flex-wrap w-100 justify-content-between border-bottom pb-3 mb-3">
     <%= render :partial=>'facet_pagination' %>
   </div>
-</div>
+
+  <div class="facet-extended-list">
+    <%= render Blacklight::FacetComponent.new(display_facet: @display_facet,
+                                              blacklight_config: blacklight_config,
+                                              layout: false) %>
+  </div>
+
+  <% component.with_footer do %>
+    <div class="facet-pagination bottom d-flex flex-wrap w-100 justify-content-between">
+      <%= render :partial=>'facet_pagination' %>
+    </div>
+  <% end %>
+<% end %>

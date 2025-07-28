@@ -1,0 +1,11 @@
+<%= render(@layout.new(facet_field: @facet_field)) do |component| %>
+  <% component.with_label do %>
+    <%= @facet_field.label %>
+  <% end %>
+  <% component.with_body do %>
+    <%= render(Blacklight::FacetFieldInclusiveConstraintComponent.new(facet_field: @facet_field)) %>
+    <div class="facet-values list-group list-group-flush">
+      <%= render facet_items(wrapping_element: nil) %>
+    </div>
+  <% end %>
+<% end %>

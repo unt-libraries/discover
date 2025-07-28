@@ -1,0 +1,33 @@
+<%= content_tag @component,
+                id: @id,
+                data: {
+                  'document-id': @document.id.to_s.parameterize,
+                  'document-counter': @counter,
+                }.merge(@document.identifier_data),
+                itemscope: true,
+                itemtype: @document.itemtype,
+                class: classes.flatten.join(' ') do %>
+  <%= header %>
+  <div class="document-main-section">
+    <div class="card ">
+      <div class="card-body">
+        <%= title %>
+        <%= render partial: 'show', locals: { presenter: @presenter } %>
+      </div>
+    </div>
+  </div>
+
+  <%= render partial: 'show_links_media', locals: { presenter: @presenter } %>
+
+  <%= render partial: 'show_availability', locals: { presenter: @presenter } %>
+
+  <%
+    # Select fields that have no specific display type AND should be rendered.
+    more_detail_fields = @presenter.fields_to_render.select do |_name, f_config|
+      f_config[:display].blank?
+    end
+  %>
+  <% if more_detail_fields.any? -%>
+    <%= render partial: 'show_field_card', locals: { presenter: @presenter, display_name: 'more_details', fields: more_detail_fields } %>
+  <% end %>
+<% end %>

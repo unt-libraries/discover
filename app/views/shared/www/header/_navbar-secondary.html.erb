@@ -26,29 +26,9 @@
         </a>
       </li>
 
-      <% if defined?(current_search_session) && current_search_session && controller_name != 'advanced' %>
-        <li class="<%= html_classes['breadcrumbs']['item'] %>">
-          <%= link_back_to_catalog label: 'Results',
-                                   class: html_classes['breadcrumbs']['link'] %>
-        </li>
-        <% if action_name == 'show' %>
-          <% if @search_context %>
-            <li class="<%= html_classes['breadcrumbs']['item'] %>">
-              <%= link_to_document @document, item_page_entry_info,
-                                   class: html_classes['breadcrumbs']['link'],
-                                   :counter => search_session['counter'] %>
-            </li>
-            <% if @search_context[:prev] || @search_context[:next] %>
-              <li class="<%= html_classes['breadcrumbs']['item'] %>">
-                <div class="page-links">
-                  <%= link_to_previous_document @search_context[:prev], class: html_classes['breadcrumbs']['link'] %>
-                  <span class="breadcrumbs-pages-divider">|</span>
-                  <%= link_to_next_document @search_context[:next], class: html_classes['breadcrumbs']['link'] %>
-                </div>
-              </li>
-            <% end %>
-          <% end %>
-        <% end %>
+      <%# TODO: Make sure this conditionally renders properly based on current search session %>
+      <% if defined?(search_session) && @document %>
+        <%= render Blacklight::SearchContext::ServerItemPaginationComponent.new(search_context: @search_context, search_session: search_session, current_document: @document) if search_session['document_id'] == @document.id %>
       <% else %>
         <% if action_name == 'show' %>
           <li class="<%= html_classes['breadcrumbs']['current_item'] %>">

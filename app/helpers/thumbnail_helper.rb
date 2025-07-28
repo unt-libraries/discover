@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ThumbnailHelper
-  def render_thumbnail(document, opts = { counter: nil }) # rubocop:disable Airbnb/OptArgParameters
+  def render_thumbnail(document, opts = {})
     thumbnail_url = document[:thumbnail_url]
     current_view = action_name
 

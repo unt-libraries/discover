@@ -1,9 +1,5 @@
 <%# render general fields without :display property %>
-<% document ||= @document
-   id = document[:id]
-   doc_presenter = document_presenter(document)
-   fields ||= doc_presenter.fields_to_render.select { |name, f| f[:display] == display_name.to_sym }
-%>
+<% fields ||= presenter.fields_to_render.select { |name, f| f[:display] == display_name.to_sym }%>
 
 <div class="card item-<%= display_name %> breathing-room">
   <div class="card-body">
@@ -12,7 +8,6 @@
       <% fields.each do |field_name, field, field_presenter| -%>
         <%= render partial: 'show_field',
                    locals: {
-                       document: @document,
                        display_name: display_name,
                        field_name: field_name,
                        field: field,

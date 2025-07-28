@@ -32,64 +32,14 @@ module ApplicationHelper
   # @param [Blacklight::Solr::Response] response
   # @return [String]
   def get_number_search_results(response)
-    number_with_delimiter(response['response']['numFound'])
-  end
+    solr_response = response.is_a?(Array) ? response.first : response
 
-
-  def bootstrap_select_tag(name, option_tags = nil, options = {}) # rubocop:disable Airbnb/OptArgParameters
-    option_tags ||= ""
-    html_name = (options[:multiple] == true && !name.to_s.ends_with?("[]")) ? "#{name}[]" : name
-
-    if options.include?(:include_blank)
-      include_blank = options.delete(:include_blank)
-      options_for_blank_options_tag = { value: "" }
-
-      if include_blank == true
-        include_blank = ""
-        options_for_blank_options_tag[:label] = " "
-      end
-
-      if include_blank
-        option_tags = content_tag("a".freeze, include_blank, options_for_blank_options_tag).
-          safe_concat(option_tags)
-      end
+    if solr_response&.dig('response', 'numFound')
+      number_with_delimiter(solr_response['response']['numFound'])
+    else
+      '0'
     end
 
-    if prompt = options.delete(:prompt) # rubocop:disable AssignmentInCondition
-      option_tags = content_tag("a".freeze, prompt, value: "").safe_concat(option_tags)
-    end
-
-    content_tag "div".freeze, option_tags, { "name" => html_name, "id" => sanitize_to_id(name) }.
-      update(options.stringify_keys)
-  end
-
-  def bootstrap_options_for_select(container, selected = nil) # rubocop:disable Airbnb/OptArgParameters
-    return container if String === container
-
-    selected, disabled = extract_selected_and_disabled(selected).map do |r|
-      Array(r).map(&:to_s)
-    end
-
-    container.map do |element|
-      html_attributes = option_html_attributes(element)
-      text, value = option_text_and_value(element).map(&:to_s)
-
-      html_attributes[:href] = "#"
-      html_attributes[:class] = "dropdown-item"
-      html_attributes['data-search-field'] = value
-      html_attributes['data-pretty'] = text
-      html_attributes[:selected] ||= option_value_selected?(value, selected)
-      html_attributes[:disabled] ||= disabled && option_value_selected?(value, disabled)
-
-      tag_builder.content_tag_string("a", text, html_attributes)
-    end.join("\n").html_safe
-  end
-
-  def dropdown_label_for_search_field(key)
-    field_config = blacklight_config.search_fields[key]
-    field_config ||= blacklight_config.search_fields['text']
-
-    field_config.display_label('search')
   end
 
   ##
@@ -219,7 +169,6 @@ module ApplicationHelper
   # @return [String] HTML links joined together
   def related_json_to_links(options = {})
     values = options[:value]
-    label = options[:config][:label]
 
     values.map do |item|
       content_tag(:div, class: 'result__value__row') do
@@ -235,10 +184,6 @@ module ApplicationHelper
           }.compact
           link_data = {
             "data-bs-toggle" => "tooltip",
-            'ga-on': 'click',
-            'ga-event-category': 'Bib Record',
-            'ga-event-action': label,
-            'ga-event-label': display,
           }
           if terms.count > 1
             search_string = terms.map { |key, val| "\"#{val}\"" }.join(" AND ")
@@ -273,16 +218,11 @@ module ApplicationHelper
     display = data['d']
     value = data['v']
     author_facet = author.present? ? "f[author_contributor_facet][]=#{CGI.escape(author)}&" : ''
-    ga_category = context == 'show' ? 'Bib Record' : 'List Item Link'
 
     link_to(display, "/?#{author_facet}f[#{facet}][]=#{CGI.escape(value)}",
             class: "",
             "data-bs-toggle" => "tooltip",
-            "data-bs-title": "Search: #{value.split('!', 2).last}",
-            'ga-on': 'click',
-            'ga-event-category': ga_category,
-            'ga-event-action': "#{facet}",
-            'ga-event-label': value)
+            "data-bs-title": "Search: #{value.split('!', 2).last}")
   end
 
   ##
@@ -325,7 +265,7 @@ module ApplicationHelper
   end
 
   ##
-  # Override function from Blacklight 7.3
+  # Override function from Blacklight 7.3 to add the responsibility_display field
   # Render the document "heading" (title) in a content tag
   # @overload render_document_heading(document, options)
   #   @param [SolrDocument] document
@@ -342,7 +282,7 @@ module ApplicationHelper
     responsibility_display = document[:responsibility_display]
 
     content_tag(:div, class: 'show-heading-title') do
-      concat(content_tag(tag, presenter(document).heading,
+      concat(content_tag(tag, document_presenter(document).heading,
                          { class: "show-heading-title__main",
                            itemprop: "name" }))
       if responsibility_display

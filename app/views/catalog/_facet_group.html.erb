@@ -1,6 +1,0 @@
-<% # main container for facets/limits menu -%>
-<% if has_facet_values? facet_field_names(groupname), @response %>
-  <div id="" class="<%= "facet-group facet-group-#{groupname}" unless groupname.nil? %>">
-    <%= render_facet_partials facet_field_names(groupname), response: @response %>
-  </div>
-<% end %>

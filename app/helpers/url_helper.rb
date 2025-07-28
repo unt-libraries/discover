@@ -3,29 +3,6 @@
 module UrlHelper
   # Override and extend Blacklight's URL Helper
   include Blacklight::UrlHelperBehavior
-  ##
-  # Link to the previous document in the current search context
-  def link_to_previous_document(previous_document, opts = {})
-    link_opts = session_tracking_params(previous_document, search_session['counter'].to_i - 1).
-      merge(class: "previous", rel: 'prev').
-      merge(opts)
-    link_to_unless previous_document.nil?,
-                   raw(t('blacklight.search.entry_pagination_info.previous')),
-                   url_for_document(previous_document), link_opts do
-      content_tag :span, raw(t('blacklight.search.entry_pagination_info.previous')), class: 'previous inactive'
-    end
-  end
-
-  ##
-  # Link to the next document in the current search context
-  def link_to_next_document(next_document, opts = {})
-    link_opts = session_tracking_params(next_document, search_session['counter'].to_i + 1).
-      merge(class: "next", rel: 'next').
-      merge(opts)
-    link_to_unless next_document.nil?, raw(t('blacklight.search.entry_pagination_info.next')), url_for_document(next_document), link_opts do
-      content_tag :span, raw(t('blacklight.search.entry_pagination_info.next')), class: 'next inactive'
-    end
-  end
 
   def construct_summon_search_url(document)
     record_title = String.new(document[:title_display].to_s)
@@ -49,12 +26,7 @@ module UrlHelper
     text = 'Find Related Articles'
     url = construct_summon_search_url(document)
 
-    link_to text, url, class: 'nav-link', id: 'relatedArticlesLink', target: '_blank', rel: 'noopener',
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Tools link click',
-                       'ga-event-label': 'Find Related Articles',
-                       'ga-event-value': '1'
+    link_to text, url, class: 'nav-link', id: 'relatedArticlesLink', target: '_blank', rel: 'noopener'
   end
 
   def construct_google_scholar_search_url(document)
@@ -67,12 +39,7 @@ module UrlHelper
     text = 'Search in Google Scholar'
     url = construct_google_scholar_search_url(document)
 
-    link_to text, url, class: 'nav-link', id: 'googleScholarLink', target: '_blank', rel: 'noopener',
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Tools link click',
-                       'ga-event-label': 'Search in Google Scholar',
-                       'ga-event-value': '1'
+    link_to text, url, class: 'nav-link', id: 'googleScholarLink', target: '_blank', rel: 'noopener'
   end
 
   def link_to_old_catalog(document)
@@ -81,12 +48,7 @@ module UrlHelper
     catalog_url = 'https://iii.library.unt.edu/record='
     url = "#{catalog_url}#{record_id}"
 
-    link_to text, url, class: 'nav-link', id: 'catalogLink', target: '_blank', rel: 'noopener nofollow',
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Tools link click',
-                       'ga-event-label': 'Old Catalog',
-                       'ga-event-value': '1'
+    link_to text, url, class: 'nav-link', id: 'catalogLink', target: '_blank', rel: 'noopener nofollow'
   end
 
   def link_to_request_refworks(document)
@@ -94,12 +56,7 @@ module UrlHelper
     content_tag(:span, document[:full_title], class: 'visually-hidden')
     text = "Add #{content_tag(:span,
                               document[:full_title], class: 'visually-hidden')} to Refworks".html_safe
-    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Tools link click',
-                       'ga-event-label': 'Refworks',
-                       'ga-event-value': '1'
+    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener'
   end
 
   def construct_illiad_url(document, item: nil)
@@ -147,12 +104,7 @@ module UrlHelper
       "through ILL".html_safe
     link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
                        'data-bs-toggle': 'tooltip',
-                       'data-bs-title': 'Request through Interlibrary Loan',
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Tools link click',
-                       'ga-event-label': 'Illiad',
-                       'ga-event-value': '1'
+                       'data-bs-title': 'Request through Interlibrary Loan'
   end
 
   def construct_catalog_request_url(document, item_index: nil)
@@ -274,24 +226,13 @@ module UrlHelper
       return 'Cannot request this item'
     end
 
-    link_to text.html_safe, url, class: el_class, target: "_blank", rel: 'noopener',
-                       data: data,
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Availability request click',
-                       'ga-event-label': text,
-                       'ga-event-value': '1'
+    link_to text.html_safe, url, class: el_class, target: "_blank", rel: 'noopener', data: data
   end
 
   def link_to_worldcat_citations(document)
     url = "https://worldcat.org/oclc/#{document[:oclc_numbers].first}?page=citation"
     text = 'Cite This'
-    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener',
-                       'ga-on': 'click',
-                       'ga-event-category': 'Bib Record',
-                       'ga-event-action': 'Tools link click',
-                       'ga-event-label': 'Cite',
-                       'ga-event-value': '1'
+    link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener'
   end
 
   def feedback_issue_email

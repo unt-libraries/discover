@@ -1,40 +1,16 @@
-<% @page_title = t('blacklight.search.show.title', :document_title => document_show_html_title, :application_name => application_name).html_safe
-    document ||= @document
-    doc_presenter = show_presenter(document) %>
+<% @page_title = t('blacklight.search.show.title', document_title: document_presenter(@document).html_title, application_name: application_name).html_safe %>
 <% content_for(:head) { render_link_rel_alternates } %>
 
 <%# Search context query for highlighting %>
 <%= content_tag :div, nil, id: 'searchContext', class: 'd-none', :data => {'search-context' => search_context_query} %>
 
-<div class="card ">
-  <div class="card-body">
-    <%= tag.div id: "document", class: "document #{render_document_class}",
-                data: {
-                    doc_id: @document.id.to_s.parameterize
-                }.merge(@document.identifier_data),
-                "itemscope": true,
-                "itemtype": @document.itemtype do -%>
-      <div id="doc_<%= @document.id.to_s.parameterize %>">
-        <%= render_document_partials @document, blacklight_config.view_config(:show).partials %>
-      </div>
-    <% end -%>
-  </div>
-</div>
-
-<%= render partial: 'show_links_media', locals: { document: @document } %>
-
-<%= render partial: 'show_availability', locals: { document: @document } %>
-
-<% if doc_presenter.fields_to_render.any? { |name, f| f[:display].blank? && should_render_show_field?(document, f) } -%>
-  <% fields = doc_presenter.fields_to_render.select { |name, f| f[:display].blank? } %>
-  <%= render partial: 'show_field_card', locals: { document: @document, display_name: 'more_details', fields: fields } %>
-<% end %>
-
-<% if @document.respond_to?(:export_as_openurl_ctx_kev) %>
-  <!--
-       // COinS, for Zotero among others.
-       // This document_partial_name(@document) business is not quite right,
-       // but has been there for a while.
-  -->
-  <span class="Z3988" title="<%= @document.export_as_openurl_ctx_kev(document_partial_name(@document)) %>"></span>
+<% document_component = blacklight_config.view_config(:show).document_component -%>
+<%= render (document_component).new(document_component.collection_parameter => document_presenter(@document), component: :div, show: true, partials: blacklight_config.view_config(:show).partials) do |component| %>
+  <% component.with_title(as: 'h1', classes: '', link_to_document: false, actions: false) %>
+  <% component.with_footer do %>
+    <% if @document.respond_to?(:export_as_openurl_ctx_kev) %>
+      <!-- COinS, for Zotero among others. -->
+      <span class="Z3988" title="<%= @document.export_as_openurl_ctx_kev(document_presenter(@document).display_type) %>"></span>
+    <% end %>
+  <% end %>
 <% end %>

@@ -13,16 +13,10 @@
 
   <div class="col-12">
     <h2 class="index_title document-title-heading">
-      <% if counter = document_counter_with_offset(document_counter) %>
       <span class="document-counter visually-hidden">
-        <%= t('blacklight.search.documents.counter', counter: counter) %>
+        <%= t('blacklight.search.documents.counter', counter: document_counter) %>
       </span>
-      <% end %>
-      <%= link_to_document document, counter: counter,
-                           'ga-on': 'click',
-                           'ga-event-category': 'List Item Link',
-                           'ga-event-action': 'Header title',
-                           'ga-event-label': document_presenter(document).heading %>
+      <%= link_to_document document, counter: document_counter %>
       <% unless document[:publication_year_display].nil? %>
         <span class="document-title-date">[<%= document[:publication_year_display] %>]</span>
       <% end %>

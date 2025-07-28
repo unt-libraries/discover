@@ -76,6 +76,8 @@ class CatalogController < ApplicationController
     # Configuration for search results/index views
     ##############################################
 
+    config.index.document_component = Discover::IndexDocumentComponent
+
     # solr field configuration
     config.index.title_field = 'title_display'
     config.index.display_type_field = 'resource_type'
@@ -100,6 +102,9 @@ class CatalogController < ApplicationController
     #######################################
     # Configuration for document/show views
     #######################################
+
+    config.show.document_component = Discover::ShowDocumentComponent
+    config.show.title_component = Discover::ShowDocumentTitleComponent
 
     # solr field configuration for document/show views
     config.show.title_field = 'title_display'

@@ -1,0 +1,7 @@
+<%= label_tag @input_name, @label_text, class: 'visually-hidden' %>
+<%= number_field_tag @input_name,
+                     @input_value,
+                     min: @min_value,
+                     max: @max_value,
+                     placeholder: 'YYYY',
+                     class: "form-control #{@css_class}" %>

@@ -1,13 +1,12 @@
 <div id="documents" class="noresults my-4">
   <h3><%= t 'blacklight.search.zero_results.modify_search' %></h3>
   <ul>
-    <% if should_show_spellcheck_suggestions? @response %>
-      <li><%= t('blacklight.search.zero_results.check_spelling') %></li>
-    <% end %>
+
+    <%# TODO: Might want to add the spellcheck component somewhere in here and customize it %>
 
     <li><%= t 'blacklight.search.zero_results.use_fewer_keywords' %></li>
 
-    <%- if params[:q] and !params[:search_field].nil? and params[:search_field] != blacklight_config.default_search_field.try(:key) -%>
+    <%- if params[:q] and params[:search_field] and params[:search_field] != blacklight_config.default_search_field&.key -%>
       <li><%= t 'blacklight.search.zero_results.search_fields', :search_fields => search_field_label(params) %> -
       <%= link_to t('blacklight.search.zero_results.search_everything', field: blacklight_config.default_search_field.label), url_for(search_state.params_for_search(search_field: blacklight_config.default_search_field.key)) %>
       </li>

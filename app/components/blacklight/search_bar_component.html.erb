@@ -1,0 +1,96 @@
+<div class="<%= html_classes['title_outer'] %>">
+  <div class="<%= html_classes['title_wrapper'] %>">
+    <div class="<%= html_classes['title_container'] %> w-xl-90">
+      <div class="<%= html_classes['inner'] %> d-lg-flex justify-content-center">
+        <div class="position-relative z-2 align-self-center flex-grow-1">
+          <search>
+            <%= form_with url: @url, local: true, method: @method,
+                          class: @classes.join(' '),
+                          scope: @prefix, role: 'search', **@form_options do |f| %>
+              <%= render Blacklight::HiddenSearchStateComponent.new(params: @params) %>
+              <% before_input_groups.each do |input_group| %>
+                <%= input_group %>
+              <% end %>
+
+              <div class="input-group">
+                <%= prepend %>
+                <%= f.label @query_param, scoped_t('search.label'), class: 'sr-only visually-hidden' %>
+                <% if autocomplete_path.present? %>
+                  <auto-complete src="<%= autocomplete_path %>" for="autocomplete-popup" class="search-autocomplete-wrapper <%= rounded_border_class %>">
+                    <%= f.search_field @query_param, value: @q, id: 'q', placeholder: scoped_t('search.placeholder'),
+                                       class: "search-q q form-control form-control-lg flex-grow-1 dashed-focus-inverted #{rounded_border_class}",
+                                       autofocus: @autofocus, aria: { label: scoped_t('search.label'), autocomplete: 'list', controls: 'autocomplete-popup' }  %>
+                    <ul id="autocomplete-popup" class="dropdown-menu" role="listbox" aria-label="<%= scoped_t('search.label') %>" hidden></ul>
+                  </auto-complete>
+                <% else %>
+                  <%= f.search_field @query_param, value: @q, id: 'q', placeholder: scoped_t('search.placeholder'),
+                                     class: "search-q q form-control form-control-lg flex-grow-1 dashed-focus-inverted #{rounded_border_class}",
+                                     autofocus: @autofocus, aria: { label: scoped_t('search.label') }  %>
+                <% end %>
+
+                <% if search_fields.length > 1 %>
+                  <div class="dropdown d-sm-block me-3" id="searchFieldDropdownGroup">
+
+                    <%# Button displaying current search field %>
+                    <button class="btn btn-light btn-lg dropdown-toggle search__btn" type="button" id="search-fields-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="d-none d-md-inline">
+                        <%= t('blacklight.search.form.search_field.label') %>
+                        <span class="selected" id="selected-search-field-label">
+                          <%= blacklight_config.search_fields[@search_field]&.label || search_fields.first.first %>
+                        </span>
+                      </span>
+                    </button>
+
+                    <%# Dropdown Menu %>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="search-fields-toggle">
+                      <% search_fields.each do |field| %>
+                        <% label, key = field %>
+                        <% if key == 'call_number' %>
+                          <div class="dropdown-divider"></div>
+                        <% end %>
+                          <%= link_to label, '#', class: 'dropdown-item', data: { search_field: key } %>
+                      <% end %>
+                    </div>
+
+                    <%# This hidden field stores the actual search_field value for form submission. %>
+                    <%= f.hidden_field :search_field, value: @search_field || 'text', id: 'search_field_hidden' %>
+                  </div>
+                <% elsif search_fields.length == 1 %>
+                  <%= f.hidden_field :search_field, value: search_fields.first.last %>
+                <% end %>
+              </div>
+              <%= append %>
+              <%= render(Blacklight::SearchButtonComponent.new(id: "#{@prefix}search", text: scoped_t('submit'))) %>
+            <% end %>
+
+            <div class="pre-filter-btn-group btn-group btn-group-lg d-flex flex-wrap rounded bg-dark-charcoal" role="group" data-bs-theme="dark" aria-label="Additional search options">
+              <%= link_to advanced_path, class: 'advanced_search btn fs-6' do %>
+                <i class="icon fal fa-search"></i>
+                Advanced Search
+              <% end %>
+              <% helpers.prefilter_hash.each do |key, value| %>
+                <div class="btn-group flex-fill d-none d-md-flex" role="group">
+                  <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="icon fal fa-<%= value['icon'] %>"></i>
+                    <%= value['label'] %>
+                  </button>
+                  <ul class="dropdown-menu bg-dark-charcoal">
+                    <% value['links'].each do |link| %>
+                      <% if link['divider'] %>
+                        <li class="dropdown-divider"></li>
+                      <% else %>
+                        <li>
+                          <%= helpers.render_prefilter_link(link, value['label']) %>
+                        </li>
+                      <% end %>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            </div>
+          </search>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

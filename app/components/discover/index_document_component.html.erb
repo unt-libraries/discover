@@ -1,0 +1,28 @@
+<%= content_tag @component,
+                id: @id,
+                data: {
+                  'document-id': @document.id.to_s.parameterize,
+                  'document-counter': @counter,
+                }.merge(@document.identifier_data),
+                itemscope: true,
+                itemtype: @document.itemtype,
+                class: classes.flatten.join(' ') + ' row col-12' do %>
+  <%# TODO: Work on making this more like Blacklight (components) %>
+  <span class="hover-counter text-muted">
+    <%= @counter %>
+  </span>
+
+  <div class="thumbnail-wrapper d-none d-lg-block col-auto" aria-hidden="true">
+    <%= render Blacklight::Document::ThumbnailComponent.new(document: @document, counter: @counter) %>
+  </div>
+
+  <div class="col">
+    <%= render 'index_header', document: @document, document_counter: @counter %>
+    <div class="document-metadata">
+      <%= render 'index', document: @document, document_counter: @counter %>
+    </div>
+  </div>
+  <div class="col-12 col-xl-4 pe-xl-0 mt-3 mt-xl-0">
+    <%= render 'index_availability', document: @document, document_counter: @counter %>
+  </div>
+<% end %>

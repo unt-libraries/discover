@@ -1,6 +1,5 @@
 <% items = json_str_to_array(document[:items_json])
-   id = document[:id]
-   counter = document_counter_with_offset(document_counter)%>
+   id = document[:id]%>
 
 <div class="item-loading-spinner text-center">
   <%= render 'shared/loading-spinner' %>
@@ -13,7 +12,7 @@
          data-online
          data-item-location>
       <span class="blacklight-availability result__value flex-column text-center">
-        <%= render_online_button(document, counter) %>
+        <%= render_online_button(document, document_counter) %>
         <%= render_online_text(document) %>
       </span>
     </div>
@@ -30,7 +29,7 @@
          data-bib-requestability="<%= item['r'] %>">
       <%# Status and Location Information %>
       <span class="blacklight-availability result__value flex-column text-center">
-        <%= render_item_button(document, counter, item) %>
+        <%= render_item_button(document, document_counter, item) %>
         <%= render_availability_text(item) %>
       </span>
     </div>
@@ -38,8 +37,8 @@
   <%# Notes %>
   <%= render_notes(document, items) %>
   <%# More Available Button %>
-  <%= render_more_available(document, counter) %>
+  <%= render_more_available(document, document_counter) %>
 
   <%# Check availablity button %>
-  <%= render_check_availability_btn(document, counter) %>
+  <%= render_check_availability_btn(document, document_counter) %>
 </div>

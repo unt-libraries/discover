@@ -1,14 +1,13 @@
-<% doc_presenter = show_presenter(document) %>
 <%# default partial to display solr document fields in catalog show view -%>
 
 <%# Render fields with :priority display property %>
-<% if doc_presenter.fields_to_render.any? { |name, f| f[:display] == :priority } -%>
+<% if presenter.fields_to_render.any? { |name, f| f[:display] == :priority } -%>
   <dl class="dl-invert document-metadata">
-    <% doc_presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field, field_presenter| -%>
+    <% presenter.fields_to_render.select { |name, f| f[:display] == :priority }.each do |field_name, field, field_presenter| -%>
       <div class="row result__field">
         <dt class="col-lg-4 col-xl-3 blacklight-<%= field_name.parameterize %> result__label">
           <span <%= raw("data-bs-toggle=\"tooltip\" data-bs-title=\"#{field.tooltip}\" data-bs-placement=\"left\" class=\"tooltip-nolink\"") if field.tooltip %>>
-            <%= render_document_show_field_label document, label: field_presenter.label, field: field_name %>
+            <%= field_presenter.label %>:
           </span>
         </dt>
         <dd class="col blacklight-<%= field_name.parameterize %> result__value"><%= field_presenter.render %></dd>
@@ -16,7 +15,7 @@
     <% end -%>
 
     <%# Add Related Series field to top card, duplicated from "more details" section %>
-    <% doc_presenter.fields_to_render.select { |name, f| name == 'related_series_titles_json' }.each do |field_name, field, field_presenter| -%>
+    <% presenter.fields_to_render.select { |name, f| name == 'related_series_titles_json' }.each do |field_name, field, field_presenter| -%>
       <%= render partial: 'show_field',
                  locals: {
                      document: @document,

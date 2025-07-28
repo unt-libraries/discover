@@ -1,0 +1,20 @@
+<li class="<%= html_classes['item'] %>">
+  <%= helpers.link_back_to_catalog({label: 'Results',
+                                   class: html_classes['link']}) %>
+</li>
+
+<li class="<%= html_classes['item'] %>">
+  <%= helpers.link_to_document(@document, item_page_entry_info,
+                               {class:  html_classes['link'],
+                               :counter => @search_session['counter']}) %>
+</li>
+
+<li class='<%= html_classes['item'] %>'>
+  <div class="page-links">
+    <%= link_to_previous_document(class: html_classes['link']) %>
+
+    <span class="breadcrumbs-pages-divider">|</span>
+
+    <%= link_to_next_document(class: html_classes['link']) %>
+  </div>
+</li>

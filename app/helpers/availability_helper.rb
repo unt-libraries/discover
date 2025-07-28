@@ -40,14 +40,7 @@ module AvailabilityHelper
       link_text = 'FIND IT Online'
     end
 
-    link_to url, class: "availability-btn online", target: window_target,
-                 'ga-on': 'click',
-                 'ga-event-category': 'List Item Link',
-                 'ga-event-action': 'Availability button click',
-                 'ga-event-label': link_text,
-                 'ga-event-value': '1' do
-      link_text
-    end
+    link_to link_text, url, class: "availability-btn online", target: window_target
   end
 
   def render_online_text(document)
@@ -67,17 +60,11 @@ module AvailabilityHelper
 
     if item['i'].blank?
       link_text = 'Contact the Service Desk'
+    else
+      link_text = ''
     end
 
-    link_to avail_url, class: "availability-btn disabled",
-                       data: { "context-href": avail_context_href },
-                       'ga-on': 'click',
-                       'ga-event-category': 'List Item Link',
-                       'ga-event-action': 'Availability button click',
-                       'ga-event-label': link_text,
-                       'ga-event-value': '1' do
-      link_text
-    end
+    link_to link_text, avail_url, class: "availability-btn disabled", data: { "context-href": avail_context_href }
   end
 
   def render_availability_text(item)
@@ -128,14 +115,7 @@ module AvailabilityHelper
       avail_url = document_availability_href(document)
       content_tag(:div, "See full record for additional info.",
                   { class: 'more-items-available mx-auto' }) do
-        link_to avail_url, class: "more-available", data: { "context-href": avail_context_href },
-                           'ga-on': 'click',
-                           'ga-event-category': 'List Item Link',
-                           'ga-event-action': 'Availability button click',
-                           'ga-event-label': 'More available',
-                           'ga-event-value': '1' do
-          "More available"
-        end
+        link_to "More available", avail_url, class: "more-available", data: { "context-href": avail_context_href }
       end
     end
   end
@@ -145,14 +125,7 @@ module AvailabilityHelper
     avail_url = document_availability_href(document)
     content_tag(:div,
                 { class: 'no-items' }) do
-      link_to avail_url, class: "check-availability d-none", data: { "context-href": avail_context_href },
-                         'ga-on': 'click',
-                         'ga-event-category': 'List Item Link',
-                         'ga-event-action': 'Availability button click',
-                         'ga-event-label': 'Check availability',
-                         'ga-event-value': '1' do
-        "Check availability"
-      end
+      link_to "Check availability", avail_url, class: "check-availability d-none", data: { "context-href": avail_context_href }
     end
   end
 end
