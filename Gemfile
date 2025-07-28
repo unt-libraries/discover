@@ -11,16 +11,17 @@ gem 'jbuilder', '~> 2.13.0'
 gem 'pg', '~> 1.5.9'
 gem 'puma', '~> 6.6.0'
 gem 'rails', '~> 7.2.2.1'
+gem 'turbo-rails', '~> 2.0'
 gem 'vite_rails'
 gem 'rsolr', '~> 2.6.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'blacklight', '7.38.0'
-gem 'blacklight_advanced_search', '~> 7.0'
-gem 'blacklight-marc', '~> 8.1.2'
-gem 'blacklight_range_limit', '8.1.0' # Something breaks in the views with 8.2.0 through 8.5.0
+gem 'blacklight', '8.11.0'
+gem 'view_component', '>= 3.23.2', '< 4.0' # Force version that fixes bug in < 3.9.0
+gem 'blacklight-marc', '~> 8.1.4'
+gem 'blacklight_range_limit', '9.0.0'
 
 group :development do
   gem 'listen', '~> 3.9'

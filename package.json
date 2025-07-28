@@ -25,16 +25,16 @@
   },
   "private": true,
   "dependencies": {
+    "@hotwired/turbo-rails": "^8.0.16",
     "@popperjs/core": "^2.11.5",
-    "blacklight-frontend": "^7.38.0",
-    "blacklight-range-limit": "8.5.0",
+    "blacklight-frontend": "8.11",
+    "blacklight-range-limit": "^9.0.0",
     "bootstrap": "5.3.3",
     "browser-update": "^3.3.55",
     "core-js": "^3.42.0",
     "dayjs": "^1.11.13",
     "lazysizes": "^5.3.1",
-    "mark.js": "^8.11.1",
-    "turbolinks": "^5.2.0"
+    "mark.js": "^8.11.1"
   },
   "devDependencies": {
     "@rollup/plugin-inject": "^5.0.5",
@@ -49,6 +49,8 @@
     "eslint": "^8.57.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.26.0",
     "jsdom": "^26.1.0",
     "rollup-plugin-gzip": "^4.0.1",

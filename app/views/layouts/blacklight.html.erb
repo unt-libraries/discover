@@ -1,26 +1,22 @@
-<% content_for?(:head_scripts) ? yield(:head_scripts) : content_for(:head_scripts) do %>
-  <%= vite_javascript_tag 'base', 'index', 'data-turbolinks-track': 'reload', defer: true %>
-<% end %>
-
 <% content_for(:content) do %>
-  <% if content_for? :sidebar %>
-    <section id="sidebar" class="<%= sidebar_classes %>">
+  <% if (content_for? :sidebar) || (content_for? :right_sidebar) %>
+    <section id="content" class="<%= main_content_classes %> order-last" aria-label="<%= t('blacklight.search.documents.aria.search_results') %>">
+      <%= yield %>
+    </section>
+
+    <% if content_for? :sidebar %>
+    <section id="sidebar" class="<%= sidebar_classes %> order-first" aria-label="<%= t('blacklight.search.documents.aria.limit_search') %>">
       <%= content_for(:sidebar) %>
     </section>
+    <% end %>
 
-    <section id="content" class="<%= main_content_classes %>">
-      <%= yield %>
-    </section>
-  <% elsif content_for? :right_sidebar %>
-    <section id="right_sidebar" class="<%= right_sidebar_classes %>">
-      <%= content_for(:right_sidebar) %>
-    </section>
-
-    <section id="content" class="<%= main_content_classes %>">
-      <%= yield %>
-    </section>
+    <% if content_for? :right_sidebar %>
+      <section id="right_sidebar" class="<%= right_sidebar_classes %>">
+        <%= content_for(:right_sidebar) %>
+      </section>
+    <% end %>
   <% else %>
-    <section id="content" class="<%= main_content_classes %>">
+    <section class="col-md-12">
       <%= yield %>
     </section>
   <% end %>

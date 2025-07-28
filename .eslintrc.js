@@ -11,7 +11,23 @@ module.exports = {
   ],
   extends: [
     'airbnb-base',
+    'airbnb-typescript/base',
+    'plugin:import/typescript',
   ],
+  settings: {
+    'import/resolver': {
+      typescript: {
+        alwaysTryTypes: true,
+        project: ['./tsconfig.json'],
+      },
+      alias: {
+        map: [
+          ['~', './app/frontend']
+        ],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json']
+      },
+    },
+  },
   env: {
     browser: true,
     es6: true,
@@ -20,21 +36,14 @@ module.exports = {
   },
   globals: {
     Blacklight: 'readonly',
+    Turbo: 'readonly',
   },
   rules: {
     'func-names': ['error', 'never'],
     'func-style': ['off'],
     'import/no-extraneous-dependencies': 'off',
   },
-  overrides: [
-    {
-      files: ['*.ts', '*.tsx'],
-      extends: [
-        'airbnb-typescript/base',
-      ],
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
-    },
-  ],
+  parserOptions: {
+    project: ['./tsconfig.json'],
+  },
 };

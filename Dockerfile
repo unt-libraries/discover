@@ -85,6 +85,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     echo "Final: Adding git, nano, and nodejs for development image..."; \
     apt-get install -y --no-install-recommends \
     git \
+    build-essential \
     nano && \
     echo "Final: Dev tools installed"; \
   fi && \

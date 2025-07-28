@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   concern :range_searchable, BlacklightRangeLimit::Routes::RangeSearchable.new
   concern :marc_viewable, Blacklight::Marc::Routes::MarcViewable.new
   mount Blacklight::Engine => '/'
-  mount BlacklightAdvancedSearch::Engine => '/'
 
   root to: "catalog#index"
   concern :searchable, Blacklight::Routes::Searchable.new
@@ -33,6 +32,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   post '/availability/items', to: 'availability#items'
+
+  get '/advanced', to: 'catalog#advanced_search'
 
   match "/404", :to => "errors#not_found", as: 'not_found', :via => :all
   match "/500", :to => "errors#internal_server_error", as: 'internal_server_error', :via => :all

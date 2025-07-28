@@ -1,4 +1,5 @@
 // utils.js
+import Blacklight from 'blacklight-frontend/app/javascript/blacklight/core'; // EDITED to import blacklight-frontend
 
 /**
  * Stores a value with an expiration time into either localStorage or sessionStorage.
@@ -141,11 +142,7 @@ export function togglePasswordVisibility() {
  * @param {Function} callback
  */
 export function onDomReady(callback) {
-  if (document.readyState !== 'loading') {
-    callback();
-  } else {
-    document.addEventListener('DOMContentLoaded', callback);
-  }
+    Blacklight.onLoad(callback); // EDITED: to use Blacklight.onLoad
 }
 
 /**

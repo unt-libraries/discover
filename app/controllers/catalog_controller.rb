@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
 class CatalogController < ApplicationController
-  include BlacklightAdvancedSearch::Controller
-
   include Blacklight::Catalog
   include BlacklightRangeLimit::ControllerOverride
-
   include Blacklight::Marc::Catalog
-
 
   # Handle requests with an invalid date range
   rescue_from BlacklightRangeLimit::InvalidRange do
@@ -20,6 +16,11 @@ class CatalogController < ApplicationController
   end
 
   configure_blacklight do |config|
+    # Add compatibility with bootstrap 5
+    config.bootstrap_version = 5
+
+    config.json_solr_path = 'catalog-search'
+
     # default advanced config values
     config.advanced_search ||= Blacklight::OpenStructWithHashAccess.new
     config.advanced_search[:qt] ||= 'catalog-search'
@@ -55,7 +56,7 @@ class CatalogController < ApplicationController
     ## Default parameters to send to solr for all search-like requests.
     ## See also SearchBuilder#processed_parameters
     config.default_solr_params = {
-      qt: 'catalog-search',
+      qt: '/catalog-search',
       rows: 10,
       fq: ["suppressed:false"],
       'facet.threads': 20,
@@ -78,28 +79,22 @@ class CatalogController < ApplicationController
     # solr field configuration
     config.index.title_field = 'title_display'
     config.index.display_type_field = 'resource_type'
-    # config.index.thumbnail_field = 'thumbnail_path_ss'
 
-    config.add_results_document_tool(:bookmark, partial: 'bookmark_control',
-                                                if: :render_bookmarks_control?)
+    config.add_results_document_tool(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
 
     config.add_results_collection_tool(:sort_widget)
     # config.add_results_collection_tool(:per_page_widget)
     config.add_results_collection_tool(:view_type_group)
 
-    config.add_show_tools_partial(:bookmark, partial: 'bookmark_control',
-                                             if: :render_bookmarks_control?)
-    config.add_show_tools_partial(:email, callback: :email_action,
-                                          validator: :validate_email_params)
-    config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action,
-                                        validator: :validate_sms_params)
+    config.add_show_tools_partial(:bookmark, component: Blacklight::Document::BookmarkComponent, if: :render_bookmarks_control?)
+    config.add_show_tools_partial(:email, callback: :email_action, validator: :validate_email_params)
+    config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
     # TODO: add citation functionality
     # config.add_show_tools_partial(:citation)
     config.show.document_actions.delete(:sms)
     config.show.document_actions.delete(:email)
 
-    config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark',
-                                     if: :render_bookmarks_control?)
+    config.add_nav_action(:bookmark, partial: 'blacklight/nav/bookmark', if: :render_bookmarks_control?)
     config.add_nav_action(:search_history, partial: 'blacklight/nav/search_history')
 
     #######################################
@@ -150,7 +145,7 @@ class CatalogController < ApplicationController
                                                   helper_method: :resource_type_label,
                                                   group: 'priority'
     config.add_facet_field 'media_type_facet', label: 'Format or Media Type', home: true, group: 'priority',
-                                               limit: 10
+                                               limit: 10, suggest: true
 
     # Group location
     config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false,
@@ -161,13 +156,10 @@ class CatalogController < ApplicationController
                                              sort: 'index', group: 'location'
     config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10,
                                           no_collapse_query: { "search_field" => "call_number" },
-                                          sort: 'index', group: 'location'
+                                          sort: 'index', group: 'location', suggest: true
 
     # Group date
-    config.add_facet_field 'publication_year_range_facet', label: 'Date',
-                                                           range: {
-                                                             maxlength: 4,
-                                                           }, group: 'date'
+    config.add_facet_field 'publication_year_range_facet', label: 'Date', range: true, group: 'date'
     config.add_facet_field 'newly_added_facet', label: 'Newly Added', home: true, :query => {
       :weeks_1 => { label: 'Within the last week', fq: "date_added:[NOW-7DAYS/DAY TO NOW/DAY]" },
       :weeks_2 => { label: 'Within the last 2 weeks', fq: "date_added:[NOW-14DAYS/DAY TO NOW/DAY]" },
@@ -176,59 +168,67 @@ class CatalogController < ApplicationController
       :months_2 => { label: 'Within the last 2 months', fq: "date_added:[NOW-2MONTHS/DAY TO NOW/DAY]" },
       :months_3 => { label: 'Within the last 3 months', fq: "date_added:[NOW-3MONTHS/DAY TO NOW/DAY]" },
       :months_6 => { label: 'Within the last 6 months', fq: "date_added:[NOW-6MONTHS/DAY TO NOW/DAY]" },
-    }, group: 'date'
+    }, group: 'date', include_in_advanced_search: false
 
     # Group language
-    config.add_facet_field 'languages', label: 'Language', limit: 10, group: 'language'
+    config.add_facet_field 'languages', label: 'Language', limit: 10, group: 'language', suggest: true
 
     # Group publication
     config.add_facet_field 'author_contributor_facet', label: 'Author or Contributor', limit: 10,
                                                        helper_method: :get_split_facet_display,
                                                        no_collapse_query: { "search_field" => "Author/Creator" },
-                                                       index_range: 'a'..'z', group: 'publication'
+                                                       index_range: 'a'..'z', group: 'publication', suggest: true,
+                                                       include_in_advanced_search: false
     config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
                                             helper_method: :get_split_facet_display,
-                                            index_range: 'a'..'z', group: 'publication'
+                                            index_range: 'a'..'z', group: 'publication', suggest: true,
+                                            include_in_advanced_search: false
     config.add_facet_field 'title_series_facet', label: 'Title or Series', limit: 10, index_range: 'a'..'z',
                                                  helper_method: :get_split_facet_display,
                                                  no_collapse_query: { "search_field" => "title" },
-                                                 group: 'publication'
+                                                 group: 'publication', suggest: true, include_in_advanced_search: false
 
     # Group subjects
     config.add_facet_field 'genre_facet', label: 'Genre', limit: 10,
                                           helper_method: :get_split_facet_display,
                                           no_collapse_query: { "search_field" => "genre" },
-                                          index_range: 'a'..'z', group: 'subjects'
+                                          index_range: 'a'..'z', group: 'subjects', suggest: true,
+                                          include_in_advanced_search: false
     config.add_facet_field 'topic_facet', label: 'Subject - Topic', limit: 10,
                                           helper_method: :get_split_facet_display,
                                           no_collapse_query: { "search_field" => "subject" },
-                                          index_range: 'a'..'z', group: 'subjects'
+                                          index_range: 'a'..'z', group: 'subjects', suggest: true,
+                                          include_in_advanced_search: false
     config.add_facet_field 'region_facet', label: 'Subject - Region', limit: 10,
                                            helper_method: :get_split_facet_display,
                                            no_collapse_query: { "search_field" => "subject" },
-                                           index_range: 'a'..'z', group: 'subjects'
+                                           index_range: 'a'..'z', group: 'subjects', suggest: true,
+                                           include_in_advanced_search: false
     config.add_facet_field 'era_facet', label: 'Subject - Era', limit: 10,
                                         helper_method: :get_split_facet_display,
                                         no_collapse_query: { "search_field" => "subject" },
-                                        index_range: 'a'..'z', group: 'subjects'
+                                        index_range: 'a'..'z', group: 'subjects', suggest: true,
+                                        include_in_advanced_search: false
 
     # Group game
     config.add_facet_field 'games_duration_facet', label: 'Games - Duration', sort: 'index',
                                                    helper_method: :get_split_facet_display,
-                                                   group: 'game'
+                                                   group: 'game', include_in_advanced_search: false
     config.add_facet_field 'games_players_facet', label: 'Games - Number of Players', sort: 'index',
                                                   helper_method: :get_split_facet_display,
-                                                  group: 'game'
+                                                  group: 'game', include_in_advanced_search: false
     config.add_facet_field 'games_ages_facet', label: 'Games - Recommended Age', sort: 'index',
                                                helper_method: :get_split_facet_display,
-                                               group: 'game'
+                                               group: 'game', include_in_advanced_search: false
 
     # Hidden facets
     config.add_facet_field 'subject_heading_facet', label: 'Subject', show: false,
-                                                    helper_method: :get_split_facet_display
+                                                    helper_method: :get_split_facet_display,
+                                                    include_in_advanced_search: false
 
     config.add_facet_field 'genre_heading_facet', label: 'Genre', show: false,
-                                                  helper_method: :get_split_facet_display
+                                                  helper_method: :get_split_facet_display,
+                                                  include_in_advanced_search: false
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -488,6 +488,9 @@ class CatalogController < ApplicationController
       field.solr_local_parameters = {
         type: 'dismax',
       }
+      field.clause_params = {
+        dismax: field.solr_local_parameters.dup
+      }
     end
 
     # Now we see how to over-ride Solr request handler defaults, in this
@@ -502,6 +505,13 @@ class CatalogController < ApplicationController
         pf: '$title_pf',
         type: 'dismax',
       }
+      field.clause_params = {
+        dismax: {
+          qf: '${title_qf}',
+          pf: '${title_pf}',
+          type: 'dismax',
+        }
+      }
     end
 
     config.add_search_field('Author/Creator') do |field|
@@ -511,25 +521,44 @@ class CatalogController < ApplicationController
         pf: '$creator_pf',
         type: 'dismax',
       }
+      field.clause_params = {
+        dismax: {
+          qf: '${creator_qf}',
+          pf: '${creator_pf}',
+          type: 'dismax',
+        }
+      }
     end
 
     config.add_search_field('subject') do |field|
       field.solr_parameters = { 'spellcheck.dictionary': 'default' }
-      field.qt = 'catalog-search'
       field.solr_local_parameters = {
         qf: '$subject_qf',
         pf: '$subject_pf',
         type: 'dismax',
       }
+      field.clause_params = {
+        dismax: {
+          qf: '${subject_qf}',
+          pf: '${subject_pf}',
+          type: 'dismax',
+        }
+      }
     end
 
     config.add_search_field('genre') do |field|
       field.solr_parameters = { 'spellcheck.dictionary': 'default' }
-      field.qt = 'catalog-search'
       field.solr_local_parameters = {
         qf: '$genre_qf',
         pf: '$genre_pf',
         type: 'dismax',
+      }
+      field.clause_params = {
+        dismax: {
+          qf: '${genre_qf}',
+          pf: '${genre_pf}',
+          type: 'dismax',
+        }
       }
     end
 
@@ -593,5 +622,11 @@ class CatalogController < ApplicationController
     # if the name of the solr.SuggestComponent provided in your solrcongig.xml is not the
     # default 'mySuggester', uncomment and provide it below
     # config.autocomplete_suggester = 'mySuggester'
+
+    # TODO: This is new behavior in BL 8, need to see what is necessary here
+    config.filter_search_state_fields = false
+    config.search_state_fields = config.search_state_fields + [
+      :advanced_type,
+    ]
   end
 end

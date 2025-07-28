@@ -58,9 +58,9 @@
         <% end %>
       <% end %>
 
-      <% if controller_name == 'advanced' %>
+      <% if params[:action] == 'advanced_search' %>
         <li class="<%= html_classes['breadcrumbs']['item'] %>">
-          <%= link_to 'Advanced search', blacklight_advanced_search_engine.advanced_search_path,
+          <%= link_to 'Advanced search', advanced_path,
                       class: html_classes['breadcrumbs']['link'] %>
         </li>
       <% end %>

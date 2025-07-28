@@ -58,9 +58,10 @@
 // Utilities API
 @import "~bootstrap/scss/utilities/api";
 
-// Blacklight Range Limit
-@import '~/src/stylesheets/blacklight/blacklight_range_limit';
-@import '~/src/stylesheets/blacklight/blacklight_range_limit_slider';
+// Blacklight
+@import '~blacklight-frontend/app/assets/stylesheets/blacklight/blacklight_defaults';
+@import '~blacklight-frontend/app/assets/stylesheets/blacklight/bootstrap_overrides';
+@import '~blacklight-frontend/app/assets/stylesheets/blacklight/modal';
 
 // UNT Library www branding
 // misc overrides to HTML elements

@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import * as path from 'path';
 import { defineConfig } from 'vite';
 import zlib, { brotliCompress } from 'zlib';
@@ -28,14 +29,12 @@ export default defineConfig(() => {
     resolve: {
       alias: {
         '~bootstrap': path.resolve(__dirname, 'node_modules/bootstrap'),
+        '~blacklight-frontend': path.resolve(__dirname, 'node_modules/blacklight-frontend'),
       },
     },
     plugins: [
       inject({
         bootstrap: ['bootstrap', '*'],
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
         include: ['*.js', '**/*.js', '*.ts', '**/*.ts'],
       }),
       gzipPlugin(),

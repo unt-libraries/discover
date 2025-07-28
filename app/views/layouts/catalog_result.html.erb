@@ -1,7 +1,3 @@
-<% content_for(:head_scripts) do %>
-  <%= vite_javascript_tag 'base', 'show', 'data-turbolinks-track': 'reload', defer: true %>
-<% end %>
-
 <% content_for(:content) do %>
   <section id="content" class="<%= show_content_classes %> <%= main_content_classes %>">
     <%= yield %>
@@ -9,8 +5,6 @@
 
   <section id="sidebar" class="<%= show_sidebar_classes %>">
     <%= content_for(:sidebar) %>
-    <%= render partial: 'catalog/show_thumbnail' %>
-    <%= render partial: 'catalog/show_tools' %>
   </section>
 <% end %>
 

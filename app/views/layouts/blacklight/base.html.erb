@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html lang="en" translate="no" class="no-js">
-<%# TODO: www renders common SVG symbols here for performance %>
-<%= render partial: 'shared/head/head' %>
-<body data-blacklight-context="<%= action_name %>" class="<%= render_body_class %>">
-  <%= render 'shared/www/utils/svg-symbols' %>
-  <%= render 'shared/www/offcanvas/search' %>
-  <%= render 'shared/www/header/skip-links' %>
-  <% if Rails.env.production? or Rails.env.development? %>
-    <%= render 'shared/www/header/global-alert' %>
-  <% end %>
-  <%= render 'shared/www/header/top-bar' %>
-  <%= render 'shared/www/header/header' %>
-  <%= render 'shared/www/header/navbar-primary' %>
-  <%= render 'shared/www/header/navbar-secondary' %>
+<%= content_tag :html, class: 'no-js', **html_tag_attributes do %>
+  <%= render partial: 'shared/head/head' %>
+  <body data-blacklight-context="<%= action_name %>" class="<%= render_body_class %>">
+    <%= render 'shared/www/utils/svg-symbols' %>
+    <%= render 'shared/www/offcanvas/search' %>
+    <%= render 'shared/www/header/skip-links' %>
+    <% if Rails.env.production? or Rails.env.development? %>
+      <%= render 'shared/www/header/global-alert' %>
+    <% end %>
+    <%= render 'shared/www/header/top-bar' %>
+    <%= render 'shared/www/header/header' %>
+    <%= render 'shared/www/header/navbar-primary' %>
+    <%= render 'shared/www/header/navbar-secondary' %>
 
-  <%= render partial: 'shared/flash_msg', layout: 'shared/flash_messages' %>
+    <%= render partial: 'shared/flash_msg', layout: 'shared/flash_messages' %>
 
-  <%= render_search_bar %>
+    <%= render Blacklight::SearchBarComponent.new(url: search_action_url,
+                                                  advanced_search_url: search_action_url(action: 'advanced_search'),
+                                                  params: search_state.params_for_search.except(:qt),
+                                                  classes: ['search-query-form', 'search__form', 'd-flex', 'mb-4']) %>
 
-  <div id="main-container" class="<%= container_classes %> main-container" data-untl-to-top-of-page='false'>
-    <div class="row">
-      <%= content_for(:container_header) %>
+    <main id="main-container" class="<%= container_classes %> main-container" data-untl-to-top-of-page='false' role="main" aria-label="<%= t('blacklight.main.aria.main_container') %>">
+      <div class="row">
+        <%= content_for?(:content) ? yield(:content) : yield %>
+      </div>
+    </main>
 
-      <%= content_for?(:content) ? yield(:content) : yield %>
-    </div>
-  </div>
+    <%= render 'shared/www/footer/footer' %>
+    <%= render 'shared/www/offcanvas/chat' %>
+    <%= render 'shared/modal' %>
 
-  <%= render 'shared/www/footer/footer' %>
-  <%= render 'shared/www/offcanvas/chat' %>
-  <%= render 'shared/modal' %>
-
-  <%= render 'shared/footer/scripts' %>
-</body>
-</html>
+    <%= render 'shared/footer/scripts' %>
+  </body>
+<% end %>

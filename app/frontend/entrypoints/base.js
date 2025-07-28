@@ -1,35 +1,28 @@
 // Script files that should be included in all pages
-import Turbolinks from 'turbolinks';
-import runBrowserUpdate from '~/src/javascripts/_browser-update';
-import { initPrefilters, searchSelector } from '~/src/javascripts/_search';
-import { animateSearchIcon, bindDismissBannerCookie, linkify } from '~/src/javascripts/_ui';
+import '@hotwired/turbo-rails';
+import Blacklight from 'blacklight-frontend';
 
-// Javascript inherited from www
+import runBrowserUpdate from '~/src/javascripts/_browser-update';
+import { searchSelector, initPrefilters, initFilters } from '~/src/javascripts/_search';
+import {
+  animateSearchIcon, bindDismissBannerCookie, linkify, replaceBookCovers,
+} from '~/src/javascripts/_ui';
+// TODO: Check that the chat widget appears on all pages
 import '~/src/javascripts/www/main'; // This is the main entry point for the www pack
 import '~/src/javascripts/www/display.alerts';
-import SearchDropdown from '~/src/javascripts/www/search-dropdowns.js';
+import SearchDropdown from '~/src/javascripts/www/search-dropdowns';
 
-document.addEventListener('turbolinks:load', () => {
+Blacklight.onLoad(() => {
   // Initialize search dropdowns using window object
+  // eslint-disable-next-line no-new
   new SearchDropdown('bento-offcanvas-other-search-options', 'bento-offcanvas-q', window.wwwJsShims.searchDropdowns['default_bento']);
-});
 
-document.addEventListener("DOMContentLoaded", () => {
-  Turbolinks.start();
-});
-
-// Blacklight Frontend javascript
-import 'blacklight-frontend/app/javascript/blacklight/core';
-// TODO: Need to refactor or remove modal code, as it depends on jQuery
-// import 'blacklight-frontend/app/javascript/blacklight/modal';
-import 'blacklight-frontend/app/javascript/blacklight/button_focus';
-import 'blacklight-frontend/app/javascript/blacklight/search_context';
-
-document.addEventListener('turbolinks:load', () => {
   animateSearchIcon();
-  initPrefilters();
   searchSelector();
+  initPrefilters();
+  initFilters();
   linkify();
   bindDismissBannerCookie();
   runBrowserUpdate();
+  replaceBookCovers();
 });

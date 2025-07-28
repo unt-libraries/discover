@@ -110,6 +110,8 @@ en:
       header: 'What are you looking for?'
       page_title:
         title: 'Search Results -- %{total_num} Matching Results - %{application_name}'
+      filters:
+        title: 'You searched for:'
       form:
         search_field:
           label: 'Look in: '
@@ -133,6 +135,12 @@ en:
         counter: 'Result #%{counter}:'
       facets:
         title: 'Filter your search'
+        group:
+          toggle: 'Toggle filters'
+        selected:
+          remove: '[remove]'
+      search_constraints_header: Search Constraints
+      start_over: 'Start Over'
       zero_results:
         modify_search: "Try modifying your search"
         check_spelling: "Check the spelling of your query"
@@ -143,18 +151,21 @@ en:
         bento_box_link: "UNT online resources"
     tools:
       title: 'Actions'
+    range_limit:
+      range_begin_short: 'Publication date range (starting year)'
+      range_end_short: 'Publication date range (ending year)'
+    advanced_search:
+      all: all
+      any: any
+      form:
+        title: Advanced Search
+        search_context: Within search
+        limit_criteria_heading_html: "<strong>AND</strong> have these attributes"
+        query_criteria_heading_html: "Find items that match %{select_menu} of"
+        sort_label: "Sort results by"
+        start_over_html: "Start over"
+        search_btn_html: 'Search'
   urls:
     home: "https://library.unt.edu"
     gitlab_repo: "https://content.library.unt.edu/discover/discover"
     feedback_email: 'ui.library@unt.edu'
-  blacklight_advanced_search:
-    all: all
-    any: any
-    form:
-      title: Advanced Search
-      search_context: Within search
-      limit_criteria_heading_html: "<strong>AND</strong> have these attributes"
-      query_criteria_heading_html: "Find items that match %{select_menu} of"
-      sort_label: "Sort results by"
-      start_over: "Start over"
-      search_btn: 'Search'

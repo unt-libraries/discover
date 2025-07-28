@@ -1,4 +1,5 @@
 <head>
+  <%= vite_client_tag nonce: true %>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,6 +14,8 @@
   <%= opensearch_description_tag application_name, opensearch_catalog_url(format: 'xml') %>
   <meta name="google" content="notranslate">
   <meta name="google-site-verification" content="OwynCvJj6eU9FfLBLGGhNEvTjTXLLzcSdsFSSzSacMA" />
+  <%# Disable Turbo prefetching on link hover %>
+  <meta name="turbo-prefetch" content="false">
 
   <!-- Fonts -->
   <link rel="stylesheet"
@@ -28,29 +31,28 @@
     <%# The inline css template name differs from www source because rails 7.0 disallows .'s in the name %>
     <%= render partial: 'shared/www/head/head-styles-fontawesome', formats: :css %>
   </style>
-  <script>
+  <%= javascript_tag nonce: true do -%>
     FontAwesomeConfig = {
       mutateApproach: 'sync'
     }
-  </script>
+  <% end %>
 
   <!-- CSS -->
-  <%= vite_stylesheet_tag "priority.scss", "base.scss", media: "all", 'data-turbolinks-track': 'reload' %>
+  <%= vite_stylesheet_tag "priority.scss", "base.scss", media: "all", 'data-turbo-track': 'reload' %>
 
   <!-- Head scripts -->
-  <%= vite_javascript_tag 'priority', 'icons', 'data-turbolinks-track': 'reload', async: true %>
+  <%= vite_javascript_tag 'priority', 'icons', 'data-turbo-track': 'reload', async: true %>
 
-  <script>
+  <%= javascript_tag nonce: true do -%>
     <%# Override the domain we use to reach the dropdowns.json before JS is loaded %>
     window.untLib ??= {};
     window.untLib.dropdownConfig ??= {
       baseURL: "https://library.unt.edu",
     };
-  </script>
-  <%= content_for :head_scripts %>
-  <% content_for(:head_scripts) do %>
-    <%= vite_javascript_tag 'base', 'data-turbolinks-track': 'reload', defer: true %>
   <% end %>
+
+  <%= vite_javascript_tag 'base', 'data-turbo-track': 'reload', defer: true %>
+  <%= content_for :context_js %>
 
   <!-- Favicons -->
   <link rel="icon" href="<%= vite_asset_path 'images/icons/favicon.ico' %>" sizes="16x16" type="image/x-icon">
@@ -62,13 +64,13 @@
   <%= content_for(:head) %>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=<%= Rails.application.credentials[Rails.env.to_sym][:google_analytics] %>"></script>
-  <script>
+  <%= javascript_tag nonce: true do -%>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
     gtag('config', '<%= Rails.application.credentials[Rails.env.to_sym][:google_analytics] %>');
-  </script>
+  <% end %>
 
   <!-- Additional scripts -->
   <%= render 'shared/www/footer/scripts' %>
