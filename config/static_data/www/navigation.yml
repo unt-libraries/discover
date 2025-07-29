@@ -18,8 +18,8 @@ home_search_dropdown:
     min_width: 370
     items:
       - text: >-
-          You can submit a search in the following systems from the 'everything'
-          button, on the 'start searching' tab or jump to a system directly here:
+          Filter your search using the 'Limit To...'
+          dropdowns in the tabs below or jump to a specific system directly.
         type: text
         classes: small text-secondary-subtle pt-2 fst-italic
       - text:
@@ -739,7 +739,7 @@ main_bar:
                     url: https://calendar.library.unt.edu/calendar
                 classes:
                 url: https://calendar.library.unt.edu/reserve/spaces/medialibrary
-              - text: The Soundbox Music Technology Lab
+              - text: The Soundbox Music Makerspace
                 type: link
                 classes:
                 url: https://guides.library.unt.edu/music-library-equipment-checkout
@@ -867,6 +867,10 @@ main_bar:
               - text: University Library Committee
                 type: link
                 url: https://facultysenate.unt.edu/standing-committees/university-library-committee
+                classes:
+              - text: Library Advocacy Board
+                type: link
+                url: /library-advocacy-board/
                 classes:
               - text: Research Fellowships
                 type: link
@@ -1181,10 +1185,10 @@ colophon:
         type: link
         classes:
         url: https://www.unt.edu/disclaimer.html
-      - text: AA/EOE/ADA
+      - text: EO/TIX
         type: link
         classes:
-        url: https://www.unt.edu/ada.html
+        url: https://titleixeo.unt.edu/
       - text: Privacy
         type: link
         classes:
