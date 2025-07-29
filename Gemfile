@@ -22,6 +22,7 @@ gem 'blacklight', '8.11.0'
 gem 'view_component', '>= 3.23.2', '< 4.0' # Force version that fixes bug in < 3.9.0
 gem 'blacklight-marc', '~> 8.1.4'
 gem 'blacklight_range_limit', '9.0.0'
+gem 'blacklight_advanced_search', '~> 8.0.0alpha2'
 
 group :development do
   gem 'listen', '~> 3.9'

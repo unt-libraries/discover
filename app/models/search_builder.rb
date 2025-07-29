@@ -2,20 +2,17 @@
 
 class SearchBuilder < Blacklight::SearchBuilder
   include Blacklight::Solr::SearchBuilderBehavior
+  include BlacklightAdvancedSearch::AdvancedSearchBuilder
   include BlacklightRangeLimit::RangeLimitBuilder
 
   self.default_processor_chain += [
+    :add_advanced_parse_q_to_solr,
+    :add_advanced_search_to_solr,
     :lucene_deftype,
     :only_home_facets,
-    :advanced_search_facets,
     :modify_numbers_field_query,
     :limit_facet_fields_to_current_facet,
   ]
-
-  # For debugging purposes, we can add a JSON payload to the response
-  def add_json_payload_to_response
-    solr_parameters[:debug] = 'timing'
-  end
 
   # Fielded searches require defType=lucene, so we set it here and change it later if necessary
   def lucene_deftype(solr_parameters)
@@ -37,44 +34,6 @@ class SearchBuilder < Blacklight::SearchBuilder
     has_query = blacklight_config.facet_fields.select { |_, v| v[:home] && v[:query].present? }.values
     solr_parameters['facet.query'] = has_query.map { |val| val.query.values.map { |v| v[:fq] } }.flatten
     solr_parameters['facet.pivot'] = []
-  end
-
-  # Configure facets for the advanced search form display
-  def advanced_search_facets(solr_parameters)
-    return unless advanced_search_form_page?
-
-    # Get the list of facets that should be included in advanced search
-    advanced_facets = if blacklight_config.advanced_search[:solr_parameters] && blacklight_config.advanced_search[:solr_parameters]['facet.field']
-      blacklight_config.advanced_search[:solr_parameters]['facet.field']
-    else
-      # Fallback to facets configured with include_in_advanced_search != false
-      blacklight_config.facet_fields.select { |_, config| config.fetch(:include_in_advanced_search, true) }.keys
-    end
-
-    # Apply the form_solr_parameters configuration from the catalog controller
-    if blacklight_config.advanced_search[:solr_parameters]
-      blacklight_config.advanced_search[:solr_parameters].each do |key, value|
-        solr_parameters[key] = value
-      end
-    end
-
-    # Remove facet parameters for fields not in advanced search
-    solr_parameters.keys.select { |key| key.start_with?('f.') }.each do |key|
-      # Extract field name from parameter like "f.field_name.facet.limit"
-      field_name = key.match(/^f\.([^.]+)\./)[1] rescue nil
-      if field_name && !advanced_facets.include?(field_name)
-        solr_parameters.delete(key)
-      end
-    end
-
-    # Ensure only advanced facets are in facet.field
-    solr_parameters['facet.field'] = advanced_facets
-
-    solr_parameters['facet.method'] = 'enum'
-    solr_parameters['rows'] = 0
-    solr_parameters.delete('stats')
-    solr_parameters.delete('stats.field')
-    solr_parameters.delete('facet.threads')
   end
 
   # Modify the query to be more suitable for solr when searching number fields
