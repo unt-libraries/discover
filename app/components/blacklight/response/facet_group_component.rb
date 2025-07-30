@@ -14,7 +14,7 @@ module Blacklight
         @groupname = id
         @id = id ? "facets-#{id}" : 'facets'
         @title = title || I18n.t("blacklight.search.#{@id}.title")
-        @panel_id = id ? "facet-panel-#{id}-collapse" : 'facet-panel-collapse'
+        @panel_id = "facet-panel-#{id}"
       end
 
       def render?

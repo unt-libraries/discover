@@ -29,21 +29,21 @@ module LayoutHelper
   # Classes added to a document's show content div
   # @return [String]
   def show_content_classes
-    "show-document"
+    "show-document col-lg-9"
   end
 
   ##
   # Classes used for sizing the main content of a Blacklight page
   # @return [String]
   def main_content_classes
-    'content col-lg-9 order-2'
+    'content col-xl-9 order-2'
   end
 
   ##
   # Classes used for sizing the sidebar content of a Blacklight page
   # @return [String]
   def sidebar_classes
-    'page-sidebar col-12 col-md-4 col-xl-3 order-1 d-print-none'
+    'page-sidebar col-12 col-xl-3 order-1 d-print-none'
   end
 
   ##

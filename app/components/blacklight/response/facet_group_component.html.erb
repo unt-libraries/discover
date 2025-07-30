@@ -1,6 +1,4 @@
 <% # main container for facets/limits menu -%>
-<div id="<%= @panel_id %>" class="facets-collapse collapse">
-  <%= content_tag :div, class: "facet-group facet-group-#{@groupname}" do %>
-    <%= body %>
-  <% end %>
-</div>
+<%= content_tag :div, class: "facet-group facet-group-#{@groupname}" do %>
+  <%= body %>
+<% end %>
