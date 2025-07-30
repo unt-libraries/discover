@@ -24,8 +24,6 @@ build-container:
   stage: build-container
   tags:
     - dind
-  variables:
-    RAILS_MASTER_KEY: $RAILS_MASTER_KEY
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
@@ -67,7 +65,6 @@ test:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
     ADD_PACKAGES: py-pip python-dev libffi-dev openssl-dev gcc libc-dev make docker-compose-plugin
-    RAILS_MASTER_KEY: $RAILS_MASTER_KEY
     RAILS_PORT_FOR_TEST: 3300
     TEST_IMAGE_TAG: "$CI_REGISTRY_IMAGE/test:$CI_COMMIT_SHA"
   script:

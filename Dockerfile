@@ -60,9 +60,10 @@ RUN yarn cache clean && yarn install --frozen-lockfile
 COPY . .
 
 # Precompile assets ONLY if building for production or test image type
-RUN --mount=type=secret,id=RAILS_MASTER_KEY,env=RAILS_MASTER_KEY \
+RUN --mount=type=secret,id=RAILS_MASTER_KEY \
     if [ "$APP_BUILD_TYPE" = "production" ] || [ "$APP_BUILD_TYPE" = "test" ]; then \
       echo "Building Vite assets for $BUILD_TIME_RAILS_ENV..."; \
+      export RAILS_MASTER_KEY=$(cat /run/secrets/RAILS_MASTER_KEY) && \
       bundle exec rake assets:precompile; \
     else \
       echo "Builder: Skipping Vite asset precompilation for development build type."; \
