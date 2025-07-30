@@ -83,7 +83,7 @@ test:
       --secret id=RAILS_MASTER_KEY \
       --build-arg APP_BUILD_TYPE="test" \
       --build-arg BUILD_TIME_RAILS_ENV="test" \
-      -t $TEST_IMAGE_TAG .
+      -t "$TEST_IMAGE_TAG" .
 
     - echo "Setting up test database..."
     - docker compose -f compose.deploy.yaml run --rm web bundle exec rails db:setup
