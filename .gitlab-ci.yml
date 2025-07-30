@@ -64,7 +64,7 @@ test:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
     ADD_PACKAGES: py-pip python-dev libffi-dev openssl-dev gcc libc-dev make docker-compose-plugin
-    RAILS_PORTF_FOR_TEST: 3300
+    RAILS_PORT_FOR_TEST: 3300
     TEST_IMAGE_TAG: "$CI_REGISTRY_IMAGE/test:$CI_COMMIT_SHA"
   script:
     - "docker info"
@@ -83,7 +83,7 @@ test:
       --secret id=RAILS_MASTER_KEY \
       --build-arg APP_BUILD_TYPE="test" \
       --build-arg BUILD_TIME_RAILS_ENV="test" \
-      -t "$TEST_IMAGE_TAG ."
+      -t $TEST_IMAGE_TAG .
 
     - echo "Setting up test database..."
     - docker compose -f compose.deploy.yaml run --rm web bundle exec rails db:setup
@@ -141,7 +141,8 @@ release-image:
     - source /app/prepare_ssh.sh
   script:
     - echo "Deploying commit $CI_COMMIT_SHA using image $FULL_IMAGE_NAME for RAILS_ENV=$RAILS_ENV"
-    - ssh $SSH_USER@$SSH_SERVER "
+    - |
+      ssh $SSH_USER@$SSH_SERVER "
         set -e; # Exit on error
         echo '--- Ensuring deployment directory exists ---' &&
         mkdir -p $SITE_DEST_DIR &&
