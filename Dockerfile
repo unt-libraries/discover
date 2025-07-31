@@ -131,6 +131,10 @@ COPY --chown=${APP_USER}:${APP_USER} . .
 # For development, this public dir is copied, but Vite dev server often serves from memory/source.
 COPY --from=builder --chown=${APP_USER}:${APP_USER} /app/public /app/public
 
+# Create necessary directories with correct ownership
+RUN mkdir -p /app/tmp /app/log /app/tmp/pids /app/tmp/cache /app/tmp/sockets && \
+    chown -R ${APP_USER}:${APP_USER} /app/tmp /app/log
+
 # Copy and set up entrypoint
 COPY --chown=${APP_USER}:${APP_USER} docker-entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/docker-entrypoint.sh
