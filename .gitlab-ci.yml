@@ -163,6 +163,8 @@ release-image:
         echo RAILS_MASTER_KEY=$RAILS_MASTER_KEY >> .env &&
         echo WEB_CONCURRENCY=$WEB_CONCURRENCY >> .env &&
         echo ENABLE_VITE_HMR_CLIENT=$ENABLE_VITE_HMR_CLIENT >> .env &&
+        echo '--- Logging in to Docker registry ---' &&
+        echo "$CI_JOB_TOKEN" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin &&
         echo '--- Pulling required Docker image $FULL_IMAGE_NAME ---' &&
         docker compose -f compose.deploy.yaml pull &&
         echo '--- Starting application containers ---' &&
