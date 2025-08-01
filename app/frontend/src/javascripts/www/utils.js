@@ -156,6 +156,18 @@ export function optInTooltips(selector = '[data-bs-toggle="tooltip"]') {
     return;
   }
   new bootstrap.Tooltip('body', { selector });
+
+  // EDITED as this is only necessary for Blacklight and Turbo
+  // Destroy all tooltips before Turbolinks cache
+  document.addEventListener("turbo:before-cache", function () {
+    const tooltips = document.querySelectorAll(selector);
+    tooltips.forEach(tooltip => {
+      const bsTooltip = bootstrap.Tooltip.getInstance(tooltip);
+      if (bsTooltip) {
+        bsTooltip.dispose();
+      }
+    });
+  });
 }
 
 /**
