@@ -75,7 +75,6 @@ class SearchBuilder < Blacklight::SearchBuilder
   #   return if facet.blank? || facet_suggestion_query.blank?
   #
   #   solr_params[:'facet.prefix'] = facet_suggestion_query[0..50]
-  #   solr_params[:'facet.prefix.ignoreCase'] = true
   # end
 
   private

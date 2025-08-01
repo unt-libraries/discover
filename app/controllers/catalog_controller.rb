@@ -148,7 +148,7 @@ class CatalogController < ApplicationController
                                                   helper_method: :resource_type_label,
                                                   group: 'priority'
     config.add_facet_field 'media_type_facet', label: 'Format or Media Type', home: true, group: 'priority',
-                                               limit: 10, suggest: true
+                                               limit: 10, suggest: false
 
     # Group location
     config.add_facet_field 'collection_facet', label: 'Collection', home: true, limit: false,
@@ -159,7 +159,7 @@ class CatalogController < ApplicationController
                                              sort: 'index', group: 'location'
     config.add_facet_field 'shelf_facet', label: 'Shelf Location', limit: 10,
                                           no_collapse_query: { "search_field" => "call_number" },
-                                          sort: 'index', group: 'location', suggest: true
+                                          sort: 'index', group: 'location', suggest: false
 
     # Group date
     config.add_facet_field 'publication_year_range_facet', label: 'Date', range: true, group: 'date'
@@ -174,38 +174,38 @@ class CatalogController < ApplicationController
     }, group: 'date'
 
     # Group language
-    config.add_facet_field 'languages', label: 'Language', limit: 10, group: 'language', suggest: true
+    config.add_facet_field 'languages', label: 'Language', limit: 10, group: 'language', suggest: false
 
     # Group publication
     config.add_facet_field 'author_contributor_facet', label: 'Author or Contributor', limit: 10,
                                                        helper_method: :get_split_facet_display,
                                                        no_collapse_query: { "search_field" => "Author/Creator" },
-                                                       index_range: 'a'..'z', group: 'publication', suggest: true
+                                                       index_range: 'a'..'z', group: 'publication', suggest: false
     config.add_facet_field 'meeting_facet', label: 'Meeting or Event', limit: 10,
                                             helper_method: :get_split_facet_display,
-                                            index_range: 'a'..'z', group: 'publication', suggest: true
+                                            index_range: 'a'..'z', group: 'publication', suggest: false
     config.add_facet_field 'title_series_facet', label: 'Title or Series', limit: 10, index_range: 'a'..'z',
                                                  helper_method: :get_split_facet_display,
                                                  no_collapse_query: { "search_field" => "title" },
-                                                 group: 'publication', suggest: true
+                                                 group: 'publication', suggest: false
 
     # Group subjects
     config.add_facet_field 'genre_facet', label: 'Genre', limit: 10,
                                           helper_method: :get_split_facet_display,
                                           no_collapse_query: { "search_field" => "genre" },
-                                          index_range: 'a'..'z', group: 'subjects', suggest: true
+                                          index_range: 'a'..'z', group: 'subjects', suggest: false
     config.add_facet_field 'topic_facet', label: 'Subject - Topic', limit: 10,
                                           helper_method: :get_split_facet_display,
                                           no_collapse_query: { "search_field" => "subject" },
-                                          index_range: 'a'..'z', group: 'subjects', suggest: true
+                                          index_range: 'a'..'z', group: 'subjects', suggest: false
     config.add_facet_field 'region_facet', label: 'Subject - Region', limit: 10,
                                            helper_method: :get_split_facet_display,
                                            no_collapse_query: { "search_field" => "subject" },
-                                           index_range: 'a'..'z', group: 'subjects', suggest: true
+                                           index_range: 'a'..'z', group: 'subjects', suggest: false
     config.add_facet_field 'era_facet', label: 'Subject - Era', limit: 10,
                                         helper_method: :get_split_facet_display,
                                         no_collapse_query: { "search_field" => "subject" },
-                                        index_range: 'a'..'z', group: 'subjects', suggest: true
+                                        index_range: 'a'..'z', group: 'subjects', suggest: false
 
     # Group game
     config.add_facet_field 'games_duration_facet', label: 'Games - Duration', sort: 'index',
