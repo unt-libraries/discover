@@ -16,7 +16,7 @@ class SearchBuilder < Blacklight::SearchBuilder
 
   # Fielded searches require defType=lucene, so we set it here and change it later if necessary
   def lucene_deftype(solr_parameters)
-    return if blacklight_params[:q].nil?
+    return if solr_parameters[:q].nil?
 
     solr_parameters[:defType] = 'lucene'
   end
@@ -84,8 +84,7 @@ class SearchBuilder < Blacklight::SearchBuilder
   # ============================================================================
 
   def homepage?
-    # current_action_context == 'index' && !search_parameters? && !advanced_search_page? && !blacklight_params[:f].present?
-    controller_action == 'index' && !has_search_parameters?
+    controller_action == 'index' && !has_search_parameters? && !advanced_search_form_page? && !blacklight_params[:search_field].present?
   end
 
   ##
