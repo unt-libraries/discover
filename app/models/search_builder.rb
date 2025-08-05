@@ -12,6 +12,7 @@ class SearchBuilder < Blacklight::SearchBuilder
     :only_home_facets,
     :modify_numbers_field_query,
     :limit_facet_fields_to_current_facet,
+    :remove_advanced_from_simple_search,
   ]
 
   # Fielded searches require defType=lucene, so we set it here and change it later if necessary
@@ -68,6 +69,11 @@ class SearchBuilder < Blacklight::SearchBuilder
 
     # Set the facet.field to only the current facet
     solr_parameters['facet.field'] = [current_facet_field]
+  end
+
+  def remove_advanced_from_simple_search(solr_parameters)
+    return unless blacklight_params[:q].present? && blacklight_params[:advanced_type].present?
+    blacklight_params.slice(:f, :q, :search_field, :utf8)
   end
 
   # TODO: This is a starting point for the left anchored facet suggestion
