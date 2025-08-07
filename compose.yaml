@@ -21,9 +21,11 @@ services:
         UID: ${UID:-1000}
         GID: ${GID:-1000}
     volumes:
-      - .:/app
+      - .:/app:z
       - bundle_cache:/bundle
       - app_tmp:/app/tmp
+      - app_log:/app/log
+      - node_modules:/app/node_modules
     ports:
       - "${RAILS_PORT:-3000}:3000"
       - "3036:3036"
@@ -39,6 +41,8 @@ services:
 volumes:
   bundle_cache:
   app_tmp:
+  app_log:
+  node_modules:
 
 networks:
   network:

@@ -118,7 +118,7 @@ ENV RAILS_LOG_TO_STDOUT=true \
     BUNDLE_PATH=/bundle \
     BUNDLE_BIN=/bundle/bin \
     GEM_HOME=/bundle
-ENV PATH="${BUNDLE_BIN}:${PATH}"
+ENV PATH="/app/node_modules/.bin:${BUNDLE_BIN}:${PATH}"
 
 # Copy pre-installed gems from builder stage
 COPY --from=builder --chown=${APP_USER}:${APP_USER} /bundle /bundle
