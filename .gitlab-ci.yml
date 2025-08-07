@@ -177,17 +177,36 @@ release-image:
   rules:
     - when: manual
 
+# Does not extend .deploy because of the substantially different dev environment requirements
 deploy:alpha:
-  extends: .deploy
+  stage: deploy
+  image: $CI_REGISTRY/www/utilities/deploy:latest
+  before_script:
+    - source /app/prepare_ssh.sh
   environment:
     name: alpha
+    url: https://alpha.discover.library.unt.edu
   variables:
     SITE_DOMAIN: alpha.discover.library.unt.edu
-    RAILS_PORT: 3000
-    RAILS_ENV: development
-    RAILS_SERVE_STATIC_FILES: "false"
-    WEB_CONCURRENCY: 1
-    ENABLE_VITE_HMR_CLIENT: "true"
+    SITE_DEST_DIR: /var/www/html/$SITE_DOMAIN
+  script:
+    - |
+      ssh $SSH_USER@$SSH_SERVER "
+        set -e;
+        echo '--- Ensuring deployment directory exists ---';
+        mkdir -p $SITE_DEST_DIR;
+        cd $SITE_DEST_DIR;
+        echo '--- Fetching latest code from Git ---';
+        git fetch --all;
+        git checkout -f $CI_COMMIT_SHA;
+        echo '--- Alpha depends on preexisting .env file ---';
+        echo '--- Stopping any running containers and removing volumes ---';
+        docker compose down -v;
+        echo '--- Building and starting new containers for alpha ---';
+        docker compose up --build -d --remove-orphans;
+        echo '--- Alpha deployment complete ---';
+      "
+  when: manual
 
 deploy:beta:
   extends: .deploy
