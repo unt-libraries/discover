@@ -16,9 +16,14 @@ services:
   web:
     build:
       context: .
+      args:
+        APP_BUILD_TYPE: ${APP_BUILD_TYPE:-development}
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     volumes:
       - .:/app
       - bundle_cache:/bundle
+      - app_tmp:/app/tmp
     ports:
       - "${RAILS_PORT:-3000}:3000"
       - "3036:3036"
@@ -33,6 +38,7 @@ services:
 
 volumes:
   bundle_cache:
+  app_tmp:
 
 networks:
   network:

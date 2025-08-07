@@ -74,7 +74,13 @@ FROM base AS final
 
 ARG APP_BUILD_TYPE=development
 ARG APP_USER=appuser
-RUN useradd --create-home --shell /bin/bash ${APP_USER}
+ARG UID=1000
+ARG GID=1000
+
+# Create group and user with specific IDs to match host user
+# This avoids permission issues with bind-mounted volumes in development.
+RUN groupadd -g $GID -o $APP_USER && \
+    useradd -u $UID -g $GID --non-unique --create-home --shell /bin/bash $APP_USER
 
 # Add this line for explicit verification
 RUN echo "FINAL STAGE: Effective APP_BUILD_TYPE is $APP_BUILD_TYPE"
