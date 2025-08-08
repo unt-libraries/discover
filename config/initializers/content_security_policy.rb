@@ -15,8 +15,13 @@ Rails.application.configure do
     policy.connect_src :self, :https, 'lgapi-us.libapps.com', 'books.google.com'
 
     if Rails.env.development?
-      policy.connect_src *policy.connect_src, "ws://#{ ViteRuby.config.host_with_port }", "ws://localhost:#{ ViteRuby.config.port }"
-      policy.script_src *policy.script_src, :unsafe_eval, "http://#{ ViteRuby.config.host_with_port }", "localhost:#{ ViteRuby.config.port }"
+      policy.connect_src *policy.connect_src, "ws://#{ ViteRuby.config.host_with_port }",
+                                              "wss://#{ ViteRuby.config.host_with_port }",
+                                              "ws://localhost:#{ ViteRuby.config.port }",
+                                              "wss://localhost:#{ ViteRuby.config.port }"
+      policy.script_src *policy.script_src, :unsafe_eval,
+                                            "http://#{ ViteRuby.config.host_with_port }",
+                                            "localhost:#{ ViteRuby.config.port }"
     end
     # Allow connections to the Vite dev server
     policy.script_src *policy.script_src, :blob if Rails.env.test?
