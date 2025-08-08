@@ -18,7 +18,8 @@ Rails.application.configure do
       policy.connect_src *policy.connect_src, "ws://#{ ViteRuby.config.host_with_port }",
                                               "wss://#{ ViteRuby.config.host_with_port }",
                                               "ws://localhost:#{ ViteRuby.config.port }",
-                                              "wss://localhost:#{ ViteRuby.config.port }"
+                                              "wss://localhost:#{ ViteRuby.config.port }",
+                                              "wss://*.library.unt.edu:#{ ViteRuby.config.port }"
       policy.script_src *policy.script_src, :unsafe_eval,
                                             "http://#{ ViteRuby.config.host_with_port }",
                                             "localhost:#{ ViteRuby.config.port }"
