@@ -78,4 +78,7 @@ Rails.application.configure do
 
   # Allow web console to connect to the Docker network
   config.web_console.permissions = '192.168.65.1'
+
+  # Conditionally assume SSL for proxy environments
+  config.assume_ssl = ENV["RAILS_ASSUME_SSL"].present?
 end

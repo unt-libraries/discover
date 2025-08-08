@@ -3,7 +3,7 @@
   head of the document to prevent issues with Turbo.
 %>
 
-<script>
+<%= javascript_tag nonce: true do -%>
   // JS variables attached to window
   window.wwwJsShims = window.wwwJsShims || {};
   window.wwwJsShims = {
@@ -22,4 +22,4 @@
       classes: <%= load_yaml_data('www/html_classes')['dropdowns'].to_json.html_safe %>,
     },
   };
-</script>
+<% end %>
