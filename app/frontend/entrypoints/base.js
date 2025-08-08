@@ -12,7 +12,13 @@ import '~/src/javascripts/www/main'; // This is the main entry point for the www
 import '~/src/javascripts/www/display.alerts';
 import SearchDropdown from '~/src/javascripts/www/search-dropdowns';
 
-Blacklight.onLoad(() => {
+const initializePage = () => {
+  const bodyElement = document.querySelector('body');
+  if (!bodyElement) return;
+
+  if (bodyElement.dataset.baseJsInitialized) return;
+  bodyElement.dataset.baseJsInitialized = 'true';
+
   // Initialize search dropdowns using window object
   // eslint-disable-next-line no-new
   new SearchDropdown('bento-offcanvas-other-search-options', 'bento-offcanvas-q', window.wwwJsShims.searchDropdowns['default_bento']);
@@ -25,4 +31,10 @@ Blacklight.onLoad(() => {
   bindDismissBannerCookie();
   runBrowserUpdate();
   replaceBookCovers();
-});
+};
+
+// Register for subsequent page loads
+Blacklight.onLoad(initializePage);
+
+// Run on initial page load
+initializePage();

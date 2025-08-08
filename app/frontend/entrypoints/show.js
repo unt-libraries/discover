@@ -6,13 +6,22 @@ import {
 import { highlightSearchTerms } from '~/src/javascripts/_highlight';
 import { setDocHistory } from '~/src/javascripts/_history';
 
-Blacklight.onLoad(() => {
+const initializePage = () => {
   const showBodyElement = document.querySelector('body.blacklight-catalog-show');
   if (!showBodyElement) return;
+
+  if (showBodyElement.dataset.showJsInitialized) return;
+  showBodyElement.dataset.showJsInitialized = 'true';
 
   checkAvailability();
   setDocHistory();
   bindShowAvailMoreField();
   highlightSearchTerms();
   hoverHierarchicalLinks();
-});
+};
+
+// Register for subsequent page loads
+Blacklight.onLoad(initializePage);
+
+// Run on initial page load
+initializePage();
