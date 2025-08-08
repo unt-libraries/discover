@@ -11,18 +11,21 @@ Rails.application.configure do
     policy.img_src     :self, :https, :data
     policy.object_src  :none
     policy.script_src  :self, :https
-    policy.style_src   :self, :https
+    policy.style_src   :self, :https, :unsafe_inline
     policy.connect_src :self, :https, 'lgapi-us.libapps.com', 'books.google.com'
 
-    # Allow connections to the Vite dev server
     if Rails.env.development?
-      policy.connect_src :self, :https, "http://localhost:3036", "ws://localhost:3036"
+      policy.connect_src *policy.connect_src, "ws://#{ ViteRuby.config.host_with_port }", "ws://localhost:#{ ViteRuby.config.port }"
+      policy.script_src *policy.script_src, :unsafe_eval, "http://#{ ViteRuby.config.host_with_port }", "localhost:#{ ViteRuby.config.port }"
     end
+    # Allow connections to the Vite dev server
+    policy.script_src *policy.script_src, :blob if Rails.env.test?
   end
 
   # Generate session nonces for permitted importmap, inline scripts, and inline styles.
   config.content_security_policy_nonce_generator = ->(request) { request.session.id.to_s }
-  config.content_security_policy_nonce_directives = %w(script-src style-src)
+  # Only generate nonces for scripts, not styles
+  config.content_security_policy_nonce_directives = %w(script-src)
 
   # Report violations without enforcing the policy.
   # config.content_security_policy_report_only = true
