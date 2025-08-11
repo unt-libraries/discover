@@ -1,9 +1,4 @@
 <li class="<%= html_classes['item'] %>">
-  <%= helpers.link_back_to_catalog({label: 'Results',
-                                   class: html_classes['link']}) %>
-</li>
-
-<li class="<%= html_classes['item'] %>">
   <%= helpers.link_to_document(@document, item_page_entry_info,
                                {class:  html_classes['link'],
                                :counter => @search_session['counter']}) %>

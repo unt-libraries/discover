@@ -26,9 +26,14 @@
         </a>
       </li>
 
-      <%# TODO: Make sure this conditionally renders properly based on current search session %>
-      <% if defined?(search_session) && @document %>
-        <%= render Blacklight::SearchContext::ServerItemPaginationComponent.new(search_context: @search_context, search_session: search_session, current_document: @document) if search_session['document_id'] == @document.id %>
+      <% if current_search_session %>
+        <li class="<%= html_classes['breadcrumbs']['item'] %>">
+          <%= link_back_to_catalog({label: 'Results',
+                                    class: html_classes['breadcrumbs']['link']}) %>
+        </li>
+        <% if @document %>
+          <%= render Blacklight::SearchContext::ServerItemPaginationComponent.new(search_context: @search_context, search_session: search_session, current_document: @document) %>
+        <% end %>
       <% else %>
         <% if action_name == 'show' %>
           <li class="<%= html_classes['breadcrumbs']['current_item'] %>">
