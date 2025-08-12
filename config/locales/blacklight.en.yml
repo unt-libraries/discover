@@ -152,8 +152,8 @@ en:
     tools:
       title: 'Actions'
     range_limit:
-      range_begin_short: 'Publication date range (starting year)'
-      range_end_short: 'Publication date range (ending year)'
+      range_begin_short: 'Starting Year'
+      range_end_short: 'Ending Year'
     advanced_search:
       all: all
       any: any

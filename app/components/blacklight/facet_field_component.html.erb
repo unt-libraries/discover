@@ -8,7 +8,7 @@
       aria-expanded="<%= @facet_field.collapsed? ? 'false' : 'true' %>"
       aria-controls="<%= html_id %>">
     <%= link_to label, "##{ html_id }",
-                "onclick": "return false",
+                class: "no-click",
                 role: "button",
                 tabindex: "0" %>
     <i class="expand-collapse-icon float-end fal fa-chevron-down"></i>

@@ -1,0 +1,25 @@
+.range_limit {
+  .chart-wrapper {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .range-limit-input-group {
+    label {
+      align-self: center;
+    }
+    .submit.btn {
+      @extend .btn-dark-teal;
+    }
+  }
+
+  .chart_js {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+
+    .facet-values {
+      margin-top: 0 !important;
+    }
+  }
+}

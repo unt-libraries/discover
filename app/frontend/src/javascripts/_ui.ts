@@ -237,6 +237,16 @@ function hoverHierarchicalLinks() {
   });
 }
 
+// Prevents link navigation instead of inline JS to satisfy Content Security Policy
+function preventClick() {
+  const links = document.querySelectorAll('a.no-click');
+  links.forEach((link) => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+    });
+  });
+}
+
 export {
   animateSearchIcon,
   bindDismissBannerCookie,
@@ -244,4 +254,5 @@ export {
   linkify,
   replaceBookCovers,
   hoverHierarchicalLinks,
+  preventClick,
 };

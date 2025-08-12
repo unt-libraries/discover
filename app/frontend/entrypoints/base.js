@@ -5,7 +5,7 @@ import Blacklight from 'blacklight-frontend';
 import runBrowserUpdate from '~/src/javascripts/_browser-update';
 import { searchSelector, initPrefilters, initFilters } from '~/src/javascripts/_search';
 import {
-  animateSearchIcon, bindDismissBannerCookie, linkify, replaceBookCovers,
+  animateSearchIcon, bindDismissBannerCookie, linkify, replaceBookCovers, preventClick,
 } from '~/src/javascripts/_ui';
 // TODO: Check that the chat widget appears on all pages
 import '~/src/javascripts/www/main'; // This is the main entry point for the www pack
@@ -31,6 +31,7 @@ const initializePage = () => {
   bindDismissBannerCookie();
   runBrowserUpdate();
   replaceBookCovers();
+  preventClick();
 };
 
 // Register for subsequent page loads
