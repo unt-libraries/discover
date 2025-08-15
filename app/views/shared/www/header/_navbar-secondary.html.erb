@@ -26,11 +26,14 @@
         </a>
       </li>
 
-      <% if current_search_session %>
-        <li class="<%= html_classes['breadcrumbs']['item'] %>">
-          <%= link_back_to_catalog({label: 'Results',
-                                    class: html_classes['breadcrumbs']['link']}) %>
-        </li>
+      <% if defined?(current_search_session) && !current_search_session.nil? %>
+        <% if params[:action] != 'advanced_search' %>
+          <li class="<%= html_classes['breadcrumbs']['item'] %>">
+            <%= link_back_to_catalog({label: 'Results',
+                                      class: html_classes['breadcrumbs']['link']}) %>
+          </li>
+        <% end %>
+
         <% if @document %>
           <%= render Blacklight::SearchContext::ServerItemPaginationComponent.new(search_context: @search_context, search_session: search_session, current_document: @document) %>
         <% end %>
