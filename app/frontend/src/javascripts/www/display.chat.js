@@ -98,7 +98,9 @@ export class ChatManager {
    * load chat widget by appending script element to body
    */
   loadChat() {
+    if (document.getElementById('chatWidgetScript')) return; // EDITED to prevent duplicate script tags
     const script = document.createElement('script');
+    script.id = 'chatWidgetScript'; // EDITED to prevent duplicate script tags
     script.src = this.widgetUrl;
     script.async = true;
     document.body.appendChild(script);
