@@ -32,7 +32,7 @@ class AvailabilityController < ApplicationController
 
   def check_access_token_expiry
     options = bearer_headers
-    base_uri = "https://iii.library.unt.edu/iii/sierra-api/v5/info/token"
+    base_uri = "https://iii.library.unt.edu/iii/sierra-api/v6/info/token"
 
     HTTParty.get("#{base_uri}", options)
   end
@@ -58,7 +58,7 @@ class AvailabilityController < ApplicationController
     sierra_secret = Rails.application.credentials[Rails.env.to_sym][:SIERRA_API_SECRET]
     encoded_credentials = Base64.encode64("#{sierra_key}:#{sierra_secret}")
     options = basic_headers(encoded_credentials)
-    response = HTTParty.post('https://iii.library.unt.edu/iii/sierra-api/v5/token', options)
+    response = HTTParty.post('https://iii.library.unt.edu/iii/sierra-api/v6/token', options)
     @access_token = response['access_token']
 
     set_session_token
@@ -67,7 +67,7 @@ class AvailabilityController < ApplicationController
   def get_items
     options = bearer_headers
     options[:timeout] = 5 # seconds
-    uri = "https://iii.library.unt.edu/iii/sierra-api/v5/items/?"
+    uri = "https://iii.library.unt.edu/iii/sierra-api/v6/items/?"
     bib_ids = "id=#{@bib_id_string}"
     fields = "fields=location,status,holdCount"
     parameters = "suppressed=false&deleted=false"
