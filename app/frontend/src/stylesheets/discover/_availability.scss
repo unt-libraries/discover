@@ -70,7 +70,7 @@
           padding: 0.15rem 0.5rem;
 
           &.disabled {
-            color: $gray-500;
+            color: $gray-900;
             background-color: white;
             border: none;
             padding: 0;
@@ -83,8 +83,6 @@
 
             &.checked-out {
               @extend .btn-outline-light-teal;
-
-              background-color: transparent;
             }
           }
 
@@ -95,22 +93,18 @@
 
             &.checked-out {
               @extend .btn-outline-dark-teal;
-
-              background-color: transparent;
             }
           }
 
           &.location-media {
             &.available:not(.checked-out) {
-              @extend .btn-light-green;
+              @extend .btn-accessible-green;
 
               color: white;
             }
 
             &.checked-out {
-              @extend .btn-outline-light-green;
-
-              background-color: transparent;
+              @extend .btn-outline-accessible-green;
 
               &:active,
               &:hover,
@@ -122,13 +116,11 @@
 
           &.location-discovery-park {
             &.available:not(.checked-out) {
-              @extend .btn-lime-green;
+              @extend .btn-aqua;
             }
 
             &.checked-out {
-              @extend .btn-outline-lime-green;
-
-              background-color: transparent;
+              @extend .btn-outline-aqua;
             }
           }
 
@@ -141,8 +133,6 @@
 
             &.checked-out {
               @extend .btn-outline-aqua;
-
-              background-color: transparent;
             }
           }
 
@@ -155,8 +145,6 @@
 
             &.checked-out {
               @extend .btn-outline-forest-green;
-
-              background-color: transparent;
             }
           }
 
@@ -174,13 +162,13 @@
 
           &.unavailable {
             color: white;
-            background-color: $gray-500;
-            border-color: $gray-500;
+            background-color: $gray-600;
+            border-color: $gray-600;
 
             &:active,
             &:hover,
             &:focus {
-              background-color: darken($gray-500, 5%);
+              background-color: darken($gray-600, 5%);
             }
           }
         }

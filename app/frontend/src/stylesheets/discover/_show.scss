@@ -73,6 +73,11 @@
     &__sub {
       @extend .text-body-secondary;
     }
+
+    &__availability,
+    &__more-details {
+      font-size: 1.9875rem;
+    }
   }
 
   .result__field {

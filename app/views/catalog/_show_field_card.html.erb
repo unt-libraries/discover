@@ -3,7 +3,7 @@
 
 <div class="card item-<%= display_name %> breathing-room">
   <div class="card-body">
-    <h3 class="card-title <%= display_name.parameterize %>-heading"><%= display_name.titlecase %></h3>
+    <h2 class="card-title show-heading-title__more-details <%= display_name.parameterize %>-heading"><%= display_name.titlecase %></h2>
     <dl class="dl-invert document-metadata">
       <% fields.each do |field_name, field, field_presenter| -%>
         <%= render partial: 'show_field',
