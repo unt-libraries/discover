@@ -68,7 +68,7 @@ header:
   title_wrapper: "bg-lg-white bg-secondary-subtle border-lg-3 border-lg-success border-start-lg ms-lg-3 ps-lg-3 w-100 w-lg-auto"
   title_heading: "m-0 p-2 p-lg-0 lh-1 h3"
   title_descriptor: "fs-5"
-  subtitle_link: "text-uppercase link-dark-green link-underline-opacity-0 link-underline-opacity-100-hover m-0 px-2 px-lg-0 pt-1 pt-lg-0 d-block"
+  subtitle_link: "text-uppercase link-dark-green link-underline-opacity-0 link-underline-opacity-100-hover m-0 px-2 px-lg-0 pt-1 pt-lg-0 pb-2 d-block" # EDIT: added pb-2 for accessibility
   title_link: "text-uppercase link-dark-green link-underline-opacity-0 link-underline-opacity-100-hover"
   navbar_mobile_controls: "btn-group me-2"
   navbar_toggler: "navbar-toggler icon-link border-0"

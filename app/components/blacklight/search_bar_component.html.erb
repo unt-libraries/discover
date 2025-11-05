@@ -32,7 +32,12 @@
                   <div class="dropdown d-sm-block me-3" id="searchFieldDropdownGroup">
 
                     <%# Button displaying current search field %>
-                    <button class="btn btn-light btn-lg dropdown-toggle search__btn" type="button" id="search-fields-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-light btn-lg dropdown-toggle search__btn"
+                            type="button" id="search-fields-toggle"
+                            data-bs-toggle="dropdown"
+                            aria-label="<%= t('blacklight.search.form.search_field.label') %> <%= blacklight_config.search_fields[@search_field]&.label || search_fields.first.first %>"
+                            aria-haspopup="true"
+                            aria-expanded="false">
                       <span class="d-none d-md-inline">
                         <%= t('blacklight.search.form.search_field.label') %>
                         <span class="selected" id="selected-search-field-label">

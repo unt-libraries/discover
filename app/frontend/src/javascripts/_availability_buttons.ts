@@ -60,6 +60,7 @@ function updateStatusElement(itemEl: HTMLElement, item: ApiEntry | null = null):
     // Hide the button if it's online, we already have buttons for that
     if (isOnlineItem) {
       availabilityEl.classList.add('d-none');
+      availabilityEl.parentElement?.classList.add('d-none');
       itemEl.classList.add('m-0', 'p-0');
       return;
     }

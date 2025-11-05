@@ -11,6 +11,7 @@ function searchSelector(): void {
   const queryInput = document.getElementById('q') as HTMLInputElement;
   const dropdown = document.getElementById('searchFieldDropdownGroup') as HTMLElement;
   const dropdownItems = dropdown?.querySelectorAll('.dropdown-item') as NodeListOf<HTMLElement>;
+  const searchFieldsToggle = document.getElementById('search-fields-toggle') as HTMLElement;
   dropdownItems.forEach((dropdownItem: HTMLElement) => {
     dropdownItem.addEventListener('click', (e: Event) => {
       e.preventDefault();
@@ -20,6 +21,7 @@ function searchSelector(): void {
       const scopeValue = selected.dataset.searchField;
       dropdown.querySelector('.selected')!.innerHTML = selectedText!;
       (document.getElementById('search_field_hidden') as HTMLInputElement)!.value = scopeValue!;
+      searchFieldsToggle.ariaLabel = `Look in: ${selectedText}`;
       if (dropdown?.classList.contains('open')) {
         dropdown.classList.remove('open');
       }

@@ -4,12 +4,12 @@
       data-toggle="collapse"
       data-bs-toggle="collapse"
       data-target="#<%= html_id %>"
-      data-bs-target="#<%= html_id %>"
-      aria-expanded="<%= @facet_field.collapsed? ? 'false' : 'true' %>"
-      aria-controls="<%= html_id %>">
+      data-bs-target="#<%= html_id %>">
     <%= link_to label, "##{ html_id }",
                 class: "no-click",
                 role: "button",
+                "aria-expanded": @facet_field.collapsed? ? 'false' : 'true',
+                "aria-controls": html_id,
                 tabindex: "0" %>
     <i class="expand-collapse-icon float-end fal fa-chevron-down"></i>
   </h3>

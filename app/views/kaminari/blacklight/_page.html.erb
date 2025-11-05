@@ -8,19 +8,16 @@
     remote:        data-remote
 -%>
 <% page_display = number_with_delimiter(page.to_s) %>
+<% aria_label = page.current? ? t('views.pagination.aria.current_page', page: page_display) : t('views.pagination.aria.go_to_page', page: page_display) %>
 
-<li class="page-item <%= 'active' if page.current? %>">
+<li class="page-item <%= 'active' if page.current? %>"
+    <%= 'aria-current=true' if page.current? %>
+    aria-label="<%= aria_label %>">
   <% if page.current? %>
-    <span class="page-link" aria-label="<%= t('views.pagination.aria.current_page', page: page_display) %>" aria-current="true"><%= page_display %></span>
+    <span class="page-link"><%= page_display %></span>
   <% else %>
     <%= link_to page_display, url, :remote => remote,
-                :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil, class: 'page-link',
-                aria: { label: t('views.pagination.aria.go_to_page', page: page_display) },
-                'ga-on': 'click',
-                'ga-event-category': 'pagination',
-                'ga-event-action': 'results bottom pagination',
-                'ga-event-label': page_display,
-                'ga-event-value': '1' %>
+                :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil, class: 'page-link' %>
   <% end %>
 </li>
 
