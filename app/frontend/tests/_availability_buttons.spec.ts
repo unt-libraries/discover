@@ -1,8 +1,8 @@
-import { serviceDeskData } from './__mocks__/service_desks';
+import { serviceDeskData } from './__mocks__/services_desks';
 import { statusDescData } from './__mocks__/availability_statuses';
 import { locationData } from './__mocks__/availability_locations';
 
-vi.mock('../src/javascripts/data/service_desks', () => ({
+vi.mock('../src/javascripts/data/services_desks', () => ({
   serviceDeskData,
 }));
 vi.mock('../src/javascripts/data/availability_statuses', () => ({

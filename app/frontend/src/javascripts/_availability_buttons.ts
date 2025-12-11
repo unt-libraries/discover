@@ -197,7 +197,7 @@ function updateUIError(items: string[], error?: number): void {
         const availabilityEl: HTMLElement | null = node.querySelector('.blacklight-availability.result__value');
         const availabilityBtn: HTMLElement | null | undefined = availabilityEl?.querySelector('.availability-btn');
         if (availabilityBtn) {
-          availabilityBtn.innerText = 'Ask at the Service Desk';
+          availabilityBtn.innerText = 'Ask at the Services Desk';
         }
       });
     }

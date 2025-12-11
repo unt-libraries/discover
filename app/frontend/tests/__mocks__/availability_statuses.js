@@ -108,7 +108,7 @@ const statusDescData = {
   '-': {
     label: 'Available',
     desc: 'The item is available for checkout. It should be on the shelf at the listed location; if you can\'t find '
-      + 'it, please ask for help at a Service Desk.',
+      + 'it, please ask for help at a Services Desk.',
     btnClass: 'available',
   },
   '!': {

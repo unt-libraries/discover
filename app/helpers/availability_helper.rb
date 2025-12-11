@@ -59,7 +59,7 @@ module AvailabilityHelper
     avail_url = document_availability_href(document)
 
     if item['i'].blank?
-      link_text = 'Contact the Service Desk'
+      link_text = 'Contact the Services Desk'
     else
       link_text = ''
     end
@@ -68,7 +68,7 @@ module AvailabilityHelper
   end
 
   def render_availability_text(item)
-    element_text = item['i'].blank? ? "Ask at the service desk" : ''
+    element_text = item['i'].blank? ? "Ask at the services desk" : ''
     content_tag(:div, element_text,
                 {
                   class: "availability-text #{'d-none' if item['i'].present?}",

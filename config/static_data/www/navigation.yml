@@ -1026,7 +1026,7 @@ breadcrumb_hours:
         url: /willis/
         class:
         icon_classes: fad fa-university fa-fw fa-sm text-secondary
-      - text: Service Desk
+      - text: Services Desk
         type: hour
         cid: 12988
         url: /access-services/

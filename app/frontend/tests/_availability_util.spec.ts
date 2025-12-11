@@ -1,5 +1,5 @@
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { serviceDeskData } from './__mocks__/service_desks';
+import { serviceDeskData } from './__mocks__/services_desks';
 import { statusDescData } from './__mocks__/availability_statuses';
 import { locationData } from './__mocks__/availability_locations';
 
@@ -7,7 +7,7 @@ vi.mock('node-fetch', () => ({
   default: vi.fn()
 }));
 
-vi.mock('../src/javascripts/data/service_desks', () => ({
+vi.mock('../src/javascripts/data/services_desks', () => ({
   serviceDeskData,
 }));
 vi.mock('../src/javascripts/data/availability_statuses', () => ({
@@ -306,16 +306,16 @@ describe('getLocationData', () => {
 });
 
 describe('getServiceDeskData', () => {
-  it('should return the correct service desk data', () => {
+  it('should return the correct services desk data', () => {
     const deskCode = 'czm';
     const deskData = getServiceDeskData(deskCode);
     expect(deskData).toEqual({
-      name: 'Media Library Service Desk',
+      name: 'Media Library Services Desk',
       url: 'https://library.unt.edu/media/service-desk/',
     });
   });
 
-  it('should return the default service desk data when the provided code is not found', () => {
+  it('should return the default services desk data when the provided code is not found', () => {
     const deskCode = 'nonexistent';
     const deskData = getServiceDeskData(deskCode);
     expect(deskData).toEqual({
@@ -324,7 +324,7 @@ describe('getServiceDeskData', () => {
     });
   });
 
-  it('should return the correct service desk data when using a default code', () => {
+  it('should return the correct services desk data when using a default code', () => {
     const deskCode = 'default';
     const deskData = getServiceDeskData(deskCode);
     expect(deskData).toEqual({
@@ -333,7 +333,7 @@ describe('getServiceDeskData', () => {
     });
   });
 
-  it('should return the correct service desk data when using a code with the special collections prefix', () => {
+  it('should return the correct services desk data when using a code with the special collections prefix', () => {
     const deskCode = 'w4spe';
     const deskData = getServiceDeskData(deskCode);
     expect(deskData).toEqual({
@@ -342,7 +342,7 @@ describe('getServiceDeskData', () => {
     });
   });
 
-  it('should return the correct service desk data when using a code with the xspe prefix', () => {
+  it('should return the correct services desk data when using a code with the xspe prefix', () => {
     const deskCode = 'xspe';
     const deskData = getServiceDeskData(deskCode);
     expect(deskData).toEqual({
@@ -359,7 +359,7 @@ describe('getStatusData', () => {
     expect(statusData).toEqual({
       label: 'Available',
       desc: 'The item is available for checkout. It should be on the shelf at the listed location; if you can\'t find '
-        + 'it, please ask for help at a Service Desk.',
+        + 'it, please ask for help at a Services Desk.',
       btnClass: 'available',
     });
   });

@@ -1,18 +1,18 @@
 const serviceDeskData = {
   r: {
-    name: 'Discovery Park Library Service Desk',
+    name: 'Discovery Park Library Services Desk',
     url: 'https://library.unt.edu/discovery-park/service-desk/',
   },
   s: {
-    name: 'Sycamore Library Service Desk',
+    name: 'Sycamore Library Services Desk',
     url: 'https://library.unt.edu/sycamore/service-desk/',
   },
   czm: {
-    name: 'Media Library Service Desk',
+    name: 'Media Library Services Desk',
     url: 'https://library.unt.edu/media/service-desk/',
   },
   w4m: {
-    name: 'Music Library Service Desk',
+    name: 'Music Library Services Desk',
     url: 'https://library.unt.edu/music/service-desk/',
   },
   w4spe: {

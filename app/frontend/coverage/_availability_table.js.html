@@ -1122,7 +1122,7 @@
 <span class="cstat-no" title="statement not covered" >  const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!itemStatus) {</span>
-<span class="cstat-no" title="statement not covered" >    availabilityEl.innerText = 'Ask at the Service Desk';</span>
+<span class="cstat-no" title="statement not covered" >    availabilityEl.innerText = 'Ask at the Services Desk';</span>
 <span class="cstat-no" title="statement not covered" >    return;</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
@@ -1173,7 +1173,7 @@
 <span class="cstat-no" title="statement not covered" >  const cardBody = itemAvailabilityCard.querySelector('.card-body');</span>
 <span class="cstat-no" title="statement not covered" >  const newEl = document.createElement('div');</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  newEl.innerHTML = 'No items found. Please contact the &lt;a target="_blank" href="https://library.unt.edu/willis/service-desk/"&gt;Willis Library Service Desk&lt;/a&gt; for assistance';</span>
+<span class="cstat-no" title="statement not covered" >  newEl.innerHTML = 'No items found. Please contact the &lt;a target="_blank" href="https://library.unt.edu/willis/service-desk/"&gt;Willis Library Services Desk&lt;/a&gt; for assistance';</span>
 <span class="cstat-no" title="statement not covered" >  cardBody.appendChild(newEl);</span>
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
@@ -1273,7 +1273,7 @@
 <span class="cstat-no" title="statement not covered" >      itemEl.remove();</span>
 <span class="cstat-no" title="statement not covered" >    } else {</span>
 <span class="cstat-no" title="statement not covered" >      const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');</span>
-<span class="cstat-no" title="statement not covered" >      availabilityEl.innerText = 'Ask at the Service Desk';</span>
+<span class="cstat-no" title="statement not covered" >      availabilityEl.innerText = 'Ask at the Services Desk';</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  });</span>
 <span class="cstat-no" title="statement not covered" >  if (error === 107) {</span>
@@ -1336,7 +1336,7 @@
 <span class="cstat-no" title="statement not covered" >      const serviceDesk = getServiceDeskData(locationCode);</span>
 <span class="cstat-no" title="statement not covered" >      locationData.code = locationCode;</span>
 <span class="cstat-no" title="statement not covered" >      updateLocationElement(item, locationData);</span>
-<span class="cstat-no" title="statement not covered" >      availEl.innerHTML = `Unknown: Contact the &lt;a href="${serviceDesk.url}" target="_blank"&gt;Service Desk&lt;/a&gt;`;</span>
+<span class="cstat-no" title="statement not covered" >      availEl.innerHTML = `Unknown: Contact the &lt;a href="${serviceDesk.url}" target="_blank"&gt;Services Desk&lt;/a&gt;`;</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  });</span>
 <span class="cstat-no" title="statement not covered" >}</span>

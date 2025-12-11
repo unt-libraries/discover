@@ -74,9 +74,9 @@ hours:
   spaces: # see https://calendar.library.unt.edu/admin/hours#s-lc-tab-libraries
     - name: Willis
       cid: 12207
-    - name: Library Service Desk
+    - name: Library Services Desk
       cid: 12988
-    - name: The Spark Service Desk
+    - name: The Spark Services Desk
       cid: 12220
     - name: The Spark Makerspace
       cid: 17562
@@ -100,7 +100,7 @@ hours:
       cid: 20469
     - name: Spark @ Frisco
       cid: 20470
-    - name: Spark Service Desk @ Frisco
+    - name: Spark Services Desk @ Frisco
       cid: 20496
     - name: Library Annex
       cid: 12991

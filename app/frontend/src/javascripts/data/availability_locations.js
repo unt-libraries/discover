@@ -327,7 +327,7 @@ const locationData = {
     name: 'Sycamore Library Docs Reserves',
   },
   sdzsd: {
-    name: 'Sycamore Library Service Desk',
+    name: 'Sycamore Library Services Desk',
   },
   sfin: {
     name: 'Sycamore Library Funding Information Network',
@@ -374,7 +374,7 @@ const locationData = {
     abbr: 'Sycamore Reserves',
   },
   szzsd: {
-    name: 'Sycamore Library Service Desk',
+    name: 'Sycamore Library Services Desk',
   },
   tamc: {
     name: 'Texas A and M Commerce',

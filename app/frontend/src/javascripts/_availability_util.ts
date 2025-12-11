@@ -1,6 +1,6 @@
 import { locationData as locationDataRaw } from './data/availability_locations';
 import { statusDescData as statusDescDataRaw } from './data/availability_statuses';
-import { serviceDeskData } from './data/service_desks';
+import { serviceDeskData } from './data/services_desks';
 import {
   LocationData, StatusData, ApiEntry,
 } from './@typings/interfaces.d';
@@ -104,9 +104,9 @@ interface ServiceDeskData {
 }
 
 /**
- * Retrieves service desk data for a given location code.
+ * Retrieves services desk data for a given location code.
  * @param locationCode - The location code to search for.
- * @returns The service desk data object for the provided location code.
+ * @returns The services desk data object for the provided location code.
  */
 function getServiceDeskData(locationCode: string): ServiceDeskData[keyof ServiceDeskData] {
   let serviceDesk;

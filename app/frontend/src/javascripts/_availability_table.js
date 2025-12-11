@@ -173,7 +173,7 @@ function updateStatusElement(itemEl, itemStatus = null, holdCount = 0) {
   const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
 
   if (!itemStatus) {
-    availabilityEl.innerText = 'Ask at the Service Desk';
+    availabilityEl.innerText = 'Ask at the Services Desk';
     return;
   }
 
@@ -224,7 +224,7 @@ function addNoItemsMessage() {
   const cardBody = itemAvailabilityCard.querySelector('.card-body');
   const newEl = document.createElement('div');
 
-  newEl.innerHTML = 'No items found. Please contact the <a target="_blank" href="https://library.unt.edu/willis/service-desk/">Willis Library Service Desk</a> for assistance';
+  newEl.innerHTML = 'No items found. Please contact the <a target="_blank" href="https://library.unt.edu/willis/service-desk/">Willis Library Services Desk</a> for assistance';
   cardBody.appendChild(newEl);
 }
 
@@ -324,7 +324,7 @@ function updateUIError(items, error = undefined) {
       itemEl.remove();
     } else {
       const availabilityEl = itemEl.querySelector('.blacklight-availability.result__value');
-      availabilityEl.innerText = 'Ask at the Service Desk';
+      availabilityEl.innerText = 'Ask at the Services Desk';
     }
   });
   if (error === 107) {
@@ -387,7 +387,7 @@ function updateNoApiItems() {
       const serviceDesk = getServiceDeskData(locationCode);
       locationData.code = locationCode;
       updateLocationElement(item, locationData);
-      availEl.innerHTML = `Unknown: Contact the <a href="${serviceDesk.url}" target="_blank">Service Desk</a>`;
+      availEl.innerHTML = `Unknown: Contact the <a href="${serviceDesk.url}" target="_blank">Services Desk</a>`;
     }
   });
 }
