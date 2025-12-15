@@ -4,10 +4,10 @@ en:
       dismissible: true
       class: ''
       content: "The Eagle Commons Library will be known as <b>Sycamore Library</b> effective August 1st. You may encounter both names for the same location in Discover while we complete this transition."
-    - active: false
+    - active: true
       dismissible: false
       class: ''
-      content: "Library systems will be undergoing Maintenance on Friday, December 12th, from approximately 7:30 am to 8:30 am. During the maintenance window, item availability will not load and requesting will be unavailable."
+      content: "Library systems will be undergoing Maintenance on Saturday, December 20th, from approximately 8:30 am to 12:30 pm. During the maintenance window, item availability will not load and requesting will be unavailable."
   home:
     about:
       title: 'About Discover'
