@@ -8,6 +8,10 @@ en:
       dismissible: false
       class: ''
       content: "Library systems will be undergoing Maintenance on Saturday, December 20th, from approximately 8:30 am to 12:30 pm. During the maintenance window, item availability will not load and requesting will be unavailable."
+    - active: true
+      dismissible: false
+      class: ''
+      content: "Library systems are currently undergoing Maintenance until approximately 8:00 am. During this maintenance window, item availability and requesting are unavailable."
   home:
     about:
       title: 'About Discover'
