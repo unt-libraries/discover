@@ -13,7 +13,10 @@ variables:
   PROD_IMAGE_NAME: $CI_REGISTRY_IMAGE:latest
 
 # Include before_script to download utilities repo & run scripts
-include: 'https://content.library.unt.edu/www/utilities/raw/master/scripts/gitlab-ci/.before-script-utils-repo.yml'
+include:
+  - project: 'www/utilities'
+    ref: main
+    file: '/scripts/gitlab-ci/.before-script-utils-repo.yml'
 
 
 ########################
