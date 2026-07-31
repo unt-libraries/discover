@@ -1,9 +1,9 @@
 en:
   announcement:
-    - active: false
-      dismissible: true
+    - active: true
+      dismissible: false
       class: ''
-      content: "The Eagle Commons Library will be known as <b>Sycamore Library</b> effective August 1st. You may encounter both names for the same location in Discover while we complete this transition."
+      content: "Library systems will be undergoing maintenance on Wednesday, August 5th and Friday, August 7th. The legacy catalog, course reserves, and requesting will be unavailable during the following times: 8/5/2026 8:00AM to 10:00AM and 8/7/2026 7:30AM to 8:00AM."
     - active: false
       dismissible: false
       class: ''
