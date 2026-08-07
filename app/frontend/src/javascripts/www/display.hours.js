@@ -35,7 +35,7 @@ export class LibraryHours {
       const id = parseInt(element.getAttribute('data-untl-hours-id'), 10);
       // get the hours for the first day
 
-      const hoursData = weekHours.find(item => item.lid === id).days[0];
+      const hoursData = weekHours.find(item => item.lid === id)?.days[0];
       if (hoursData) {
         element.textContent = hoursData.time; // Update the text content with the hours
       }
