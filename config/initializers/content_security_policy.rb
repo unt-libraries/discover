@@ -10,7 +10,7 @@ Rails.application.configure do
     policy.font_src    :self, :https, :data
     policy.img_src     :self, :https, :data
     policy.object_src  :none
-    policy.script_src  :self, :https
+    policy.script_src  :self, :https, :unsafe_inline
     policy.style_src   :self, :https, :unsafe_inline
     policy.connect_src :self, :https, 'lgapi-us.libapps.com', 'books.google.com'
 
@@ -20,7 +20,7 @@ Rails.application.configure do
                                               "ws://localhost:#{ ViteRuby.config.port }",
                                               "wss://localhost:#{ ViteRuby.config.port }",
                                               "wss://*.library.unt.edu:#{ ViteRuby.config.port }"
-      policy.script_src *policy.script_src, :unsafe_eval,
+      policy.script_src *policy.script_src, :unsafe_eval, :unsafe_inline,
                                             "http://#{ ViteRuby.config.host_with_port }",
                                             "localhost:#{ ViteRuby.config.port }"
     end
@@ -28,11 +28,11 @@ Rails.application.configure do
     policy.script_src *policy.script_src, :blob if Rails.env.test?
   end
 
+  # Config necessary to generate nonces for scripts and styles
   # Generate session nonces for permitted importmap, inline scripts, and inline styles.
-  config.content_security_policy_nonce_generator = ->(request) { request.session.id || SecureRandom.hex(16) }
-
+  # config.content_security_policy_nonce_generator = ->(request) { request.session.id || SecureRandom.hex(16) }
   # Only generate nonces for scripts, not styles
-  config.content_security_policy_nonce_directives = %w(script-src)
+  # config.content_security_policy_nonce_directives = %w(script-src)
 
   # Report violations without enforcing the policy.
   # config.content_security_policy_report_only = true
