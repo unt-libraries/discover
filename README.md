@@ -56,7 +56,8 @@ $ docker compose build
 $ yarn build
 ```
 
-After building the containers, [create your credentials](#managing-secrets) with the keys below.
+After building the containers, [create your credentials](#managing-secrets) with the keys below. Default values can be set
+and overridden for each environment.
 
 ```yaml
 default: &default
@@ -65,7 +66,14 @@ default: &default
   SIERRA_API_KEY: 
   SIERRA_API_SECRET: 
   COVID_RESTRICTED: 
-  POSTGRES_PASSWORD: 
+  POSTGRES_PASSWORD:
+  TURNSTILE_SITE_KEY: 
+  TURNSTILE_SECRET_KEY: 
+  TURNSTILE_IP_WHITELIST: 
+    # example:
+    # - 10.0.0.1
+    # - 192.0.2.0/24
+    # - ...
 
 development:
   <<: *default
@@ -77,6 +85,8 @@ production:
   <<: *default
   # Enable DNS rebinding protection by defining allowed production hosts.
   RAILS_PRODUCTION_HOSTS:
+  SIERRA_API_KEY: 
+  SIERRA_API_SECRET: 
 
 secret_key_base: 
 ```
@@ -99,6 +109,13 @@ This project uses a Solr instance that is part of our
 You can read more about that project if you wish. The connection to Solr
 can be configured by following [Project Blacklight's instructions](https://github.com/projectblacklight/blacklight/wiki/Solr-Configuration).
 For this project, the `SOLR_URL` can be stored in the credentials file (detailed below).
+
+## Turnstile bot protection
+
+This project uses the `bot_challenge_page` gem to fight the never-ending bot traffic. It can be disabled with the 
+`config.enabled` setting in `config/initializers/bot_challenge_page.rb`. If the gem is enabled, you will need to define
+Cloudflare Turnstile keys in the credentials file or `.env` file. You can also define whitelist IP addresses that will 
+not encounter the Turnstile check. They should be a in a single line if in the `.env` file.
 
 ## Managing secrets
 {: #managing-secrets }

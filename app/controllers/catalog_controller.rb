@@ -15,6 +15,9 @@ class CatalogController < ApplicationController
     redirect_to '/404'
   end
 
+  # Only present bot challenge page when search parameters
+  bot_challenge only: :index, if: -> { has_search_parameters? }
+
   configure_blacklight do |config|
     # Add compatibility with bootstrap 5
     config.bootstrap_version = 5

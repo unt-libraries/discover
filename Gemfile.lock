@@ -103,6 +103,9 @@ GEM
       view_component (>= 2.54, < 4)
     bootsnap (1.18.6)
       msgpack (~> 1.2)
+    bot_challenge_page (1.2.0)
+      http (>= 5.2, < 7)
+      rails (>= 7.1, < 8.2)
     builder (3.3.0)
     byebug (12.0.0)
     capybara (3.40.0)
@@ -157,7 +160,7 @@ GEM
     http-cookie (1.0.8)
       domain_name (~> 0.5)
     http-form_data (2.3.0)
-    httparty (0.23.1)
+    httparty (0.24.2)
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -461,10 +464,11 @@ DEPENDENCIES
   blacklight_advanced_search (~> 8.0.0alpha2)
   blacklight_range_limit (= 9.0.0)
   bootsnap (>= 1.18.4)
+  bot_challenge_page
   byebug
   capybara (~> 3)
   drb
-  httparty (~> 0.23.1)
+  httparty (~> 0.24.2)
   jbuilder (~> 2.13.0)
   listen (~> 3.9)
   pg (~> 1.5.9)

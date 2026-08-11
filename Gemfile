@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '~> 3.4.3'
 
 gem 'bootsnap', '>= 1.18.4', require: false
-gem 'httparty', '~> 0.23.1'
+gem 'httparty', '~> 0.24.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.13.0'
 # Use PostgreSQL as the database for Active Record
@@ -23,6 +23,9 @@ gem 'view_component', '>= 3.23.2', '< 4.0' # Force version that fixes bug in < 3
 gem 'blacklight-marc', '~> 8.1.4'
 gem 'blacklight_range_limit', '9.0.0'
 gem 'blacklight_advanced_search', '~> 8.0.0alpha2'
+
+# Bot counter-measures
+gem 'bot_challenge_page'
 
 group :development do
   gem 'listen', '~> 3.9'
