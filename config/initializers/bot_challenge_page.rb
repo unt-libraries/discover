@@ -25,16 +25,20 @@ BotChallengePage.configure do |config|
   config.skip_when = ->(config) {
     # Skip when the IP is on the whitelist
     whitelist_value =
-      ENV['TURNSTILE_IP_WHITELIST'].presence ||
+      ENV["TURNSTILE_IP_WHITELIST"].presence ||
       Rails.application.credentials.dig(Rails.env.to_sym, :TURNSTILE_IP_WHITELIST)
 
     cidrs = case whitelist_value
-            when String then whitelist_value.split(',').map(&:strip).reject(&:blank?)
-            when Array  then whitelist_value.map(&:to_s).map(&:strip).reject(&:blank?)
+            when String then whitelist_value.split(",").map(&:strip).reject(&:blank?)
+            when Array then whitelist_value.map(&:to_s).map(&:strip).reject(&:blank?)
             else []
             end
 
-    request_ip = IPAddr.new(request.remote_ip)
+    forwarded_for = request.headers["X-Forwarded-For"].to_s
+    client_ip_from_proxy = forwarded_for.split(",").first.to_s.strip
+    client_ip = client_ip_from_proxy.presence || request.remote_ip
+
+    request_ip = IPAddr.new(client_ip)
     cidrs.map { |cidr| IPAddr.new(cidr) }.any? { |range| range.include?(request_ip) }
 
   #   # maybe you want to globally exempt a heartbeat path
