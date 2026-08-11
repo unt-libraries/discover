@@ -38,7 +38,7 @@
           <%= render Blacklight::SearchContext::ServerItemPaginationComponent.new(search_context: @search_context, search_session: search_session, current_document: @document) %>
         <% end %>
       <% else %>
-        <% if action_name == 'show' %>
+        <% if action_name == 'show' && @document.present? %>
           <li class="<%= html_classes['breadcrumbs']['current_item'] %>">
             <%= link_to_document @document, "This #{@document.resource_type_name}",
                                  class: html_classes['breadcrumbs']['link_current'] %>
