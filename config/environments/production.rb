@@ -45,9 +45,14 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  config.action_dispatch.trusted_proxies = [
-    IPAddr.new("129.120.90.173")
-  ]
+  # production.rb
+  trusted_proxy_ips = ENV.fetch("TRUSTED_PROXY_IPS", "")
+                         .split(",").map(&:strip).reject(&:blank?).map { |ip| IPAddr.new(ip) }
+
+  if trusted_proxy_ips.any?
+    config.action_dispatch.trusted_proxies =
+      ActionDispatch::RemoteIp::TRUSTED_PROXIES + trusted_proxy_ips
+  end
 
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }

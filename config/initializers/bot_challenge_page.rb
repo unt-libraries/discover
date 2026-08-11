@@ -34,12 +34,12 @@ BotChallengePage.configure do |config|
             else []
             end
 
-    forwarded_for = request.headers["X-Forwarded-For"].to_s
-    client_ip_from_proxy = forwarded_for.split(",").first.to_s.strip
-    client_ip = client_ip_from_proxy.presence || request.remote_ip
+    # Use original client IP when behind proxy/LB
+    forwarded_ip = request.headers["X-Forwarded-For"].to_s.split(",").first.to_s.strip
+    client_ip = forwarded_ip.presence || request.remote_ip
 
     request_ip = IPAddr.new(client_ip)
-    cidrs.map { |cidr| IPAddr.new(cidr) }.any? { |range| range.include?(request_ip) }
+    cidrs.any? { |cidr| IPAddr.new(cidr).include?(request_ip) }
 
   #   # maybe you want to globally exempt a heartbeat path
   #   current_page?(rails_health_check_path) ||
