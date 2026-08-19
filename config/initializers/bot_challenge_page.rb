@@ -78,4 +78,9 @@ BotChallengePage.configure do |config|
   #    # whatever
   # }
 
+  # Use a 200 OK status when rendering the challenge so the in-place JS challenge can work
+  config.challenge_renderer = lambda {
+    render "bot_challenge_page/bot_challenge_page/challenge", status: :ok
+  }
+
 end

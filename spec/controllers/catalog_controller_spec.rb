@@ -258,4 +258,52 @@ RSpec.describe CatalogController, type: :controller do
       expect(field.classes).to eq('linkify-text')
     end
   end
+
+  describe 'enforce bot challenge' do
+    let(:whitelisted_ip) { '192.168.1.1' }
+    let(:non_whitelisted_ip) { '10.0.0.1' }
+
+    before do
+      ENV['TURNSTILE_IP_WHITELIST'] = whitelisted_ip
+    end
+
+    after do
+      ENV['TURNSTILE_IP_WHITELIST'] = nil
+    end
+
+    context 'when remote_ip is whitelisted' do
+      it 'does not enforce the bot challenge' do
+        request.headers['X-Forwarded-For'] = whitelisted_ip
+        request.remote_addr = whitelisted_ip
+
+        expect(BotChallengePage::BotChallengePageController)
+          .not_to receive(:bot_challenge_guard_action)
+
+        get :index, params: { q: 'test' }
+      end
+    end
+
+    context 'when remote_ip is not whitelisted' do
+      context 'when requesting the homepage' do
+        it 'does not enforce the bot challenge' do
+          request.headers['X-Forwarded-For'] = non_whitelisted_ip
+          request.remote_addr = non_whitelisted_ip
+
+          expect(BotChallengePage::BotChallengePageController)
+            .not_to receive(:bot_challenge_guard_action)
+          get :index
+        end
+      end
+
+      context 'when requesting a search' do
+        it 'enforces the bot challenge' do
+          request.headers['X-Forwarded-For'] = non_whitelisted_ip
+          request.remote_addr = non_whitelisted_ip
+          expect(BotChallengePage::BotChallengePageController)
+            .to receive(:bot_challenge_guard_action)
+          get :index, params: { q: 'test' }
+        end
+      end
+    end
+  end
 end
