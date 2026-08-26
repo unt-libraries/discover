@@ -4,10 +4,10 @@ en:
       dismissible: false
       class: ''
       content: "Library systems will be undergoing maintenance on Wednesday, August 5th and Friday, August 7th. The legacy catalog, course reserves, and requesting will be unavailable during the following times: 8/5/2026 8:00AM to 10:00AM and 8/7/2026 7:30AM to 8:00AM."
-    - active: false
+    - active: true
       dismissible: false
       class: ''
-      content: "Library systems will be undergoing Maintenance on Friday, June 26th, from approximately 7:30 am to 8:00 am. During the maintenance window, item availability will not load and requesting will be unavailable."
+      content: "Library systems will be undergoing Maintenance on Friday, August 28th, from approximately 7:30 am to 8:00 am. During the maintenance window, item availability will not load and requesting will be unavailable."
   home:
     about:
       title: 'About Discover'
