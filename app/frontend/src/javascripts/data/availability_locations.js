@@ -452,12 +452,6 @@ const locationData = {
   w1mdc: {
     name: 'Willis 1FL Monthly Display',
   },
-  w1mls: {
-    name: 'Willis 1FL Best Sellers',
-    abbr: 'Willis 1st',
-    linkText: 'Willis Library 1st Floor Directory',
-    url: 'https://library.unt.edu/willis/first-floor/#directory',
-  },
   w1ndc: {
     name: 'Willis 1FL New Books',
   },
@@ -497,6 +491,10 @@ const locationData = {
   },
   w3lab: {
     name: 'Willis 3rd Floor Digital Lab',
+  },
+  w3mls: {
+    name: 'Willis 3FL Best Sellers',
+    abbr: 'Willis 3rd',
   },
   w3per: {
     name: 'Willis 3FL Periodicals',
