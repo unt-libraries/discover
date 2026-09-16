@@ -94,6 +94,10 @@ class CatalogController < ApplicationController
     config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
     # TODO: add citation functionality
     # config.add_show_tools_partial(:citation)
+    # Blacklight-Marc actions disabled. Maybe enable librarian view once the tools are put into proper components.
+    config.show.document_actions.delete(:librarian_view)
+    config.show.document_actions.delete(:refworks)
+    config.show.document_actions.delete(:endnote)
     config.show.document_actions.delete(:sms)
     config.show.document_actions.delete(:email)
 

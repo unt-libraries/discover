@@ -88,7 +88,7 @@ GEM
       rails (>= 6.1, < 9)
       view_component (>= 2.74, < 4)
       zeitwerk
-    blacklight-marc (8.1.4)
+    blacklight-marc (8.2.0)
       blacklight (>= 7.11, < 9)
       library_stdnums
       marc (>= 0.4.3, < 2.0)
@@ -460,7 +460,7 @@ PLATFORMS
 
 DEPENDENCIES
   blacklight (= 8.11.0)
-  blacklight-marc (~> 8.1.4)
+  blacklight-marc (~> 8.2)
   blacklight_advanced_search (~> 8.0.0alpha2)
   blacklight_range_limit (= 9.0.0)
   bootsnap (>= 1.18.4)

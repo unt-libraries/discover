@@ -4,9 +4,27 @@ class SolrDocument
   include Blacklight::Solr::Document
   # The following shows how to setup this blacklight document to display marc documents
   extension_parameters[:marc_source_field] = :marc_display
-  extension_parameters[:marc_format_type] = :marcxml
+  extension_parameters[:marc_format_type] = :marc21
   use_extension(Blacklight::Marc::DocumentExtension) do |document|
-    document.key?(:mark_display)
+    document.key?(:marc_display)
+  end
+
+  # Decode the MARC data from Base64 and return a MARC::Record object
+  module LoadMarcDecoding
+    def load_marc
+      if _marc_format_type.to_s == "marc21"
+        value = fetch(_marc_source_field)
+
+        decoded_value = Base64.decode64(value).force_encoding('UTF-8')
+
+        return MARC::Record.new_from_marc( decoded_value )
+      else
+        return super
+      end
+    end
+  end
+  use_extension(LoadMarcDecoding) do |document|
+    document.key?( :marc_display )
   end
 
   field_semantics.merge!(

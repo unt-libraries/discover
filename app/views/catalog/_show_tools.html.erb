@@ -66,6 +66,12 @@
       <li class="list-group-item show-tools-item catalog-tool" data-tool-item="catalog">
         <i class="fa fa-fw fa-scroll-old"></i><%= link_to_old_catalog(@document) %>
       </li>
+
+      <% unless @document[:marc_display].nil? -%>
+        <li class="list-group-item show-tools-item librarian-view-tool" data-tool-item="librarian-view">
+          <i class="fa fa-fw fa-books"></i><%= link_to_librarian_view(@document) %>
+        </li>
+      <% end -%>
     </ul>
   </div>
 <%# end %>

@@ -20,7 +20,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'blacklight', '8.11.0'
 gem 'view_component', '>= 3.23.2', '< 4.0' # Force version that fixes bug in < 3.9.0
-gem 'blacklight-marc', '~> 8.1.4'
+gem 'blacklight-marc', '~> 8.2'
 gem 'blacklight_range_limit', '9.0.0'
 gem 'blacklight_advanced_search', '~> 8.0.0alpha2'
 

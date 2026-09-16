@@ -59,6 +59,16 @@ module UrlHelper
     link_to text, url, class: "nav-link", target: "_blank", rel: 'noopener'
   end
 
+  def link_to_librarian_view(document)
+    text = 'Librarian View'
+    url = "/catalog/#{document[:id]}/librarian_view"
+
+    link_to text, url, class: 'nav-link', id: 'librarian_viewLink', rel: 'noopener', data: {
+      'turbo': 'false',
+      'blacklight-modal': 'trigger',
+    }
+  end
+
   def construct_illiad_url(document, item: nil)
     # Construct URL for ILLiad and use gateway if an item is provided
 

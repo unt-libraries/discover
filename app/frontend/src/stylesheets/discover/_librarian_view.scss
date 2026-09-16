@@ -1,0 +1,50 @@
+.blacklight-catalog-librarian_view {
+  .modal-header, .modal-body {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.marc_view {
+  .field {
+    align-items: flex-start;
+    display: flex;
+    padding-bottom: 0.25em;
+    border-bottom: black 1px solid;
+  }
+
+  .control_field_values {
+    padding-left: .75rem;
+  }
+
+  .tag_ind {
+    display: inline-flex !important;
+    width: 7ch !important;
+    flex-shrink: 0;
+
+    .tag {
+      width: 3ch;
+      display: inline-block;
+
+      &::after {
+        content: " ";
+        white-space: pre;
+      }
+    }
+
+    .ind1 {
+      margin-left: 1ch;
+    }
+
+    .ind1, .ind2 {
+      width: 1ch;
+      display: inline-block;
+      text-align: center;
+    }
+
+    &::after {
+      content: " ";
+      width: 1ch;
+      display: inline-block;
+    }
+  }
+}
