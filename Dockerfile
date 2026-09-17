@@ -1,5 +1,5 @@
 # Common Base
-FROM docker.io/ruby:3.4.3-slim-bullseye AS base
+FROM docker.io/ruby:3.4.10-slim-trixie AS base
 
 # Install common dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
