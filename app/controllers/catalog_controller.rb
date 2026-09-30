@@ -15,7 +15,8 @@ class CatalogController < ApplicationController
     redirect_to '/404'
   end
 
-  # Only present bot challenge page when search parameters
+  # Present challenge page everywhere except the homepage
+  bot_challenge only: [:show, :advanced_search, :facet]
   bot_challenge only: :index, if: -> { has_search_parameters? }
 
   configure_blacklight do |config|
