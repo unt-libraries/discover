@@ -58,7 +58,7 @@ class AvailabilityController < ApplicationController
     sierra_secret = Rails.application.credentials[Rails.env.to_sym][:SIERRA_API_SECRET]
     encoded_credentials = Base64.encode64("#{sierra_key}:#{sierra_secret}")
     options = basic_headers(encoded_credentials)
-    response = HTTParty.post('https://iii.library.unt.edu/iii/sierra-api/v6/token', options)
+    response = HTTParty.post('https://iii.library.unt.edu/iii/sierra-api/v6/token', verify: false, **options)
     @access_token = response['access_token']
 
     set_session_token
@@ -71,7 +71,7 @@ class AvailabilityController < ApplicationController
     bib_ids = "id=#{@bib_id_string}"
     fields = "fields=location,status,holdCount"
     parameters = "suppressed=false&deleted=false"
-    response = HTTParty.get("#{uri}#{bib_ids}&#{fields}&#{parameters}", options)
+    response = HTTParty.get("#{uri}#{bib_ids}&#{fields}&#{parameters}", verify: false, **options)
 
     # TODO: Need to work on error handling
     api_error_codes = [
