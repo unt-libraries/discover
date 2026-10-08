@@ -23,10 +23,6 @@
       <%# end %>
 
       <% unless @document[:id].nil? -%>
-        <li class="list-group-item show-tools-item refworks-tool" data-tool-item="refworks">
-          <i class="fa fa-fw fa-file-alt"></i><%= link_to_request_refworks(@document) %>
-        </li>
-
         <%# TODO: add an actual "should_link_ILL" function %>
         <% unless Rails.application.credentials[Rails.env.to_sym][:COVID_RESTRICTED] or @document[:resource_type] == 'equipment' -%>
           <li class="list-group-item show-tools-item illiad-tool" data-tool-item="illiad">

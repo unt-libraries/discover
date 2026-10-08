@@ -564,7 +564,7 @@ main_bar:
                 type: link
                 classes:
                 url: https://guides.library.unt.edu/technical-communication-guide
-              - text: RefWorks
+              - text: EndNote Fusion (formerly RefWorks)
                 type: link
                 classes:
                 url: https://guides.library.unt.edu/rwnew
