@@ -1,9 +1,9 @@
 en:
   announcement:
-    - active: false
+    - active: true
       dismissible: false
       class: ''
-      content: "Library systems will be undergoing Maintenance on Friday, October 30th, from approximately 7:30 am to 8:00 am. During the maintenance window, item availability will not load and requesting will be unavailable."
+      content: "Library systems will be undergoing Maintenance on Friday, November 6th, from approximately 7:30 am to 8:00 am. During the maintenance window, item availability will not load and requesting will be unavailable."
     - active: true
       dismissible: false
       class: 'warning'
